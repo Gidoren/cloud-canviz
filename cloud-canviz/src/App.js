@@ -9,6 +9,7 @@ class App extends Component{
   render(){
     return (
       <div>
+        <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet"></link>
         <BrowserRouter>
           <Route path="/" exact component={Auth}/>
           <Route path="/home/:username" component={Home}/>
