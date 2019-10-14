@@ -1,11 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-
+import DisplayArt from '../../components/DisplayArt/DisplayArt'
 class Home extends Component {
     render(){
         return(
             <div>
-                Home
+                <DisplayArt />
             </div>
         )
     }
