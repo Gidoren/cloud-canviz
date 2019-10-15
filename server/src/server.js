@@ -7,7 +7,7 @@ const typeDefs = require("./schema");
 const resolvers = require("./resolvers");
 
 // DataSources
-
+const Art = require("./data-sources/Art");
 
 // MongoDB
 const { mongoDB, mongoUser, mongoPwd } = require("../config");
@@ -17,14 +17,14 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-
+    Art: new Art()
   })
 });
 
 // Connect to MongoDB
 mongoose
   .connect(
-    // mongoose connect string
+    `mongodb+srv://${mongoUser}:${mongoPwd}@cloud-canviz-y7acv.mongodb.net/${mongoDB}?retryWrites=true&w=majority`
   )
   .then(() => {
     // Start server
