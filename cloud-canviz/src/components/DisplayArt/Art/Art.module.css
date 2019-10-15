@@ -30,12 +30,6 @@
     height: 100%;
     object-fit: cover; 
 }
-[aos="hover"]{
-    transition: width 1s;
-}
-[aos="hover"].aos-animate{
-    width: 80%;
-}
 @media (min-width: 1300px) {
     .img{
         width: 90%;
@@ -49,9 +43,6 @@
 @media (max-width: 600px) {
     .img{
         width: 185%;
-    }
-    .img:hover{
-        width: 190%;
     }
 }
 @media (max-width: 300px) {
