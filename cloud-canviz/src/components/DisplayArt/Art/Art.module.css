@@ -18,7 +18,6 @@
     margin-top: -5px;
     font-family: 'Josefin Sans', sans-serif;
     display: inline-block;
-    animation-name: info-load-animation;
     animation-duration: 3s;
     box-sizing: border-box;
     margin-bottom: 110px;
@@ -29,14 +28,13 @@
     vertical-align: middle;
     width: 100%;
     height: 100%;
-    transition: width 1s;
-    animation-name: image-load-animation;
-    animation-duration: 3s;
-    object-fit: cover;
-    
+    object-fit: cover; 
 }
-.img:hover{
-    width: 105%;
+[aos="hover"]{
+    transition: width 1s;
+}
+[aos="hover"].aos-animate{
+    width: 80%;
 }
 @media (min-width: 1300px) {
     .img{
