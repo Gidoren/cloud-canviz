@@ -1,12 +1,13 @@
 .DisplayArt{
     display: block;
-    margin-left: 200px;
     margin-top: 200px;
+    float: right;
 }
 .row {
     display: flex;
     flex-wrap: wrap;
     padding: 0px 2px;
+    margin: 100px;
 }
   
 /* Create four equal columns that sits next to each other */
@@ -15,17 +16,30 @@
     max-width: 50%;
     padding: 0px 10px;
 }
+@media (max-width: 1300px) {
+    .row{
+        margin: 50px;
+    }
+}
+@media (max-width: 1300px) {
+    .row{
+        margin: 35px;
+    }
+}
 /* Responsive layout - makes a two column-layout instead of four columns */
-@media screen and (max-width: 800px) {
+@media (max-width: 800px) {
     .column {
-        flex: 50%;
+        flex: 40%;
         max-width: 50%;
+    }
+    .row{
+        margin: 25px;
     }
 }
 /* Responsive layout - makes the two columns stack on top of each other instead of next to each other */
-@media screen and (max-width: 600px) {
+@media (max-width: 600px) {
     .column {
         flex: 50%;
-        max-width: 100%;
+        width: 100%;
     }
 }

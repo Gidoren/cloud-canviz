@@ -8,7 +8,7 @@ const Art = (props) => (
             <p className={classes.username}>User Name</p>
             <p className={classes.artname}>Art Name, Date Created</p>
             <p className={classes.desc}>Description</p>
-            <p className={classes.size}>Size</p>
+            <p className={classes.dimensions}>Dimensions</p>
         </div>
         
     </div>

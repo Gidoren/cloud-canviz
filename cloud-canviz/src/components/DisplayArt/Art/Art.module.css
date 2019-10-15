@@ -1,7 +1,27 @@
+@keyframes image-load-animation{
+    0% {
+        transform: translateY(60px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
+@keyframes info-load-animation{
+    0% {
+        transform: translateY(65px)
+    }
+    100% {
+        transform: translateY(0)
+    }
+}
 .artInfo{
     margin-top: -5px;
     font-family: 'Josefin Sans', sans-serif;
     display: inline-block;
+    animation-name: info-load-animation;
+    animation-duration: 3s;
+    box-sizing: border-box;
+    margin-bottom: 110px;
 }
 .img{
     border-radius: 1vmin;
@@ -10,11 +30,36 @@
     width: 100%;
     height: 100%;
     transition: width 1s;
+    animation-name: image-load-animation;
+    animation-duration: 3s;
     object-fit: cover;
     
 }
 .img:hover{
     width: 105%;
+}
+@media (min-width: 1300px) {
+    .img{
+        width: 90%;
+    }
+}
+@media (max-width: 1000px) {
+    .artInfo{
+        font-size: 12px;
+    }
+}
+@media (max-width: 600px) {
+    .img{
+        width: 185%;
+    }
+    .img:hover{
+        width: 190%;
+    }
+}
+@media (max-width: 300px) {
+    .artInfo{
+        font-size: 10px;
+    }
 }
 .username{
     padding-left: 5px;
@@ -34,7 +79,7 @@
     padding-left: 5px;
     color: grey;
 }
-.size{
+.dimensions{
     padding-left: 5px;
     color: grey;
 }
