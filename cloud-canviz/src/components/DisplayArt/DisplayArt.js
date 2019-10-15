@@ -27,7 +27,6 @@ const DisplayArt = (props) => (
                 <Art artURL={Art1} />
                 <Art artURL={Art2} />
             </div>
-
         </div>
     </div>
 )

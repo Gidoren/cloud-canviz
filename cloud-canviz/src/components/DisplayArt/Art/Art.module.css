@@ -14,13 +14,22 @@
         transform: translateY(0)
     }
 }
+
 .artInfo{
+    border-radius: 1vmin;
+    border: 3px solid #ccc;
+    /*I dont know why 90% works but it does*/
+    width: 90%;
+    height: 90%;
+    
     margin-top: -5px;
     font-family: 'Josefin Sans', sans-serif;
     display: inline-block;
     animation-duration: 3s;
     box-sizing: border-box;
     margin-bottom: 110px;
+    /*Setting z-index to -1 makes .artinfo fall behind the image*/
+    z-index: -1;
 }
 .img{
     border-radius: 1vmin;
