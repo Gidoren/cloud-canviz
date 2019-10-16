@@ -1,15 +1,17 @@
 import React, {Component} from 'react'
+import classes from './Auth.module.css'
 
 class Auth extends Component {
     render(){
         return(
-            <div>
+            <div className={classes.login}>
+                {/*Login element... still need to vertically align*/}
                 LOGIN
                 {/*Test buttons used to quickly move around pages*/}
                 <br />
-                <a href="/home/test">Click here to go to Home(Test only)</a>
+                <button><a href="/home/test">Click here to go to Home(Test only)</a></button>
                 <br />
-                <a href="/Profile/test">Click here to go to Profile (Test only)</a>
+                <button><a href="/Profile/test">Click here to go to Profile (Test only)</a></button>
             </div>
         )
     }

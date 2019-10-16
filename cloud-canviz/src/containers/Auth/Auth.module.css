@@ -1,0 +1,9 @@
+.login{
+    /*Make a small border with shadow... mess with color and size*/
+    border: 1px #fff;
+    box-shadow: 1px 2px #ccc;
+    /*Align text and make login box small (25%)*/
+    text-align: center;
+    max-width: 25%;
+    margin: 0 auto;
+}
