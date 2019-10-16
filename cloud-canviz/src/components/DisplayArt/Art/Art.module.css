@@ -16,11 +16,11 @@
 }
 
 .artInfo{
-    border-radius: 1vmin;
+    /* border-radius: 1vmin;
     border: 3px solid #ccc;
-    /*I dont know why 90% works but it does*/
+    /*I dont know why 90% works but it does
     width: 90%;
-    height: 90%; 
+    height: 90%; */
     
     margin-top: -5px;
     font-family: 'Josefin Sans', sans-serif;

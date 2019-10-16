@@ -1,5 +1,5 @@
 import React from 'react';
-import classes from './ColorDots.module.css'
+import classes from './ColorPicker.module.css'
 const ColorDots = (props) => (
     <div>
         <span><button className={classes.red}/></span>
