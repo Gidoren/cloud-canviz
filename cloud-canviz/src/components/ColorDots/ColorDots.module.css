@@ -1,0 +1,99 @@
+.red{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: red;
+    border-color: white;
+    outline: none;
+}
+.blue{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: lightblue;
+    border-color: white;
+    outline: none;
+}
+.orange{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: orange;
+    border-color: white;
+    outline: none;
+}
+.brown{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: brown;
+    border-color: white;
+    outline: none;
+}
+.yellow{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: yellow;
+    border-color: white;
+    outline: none;
+}
+.green{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: lightgreen;
+    border-color: white;
+    outline: none;
+}
+.pink{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: lightpink;
+    border-color: white;
+    outline: none;
+}
+.purple{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: purple;
+    border-color: white;
+    outline: none;
+}
+.black{
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    background-color: black;
+    border-color: white;
+    outline: none;
+}

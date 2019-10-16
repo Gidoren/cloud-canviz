@@ -1,0 +1,29 @@
+.SideDrawer{
+    left: 0;
+    height: 800px;
+    width: 1000px;
+    top: 0;
+    margin-top: 110px;
+    margin-right: 10px;
+    color: black;
+}
+.productType{
+    margin-bottom: 50px;
+}
+.color{
+    margin-bottom: 50px;
+}
+
+.heading{
+    color: #696969;
+    font-family: 'Josefin Sans', sans-serif;
+    border-bottom: solid 3px #eeeeee;
+    margin-left: 10px;
+    display: block;
+    margin-bottom: 20px;
+}
+@media (max-width: 800px){
+    .SideDrawer{
+        display: none;
+    }
+}

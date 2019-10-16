@@ -1,13 +1,13 @@
 .DisplayArt{
     display: block;
-    margin-top: 200px;
+    margin-top: 100px;
     float: right;
 }
 .row {
     display: flex;
     flex-wrap: wrap;
     padding: 0px 2px;
-    margin: 100px;
+    margin-left: 5px;
 }
   
 /* Create four equal columns that sits next to each other */
@@ -16,16 +16,7 @@
     max-width: 50%;
     padding: 0px 10px;
 }
-@media (max-width: 1300px) {
-    .row{
-        margin: 50px;
-    }
-}
-@media (max-width: 1300px) {
-    .row{
-        margin: 35px;
-    }
-}
+
 /* Responsive layout - makes a two column-layout instead of four columns */
 @media (max-width: 800px) {
     .column {
