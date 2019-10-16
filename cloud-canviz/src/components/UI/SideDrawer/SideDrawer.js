@@ -1,6 +1,6 @@
 import React from 'react';
 import classes from './SideDrawer.module.css';
-import ColorDots from '../../ColorDots/ColorDots'
+import ColorDots from '../../ColorPicker/ColorPicker'
 import ProductsList from '../../ProductsList/ProductsList';
 
 const SideDrawer = (props) => (
