@@ -30,9 +30,15 @@
     margin-bottom: 110px;
     /*Setting z-index to -1 makes .artinfo fall behind the image*/
     z-index: -1;
+    font-size: 13px;
+    width: 100%;
+}
+.heart {
+   height: 15px;
+   widows: 15px;
+   float: right;
 }
 .img{
-    border-radius: 1vmin;
     margin-top: 8px;
     vertical-align: middle;
     width: 100%;
@@ -43,6 +49,9 @@
     .img{
         width: 90%;
     }
+    .artInfo{
+        width: 90%;
+    }
 }
 @media (max-width: 1000px) {
     .artInfo{
@@ -51,7 +60,10 @@
 }
 @media (max-width: 600px) {
     .img{
-        width: 185%;
+        width: 193%;
+    }
+    .artInfo{
+        width: 193%;
     }
 }
 @media (max-width: 300px) {
