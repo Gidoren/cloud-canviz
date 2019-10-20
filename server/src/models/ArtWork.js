@@ -2,87 +2,74 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const artSchema = new Schema({
-    artist: {
-        type: String,
-        required: false
+const artSchema = new Schema(
+  {
+    creator: {
+      type: Schema.Types.ObjectId,
+      ref: "User"
     },
-    artistUserID: {
-        type: String,
-        required: true
+    artist: {
+      type: String,
+      required: false
+    },
+    artistCountry: {
+      type: String,
+      required: false
     },
     title: {
-        type: String,
-        required: false
-    },
-    medium: {
-        type: String,
-        required: false
+      type: String,
+      required: false
     },
     year: {
-        type: String,
-        required: false
+      type: String,
+      required: false
     },
     img: {
-        url: {
-            type: String,
-            required: false
-        }
+      url: {
+        type: String,
+        required: false
+      }
     },
     dimensions: {
-        height: {
-            type: Number,
-            required: false
-        },
-        width: {
-            type: Number,
-            required: false
-        }
+      height: {
+        type: Number,
+        required: false
+      },
+      width: {
+        type: Number,
+        required: false
+      }
     },
     price: {
-        type: String,
-        required: false
+      type: String,
+      required: false
     },
-    series: {
-        type: String,
-        required: false
+    category: {
+      type: String,
+      required: false
+    },
+    medium: {
+      type: String,
+      required: false
+    },
+    material: {
+      type: String,
+      required: false
     },
     styles: [
-        {
-            type: String,
-            required: false
-        }
+      {
+        type: String,
+        required: false
+      }
     ],
     tags: [
-        {
-            type: String,
-            required: false
-        }
+      {
+        type: String,
+        required: false
+      }
     ]
-});
+  },
+  { timestamps: true }
+);
 
-module.exports = mongoose.model("ArtWork", artSchema);
-
-//   ART SHEMA FOR REFERENCE
-//   input ArtInput {
-//     artist: String
-//     artistUserID: String!
-//     title: String
-//     medium: String
-//     year: String
-//     img: Image
-//     dimensions: Dimensions
-//     price: String
-//     series: String
-//     styles: [String!]
-//     tags: [String!]
-// }
-
-// type Image {
-//     url: String!
-// }
-
-// type Dimensions {
-//     height: String
-//     width: String
-// }
+module.exports = mongoose.model("artWork", artSchema);

@@ -8,6 +8,7 @@ const resolvers = require("./resolvers");
 
 // DataSources
 const Art = require("./data-sources/Art");
+const Users = require("./data-sources/Users");
 
 // MongoDB
 const { mongoDB, mongoUser, mongoPwd } = require("../config");
@@ -17,7 +18,8 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   dataSources: () => ({
-    Art: new Art()
+    Art: new Art(),
+    Users: new Users()
   })
 });
 
