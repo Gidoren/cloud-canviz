@@ -43,12 +43,12 @@ class Users extends DataSource {
       });
   }
 
-  async getUser(userId) {
+  async getUser(id) {
     try {
-      const user = await User.findById(userId)
+      const user = await User.findById(id)
         .populate("createdArtWorks")
         .exec();
-      return user;
+      return { ...user._doc };
     } catch (err) {
       throw err;
     }

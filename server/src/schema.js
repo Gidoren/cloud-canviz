@@ -2,12 +2,15 @@ module.exports = `
     type Query {
         getAllArt: [Art]
         getAllUsers: [User]
+        getUser(id: ID): User
     }
 
     type Mutation {
         createArt(artInput: ArtInput): Art
         createUser(userInput: UserInput): User
     }
+
+   
 
     type User {
         _id: ID!
