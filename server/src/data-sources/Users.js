@@ -1,5 +1,5 @@
 const { DataSource } = require("apollo-datasource");
-
+const isEmail = require("isemail");
 const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
@@ -8,6 +8,11 @@ const ArtWork = require("../models/artWork");
 class Users extends DataSource {
   constructor() {
     super();
+  }
+
+  // initialize context
+  initialize(config) {
+    this.context = config.context;
   }
 
   async createUser(args) {
