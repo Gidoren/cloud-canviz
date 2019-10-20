@@ -3,14 +3,19 @@ module.exports = `
         getAllArt: [Art]
         getAllUsers: [User]
         getUser(id: ID): User
+        currentUser: User!
     }
 
     type Mutation {
         createArt(artInput: ArtInput): Art
-        createUser(userInput: UserInput): User
+        registerUser(userInput: UserInput): User!
+        loginUser(email: String!, password: String!): LoginResponse!
     }
 
-   
+   type LoginResponse {
+       token: String
+       user: User
+   }
 
     type User {
         _id: ID!
