@@ -1,6 +1,7 @@
 module.exports = `
     type Query {
         getAllArt: [Art]
+        getAllUsers: [User]
     }
 
     type Mutation {

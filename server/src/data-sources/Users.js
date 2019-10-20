@@ -30,6 +30,19 @@ class Users extends DataSource {
       throw err;
     }
   }
+
+  async getAllUsers() {
+    return User.find({})
+      .then(users => {
+        return users.map(user => {
+          return { ...user._doc };
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
   async getUser(userId) {
     try {
       const user = await User.findById(userId)
