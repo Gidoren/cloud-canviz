@@ -19,12 +19,12 @@ Task Listing (Organized by user story):
 
    Total points for Task 1: 3
 
-2. "As an artist I want an easy way to upload images with relevant information"
-   -Task1: Set up databases to store images and related image data (3)
-   -Task2: Allow users to upload image data on the website (3)
-   -Task3: Using the already laid out UI, display uploaded images (3)
+2. "As an artist I want an easy way to upload image data with relevant information"
+   -Task1: Set up databases to store image data (3)
+   -Task2: Store image data on the server (3)
+   -Task3: Test storage of image data (1)
 
-   Total points for Task 2: 9
+   Total points for Task 2: 7
 
 
 
