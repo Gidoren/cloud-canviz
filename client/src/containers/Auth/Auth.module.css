@@ -1,21 +1,16 @@
+
+
 .login{
-    position: fixed;
-    width: 25%;
-    height: 65%;
-    top: 27.5%;
-    left: 50%;
-    margin: -5% 0 0 -14%;
-
-    /*Make a small border with shadow... mess with color and size*/
-    border: 10px black;
-    border-radius: 5%;
-    box-shadow: 4px 4px #ccc;
+    -webkit-box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.29); 
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.29);
+    max-width: 600px;
+    /* text-align: center; */
+    margin: auto;
+    margin-top: 2rem;
+    padding: 1rem;
+    border-radius: 10px;
+    /* display: table-cell; */
 }
 
-.form{
-    text-align: center;
-}
 
-.butt{
-    /*TODO: space out buttons and then work on text entry field*/
-}
+
