@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
-import Art from './Art/Art';
 import classes from './DisplayArt.module.css'
-import Art1 from '../../assets/images/heart.jpg'
-import Art2 from '../../assets/images/2.jpg'
-import Art3 from '../../assets/images/3.jpg'
-import Art4 from '../../assets/images/bird.jpg'
+
 import {gql} from 'apollo-boost'
-import {graphql, Query} from 'react-apollo'
+import {Query} from 'react-apollo'
+import {connect} from 'react-redux'
+
+import Spinner from '../UI/Spinner/Spinner'
+import Art1 from '../../assets/images/heart.jpg'
+import Art from './Art/Art';
+import * as actionCreators from '../../store/actions'
 
 const getArtsQuery = gql`
     {
@@ -22,25 +24,21 @@ class DisplayArt extends Component {
             <Query query={getArtsQuery}>
                 {({data, loading, error}) => {
                     if(loading)
-                        return <span>Loading...</span>
-                    if(error){
-                        return (
-                            <div>
-                                {console.log(error)}
-                                <span>Error!</span>
-                            </div>
-                            
-                        )
-                    }
-                        
-                        
-                    const artsToRender = data
+                        return <Spinner/>
+                    if(error)
+                        return <span>Error!</span>
                     return(
                         <div className={classes.DisplayArt}>
                             <div className = {classes.row}>
-                                <div className = {classes.column}>
-                                    <Art artURL={Art1} title={artsToRender.title} />
-                                </div>
+                                {data.getAllArt.reverse().map(art => (
+                                    <div key={art._id}  className = {classes.column}>
+                                        <Art 
+                                            artURL={Art1} 
+                                            title={art.title} />
+                                    </div>
+                                    
+                                ))}
+                             
                             </div>
                         </div>
 
@@ -50,5 +48,14 @@ class DisplayArt extends Component {
         )
     }
 }
-
-export default graphql(getArtsQuery)(DisplayArt);
+const mapStateToProps = state => {
+    return{
+        
+    }
+}
+const mapDispatchToProps = dispatch => {
+    return{
+        onAddedArts: (arts) => dispatch(actionCreators.addArts(arts))
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(DisplayArt);

@@ -6,19 +6,7 @@ import Profile from './containers/Profile/Profile'
 import Auth from './containers/Auth/Auth'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import { ApolloClient } from 'apollo-boost';
-import {ApolloProvider} from 'react-apollo'
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
 
-const cache = new InMemoryCache()
-const link = new HttpLink({
-  uri: 'http://localhost:4000/graphql'
-})
-const client = new ApolloClient({
-  cache,
-  link
-})
 class App extends Component{
   componentDidMount(){
     AOS.init({
@@ -27,7 +15,7 @@ class App extends Component{
   }
   render(){
     return (
-      <ApolloProvider client={client}>
+      
         <div>
           <link href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap" rel="stylesheet"></link>
           <BrowserRouter>
@@ -36,7 +24,6 @@ class App extends Component{
             <Route path="/profile/:username" component={Profile}/>
           </BrowserRouter>
         </div>
-      </ApolloProvider>
       
     );
   }
