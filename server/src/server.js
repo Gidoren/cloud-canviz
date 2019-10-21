@@ -15,7 +15,6 @@ const { mongoDB, mongoUser, mongoPwd } = require("../config");
 
 const HEADER_NAME = 'Authorization';
 
-
 // Apollo Server
 const server = new ApolloServer({
   typeDefs,
@@ -26,7 +25,6 @@ const server = new ApolloServer({
 
     try {
       authToken = req.headers.authorization;
-      console.log('auth token', authToken);
       if (authToken) {
         user = await getUserFromToken(authToken);
       }
@@ -43,7 +41,6 @@ const server = new ApolloServer({
     Users: new Users()
   })
 });
-
 // Connect to MongoDB
 mongoose
   .connect(

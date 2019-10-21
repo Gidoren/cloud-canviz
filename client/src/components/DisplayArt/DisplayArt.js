@@ -13,8 +13,6 @@ const getArtsQuery = gql`
         getAllArt{
             title
             artist
-            creator
-            img
         }
     }
 `
@@ -25,14 +23,21 @@ class DisplayArt extends Component {
                 {({data, loading, error}) => {
                     if(loading)
                         return <span>Loading...</span>
-                    if(error)
-                        return <span>Error!</span>
+                    if(error){
+                        return (
+                            <div>
+                                {console.log(error)}
+                                <span>Error!</span>
+                            </div>
+                            
+                        )
+                    }
+                        
+                        
                     const artsToRender = data
                     return(
                         <div className={classes.DisplayArt}>
                             <div className = {classes.row}>
-                                {loading}
-                                {error}
                                 <div className = {classes.column}>
                                     <Art artURL={Art1} title={artsToRender.title} />
                                 </div>

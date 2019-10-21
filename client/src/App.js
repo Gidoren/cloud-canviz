@@ -6,14 +6,14 @@ import Profile from './containers/Profile/Profile'
 import Auth from './containers/Auth/Auth'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
-import ApolloClient from 'apollo-boost';
+import { ApolloClient } from 'apollo-boost';
 import {ApolloProvider} from 'react-apollo'
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { HttpLink } from 'apollo-link-http';
 
 const cache = new InMemoryCache()
 const link = new HttpLink({
-  uri: 'https://localhost:4000/graphql'
+  uri: 'http://localhost:4000/graphql'
 })
 const client = new ApolloClient({
   cache,
