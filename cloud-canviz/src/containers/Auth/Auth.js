@@ -4,7 +4,7 @@ import classes from './Auth.module.css'
 class Auth extends Component {
     render(){
         return(
-            <div className={classes.login}>
+            <div data-aos="zoom-in"  className={classes.login}>
                 <body className={classes.form}>
                     {/*Login element... still need to vertically align*/}
                     LOGIN
