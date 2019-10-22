@@ -1,20 +1,19 @@
-## Sprint 2 Plan
+## Sprint 2 Plan ##
 
 ---
 
-### Goal:
+### Goal: ###
 
 For sprint two the main goals will be setting up the UI layouts for the different pages, setting up state management, and setting up the database operations for uploading images to Amazon S3.
 
 ---
 
-### Task Listing:
+### Task Listing: ###
 
 1. "As a collector I want to be able to view artwork so that I can decide which ones I like."
    * Task 1: Setup Layout of React Forntend: 5 points
    * Task 2: Setup State Management for Front End: 7 points
    
-
    Total points for Task 1: 12
 
 2. “As an artist I want to be able to upload my images so that collectors can view them on the site.”
@@ -24,23 +23,22 @@ For sprint two the main goals will be setting up the UI layouts for the differen
    Total points for Task 2: 11
 ---
 
-
 ### Team Roles: ###
 
-Thomas: Developer
-Emerson: Developer
-Yusef: Product Owner, Develper
-Cameron: Scrum Master, Developer
-Farris: Developer
+* Thomas: Developer
+* Emerson: Developer
+* Yusef: Product Owner, Develper
+* Cameron: Scrum Master, Developer
+* Farris: Developer
 ---
 
 ### Initial Task Assignemnt: ###
 
-Thomas: Task 1
-Emerson: Task 3
-Yusef: Task 2
-Cameron: Task 3
-Farris: Task 4
+* Thomas: Task 1
+* Emerson: Task 3
+* Yusef: Task 2
+* Cameron: Task 3
+* Farris: Task 4
 ---
 
 
