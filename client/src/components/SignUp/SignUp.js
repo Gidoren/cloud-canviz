@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
-import "./SignUp.css";
+import "./SignUp.module.css";
 
 function SignUp() {
   const {
@@ -17,15 +17,16 @@ function SignUp() {
     console.log(JSON.stringify(data));
   };
 
-  let firstPwd = "";
+  const [pwd, setPwd] = useState("");
 
   const setFirstPassword = value => {
-    firstPwd = value;
-    console.log(firstPwd);
+    setPwd(value);
+    console.log(pwd)
   };
 
   const checkSamePassword = value => {
-    if (value !== firstPwd) {
+    console.log("second", pwd)
+    if (value !== pwd) {
       setError("confirmPassword", "validate");
     } else {
       clearError("confirmPassword");
@@ -44,11 +45,16 @@ function SignUp() {
   return (
     <form className="signupContainer" onSubmit={handleSubmit(onSubmit)}>
       <h1>Sign Up</h1>
-      <label>First Name:</label>
-      <input
-        name="firstName"
-        ref={register({ required: true, maxLength: 25 })}
-      />
+    <div style={{padding: "0 3rem 0 3rem"}}>
+     
+    <label>First Name:</label>
+
+        <input
+          id="traceInput"
+          name="firstName"
+          ref={register({ required: true, maxLength: 25 })}
+        />
+     
       <ErrorMessage error={errors.firstName} />
 
       <label>Last Name:</label>
@@ -98,6 +104,7 @@ function SignUp() {
       <ErrorMessage error={errors.age} />
 
       <input disabled={isSubmitting} type="submit" />
+      </div>
     </form>
   );
 }
