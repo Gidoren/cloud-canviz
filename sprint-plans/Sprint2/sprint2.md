@@ -1,12 +1,12 @@
-##Sprint 2 Plan
+## Sprint 2 Plan
 ---
 
-###Goal:
+### Goal:
 
 For sprint two the main goals will be setting up the UI layouts for the different pages, setting up state management, and setting up the database operations for uploading images to Amazon S3.
 ---
 
-###Task Listing (Organized by user story):
+### Task Listing (Organized by user story):
 
 1. "As a collector I want to be able to view artwork so that I can decide which ones I like."
    -Task 1: Setup Layout of React Forntend (5)
@@ -23,7 +23,7 @@ For sprint two the main goals will be setting up the UI layouts for the differen
 ---
 
 
-###Team Roles:
+### Team Roles:
 
 Thomas: Developer
 Emerson: Developer
@@ -32,7 +32,7 @@ Cameron: Scrum Master, Developer
 Farris: Developer
 ---
 
-###Initial Task Assignemnt:
+### Initial Task Assignemnt:
 
 Thomas: Task 1
 Emerson: Task 3
@@ -42,12 +42,15 @@ Farris: Task 4
 ---
 
 
-###Initial Burnup Chart: See Excel Page
+### Initial Burnup Chart: See Excel Page
 
-###Intial Scrum Board: See Notion Page
 ---
 
-###Scrum Times:
+### Intial Scrum Board: See Notion Page
+
+---
+
+### Scrum Times:
 1. Mon 10-10:30 AM (BE 302)
 2. Wed 10-10:30 AM (TA meeting as well) (BE 302)
 3. Fri 10-10:30 AM (BE 302)
