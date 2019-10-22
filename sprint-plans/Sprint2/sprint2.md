@@ -1,12 +1,14 @@
 ## Sprint 2 Plan
+
 ---
 
 ### Goal:
 
 For sprint two the main goals will be setting up the UI layouts for the different pages, setting up state management, and setting up the database operations for uploading images to Amazon S3.
+
 ---
 
-### Task Listing (Organized by user story):
+### Task Listing:
 
 1. "As a collector I want to be able to view artwork so that I can decide which ones I like."
    -Task 1: Setup Layout of React Forntend (5)
