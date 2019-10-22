@@ -48,7 +48,7 @@ function SignUp() {
     <div style={{padding: "0 3rem 0 3rem"}}>
      
     <label>First Name:</label>
-
+      
         <input
           id="traceInput"
           name="firstName"
@@ -95,13 +95,7 @@ function SignUp() {
       />
       <ErrorMessage error={errors.confirmPassword} />
 
-      <label>Age</label>
-      <input
-        name="age"
-        type="number"
-        ref={register({ required: true, min: 18 })}
-      />
-      <ErrorMessage error={errors.age} />
+
 
       <input disabled={isSubmitting} type="submit" />
       </div>
