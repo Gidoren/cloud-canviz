@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
-import "./SignUp.module.css";
+import classes from "./SignUp.module.css";
 
 function SignUp() {
   const {
@@ -43,13 +43,15 @@ function SignUp() {
   // };
 
   return (
-    <form className="signupContainer" onSubmit={handleSubmit(onSubmit)}>
-      <h1>Sign Up</h1>
+    <div className={classes.body}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+      <h1 className={classes.h1} >Sign Up</h1>
     <div style={{padding: "0 3rem 0 3rem"}}>
      
-    <label>First Name:</label>
+    <label className={classes.label}>First Name:</label>
       
         <input
+          className={classes.input}
           id="traceInput"
           name="firstName"
           ref={register({ required: true, maxLength: 25 })}
@@ -57,8 +59,9 @@ function SignUp() {
      
       <ErrorMessage error={errors.firstName} />
 
-      <label>Last Name:</label>
+      <label className={classes.label}>Last Name:</label>
       <input
+        className={classes.input}
         name="lastName"
         ref={register({ required: true, maxLength: 25 })}
       />
@@ -72,23 +75,26 @@ function SignUp() {
       </select>
       <ErrorMessage error={errors.typeOfUser} /> */}
 
-      <label>Email</label>
+      <label className={classes.label}>Email</label>
       <input
+        className={classes.input}
         name="email"
         ref={register({ required: true, pattern: /^\S+@\S+$/i })}
       />
       <ErrorMessage error={errors.email} />
 
-      <label>Password</label>
+      <label className={classes.label}>Password</label>
       <input
+        className={classes.input}
         name="password"
         onBlur={e => setFirstPassword(e.target.value)}
         ref={register({ required: true })}
       />
       <ErrorMessage error={errors.password} />
 
-      <label>Confirm Password</label>
+      <label className={classes.label}>Confirm Password</label>
       <input
+        className={classes.input}
         name="confirmPassword"
         onBlur={e => checkSamePassword(e.target.value)}
         ref={register({ required: true })}
@@ -97,9 +103,10 @@ function SignUp() {
 
 
 
-      <input disabled={isSubmitting} type="submit" />
+      <input className={classes.input}disabled={isSubmitting} type="submit" />
       </div>
     </form>
+    </div>
   );
 }
 
