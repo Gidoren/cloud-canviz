@@ -4,11 +4,16 @@ A Web App for sharing, managing, and finding art.
 Release Plan
 --------------------------------------------------
 Product Name: Cloud Canviz
-Team Name: ???
+
+Team Name: cumulonimbus
+
 Realease Name: Version 1
+
 Realease Date: December 6th 2019
-Revesion Number: #2
-Revision Date: October 15th 2019
+
+Revesion Number: #3
+
+Revision Date: October 22nd 2019
 
 High-level Goals:
 1. The Artists/Galleries should be able to login and create an account.
@@ -19,18 +24,27 @@ High-level Goals:
 6. The UI should be clean.
 
 User Stories:
+
 Sprint 1: 
-"As an artist I would like a clean UI that shows me images with their relevant data" (1)
-"As an artist I want an easy way to upload images with relevant information" (3)
+
+"As an artist I would like a clean UI that shows me images with their relevant data" (1).
+
+"As an artist I want an easy way to upload images with relevant information" (3).
 
 Sprint 2:
+
+"As a collector I want to be able to view artwork so that I can decide which ones I like." (5)
+
+“As an artist I want to be able to upload my images so that collectors can view them on the site.” (5)
 
 Sprint 3:
 
 Sprint 4:
 
 Backlog:
--Sort images by color
+
+-See Notion
 
 Presentation link:
+
 https://docs.google.com/presentation/d/1TexzAFSaRbMYBqzJFY8PLCsPRtHApENM54nXIO6BAM8/edit#slide=id.g557095241f_0_56
