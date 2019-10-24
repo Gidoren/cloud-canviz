@@ -1,3 +1,44 @@
+.all{
+    position: relative;
+    display: flex;
+}
+
 .img{
+    /*Same dimensions as website we are modeling it after*/
+    width: 208.333px;
+    height: 160.833px;
+
+    left: 0;
     align-content: flex-start;
+}
+
+.content{
+    /*Have a flex display as well as center items*/
+    display: flex;
+    align-items: center;
+
+    /*Add padding to space image and name*/
+    padding-left: 2.5rem;
+    flex-direction: row;
+    position: relative;
+
+    /*Font Size and width of content*/
+    font-size: 1.6rem;
+    width: 66%;
+}
+
+.name{
+    /*Position the content to look nice*/
+    position: relative;
+    bottom: initial;
+    left: initial;
+
+    /*Use a nice gray color for the text*/
+    color: #393939;
+
+    /*Assign font family*/
+    font-family: 'Roboto', sans-serif;
+
+    /*Add a bottom margin*/
+    margin-bottom: 2.5rem;
 }
