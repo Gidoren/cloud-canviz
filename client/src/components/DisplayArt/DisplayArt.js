@@ -10,14 +10,25 @@ import Art1 from '../../assets/images/heart.jpg'
 import Art from './Art/Art';
 import * as actionCreators from '../../store/actions'
 
+// const getArtsQuery = gql`
+//    query {
+//         getAllArt{
+//             title
+//             artist
+//         }
+//     }
+// `
 const getArtsQuery = gql`
-    {
-        getAllArt{
+   query getArtsQuery {
+        getAllArt {
             title
             artist
         }
     }
-`
+`;
+
+
+
 class DisplayArt extends Component {
     render(){
         return (
