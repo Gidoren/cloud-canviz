@@ -18,6 +18,9 @@ import * as actionCreators from '../../store/actions'
 //         }
 //     }
 // `
+
+
+// with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
    query getArtsQuery {
         getAllArt {

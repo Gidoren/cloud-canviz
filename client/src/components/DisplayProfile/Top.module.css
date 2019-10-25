@@ -2,13 +2,13 @@
     display: flex;
 }
 
-.img{
-    /*Same dimensions as website we are modeling it after*/
-    width: 208.333px;
-    height: 160.833px;
+.img {
+  /*Same dimensions as website we are modeling it after*/
+  width: 208.333px;
+  height: 160.833px;
 
-    left: 0;
-    align-content: flex-start;
+  left: 0;
+  align-content: flex-start;
 }
 
 .content{
@@ -36,6 +36,7 @@
     bottom: initial;
     left: initial;
     display: inline-block;
+
 
     /*Use a nice gray color for the text*/
     color: #393939;
