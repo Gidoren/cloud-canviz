@@ -4,7 +4,7 @@ import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./SignUp.module.css";
 
-function SignUp() {
+const SignUp = () => {
   const {
     register,
     handleSubmit,
@@ -21,93 +21,77 @@ function SignUp() {
 
   const setFirstPassword = value => {
     setPwd(value);
-    console.log(pwd)
+    console.log("first pasword", pwd);
   };
 
   const checkSamePassword = value => {
-    console.log("second", pwd)
+    console.log("second", pwd);
     if (value !== pwd) {
       setError("confirmPassword", "validate");
     } else {
       clearError("confirmPassword");
     }
   };
-  // const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-  // const validateUserName = async value => {
-  //   await sleep(1000);
-  //   if (value !== "bill") {
-  //     setError("username", "validate");
-  //   } else {
-  //     clearError("username");
-  //   }
-  // };
 
   return (
     <div className={classes.body}>
-    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-      <h1 className={classes.h1} >Sign Up</h1>
-    <div style={{padding: "0 3rem 0 3rem"}}>
-     
-    <label className={classes.label}>First Name:</label>
-      
-        <input
-          className={classes.input}
-          id="traceInput"
-          name="firstName"
-          ref={register({ required: true, maxLength: 25 })}
-        />
-     
-      <ErrorMessage error={errors.firstName} />
+      <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+        <h1 className={classes.h1}>Sign Up</h1>
+        <div style={{ padding: "0 3rem 0 3rem" }}>
+          <label className={classes.label}>First Name:</label>
 
-      <label className={classes.label}>Last Name:</label>
-      <input
-        className={classes.input}
-        name="lastName"
-        ref={register({ required: true, maxLength: 25 })}
-      />
-      <ErrorMessage error={errors.lastName} />
+          <input
+            className={classes.input}
+            id="traceInput"
+            name="firstName"
+            ref={register({ required: true, maxLength: 25 })}
+          />
 
-      {/* <label>Type of User</label>
-      <select name="typeOfUser" ref={register({ required: true })}>
-        <option value="">Select...</option>
-        <option value="Artist">Artist</option>
-        <option value="Collector">Collector</option>
-      </select>
-      <ErrorMessage error={errors.typeOfUser} /> */}
+          <ErrorMessage error={errors.firstName} />
 
-      <label className={classes.label}>Email</label>
-      <input
-        className={classes.input}
-        name="email"
-        ref={register({ required: true, pattern: /^\S+@\S+$/i })}
-      />
-      <ErrorMessage error={errors.email} />
+          <label className={classes.label}>Last Name:</label>
+          <input
+            className={classes.input}
+            name="lastName"
+            ref={register({ required: true, maxLength: 25 })}
+          />
+          <ErrorMessage error={errors.lastName} />
 
-      <label className={classes.label}>Password</label>
-      <input
-        className={classes.input}
-        name="password"
-        onBlur={e => setFirstPassword(e.target.value)}
-        ref={register({ required: true })}
-      />
-      <ErrorMessage error={errors.password} />
+          <label className={classes.label}>Email</label>
+          <input
+            className={classes.input}
+            name="email"
+            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          />
+          <ErrorMessage error={errors.email} />
 
-      <label className={classes.label}>Confirm Password</label>
-      <input
-        className={classes.input}
-        name="confirmPassword"
-        onBlur={e => checkSamePassword(e.target.value)}
-        ref={register({ required: true })}
-      />
-      <ErrorMessage error={errors.confirmPassword} />
+          <label className={classes.label}>Password</label>
+          <input
+            className={classes.input}
+            name="password"
+            onBlur={e => setFirstPassword(e.target.value)}
+            ref={register({ required: true })}
+          />
+          <ErrorMessage error={errors.password} />
 
+          <label className={classes.label}>Confirm Password</label>
+          <input
+            className={classes.input}
+            name="confirmPassword"
+            onBlur={e => checkSamePassword(e.target.value)}
+            ref={register({ required: true })}
+          />
+          <ErrorMessage error={errors.confirmPassword} />
 
-
-      <input className={classes.input}disabled={isSubmitting} type="submit" />
-      </div>
-    </form>
+          <input
+            className={classes.input}
+            disabled={isSubmitting}
+            type="submit"
+          />
+        </div>
+      </form>
     </div>
   );
-}
+};
 
 export default SignUp;
