@@ -1,5 +1,4 @@
 .all{
-    position: relative;
     display: flex;
 }
 
@@ -16,29 +15,40 @@
     /*Have a flex display as well as center items*/
     display: flex;
     align-items: center;
+    position: relative;
 
     /*Add padding to space image and name*/
     padding-left: 2.5rem;
     flex-direction: row;
-    position: relative;
+
+    /*Set no initial margin / padding*/
+    margin: 0;
+    padding: 0;
 
     /*Font Size and width of content*/
+    font-family: 'Roboto', sans-serif;
     font-size: 1.6rem;
-    width: 66%;
+    width: 100%;
 }
 
 .name{
     /*Position the content to look nice*/
-    position: relative;
     bottom: initial;
     left: initial;
+    display: inline-block;
 
     /*Use a nice gray color for the text*/
     color: #393939;
 
     /*Assign font family*/
-    font-family: 'Roboto', sans-serif;
+    font-family: inherit;
 
     /*Add a bottom margin*/
     margin-bottom: 2.5rem;
+}
+
+.follow{
+    bottom: initial;
+    float: left;
+    font-family: inherit;
 }

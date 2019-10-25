@@ -11,7 +11,8 @@ const Top = (props) => (
         
         {/*Div holding info*/}
         <div className={classes.content}>
-            <p ClassName={classes.name}>{props.name}</p>
+            <p className={classes.name}>{props.name}</p>
+            <a className={classes.follow}>Test</a>
         </div>
     </div>
 )
