@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
-import classes from "./SignUp.module.css";
+import classes from "./Register.module.css";
 
-const SignUp = () => {
+// TODO error messages suddently not accepting styles
+
+const Register = () => {
   const {
     register,
     handleSubmit,
@@ -94,4 +96,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;
