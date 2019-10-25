@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Auth.module.css";
-import Register from "../../components/SignUp/Register";
+import Register from "../../components/Register/Register";
 
 const Auth = () => {
   return (

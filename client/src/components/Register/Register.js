@@ -4,7 +4,19 @@ import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./Register.module.css";
 
-// TODO error messages suddently not accepting styles
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
+
+const REGISTER_USER = gql`
+  mutation registerUser($userInput: UserInput) {
+    registerUser(userInput: $userInput) {
+      _id
+      firstName
+      lastName
+      email
+    }
+  }
+`;
 
 const Register = () => {
   const {
@@ -15,8 +27,19 @@ const Register = () => {
     clearError,
     formState: { isSubmitting }
   } = useForm();
+
+  const [registerUser, { data }] = useMutation(REGISTER_USER);
+
   const onSubmit = data => {
-    console.log(JSON.stringify(data));
+    console.log(data);
+    delete data.confirmPassword;
+    registerUser({ variables: { userInput: data } })
+      .then(response => {
+        console.log("respnse", response);
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   const [pwd, setPwd] = useState("");
