@@ -6,6 +6,10 @@ class Art extends DataSource {
   constructor() {
     super();
   }
+  // initialize context
+  initialize(config) {
+    this.context = config.context;
+  }
 
   getAllArt() {
     return ArtWork.find()
@@ -39,7 +43,13 @@ class Art extends DataSource {
     return art
       .save()
       .then(result => {
-        console.log(result);
+        // Farris I added these console logs so that you could see how to access the current user from the context
+        // to get the id you would just need to do this.context.user._id and use that id to find the user by id
+        // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
+        console.log("data returned from createArt", result);
+        const user = this.context.user;
+        console.log("user from context", user);
+
         return { ...result._doc };
       })
       .catch(err => {
