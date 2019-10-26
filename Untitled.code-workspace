@@ -4,10 +4,10 @@
 			"path": "sprint-plans"
 		},
 		{
-			"path": "server"
+			"path": "client"
 		},
 		{
-			"path": "client"
+			"path": "server"
 		}
 	]
 }

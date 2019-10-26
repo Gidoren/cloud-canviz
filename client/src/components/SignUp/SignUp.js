@@ -4,7 +4,8 @@ import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import "./SignUp.module.css";
 
-function SignUp() {
+const SignUp = () => {
+
   const {
     register,
     handleSubmit,
@@ -13,6 +14,7 @@ function SignUp() {
     clearError,
     formState: { isSubmitting }
   } = useForm();
+
   const onSubmit = data => {
     console.log(JSON.stringify(data));
   };
@@ -45,16 +47,16 @@ function SignUp() {
   return (
     <form className="signupContainer" onSubmit={handleSubmit(onSubmit)}>
       <h1>Sign Up</h1>
-    <div style={{padding: "0 3rem 0 3rem"}}>
-     
-    <label>First Name:</label>
+      <div style={{padding: "0 3rem 0 3rem"}}>
       
-        <input
-          id="traceInput"
-          name="firstName"
-          ref={register({ required: true, maxLength: 25 })}
-        />
-     
+      <label>First Name:</label>
+        
+      <input
+        id="traceInput"
+        name="firstName"
+        ref={register({ required: true, maxLength: 25 })}
+      />
+      
       <ErrorMessage error={errors.firstName} />
 
       <label>Last Name:</label>
