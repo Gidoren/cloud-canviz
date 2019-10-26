@@ -6,7 +6,7 @@ import {Query} from 'react-apollo'
 import {connect} from 'react-redux'
 
 import Spinner from '../UI/Spinner/Spinner'
-import Art1 from '../../assets/images/heart.jpg'
+import Art1 from '../../assets/images/art.jpg'
 import Art from './Art/Art';
 import * as actionCreators from '../../store/actions'
 
@@ -54,7 +54,7 @@ class DisplayArt extends Component {
                         <div className={classes.DisplayArt}>
                             <div className = {classes.row}>
                                 {data.getAllArt.reverse().map(art => (
-                                    <div key={art._id}  className = {classes.column}>
+                                    <div key={art._id} className={classes.column}>
                                         <Art 
                                             artURL={Art1} 
                                             title={art.title}
@@ -62,6 +62,7 @@ class DisplayArt extends Component {
                                             height={art.dimensions.height}
                                             width={art.dimensions.width}
                                             username={art.creator.username}
+                                            link={"/profile/"+ art.creator.username}
                                         />
                                     </div>
                                     
