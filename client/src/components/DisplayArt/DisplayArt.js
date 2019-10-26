@@ -45,6 +45,8 @@ class DisplayArt extends Component {
     render(){
         return (
             <Query query={getArtsQuery}>
+                {/* getArtsQuery which is defined above, to get all artworks. Data, loading, error are predefined
+                in Query syntax. Data is initialized to returned Artwork Array */}
                 {({data, loading, error}) => {
                     if(loading)
                         return <Spinner/>
@@ -53,8 +55,13 @@ class DisplayArt extends Component {
                     return(
                         <div className={classes.DisplayArt}>
                             <div className = {classes.row}>
+                                {/* it's data.getAllArt because the query was named getAllArt in Schema.
+                                Reverses Artworks to get the latest first, then loop through it to get
+                                individual art. Each art have properties that we asked for in the query
+                                which are defined in schema */}
                                 {data.getAllArt.reverse().map(art => (
                                     <div key={art._id} className={classes.column}>
+                                        {/* Art component that takes art properties as props.*/}
                                         <Art 
                                             artURL={Art1} 
                                             title={art.title}
