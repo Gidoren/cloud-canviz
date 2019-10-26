@@ -28,6 +28,10 @@ const userSchema = new Schema(
       type: String,
       required: false
     },
+    username: {
+      type: String,
+      required: false
+    },
     typeUser: {
       type: String,
       required: false

@@ -20,9 +20,13 @@ class Users extends DataSource {
 
   async registerUser(args) {
     try {
-      const existingUser = await User.findOne({ email: args.userInput.email });
+      let existingUser = await User.findOne({ email: args.userInput.email });
       if (existingUser) {
         throw new Error("User exists already.");
+      }
+      existingUser = await User.findOne({username: args.userInput.username});
+      if (existingUser){
+        throw new Error("User exists already");
       }
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 

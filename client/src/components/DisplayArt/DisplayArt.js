@@ -32,6 +32,7 @@ const getArtsQuery = gql`
             year
             creator{
                 email
+                username
             }
             
         }
@@ -60,7 +61,7 @@ class DisplayArt extends Component {
                                             year={art.year}
                                             height={art.dimensions.height}
                                             width={art.dimensions.width}
-                                            username={art.creator.email}
+                                            username={art.creator.username}
                                         />
                                     </div>
                                     

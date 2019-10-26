@@ -29,7 +29,7 @@ class Art extends DataSource {
   createArt(args) {
     const art = new ArtWork({
       artistUserID: args.artInput.artistUserID,
-      creator: "5db327903fce5fd79f0399e9",
+      creator: "5db3cd2f048b822783b5785d",
       artist: args.artInput.artist,
       artistCountry: args.artInput.artistCountry,
       title: args.artInput.title,

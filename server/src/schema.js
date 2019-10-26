@@ -24,6 +24,7 @@ module.exports = `
         firstName: String
         lastName: String
         fullName: String
+        username: String
         typeUser: String
         createdArtWorks: [Art!]
     }
@@ -33,6 +34,7 @@ module.exports = `
         password: String!
         firstName: String
         lastName: String
+        username: String
         typeUser: String
     }
 
