@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import Navbar from "../../components/Navbar/Navbar";
-import Top from  '../../components/DisplayProfile/Top';
+import Top from  "../../components/DisplayProfile/Top";
+import Tabbar from "../../components/DisplayProfile/Tabbar";
 
 class Profile extends Component {
     render(){
@@ -9,6 +10,7 @@ class Profile extends Component {
             <div>
                 <Navbar />
                 <Top name={"Thomas Schork"}/>
+                <Tabbar />
             </div>
         )
     }

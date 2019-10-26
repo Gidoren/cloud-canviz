@@ -1,0 +1,10 @@
+.all{
+    display: flex;
+    justify-content: flex-start;
+
+    font-family: 'Roboto', sans-serif;
+}
+
+.tab{
+    padding-left: 2.5rem;
+}
