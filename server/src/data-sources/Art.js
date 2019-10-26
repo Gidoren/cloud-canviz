@@ -42,7 +42,10 @@ class Art extends DataSource {
         const user = this.context.user;
         console.log("user from context", user);
         
+        {/* save result to return it later */}
         createdArt = { ...result._doc };
+        {/* creator id is accessed from Art
+         Finds the user and pushes the new artwork in createdArtWork array*/}
         return User.findById(createdArt.creator._id)
       })
       .then(user => {
