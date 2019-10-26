@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Logo from "../UI/Logo/Logo";
 import Item from "./Item/Item";
 import classes from "./Navbar.module.css";
+import UseAnimations from "react-useanimations";
 
 class Navbar extends Component {
   state = {
@@ -37,12 +38,17 @@ class Navbar extends Component {
             <Item text="Profile" />
             <Item text="Login" />
           </div>
-          <button
+          <div
             className={classes.topMenuIcon}
             onClick={this.setToggleTopMenuClass}
           >
-            Menu
-          </button>
+            <UseAnimations
+              animationKey="menu2"
+              size={35}
+              style={{ cursor: "pointer" }}
+            />
+          </div>
+
           <div className={classes.clearFix} />
         </div>
       </div>

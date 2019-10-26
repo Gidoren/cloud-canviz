@@ -1,6 +1,8 @@
 .topMenu {
-  background-color: grey;
-  padding: 20px 50px 20px 50px;
+  background-color: white;
+  padding: 20px 30px 20px 30px;
+  border-bottom: 1px solid;
+  border-bottom-color: lightslategray;
   user-select: none;
 }
 
@@ -58,6 +60,7 @@
 
   .topMenuIcon {
     display: block !important;
+    padding: 0px;
   }
 }
 
