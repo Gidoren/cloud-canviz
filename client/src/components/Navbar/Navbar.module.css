@@ -1,0 +1,82 @@
+.topMenu {
+  background-color: grey;
+  padding: 20px 50px 20px 50px;
+  user-select: none;
+}
+
+.topMenu > .right {
+  float: right;
+}
+
+.topMenu > .right > * {
+  margin-left: 5px;
+}
+
+.topMenu > .left {
+  float: left;
+}
+
+.topMenu > .left > * {
+  margin-right: 5px;
+}
+
+.topMenu > .left > *,
+.topMenu > .right > * {
+  padding: 11.4px;
+  display: inline-block;
+  text-align: center;
+  min-width: 50px;
+}
+
+.topMenu *:hover {
+  cursor: pointer;
+}
+
+.clearFix {
+  clear: both;
+}
+
+.topMenu .topMenuIcon {
+  padding: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+}
+
+@media screen and (max-width: 600px) {
+  .topMenu {
+    padding: 40px 20px 20px 20px;
+    max-height: 0;
+    overflow: hidden;
+  }
+
+  .topMenu > .left,
+  .topMenu > .right {
+    display: none;
+  }
+
+  .topMenuIcon {
+    display: block !important;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .topMenu.toggled {
+    padding: 60px 0 0 0;
+    max-height: 1500px;
+    transition: max-height 1s;
+  }
+
+  .topMenu.toggled > .left {
+    border-bottom: 1px solid black;
+    margin: 15px 0 0 0;
+  }
+
+  .topMenu.toggled *:not(.logo):not(.topMenuIcon) {
+    float: none;
+    display: block !important;
+    text-align: left;
+    margin: 0;
+  }
+}
