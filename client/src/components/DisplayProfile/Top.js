@@ -4,16 +4,20 @@ import Art1 from '../../assets/images/heart.png'
 
 
 const Top = (props) => (
-    <div className={classes.all}>
+    <div>
+        <div className={classes.all}>
+            {/*Image part of top bar*/}
+            <img src={Art1} className={classes.img} imagealt="image"></img>
         
-        {/*Image part of top bar*/}
-        <img src={Art1} className={classes.img} imagealt="image"></img>
-        
-        {/*Div holding info*/}
-        <div className={classes.content}>
-            <p className={classes.name}>{props.name}</p>
-            <a className={classes.follow}>Test</a>
+            {/*Div holding info*/}
+            <div className={classes.content}>
+                <p className={classes.name}>{props.name}</p>
+                <button className={classes.follow}>Test</button>
+            </div>
         </div>
+
+        <hr />
+        
     </div>
 )
 
