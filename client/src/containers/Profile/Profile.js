@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
+import Top from  '../../components/DisplayProfile/Top';
 
 class Profile extends Component {
     render(){
         return(
             <div>
-                Profile
+                <Top name={"Thomas Schork"}/>
             </div>
         )
     }

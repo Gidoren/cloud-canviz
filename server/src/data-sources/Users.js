@@ -82,7 +82,7 @@ class Users extends DataSource {
   }
 
   async getAllUsers() {
-    return User.find({})
+    return User.find({}).populate('createdArtWorks')
       .then(users => {
         return users.map(user => {
           return { ...user._doc };

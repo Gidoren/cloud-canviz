@@ -10,14 +10,36 @@ import Art1 from '../../assets/images/heart.jpg'
 import Art from './Art/Art';
 import * as actionCreators from '../../store/actions'
 
+// const getArtsQuery = gql`
+//    query {
+//         getAllArt{
+//             title
+//             artist
+//         }
+//     }
+// `
+
+
+// with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
-    {
-        getAllArt{
+   query getArtsQuery {
+        getAllArt {
             title
-            artist
+            dimensions{
+                height
+                width
+            }
+            year
+            creator{
+                email
+            }
+            
         }
     }
-`
+`;
+
+
+
 class DisplayArt extends Component {
     render(){
         return (
@@ -26,7 +48,7 @@ class DisplayArt extends Component {
                     if(loading)
                         return <Spinner/>
                     if(error)
-                        return <span>Error!</span>
+                        return <span>{console.log(error)}</span>
                     return(
                         <div className={classes.DisplayArt}>
                             <div className = {classes.row}>
@@ -34,7 +56,12 @@ class DisplayArt extends Component {
                                     <div key={art._id}  className = {classes.column}>
                                         <Art 
                                             artURL={Art1} 
-                                            title={art.title} />
+                                            title={art.title}
+                                            year={art.year}
+                                            height={art.dimensions.height}
+                                            width={art.dimensions.width}
+                                            username={art.creator.email}
+                                        />
                                     </div>
                                     
                                 ))}

@@ -25,7 +25,7 @@ module.exports = `
         lastName: String
         fullName: String
         typeUser: String
-        createdArtWorks: [String!]
+        createdArtWorks: [Art!]
     }
 
     input UserInput {
@@ -34,12 +34,11 @@ module.exports = `
         firstName: String
         lastName: String
         typeUser: String
-        createdArtWorks: [String!]
     }
 
     type Art {
         _id: ID!
-        creator: String
+        creator: User
         artist: String
         artistCountry: String
         title: String
@@ -56,7 +55,6 @@ module.exports = `
     }
 
     input ArtInput {
-        creator: String
         artist: String
         artistCountry: String
         title: String
