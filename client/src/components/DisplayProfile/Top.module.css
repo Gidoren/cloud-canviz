@@ -14,42 +14,35 @@
 .content{
     /*Have a flex display as well as center items*/
     display: flex;
+    flex-direction: column;
     align-items: center;
-    position: relative;
-
-    /*Add padding to space image and name*/
-    padding-left: 2.5rem;
-    flex-direction: row;
 
     /*Set no initial margin / padding*/
     margin: 0;
     padding: 0;
 
-    /*Font Size and width of content*/
+    /*Font family*/
     font-family: 'Roboto', sans-serif;
-    font-size: 1.6rem;
-    width: 100%;
+
+    /*Set width to 33% as to move it a little bit*/
+    width: 33%;
 }
 
 .name{
-    /*Position the content to look nice*/
-    bottom: initial;
-    left: initial;
-    display: inline-block;
-
+    /*Set height to 0% to move the follow button closer*/    
+    height: 0%;
 
     /*Use a nice gray color for the text*/
     color: #393939;
 
-    /*Assign font family*/
+    /*Assign font family and size*/
     font-family: inherit;
+    font-size: 1.6rem;            
 
     /*Add a bottom margin*/
     margin-bottom: 2.5rem;
 }
 
 .follow{
-    bottom: initial;
-    float: left;
     font-family: inherit;
 }
