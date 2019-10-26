@@ -14,7 +14,7 @@ const Art = (props) => (
             <Link to={{pathname: props.link}} className={classes.username}>{props.username}</Link>
             <span><img className={classes.heart} src={Heart}/></span>
             <p className={classes.title}>{props.title}, {props.year}</p>
-            <p className={classes.desc}>Description</p>
+            <p className={classes.desc}>{props.desc}</p>
             <p className={classes.dimensions}>{props.height}x{props.width}</p>
         </div>
     </div>

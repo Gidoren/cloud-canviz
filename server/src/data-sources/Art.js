@@ -28,23 +28,8 @@ class Art extends DataSource {
   // adds userId of creator to creator field
   createArt(args) {
     const art = new ArtWork({
-      artistUserID: args.artInput.artistUserID,
-      creator: "5db3cd2f048b822783b5785d",
-      artist: args.artInput.artist,
-      artistCountry: args.artInput.artistCountry,
-      title: args.artInput.title,
-      year: args.artInput.year,
-      category: args.artInput.category,      
-      medium: args.artInput.medium,
-      material: args.artInput.material,
-      orientation: args.artInput.orientation,
-      styles: args.artInput.styles,
-      tags: args.artInput.tags,
-
-      img: args.artInput.img,
-      dimensions: args.artInput.dimensions,
-      price: args.artInput.price,
-      series: args.artInput.series            
+      ...args.artInput,
+      creator: "5db3cd2f048b822783b5785d"
     });
     return art
       .save()

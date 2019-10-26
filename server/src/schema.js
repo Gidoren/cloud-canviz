@@ -46,6 +46,7 @@ module.exports = `
         title: String
         year: String
         img: Image
+        description: String
         dimensions: Dimensions
         price: String
         category: String
@@ -62,6 +63,7 @@ module.exports = `
         title: String
         year: String
         img: ImageInput
+        description: String
         dimensions: DimensionsInput
         price: String
         category: String

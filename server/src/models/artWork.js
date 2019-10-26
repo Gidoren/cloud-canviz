@@ -30,6 +30,10 @@ const artSchema = new Schema(
         required: false
       }
     },
+    description: {
+      type: String,
+      required: false
+    },
     dimensions: {
       height: {
         type: Number,
