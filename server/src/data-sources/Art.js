@@ -31,6 +31,7 @@ class Art extends DataSource {
       ...args.artInput,
       creator: "5db3cd2f048b822783b5785d"
     });
+    let createdArt
     return art
       .save()
       .then(result => {
@@ -40,8 +41,17 @@ class Art extends DataSource {
         console.log("data returned from createArt", result);
         const user = this.context.user;
         console.log("user from context", user);
-
-        return { ...result._doc };
+        
+        createdArt = { ...result._doc };
+        return User.findById(createdArt.creator._id)
+      })
+      .then(user => {
+        console.log(user)
+        user.createdArtWorks.push(art)
+        return user.save()
+      })
+      .then(res => {
+        return createdArt
       })
       .catch(err => {
         console.log(err);
