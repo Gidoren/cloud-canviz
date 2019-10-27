@@ -3,6 +3,7 @@ import './App.css';
 import {Route, BrowserRouter} from 'react-router-dom'
 import Home from './containers/Home/Home'
 import Profile from './containers/Profile/Profile'
+import Contacts from './containers/Contacts/Contacts'
 import Auth from './containers/Auth/Auth'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
@@ -23,6 +24,7 @@ class App extends Component{
             <Route path="/" exact component={Auth}/>
             <Route path="/home/:username" component={Home}/>
             <Route path="/profile/:username" component={Profile}/>
+            <Route path="/contacts/:username" component={Contacts}/>
           </BrowserRouter>
         </div>
       

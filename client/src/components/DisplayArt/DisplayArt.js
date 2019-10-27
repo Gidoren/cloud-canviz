@@ -2,8 +2,7 @@ import React from 'react';
 import classes from './DisplayArt.module.css'
 
 import {gql} from 'apollo-boost'
-import {Query, useQuery} from 'react-apollo'
-import {connect} from 'react-redux'
+import {useQuery} from 'react-apollo'
 
 import Spinner from '../UI/Spinner/Spinner'
 import Art1 from '../../assets/images/art.jpg'
@@ -21,8 +20,8 @@ import Art from './Art/Art';
 
 // with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
-   query getArtsQuery {
-        getAllArt {
+   query getArtsQuery{
+        getAllArt{
             title
             dimensions{
                 height
@@ -43,7 +42,16 @@ const DisplayArt = () => {
 
     /* getArtsQuery which is defined above, to get all artworks. Data, loading, error are predefined
     in Query syntax. Data is initialized to returned Artwork Array */
-    const {data, loading, error} = useQuery(getArtsQuery) 
+    const {data, fetchMore, loading, error} = useQuery(
+        getArtsQuery,
+        {
+            variables: {
+                offset: 0,
+                limit: 10
+            },
+            fetchPolicy: "cache-and-network"
+        }
+    ) 
     if(loading)
         return <Spinner/>
     if(error)
@@ -73,6 +81,7 @@ const DisplayArt = () => {
                 ))}
                 
             </div>
+            
         </div>
 
     )

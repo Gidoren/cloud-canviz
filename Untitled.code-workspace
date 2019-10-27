@@ -1,13 +1,11 @@
 {
 	"folders": [
 		{
-			"path": "sprint-plans"
-		},
-		{
 			"path": "client"
 		},
 		{
 			"path": "server"
 		}
-	]
+	],
+	"settings": {}
 }
