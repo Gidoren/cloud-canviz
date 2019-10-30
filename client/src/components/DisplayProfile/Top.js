@@ -14,6 +14,7 @@ const Top = (props) => (
                 <p className={classes.name}>{props.name}</p>
                 <button className={classes.follow}>Test</button>
             </div>
+            
         </div>
 
         <hr />
