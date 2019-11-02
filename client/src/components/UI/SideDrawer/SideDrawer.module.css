@@ -1,7 +1,7 @@
 .SideDrawer{
     left: 0;
     height: 800px;
-    width: 200px;
+    min-width: 150px;
     top: 0;
     margin-top: 20px;
     margin-right: 10px;
