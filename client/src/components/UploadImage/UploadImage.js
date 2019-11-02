@@ -15,7 +15,7 @@ const UploadImage = (props) => {
             {files.map((file, index) => (
                 <img key={index} className={classes.img} src={file.preview} />
             ))}
-            <div className={classes.box}>
+            
                 <Dropzone onDrop={withPreviews(handleDrop)}>
                     {({getRootProps, getInputProps}) => (
                         <div className={classes.innerBox} {...getRootProps()}>
@@ -25,11 +25,10 @@ const UploadImage = (props) => {
                             <p className={classes.p2}>OR</p>
                             <p className={classes.p3}>Select a file from your computer</p>
                         </div>
-
                     )}
                 </Dropzone>
             </div>
-        </div>
+       
     )
 
 }
