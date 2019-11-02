@@ -1,6 +1,6 @@
 .topMenu {
   background-color: white;
-  padding: 20px 30px 20px 30px;
+  padding: 5px 30px 5px 30px;
   border-bottom: 1px solid;
   border-bottom-color: lightslategray;
   user-select: none;
@@ -8,6 +8,7 @@
 
 .topMenu > .right {
   float: right;
+  padding-top: 10px;
 }
 
 .topMenu > .right > * {
@@ -27,6 +28,8 @@
   padding: 11.4px;
   display: inline-block;
   text-align: center;
+  /* vertical-align: middle; */
+  /* justify-content: center; */
   min-width: 50px;
 }
 
