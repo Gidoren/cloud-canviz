@@ -1,11 +1,13 @@
 module.exports = `
     type Query {
-        getAllArt: [Art]
+        getAllArt(
+            offset: Int,
+            limit: Int
+        ): [Art]
         getAllUsers: [User]
         getUser(id: ID): User
         currentUser: User!
     }
-
     type Mutation {
         createArt(artInput: ArtInput): Art
         registerUser(userInput: UserInput): User!
@@ -24,8 +26,9 @@ module.exports = `
         firstName: String
         lastName: String
         fullName: String
+        username: String
         typeUser: String
-        createdArtWorks: [String!]
+        createdArtWorks: [Art!]
     }
 
     input UserInput {
@@ -33,18 +36,19 @@ module.exports = `
         password: String!
         firstName: String
         lastName: String
+        username: String
         typeUser: String
-        createdArtWorks: [String!]
     }
 
     type Art {
         _id: ID!
-        creator: String
+        creator: User
         artist: String
         artistCountry: String
         title: String
         year: String
         img: Image
+        description: String
         dimensions: Dimensions
         price: String
         category: String
@@ -52,16 +56,15 @@ module.exports = `
         material: String
         orientation: String
         styles: [String!]
-        tags: [String!]    
+        tags: [String!]   
     }
-
     input ArtInput {
-        creator: String
         artist: String
         artistCountry: String
         title: String
         year: String
         img: ImageInput
+        description: String
         dimensions: DimensionsInput
         price: String
         category: String

@@ -6,7 +6,7 @@ const artSchema = new Schema(
   {
     creator: {
       type: Schema.Types.ObjectId,
-      ref: "User"
+      ref: "user"
     },
     artist: {
       type: String,
@@ -29,6 +29,10 @@ const artSchema = new Schema(
         type: String,
         required: false
       }
+    },
+    description: {
+      type: String,
+      required: false
     },
     dimensions: {
       height: {

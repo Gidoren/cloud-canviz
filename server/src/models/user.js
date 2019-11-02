@@ -9,7 +9,6 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-
 const userSchema = new Schema(
   {
     email: {
@@ -29,20 +28,23 @@ const userSchema = new Schema(
       type: String,
       required: false
     },
+    username: {
+      type: String,
+      required: false
+    },
     typeUser: {
       type: String,
       required: false
     },
     createdArtWorks: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "artWork"
+        type: Schema.Types.ObjectId,
+        ref: "artWork",
       }
     ]
   },
   { timestamps: true }
 );
-
 userSchema.virtual("fullName").get(function() {
   return this.firstName + " " + this.lastName;
 });

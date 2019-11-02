@@ -1,15 +1,21 @@
 import React from 'react';
 import classes from './Art.module.css';
 import Heart from '../../../assets/images/heart.png'
-
+import {Link} from 'react-router-dom';
+{/* props are properties that are passed from displayComment such as title, creator of the art.
+Think of it as parameters in Functions.*/}
 const Art = (props) => (
     <div>
-         <img data-aos="zoom-in" data-aos-delay="15000"  className={classes.img} src={props.artURL} alt="image"/>
+        <img data-aos="zoom-in" className={classes.img} src={props.artURL} alt="image"/>
         <div data-aos="zoom-in" className={classes.artInfo} width={classes.img.width}>
-            <p className={classes.username}>User Name <span><img className={classes.heart} src={Heart}/></span></p>
-            <p className={classes.artname}>{props.title}, Date Created</p>
-            <p className={classes.desc}>Description</p>
-            <p className={classes.dimensions}>Dimensions</p>
+            {/* Always use link instead of <a> tag so it doesn't reload the page but rerenders the component. 
+            We do this so that website don't do api calls again, or don't lose our website state.
+            This is what is called single page Webapp(SPA). */}
+            <Link to={{pathname: props.link}} className={classes.username}>{props.username}</Link>
+            <span><img className={classes.heart} src={Heart}/></span>
+            <p className={classes.title}>{props.title}, {props.year}</p>
+            <p className={classes.desc}>{props.desc}</p>
+            <p className={classes.dimensions}>{props.height}x{props.width}</p>
         </div>
     </div>
 )

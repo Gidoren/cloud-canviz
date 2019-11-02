@@ -1,7 +1,6 @@
 const { DataSource } = require("apollo-datasource");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
-
 class Art extends DataSource {
   constructor() {
     super();
@@ -11,12 +10,12 @@ class Art extends DataSource {
     this.context = config.context;
   }
 
-  getAllArt() {
-    return ArtWork.find()
+  getAllArt(offset, limit) {
+    return ArtWork.find().skip(offset).limit(limit).sort('-createdAt').populate('creator')
       .then(artworks => {
-        return artworks.map(art => {
-          return { ...art._doc };
-        });
+        return artworks.map(artwork=>{
+          return {...artwork._doc}
+        })
       })
       .catch(err => {
         throw err;
@@ -28,25 +27,10 @@ class Art extends DataSource {
   // adds userId of creator to creator field
   createArt(args) {
     const art = new ArtWork({
-      artistUserID: args.artInput.artistUserID,
-
-      creator: args.artInput.creator,
-      artist: args.artInput.artist,
-      artistCountry: args.artInput.artistCountry,
-      title: args.artInput.title,
-      year: args.artInput.year,
-      category: args.artInput.category,      
-      medium: args.artInput.medium,
-      material: args.artInput.material,
-      orientation: args.artInput.orientation,
-      styles: args.artInput.styles,
-      tags: args.artInput.tags,
-
-      img: args.artInput.img,
-      dimensions: args.artInput.dimensions,
-      price: args.artInput.price,
-      series: args.artInput.series            
+      ...args.artInput,
+      creator: "5db3cd2f048b822783b5785d"
     });
+    let createdArt
     return art
       .save()
       .then(result => {
@@ -56,8 +40,20 @@ class Art extends DataSource {
         console.log("data returned from createArt", result);
         const user = this.context.user;
         console.log("user from context", user);
-
-        return { ...result._doc };
+        
+        {/* save result to return it later */}
+        createdArt = { ...result._doc };
+        {/* creator id is accessed from Art
+         Finds the user and pushes the new artwork in createdArtWork array*/}
+        return User.findById(createdArt.creator._id)
+      })
+      .then(user => {
+        console.log(user)
+        user.createdArtWorks.push(art)
+        return user.save()
+      })
+      .then(res => {
+        return createdArt
       })
       .catch(err => {
         console.log(err);
