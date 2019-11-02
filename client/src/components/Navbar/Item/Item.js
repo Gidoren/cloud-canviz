@@ -5,10 +5,15 @@ class Item extends Component {
   constructor(props) {
     super(props);
     this.text = props.text;
+    this.click = props.click;
   }
 
   render() {
-    return <div className={classes.topMenuItem}>{this.text}</div>;
+    return (
+      <div className={classes.topMenuItem} onClick={this.click}>
+        {this.text}
+      </div>
+    );
   }
 }
 

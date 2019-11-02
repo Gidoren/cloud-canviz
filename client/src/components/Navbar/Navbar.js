@@ -27,16 +27,13 @@ class Navbar extends Component {
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
     return (
-      <div>
+      <div className={classes.header}>
         <div className={cName}>
-          <Logo text="Logo" />
-          <div className={classes.left}>
-            {/* <Item text="Left1" />
-            <Item text="Left2" /> */}
-          </div>
+          <Logo />
+          <div className={classes.left}></div>
           <div className={classes.right}>
             <Item text="Profile" />
-            <Item text="Login" />
+            <Item text="Login" click={this.props.click} />
           </div>
           <div
             className={classes.topMenuIcon}
