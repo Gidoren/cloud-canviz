@@ -1,7 +1,6 @@
 const { DataSource } = require("apollo-datasource");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
-
 class Art extends DataSource {
   constructor() {
     super();
@@ -11,12 +10,12 @@ class Art extends DataSource {
     this.context = config.context;
   }
 
-  getAllArt() {
-    return ArtWork.find().populate('creator')
+  getAllArt(offset, limit) {
+    return ArtWork.find().skip(offset).limit(limit).sort('-createdAt').populate('creator')
       .then(artworks => {
-        return artworks.map(art => {
-          return { ...art._doc };
-        });
+        return artworks.map(artwork=>{
+          return {...artwork._doc}
+        })
       })
       .catch(err => {
         throw err;
