@@ -4,7 +4,7 @@ import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
 import Navbar from "../../components/Navbar/Navbar";
 import Modal from "../../components/UI/Modal/Modal";
-import Signup from "../../components/Signup/Signup";
+import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 
 import classes from "./Home.module.css";
@@ -13,7 +13,8 @@ class Home extends Component {
   state = {
     showReg: false,
     modalType: "",
-    showSignup: false
+    showLogin: false,
+    usersEmail: ""
   };
 
   showRegModal = () => {
@@ -24,31 +25,31 @@ class Home extends Component {
     this.setState({ showReg: false, modalType: "" });
   };
 
-  showSignupModal = () => {
-    this.setState({ showSignup: true, modalType: "signup" });
+  showLoginModal = () => {
+    this.setState({ showLogin: true, modalType: "Login" });
   };
 
-  hideSignupModal = () => {
-    this.setState({ showSignup: false });
+  hideLoginModal = () => {
+    this.setState({ showLogin: false });
   };
 
-  switchToSignup = () => {
-    this.setState({ modalType: "signup" });
+  switchToLogin = email => {
+    this.setState({ modalType: "Login", usersEmail: email });
   };
 
   render() {
     let modalContent;
     if (this.state.modalType === "register") {
-      modalContent = <Register handleSwitchToSignup={this.switchToSignup} />;
-    } else if (this.state.modalType === "signup") {
-      modalContent = <Signup />;
+      modalContent = <Register handleSwitchToLogin={this.switchToLogin} />;
+    } else if (this.state.modalType === "Login") {
+      modalContent = <Login usersEmail={this.state.usersEmail} />;
     }
 
     return (
       <div>
         <Navbar click={this.showRegModal} />
         <Modal show={this.state.showReg} handleClose={this.hideRegModal}>
-          {/* TODO check context for current user. If current user show signup modal; If not show Register modal */}
+          {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
           {modalContent}
         </Modal>
 

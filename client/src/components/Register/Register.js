@@ -18,7 +18,7 @@ const REGISTER_USER = gql`
   }
 `;
 
-const Register = ({ handleSwitchToSignup }) => {
+const Register = ({ handleSwitchToLogin }) => {
   const {
     register,
     handleSubmit,
@@ -30,12 +30,15 @@ const Register = ({ handleSwitchToSignup }) => {
 
   const [registerUser, { data }] = useMutation(REGISTER_USER);
 
+  // const afterSumit = ()
+
   const onSubmit = data => {
     console.log(data);
     delete data.confirmPassword;
     registerUser({ variables: { userInput: data } })
       .then(response => {
-        console.log(handleSwitchToSignup);
+        //console.log("response from gql", response.data.registerUser.email);
+        handleSwitchToLogin(response.data.registerUser.email);
       })
       .catch(err => {
         console.log(err);

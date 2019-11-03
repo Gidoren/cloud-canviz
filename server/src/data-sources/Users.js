@@ -24,10 +24,7 @@ class Users extends DataSource {
       if (existingUser) {
         throw new Error("User exists already.");
       }
-      existingUser = await User.findOne({username: args.userInput.username});
-      if (existingUser){
-        throw new Error("User exists already");
-      }
+
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 
       const user = new User({
@@ -45,7 +42,6 @@ class Users extends DataSource {
 
   async loginUser(email, password) {
     try {
-
       // check if user exists
       const user = await User.findOne({ email: email }).exec();
       if (!user) {
@@ -56,7 +52,7 @@ class Users extends DataSource {
 
       // if not throw error
       if (!passwordCorrect) {
-        throw new Error('Invalid Login')
+        throw new Error("Invalid Login");
       }
       //
       const token = jwt.sign(
@@ -68,25 +64,24 @@ class Users extends DataSource {
         },
         jwtSecret,
         {
-          expiresIn: '30d',
-        },
-      )
+          expiresIn: "30d"
+        }
+      );
 
       const response = {
-        token, 
-        user: { ...user._doc, password: null },
+        token,
+        user: { ...user._doc, password: null }
       };
 
-      return response
-      
-
+      return response;
     } catch (err) {
       throw err;
     }
   }
 
   async getAllUsers() {
-    return User.find({}).populate('createdArtWorks')
+    return User.find({})
+      .populate("createdArtWorks")
       .then(users => {
         return users.map(user => {
           return { ...user._doc };
