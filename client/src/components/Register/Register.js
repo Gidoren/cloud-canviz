@@ -18,7 +18,7 @@ const REGISTER_USER = gql`
   }
 `;
 
-const Register = () => {
+const Register = ({ handleSwitchToSignup }) => {
   const {
     register,
     handleSubmit,
@@ -35,7 +35,7 @@ const Register = () => {
     delete data.confirmPassword;
     registerUser({ variables: { userInput: data } })
       .then(response => {
-        console.log("response", response);
+        console.log(handleSwitchToSignup);
       })
       .catch(err => {
         console.log(err);
