@@ -35,7 +35,7 @@ const Register = () => {
     delete data.confirmPassword;
     registerUser({ variables: { userInput: data } })
       .then(response => {
-        console.log("respnse", response);
+        console.log("response", response);
       })
       .catch(err => {
         console.log(err);
@@ -62,7 +62,7 @@ const Register = () => {
     <div className={classes.body}>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={classes.h1}>Sign Up</h1>
-        <div style={{ padding: "0 3rem 0 3rem" }}>
+        <div style={{ padding: "0 1rem 0 1rem" }}>
           <label className={classes.label}>First Name:</label>
 
           <input

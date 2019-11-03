@@ -25,8 +25,8 @@ class Home extends Component {
     return (
       <div>
         <Navbar click={this.showRegModal} />
-
         <Modal show={this.state.showReg} handleClose={this.hideRegModal}>
+          {/* TODO check context for current user. If current user show sign in; If not show Register */}
           <Register />
         </Modal>
 
