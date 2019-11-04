@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
-import classes from "./Register.module.css";
+import classes from "./ArtForm.module.css";
+import UploadImage from "../UploadImage/UploadImage";
 
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
@@ -18,7 +19,7 @@ import { gql } from "apollo-boost";
 //   }
 // `;
 
-const artInfo = props => {
+const ArtInfo = props => {
   return (
     <div className={classes.artInfoContainer}>
       <h3>{props.title}</h3>
@@ -54,58 +55,60 @@ const ArtForm = props => {
     //   });
   };
 
-  const [pwd, setPwd] = useState("");
+  //const [pwd, setPwd] = useState("");
 
   return (
     <div className={classes.body}>
-      <div className={classes.topContainer}></div>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes.h1}>Sign Up</h1>
+        <h1 className={classes.h1}>Upload Art</h1>
+        <div className={classes.topContainer}>
+          <div className={classes.upload}>
+            <UploadImage />
+          </div>
+          <div className={classes.artInfo}>
+            <ArtInfo
+              title="Art Title"
+              artist="Artist"
+              year="2018"
+              price="$1000"
+            ></ArtInfo>
+          </div>
+        </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          <label className={classes.label}>First Name:</label>
+          <label className={classes.label}>Title:</label>
 
           <input
             className={classes.input}
             id="traceInput"
-            name="firstName"
+            name="title"
             ref={register({ required: true, maxLength: 25 })}
           />
 
           <ErrorMessage error={errors.firstName} />
 
-          <label className={classes.label}>Last Name:</label>
+          <label className={classes.label}>Artist:</label>
           <input
             className={classes.input}
-            name="lastName"
+            name="artist"
             ref={register({ required: true, maxLength: 25 })}
           />
           <ErrorMessage error={errors.lastName} />
 
-          <label className={classes.label}>Email</label>
+          <label className={classes.label}>Date:</label>
           <input
             className={classes.input}
-            name="email"
-            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+            name="artist"
+            ref={register({ required: true, maxLength: 25 })}
           />
-          <ErrorMessage error={errors.email} />
+          <ErrorMessage error={errors.lastName} />
 
-          <label className={classes.label}>Password</label>
+          <label className={classes.label}>Price:</label>
           <input
             className={classes.input}
-            name="password"
-            onBlur={e => setFirstPassword(e.target.value)}
-            ref={register({ required: true })}
+            name="artist"
+            ref={register({ required: true, maxLength: 25 })}
           />
-          <ErrorMessage error={errors.password} />
-
-          <label className={classes.label}>Confirm Password</label>
-          <input
-            className={classes.input}
-            name="confirmPassword"
-            onBlur={e => checkSamePassword(e.target.value)}
-            ref={register({ required: true })}
-          />
-          <ErrorMessage error={errors.confirmPassword} />
+          <ErrorMessage error={errors.lastName} />
 
           <input
             className={classes.input}
@@ -118,4 +121,4 @@ const ArtForm = props => {
   );
 };
 
-export default Register;
+export default ArtForm;

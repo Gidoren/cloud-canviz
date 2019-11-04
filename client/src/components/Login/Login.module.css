@@ -128,7 +128,7 @@
     width: 300px !important;
   } */
 
-.span {
+/* .span {
   position: relative;
 }
 
@@ -148,4 +148,4 @@
 .span:hover::before {
   transform-origin: bottom left;
   transform: scaleX(1);
-}
+} */
