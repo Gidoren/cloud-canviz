@@ -20,9 +20,9 @@ class Home extends Component {
   };
 
   showRegModal = () => {
-    const registeredUser = localStorage.getItem(AUTH_TOKEN);
-    const typeModal = registeredUser ? "Login" : "register";
-    this.setState({ showReg: true, modalType: typeModal });
+    // const registeredUser = localStorage.getItem(AUTH_TOKEN);
+    // const typeModal = registeredUser ? "Login" : "register";
+    this.setState({ showReg: true, modalType: "register" });
   };
 
   hideRegModal = () => {

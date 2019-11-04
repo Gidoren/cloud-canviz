@@ -33,11 +33,11 @@ const Register = ({ handleSwitchToLogin }) => {
   // const afterSumit = ()
 
   const onSubmit = data => {
-    console.log(data);
+    console.log("register data", data);
     delete data.confirmPassword;
     registerUser({ variables: { userInput: data } })
       .then(response => {
-        //console.log("response from gql", response.data.registerUser.email);
+        console.log("response from gql", response.data);
         handleSwitchToLogin(response.data.registerUser.email);
       })
       .catch(err => {

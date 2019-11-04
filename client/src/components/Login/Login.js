@@ -40,7 +40,7 @@ const Login = ({ usersEmail }) => {
   const [loginUser, { data }] = useMutation(LOGIN_USER);
 
   const onSubmit = data => {
-    console.log(data);
+    console.log("login data", data);
     loginUser({ variables: { email: data.email, password: data.password } })
       .then(response => {
         console.log("response from gql", response);
