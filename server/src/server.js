@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const { ApolloServer } = require("apollo-server");
-const { getUserFromToken } = require('./utils/auth')
+const { getUserFromToken } = require("./utils/auth");
 // const isEmail = require('isemail');
 
 const typeDefs = require("./schema");
@@ -13,7 +13,7 @@ const Users = require("./data-sources/Users");
 // MongoDB
 const { mongoDB, mongoUser, mongoPwd } = require("../config");
 
-const HEADER_NAME = 'Authorization';
+const HEADER_NAME = "Authorization";
 
 // Apollo Server
 const server = new ApolloServer({
@@ -32,6 +32,10 @@ const server = new ApolloServer({
     } catch (err) {
       console.warn(`Unable to authenticate using auth token: ${authToken}`);
     }
+
+    // optionally block the user
+    // we could also check user roles/permissions here
+    //if (!user) throw new AuthenticationError("you must be logged in");
 
     return {
       user

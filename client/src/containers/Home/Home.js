@@ -7,6 +7,8 @@ import Modal from "../../components/UI/Modal/Modal";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 
+import { AUTH_TOKEN } from "../../utils/constants";
+
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -18,7 +20,9 @@ class Home extends Component {
   };
 
   showRegModal = () => {
-    this.setState({ showReg: true, modalType: "register" });
+    const registeredUser = localStorage.getItem(AUTH_TOKEN);
+    const typeModal = registeredUser ? "Login" : "register";
+    this.setState({ showReg: true, modalType: typeModal });
   };
 
   hideRegModal = () => {
@@ -42,12 +46,18 @@ class Home extends Component {
     if (this.state.modalType === "register") {
       modalContent = <Register handleSwitchToLogin={this.switchToLogin} />;
     } else if (this.state.modalType === "Login") {
-      modalContent = <Login usersEmail={this.state.usersEmail} />;
+      modalContent = (
+        <Login
+          usersEmail={this.state.usersEmail}
+          handleHideLoginModal={this.hideLoginModal}
+        />
+      );
     }
 
     return (
       <div>
         <Navbar click={this.showRegModal} />
+
         <Modal show={this.state.showReg} handleClose={this.hideRegModal}>
           {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
           {modalContent}

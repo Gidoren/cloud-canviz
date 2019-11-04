@@ -6,19 +6,8 @@ import classes from "./Login.module.css";
 
 import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-//  TODO receive props from Register.
-// If props received form register autopopulate users email.
 
-// const SIGNUP_USER = gql`
-//   mutation registerUser($userInput: UserInput) {
-//     registerUser(userInput: $userInput) {
-//       _id
-//       firstName
-//       lastName
-//       email
-//     }
-//   }
-// `;
+import { AUTH_TOKEN } from "../../utils/constants";
 
 const LOGIN_USER = gql`
   mutation loginUser($email: String!, $password: String!) {
@@ -33,6 +22,10 @@ const LOGIN_USER = gql`
     }
   }
 `;
+// sets the AUTH_TOKEN in local storage to auth token returned by login mutation
+const setAuthToken = token => {
+  localStorage.setItem(AUTH_TOKEN, token);
+};
 
 const Login = ({ usersEmail }) => {
   const {
@@ -51,6 +44,12 @@ const Login = ({ usersEmail }) => {
     loginUser({ variables: { email: data.email, password: data.password } })
       .then(response => {
         console.log("response from gql", response);
+        const token = response.data.loginUser.token;
+        // set local storage with auth token returned for users
+        setAuthToken(token);
+        // TODO logout button that removes auth token
+
+        // close modal
       })
       .catch(err => {
         console.log(err);
