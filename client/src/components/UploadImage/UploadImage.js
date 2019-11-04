@@ -1,25 +1,27 @@
-import React, {useCallback, useState} from 'react'
+import React, {Component} from 'react'
 import classes from './UploadImage.module.css'
-import Dropzone, {useDropzone} from 'react-dropzone'
+import Dropzone from 'react-dropzone'
 import image from '../../assets/images/UploadImage.png'
-import { withPreviews } from './WithPreviews/WithPreviews'
+import S3Upload from './S3/s3Upload'
 
-const UploadImage = (props) => {
-    const [files, setFiles] = useState([])
-    const handleDrop = useCallback(acceptedFile => {
-        setFiles([...files, ...acceptedFile])
-    })
-
-    return (
-        <div>
-            {files.map((file, index) => (
-                <img key={index} className={classes.img} src={file.preview} />
-            ))}
-            
-                <Dropzone onDrop={withPreviews(handleDrop)}>
+class UploadImage extends Component {
+    state = {
+        selectedFiles: [],
+        uploadFiles: false
+    }
+    fileSelectHandler = event => {
+        this.setState({selectedFiles: [... this.state.selectedFiles, event[0]]})
+    }
+    fileUploadHandler = () => {
+        this.setState({uploadFiles: true})
+    }
+    render(){
+        return (
+            <div>
+                <Dropzone onDrop={this.fileSelectHandler}>
                     {({getRootProps, getInputProps}) => (
                         <div className={classes.innerBox} {...getRootProps()}>
-                            <input className={classes.input} {...getInputProps()} />
+                            <input className={classes.input} onChange={this.fileSelectHandler} {...getInputProps()} />
                             <img className={classes.image} src={image} alt="img"/>
                             <p className={classes.p1}>Drag a file here</p>
                             <p className={classes.p2}>OR</p>
@@ -27,9 +29,14 @@ const UploadImage = (props) => {
                         </div>
                     )}
                 </Dropzone>
-            </div>
-       
-    )
+                <button onClick={this.fileUploadHandler}>Upload</button>
+                {this.state.uploadFiles && <S3Upload filename={this.state.selectedFiles[0].name} file={this.state.selectedFiles[0]} />}
+             </div>
+        
+        )
+
+    }
+    
 
 }
 export default UploadImage
