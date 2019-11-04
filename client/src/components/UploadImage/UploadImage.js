@@ -3,6 +3,7 @@ import classes from './UploadImage.module.css'
 import Dropzone from 'react-dropzone'
 import image from '../../assets/images/UploadImage.png'
 import S3Upload from './S3/s3Upload'
+import { withPreviews } from './WithPreviews/WithPreviews'
 
 class UploadImage extends Component {
     state = {
@@ -18,7 +19,7 @@ class UploadImage extends Component {
     render(){
         return (
             <div>
-                <Dropzone onDrop={this.fileSelectHandler}>
+                {this.state.selectedFiles.length === 0 && <Dropzone onDrop={withPreviews(this.fileSelectHandler)}>
                     {({getRootProps, getInputProps}) => (
                         <div className={classes.innerBox} {...getRootProps()}>
                             <input className={classes.input} onChange={this.fileSelectHandler} {...getInputProps()} />
@@ -28,8 +29,15 @@ class UploadImage extends Component {
                             <p className={classes.p3}>Select a file from your computer</p>
                         </div>
                     )}
-                </Dropzone>
-                <button onClick={this.fileUploadHandler}>Upload</button>
+                </Dropzone>}
+                <div>
+                    {this.state.selectedFiles.map((file, index) => (
+                        <img data-aos="zoom-out" key={index} className={classes.img} src={file.preview} />
+                    ))}
+                    {this.state.selectedFiles.length > 0 && <button className={classes.upload} onClick={this.fileUploadHandler}>Upload</button>}
+
+                </div>
+                
                 {this.state.uploadFiles && <S3Upload filename={this.state.selectedFiles[0].name} file={this.state.selectedFiles[0]} />}
              </div>
         

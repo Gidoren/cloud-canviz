@@ -7,7 +7,7 @@
   border-radius: 5px;
   box-shadow: 0 2px 3px darkgrey;
   color: white;
-  background-color: #828282;
+  background-color: lightgrey;
 }
 .innerBox {
   margin: 10px auto;
@@ -26,10 +26,39 @@
 .image {
   width: 75px;
   height: 75px;
+  margin: auto;
 }
-.img {
-  width: 50%;
-  height: 50%;
+.img{
+  margin: 50px;
+  vertical-align: middle;
+  width: 40%;
+  height: 40%;
+  object-fit: cover; 
+}
+.upload {
+  margin-left: 50px;
+  width: 100px;
+  border-radius: 5px;
+  font-size: 10px;
+  padding: 5px;
+  padding-left: 9px;
+  cursor: pointer;
+  font-family: "Josefin Sans", sans-serif;
+}
+@media (min-width: 1300px) {
+  .img{
+      width: 40%;
+      height: 40%;
+  }
+}
+@media (max-width: 600px) {
+  .img{
+      width: 85%;
+      margin-left: 40px;
+  }
+  .upload{
+    margin-left: 150px;
+  }
 }
 .p1 {
   margin: auto;
