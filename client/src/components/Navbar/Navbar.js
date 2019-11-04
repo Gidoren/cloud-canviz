@@ -4,6 +4,8 @@ import Item from "./Item/Item";
 import classes from "./Navbar.module.css";
 import UseAnimations from "react-useanimations";
 
+import { AUTH_TOKEN } from "../../utils/constants";
+
 class Navbar extends Component {
   state = {
     menu: ""
@@ -21,6 +23,13 @@ class Navbar extends Component {
     }
   };
 
+  clearLocalStorage = () => {
+    console.log("Clearing local storage");
+    localStorage.clear();
+    const token = localStorage.getItem(AUTH_TOKEN);
+    console.log("After clear token: ", token);
+  };
+
   render = () => {
     const cName =
       this.state.menu == "toggled"
@@ -34,6 +43,7 @@ class Navbar extends Component {
           <div className={classes.right}>
             <Item text="Profile" />
             <Item text="Login" click={this.props.click} />
+            <Item text="Logout" click={this.clearLocalStorage} />
           </div>
           <div
             className={classes.topMenuIcon}
