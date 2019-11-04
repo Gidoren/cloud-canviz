@@ -18,7 +18,7 @@ class UploadImage extends Component {
     render(){
         return (
             <div>
-                <Dropzone onDrop={this.fileSelectHandler}>
+                {this.state.uploadFiles === false && <Dropzone onDrop={this.fileSelectHandler}>
                     {({getRootProps, getInputProps}) => (
                         <div className={classes.innerBox} {...getRootProps()}>
                             <input className={classes.input} onChange={this.fileSelectHandler} {...getInputProps()} />
@@ -28,7 +28,7 @@ class UploadImage extends Component {
                             <p className={classes.p3}>Select a file from your computer</p>
                         </div>
                     )}
-                </Dropzone>
+                </Dropzone>}
                 <button onClick={this.fileUploadHandler}>Upload</button>
                 {this.state.uploadFiles && <S3Upload filename={this.state.selectedFiles[0].name} file={this.state.selectedFiles[0]} />}
              </div>
