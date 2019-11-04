@@ -28,20 +28,12 @@
   height: 75px;
   margin: auto;
 }
-<<<<<<< HEAD
 .img {
-=======
-.img{
->>>>>>> 2fa19566d1b5eb6fcb23658a288ef06296197237
   margin: 50px;
   vertical-align: middle;
   width: 40%;
   height: 40%;
-<<<<<<< HEAD
   object-fit: cover;
-=======
-  object-fit: cover; 
->>>>>>> 2fa19566d1b5eb6fcb23658a288ef06296197237
 }
 .upload {
   margin-left: 50px;
@@ -54,7 +46,6 @@
   font-family: "Josefin Sans", sans-serif;
 }
 @media (min-width: 1300px) {
-<<<<<<< HEAD
   .img {
     width: 40%;
     height: 40%;
@@ -66,19 +57,6 @@
     margin-left: 40px;
   }
   .upload {
-=======
-  .img{
-      width: 40%;
-      height: 40%;
-  }
-}
-@media (max-width: 600px) {
-  .img{
-      width: 85%;
-      margin-left: 40px;
-  }
-  .upload{
->>>>>>> 2fa19566d1b5eb6fcb23658a288ef06296197237
     margin-left: 150px;
   }
 }
