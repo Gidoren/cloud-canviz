@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-
+import classes from "./Profile.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Top from  "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
@@ -17,9 +17,17 @@ class Profile extends Component {
                 <Navbar />
                 <Top name={"Thomas Schork"}/>
                 <hr />
-                <Tab option={"Artwork"} onkeypress="changePage(artwork)"/>
-                <Tab option={"About"} onkeypress="changePage(about)"/>
-                <Tab option={"Contact"} onkeypress="changePage(contact)"/>
+                <div className={classes.tab}>
+                <div onClick={() => this.changePage("artwork")}>
+                    <Tab option={"Artwork"}/>
+                </div>
+                <div onClick={() => this.changePage("about")}>
+                    <Tab option={"About"}/>
+                </div>
+                <div onClick={() => this.changePage("contact")}>
+                    <Tab option={"Contact"}/>
+                </div>
+                </div>
                 <hr />
                 {this.displayPage()}
             </div>
@@ -31,6 +39,12 @@ class Profile extends Component {
     displayPage = () =>{
         if (this.state.page === "artwork"){
             return <DisplayArt />
+        }
+        else if (this.state.page === "about"){
+            return <Top name={"Thomas Schork"}/>
+        }
+        else{
+            return <Top name={"Thomas Schork"}/>
         }
     }
 }
