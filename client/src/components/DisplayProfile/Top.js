@@ -17,7 +17,6 @@ const Top = (props) => (
             
         </div>
 
-        <hr />
         
     </div>
 )

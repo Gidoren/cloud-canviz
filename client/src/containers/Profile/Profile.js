@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 
 import Navbar from "../../components/Navbar/Navbar";
 import Top from  "../../components/DisplayProfile/Top";
-import Tabbar from "../../components/DisplayProfile/Tabbar";
+import Tab from "../../components/DisplayProfile/Tab";
 import DisplayArt from '../../components/DisplayArt/DisplayArt';
 
 class Profile extends Component {
@@ -12,7 +12,11 @@ class Profile extends Component {
             <div>
                 <Navbar />
                 <Top name={"Thomas Schork"}/>
-                <Tabbar />
+                <hr />
+                <Tab option={"Artwork"}/>
+                <Tab option={"About"}/>
+                <Tab option={"Contact"}/>
+                <hr />
                 <DisplayArt />
             </div>
         )
