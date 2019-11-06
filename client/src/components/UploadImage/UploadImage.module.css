@@ -28,12 +28,12 @@
   height: 75px;
   margin: auto;
 }
-.img{
-  margin: 50px;
+.img {
+  /* margin: 50px; */
   vertical-align: middle;
   width: 40%;
   height: 40%;
-  object-fit: cover; 
+  object-fit: cover;
 }
 .upload {
   margin-left: 50px;
@@ -46,17 +46,17 @@
   font-family: "Josefin Sans", sans-serif;
 }
 @media (min-width: 1300px) {
-  .img{
-      width: 40%;
-      height: 40%;
+  .img {
+    width: 40%;
+    height: 40%;
   }
 }
 @media (max-width: 600px) {
-  .img{
-      width: 85%;
-      margin-left: 40px;
+  .img {
+    width: 85%;
+    margin-left: 40px;
   }
-  .upload{
+  .upload {
     margin-left: 150px;
   }
 }

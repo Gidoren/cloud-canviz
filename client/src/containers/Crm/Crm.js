@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ArtForm from "../../components/ArtForm/ArtForm";
 
 import { AUTH_TOKEN } from "../../utils/constants";
 
@@ -10,6 +11,12 @@ class Crm extends Component {
   //   };
 
   render() {
-    return <div></div>;
+    return (
+      <div>
+        <ArtForm />
+      </div>
+    );
   }
 }
+
+export default Crm;
