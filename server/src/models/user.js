@@ -39,7 +39,7 @@ const userSchema = new Schema(
     createdArtWorks: [
       {
         type: Schema.Types.ObjectId,
-        ref: "artWork",
+        ref: "artWork"
       }
     ]
   },

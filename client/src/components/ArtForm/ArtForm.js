@@ -5,7 +5,7 @@ import ErrorMessage from "./errorMessage";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
 
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
 
 // const REGISTER_USER = gql`
@@ -19,6 +19,32 @@ import { gql } from "apollo-boost";
 //   }
 // `;
 
+const CURRENT_USER = gql`
+  query currentUser {
+    currentUser {
+      _id
+      email
+      firstName
+      lastName
+    }
+  }
+`;
+
+const Query = props => {
+  //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
+
+  const { loading, error, data } = useQuery(CURRENT_USER);
+
+  if (loading) return "Loading...";
+  if (error) return `Error! ${error.message}`;
+
+  if (data) {
+    console.log("Response data: ", data);
+  }
+  //const reData = <p>data</p>
+  return <p>Done</p>;
+};
+
 const ArtInfo = props => {
   return (
     <div className={classes.artInfoContainer}>
@@ -30,7 +56,7 @@ const ArtInfo = props => {
   );
 };
 
-const ArtForm = props => {
+const ArtForm = () => {
   const {
     register,
     handleSubmit,
@@ -40,22 +66,26 @@ const ArtForm = props => {
     formState: { isSubmitting }
   } = useForm();
 
-  //const [registerUser, { data }] = useMutation(REGISTER_USER);
+  //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
+
+  // const [loadGreeting, { called, loading, data }] = useLazyQuery(
+  //   GET_GREETING,
+  //   { variables: { language: "english" } }
+  // );
 
   const onSubmit = data => {
     console.log(data);
-    // delete data.confirmPassword;
-    // registerUser({ variables: { userInput: data } })
-    //   .then(response => {
-    //     //console.log("response from gql", response.data.registerUser.email);
-    //     handleSwitchToLogin(response.data.registerUser.email);
-    //   })
-    //   .catch(err => {
-    //     console.log(err);
-    //   });
-  };
+    //currUser();
 
-  //const [pwd, setPwd] = useState("");
+    //console.log("current user res: ", user);
+
+    // .then(response => {
+    //   console.log("current user response", response);
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
+  };
 
   return (
     <div className={classes.body}>
@@ -75,41 +105,43 @@ const ArtForm = props => {
           </div>
         </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          <label className={classes.label}>Title:</label>
+          <div className={classes.inputContainer}>
+            <label className={classes.label}>Title:</label>
 
-          <input
-            className={classes.input}
-            id="traceInput"
-            name="title"
-            ref={register({ required: true, maxLength: 25 })}
-          />
+            <input
+              className={classes.input}
+              name="title"
+              ref={register({ required: false, maxLength: 25 })}
+            />
 
-          <ErrorMessage error={errors.firstName} />
+            <ErrorMessage error={errors.firstName} />
 
-          <label className={classes.label}>Artist:</label>
-          <input
-            className={classes.input}
-            name="artist"
-            ref={register({ required: true, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
+            <label className={classes.label}>Artist:</label>
+            <input
+              className={classes.input}
+              name="artist"
+              ref={register({ required: false, maxLength: 25 })}
+            />
+            <ErrorMessage error={errors.lastName} />
+          </div>
+          <div className={classes.inputContainer}>
+            <label className={classes.label}>Date:</label>
+            <input
+              className={classes.input}
+              name="artist"
+              ref={register({ required: false, maxLength: 25 })}
+            />
+            <ErrorMessage error={errors.lastName} />
 
-          <label className={classes.label}>Date:</label>
-          <input
-            className={classes.input}
-            name="artist"
-            ref={register({ required: true, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
-
-          <label className={classes.label}>Price:</label>
-          <input
-            className={classes.input}
-            name="artist"
-            ref={register({ required: true, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
-
+            <label className={classes.label}>Price:</label>
+            <input
+              className={classes.input}
+              name="artist"
+              ref={register({ required: false, maxLength: 25 })}
+            />
+            <ErrorMessage error={errors.lastName} />
+          </div>
+          <Query />
           <input
             className={classes.input}
             disabled={isSubmitting}
