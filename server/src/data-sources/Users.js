@@ -3,6 +3,8 @@ const isEmail = require("isemail");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
+const { UserInputError } = require("apollo-server");
+
 const { jwtSecret } = require("../../config");
 
 const User = require("../models/user");
@@ -22,7 +24,7 @@ class Users extends DataSource {
     try {
       let existingUser = await User.findOne({ email: args.userInput.email });
       if (existingUser) {
-        throw new Error("User exists already.");
+        throw new UserInputError("This user already exists, try logging in.");
       }
 
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);

@@ -13,29 +13,28 @@ import classes from "./Home.module.css";
 
 class Home extends Component {
   state = {
-    showReg: false,
+    show: false,
     modalType: "",
-    showLogin: false,
     usersEmail: ""
   };
 
-  showRegModal = () => {
+  showModal = () => {
     // const registeredUser = localStorage.getItem(AUTH_TOKEN);
     // const typeModal = registeredUser ? "Login" : "register";
-    this.setState({ showReg: true, modalType: "register" });
+    this.setState({ show: true, modalType: "register" });
   };
 
-  hideRegModal = () => {
-    this.setState({ showReg: false, modalType: "" });
+  hideModal = () => {
+    this.setState({ show: false, modalType: "" });
   };
 
-  showLoginModal = () => {
-    this.setState({ showLogin: true, modalType: "Login" });
-  };
+  // showLoginModal = () => {
+  //   this.setState({ showLogin: true, modalType: "Login" });
+  // };
 
-  hideLoginModal = () => {
-    this.setState({ showLogin: false });
-  };
+  // hideLoginModal = () => {
+  //   this.setState({ showLogin: false });
+  // };
 
   switchToLogin = email => {
     this.setState({ modalType: "Login", usersEmail: email });
@@ -49,23 +48,23 @@ class Home extends Component {
       modalContent = (
         <Login
           usersEmail={this.state.usersEmail}
-          handleHideLoginModal={this.hideLoginModal}
+          handleHideModal={this.hideModal}
         />
       );
     }
 
     return (
       <div>
-        <Navbar click={this.showRegModal} />
+        <Navbar click={this.showModal} />
 
-        <Modal show={this.state.showReg} handleClose={this.hideRegModal}>
+        <Modal show={this.state.show} handleClose={this.hideModal}>
           {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
           {modalContent}
         </Modal>
 
         <div className={classes.home}>
           <SideDrawer />
-          <DisplayArt />
+          <DisplayArt type="Home" />
         </div>
       </div>
     );

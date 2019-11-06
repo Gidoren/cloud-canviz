@@ -5,18 +5,7 @@ import ErrorMessage from "./errorMessage";
 import classes from "./Register.module.css";
 
 import { useMutation } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
-
-const REGISTER_USER = gql`
-  mutation registerUser($userInput: UserInput) {
-    registerUser(userInput: $userInput) {
-      _id
-      firstName
-      lastName
-      email
-    }
-  }
-`;
+import { REGISTER_USER } from "../../grqphql/mutations";
 
 const Register = ({ handleSwitchToLogin }) => {
   const {
@@ -41,7 +30,7 @@ const Register = ({ handleSwitchToLogin }) => {
         handleSwitchToLogin(response.data.registerUser.email);
       })
       .catch(err => {
-        console.log(err);
+        console.log("gql error: ", err);
       });
   };
 
@@ -72,7 +61,7 @@ const Register = ({ handleSwitchToLogin }) => {
             className={classes.input}
             id="traceInput"
             name="firstName"
-            ref={register({ required: true, maxLength: 25 })}
+            ref={register({ required: false, maxLength: 25 })}
           />
 
           <ErrorMessage error={errors.firstName} />
@@ -81,7 +70,7 @@ const Register = ({ handleSwitchToLogin }) => {
           <input
             className={classes.input}
             name="lastName"
-            ref={register({ required: true, maxLength: 25 })}
+            ref={register({ required: false, maxLength: 25 })}
           />
           <ErrorMessage error={errors.lastName} />
 
