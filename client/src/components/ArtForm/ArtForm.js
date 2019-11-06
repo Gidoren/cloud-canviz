@@ -19,31 +19,33 @@ import { gql } from "apollo-boost";
 //   }
 // `;
 
-const CURRENT_USER = gql`
-  query currentUser {
-    currentUser {
-      _id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
+// const CURRENT_USER = gql`
+//   query currentUser {
+//     currentUser {
+//       _id
+//       email
+//       firstName
+//       lastName
+//     }
+//   }
+// `;
 
-const Query = props => {
-  //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
+// const Query = props => {
+//   //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
 
-  const { loading, error, data } = useQuery(CURRENT_USER);
+//   const { loading, error, data } = useQuery(CURRENT_USER, {
+//     //pollInterval: 500
+//   });
 
-  if (loading) return "Loading...";
-  if (error) return `Error! ${error.message}`;
+//   if (loading) return "Loading...";
+//   if (error) return `Error! ${error.message}`;
 
-  if (data) {
-    console.log("Response data: ", data);
-  }
-  //const reData = <p>data</p>
-  return <p>Done</p>;
-};
+//   if (data) {
+//     console.log("Response data: ", data);
+//   }
+//   //const reData = <p>data</p>
+//   return <p>Done</p>;
+// };
 
 const ArtInfo = props => {
   return (
@@ -65,13 +67,6 @@ const ArtForm = () => {
     clearError,
     formState: { isSubmitting }
   } = useForm();
-
-  //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
-
-  // const [loadGreeting, { called, loading, data }] = useLazyQuery(
-  //   GET_GREETING,
-  //   { variables: { language: "english" } }
-  // );
 
   const onSubmit = data => {
     console.log(data);
@@ -141,7 +136,6 @@ const ArtForm = () => {
             />
             <ErrorMessage error={errors.lastName} />
           </div>
-          <Query />
           <input
             className={classes.input}
             disabled={isSubmitting}

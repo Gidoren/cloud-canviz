@@ -7,7 +7,7 @@ import { useQuery } from "react-apollo";
 import Spinner from "../UI/Spinner/Spinner";
 import Art1 from "../../assets/images/art.jpg";
 import Art from "./Art/Art";
-import UploadImage from "../UploadImage/UploadImage";
+//import UploadImage from "../UploadImage/UploadImage";
 
 import { Waypoint } from "react-waypoint";
 
@@ -52,7 +52,6 @@ const DisplayArt = ({ type }) => {
   if (error) return <span>{console.log(error)}</span>;
   return (
     <div className={classes.DisplayArt}>
-      <UploadImage />
       <div className={classes.row}>
         {/* it's data.getAllArt because the query was named getAllArt in Schema.
                 loop through it to get individual art. Each art have properties that we asked for in the query
