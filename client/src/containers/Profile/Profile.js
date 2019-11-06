@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Top from  "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
 import DisplayArt from '../../components/DisplayArt/DisplayArt';
+import About from "../../components/DisplayProfile/About"
 
 class Profile extends Component {
     constructor(props){
@@ -41,7 +42,7 @@ class Profile extends Component {
             return <DisplayArt />
         }
         else if (this.state.page === "about"){
-            return <Top name={"Thomas Schork"}/>
+            return <About />
         }
         else{
             return <Top name={"Thomas Schork"}/>
