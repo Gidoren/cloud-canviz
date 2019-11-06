@@ -73,7 +73,7 @@ const DisplayArt = () => {
                             width={art.dimensions.width}
                             username={art.creator.username}
                             desc={art.description}
-                            link={"/profile/"+ art.creator.username}
+                            link={"/profile/"+ art.creator.id}
                         />
                         {/* 1- Waypoint keep track of each image index and then fetch more images
                             when bottom art is reached that has index data.getAllArt.length-1

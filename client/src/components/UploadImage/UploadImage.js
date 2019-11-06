@@ -11,7 +11,8 @@ class UploadImage extends Component {
         uploadFiles: false
     }
     fileSelectHandler = event => {
-        this.setState({selectedFiles: [... this.state.selectedFiles, event[0]]})
+        console.log(event[0])
+        this.setState({selectedFiles: [...this.state.selectedFiles, event[0]]})
     }
     fileUploadHandler = () => {
         this.setState({uploadFiles: true})
@@ -19,7 +20,7 @@ class UploadImage extends Component {
     render(){
         return (
             <div>
-                {this.state.selectedFiles.length === 0 && <Dropzone onDrop={withPreviews(this.fileSelectHandler)}>
+                {this.state.selectedFiles.length === 0 && <Dropzone onDrop={this.fileSelectHandler}>
                     {({getRootProps, getInputProps}) => (
                         <div className={classes.innerBox} {...getRootProps()}>
                             <input className={classes.input} onChange={this.fileSelectHandler} {...getInputProps()} />
