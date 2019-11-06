@@ -8,8 +8,8 @@ module.exports = {
     getAllArt: async (_, {offset = 0, limit}, { dataSources }) => dataSources.Art.getAllArt(offset, limit),
     getAllUsers: async (_, args, { dataSources }) =>
       dataSources.Users.getAllUsers(),
-    getUser: async (_, { id }, { dataSources }) =>
-      dataSources.Users.getUser(id),
+    getUser: async (_, { username }, { dataSources }) =>
+      dataSources.Users.getUser(username),
     currentUser: authenticated((root, args, context, info) => context.user)
   }
 };

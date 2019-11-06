@@ -5,7 +5,7 @@ module.exports = `
             limit: Int
         ): [Art]
         getAllUsers: [User]
-        getUser(id: ID): User
+        getUser(username: String): User
         currentUser: User!
     }
     type Mutation {

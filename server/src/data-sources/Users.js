@@ -92,10 +92,9 @@ class Users extends DataSource {
       });
   }
 
-  async getUser(id) {
+  async getUser(username) {
     try {
-      const user = await User.findById(id)
-        .populate("createdArtWorks")
+      const user = await User.findOne({username: username})
         .exec();
       return { ...user._doc };
     } catch (err) {
