@@ -1,5 +1,5 @@
 import React from "react";
-import classes from "./Tab.module.css";
+import classes from "./About.module.css";
 
 const About = (props) =>(
     <div className={classes.all}>
