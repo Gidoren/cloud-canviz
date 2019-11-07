@@ -11,7 +11,6 @@ import "aos/dist/aos.css";
 class App extends Component {
   componentDidMount() {
     AOS.init({
-      offset: 300,
       duration: 2000
     });
   }

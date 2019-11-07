@@ -15,10 +15,7 @@ class Art extends DataSource {
       .skip(offset)
       .limit(limit)
       .sort("-createdAt")
-      .populate({
-        path: "creator",
-        select: "_id email username"
-      })
+      .populate("creator")
       .then(artworks => {
         return artworks.map(artwork => {
           return { ...artwork._doc };
@@ -61,7 +58,7 @@ class Art extends DataSource {
       })
       .then(user => {
         console.log(user);
-        user.createdArtWorks.push(art);
+        user.createdArtWorks.push(art._id);
         return user.save();
       })
       .then(res => {
