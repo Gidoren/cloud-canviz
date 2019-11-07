@@ -33,7 +33,7 @@ class Profile extends Component {
                         return(
                             <div>
                                 <Navbar />
-                                <Top name={data.getUser.firstName}/>
+                                <Top name={/*data.getUser.firstName*/ "NAME"}/>
                                 <hr />
                                 <div className={classes.tab}>
                                 <div onClick={() => this.changePage("artwork")}>
