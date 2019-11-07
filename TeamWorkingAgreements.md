@@ -1,6 +1,4 @@
-#Team Working Agreements
-
-*Release Plan*
+*Team Working Agreements*
 --------------------------------------------------
 Work Room: Baskin 302 / 340A
 
@@ -22,11 +20,20 @@ Other Tools: React, Node.js, MongoDB, GraphQL, Amazon S3, Apollo
 *Coding Styles / Standards*
 --------------------------------------------------
 We will use the same VSCode formater (Prettier) as well as ESLint for linting to keep uniform coding styles.
-<a href="https://github.com/airbnb/javascript/tree/master/react">We will also use the AirBnb React standard</a>
+
+<a href="https://github.com/airbnb/javascript/tree/master/react">We will also draw insperation from the AirBnb React standard</a>
+Prominent Standards:
+  -Use single quotes ('') not double ("")
+  -camelCase naming standard
+  -Headers on each file
+  -1 newline after each "component" (Functions, blocks, ...)
 
 *Work Patterns*
 --------------------------------------------------
-Definition of done: This we vary by task and will be specified in the sprint plan
+Definition of done: 
+-All acceptance creiteria is met
+-All unit test are passed
+-Everyone on the team agrees it is done
 
 Team collabration: We have a steady communication going on in the Discord channel, seperating it between frontend, backend, useful links, etc.
 We also use text for more urgent messages.
@@ -45,13 +52,15 @@ Work hand-off / integration: When we integrate certian features we make sure tha
 *Product Design Standards*
 --------------------------------------------------
 Look / Feel: Clean white feel that is intutitive as well as easy to use. There should be no confusion on functionality, where someting is, and where to get to something.
+
 -Fonts: TODO
 
 Product architecture: See slide
 
 Common approach to common problems:
-I. Google it
-II. Ask other teammates
-III. Ask a TA (Scott most likley)
+-I. Google it
+-II. Ask other teammates
+-III. Ask a TA (Scott most likley)
 
-Error handeling: TODO
+Error handeling: 
+We will attempt to refactor code until the unit test is passed and if we cannot resolve an error we will use our common approach to problems. If at the end we still cannot fix an error after many attempts, we will meet as a team to discuss possible workarounds / reconsider a feature.
