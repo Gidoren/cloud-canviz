@@ -3,6 +3,7 @@ import Logo from "../UI/Logo/Logo";
 import Item from "./Item/Item";
 import classes from "./Navbar.module.css";
 import UseAnimations from "react-useanimations";
+import { Link } from "react-router-dom";
 
 import { AUTH_TOKEN } from "../../utils/constants";
 
@@ -41,9 +42,15 @@ class Navbar extends Component {
           <Logo />
           <div className={classes.left}></div>
           <div className={classes.right}>
-            <Item text="Profile" />
-            <Item text="Login" click={this.props.click} />
-            <Item text="Logout" click={this.clearLocalStorage} />
+            <Item text="Profile">
+              <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+            </Item>
+            <Item text="Login" click={this.props.click}>
+              Login
+            </Item>
+            <Item text="Logout" click={this.clearLocalStorage}>
+              Logout
+            </Item>
           </div>
           <div
             className={classes.topMenuIcon}

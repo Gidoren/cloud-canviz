@@ -20,9 +20,13 @@ const getArtsQuery = gql`
         height
         width
       }
+      img {
+        url
+      }
       year
       description
       creator {
+        _id
         email
         username
       }
@@ -50,6 +54,9 @@ const DisplayArt = ({ type }) => {
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
   if (error) return <span>{console.log(error)}</span>;
+  if (data) {
+    console.log("query data", data);
+  }
   return (
     <div className={classes.DisplayArt}>
       <div className={classes.row}>
@@ -59,15 +66,19 @@ const DisplayArt = ({ type }) => {
         {data.getAllArt.map((art, index) => (
           <div key={index} className={classes.column}>
             {/* Art component that takes art properties as props.*/}
+            <p>{art.creator.id}</p>
             <Art
-              artURL={Art1}
+              artURL={art.img.url}
               title={art.title}
               year={art.year}
               height={art.dimensions.height}
               width={art.dimensions.width}
               username={art.creator.username}
+              user={art.creator}
+              //username="username"
               desc={art.description}
-              link={"/profile/" + art.creator.id}
+              link={"/profile/" + art.creator._id}
+              // link={"/profile/username"}
             />
             {/* 1- Waypoint keep track of each image index and then fetch more images
                             when bottom art is reached that has index data.getAllArt.length-1

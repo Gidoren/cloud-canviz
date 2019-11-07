@@ -24,7 +24,11 @@ const Register = ({ handleSwitchToLogin }) => {
   const onSubmit = data => {
     console.log("register data", data);
     delete data.confirmPassword;
-    registerUser({ variables: { userInput: data } })
+    registerUser({
+      variables: {
+        userInput: { ...data, username: data.lastName }
+      }
+    })
       .then(response => {
         console.log("response from gql", response.data);
         handleSwitchToLogin(response.data.registerUser.email);
