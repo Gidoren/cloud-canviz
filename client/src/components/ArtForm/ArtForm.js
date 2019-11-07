@@ -5,47 +5,26 @@ import ErrorMessage from "./errorMessage";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
 
+import { uploadImage } from "../UploadImage/S3/s3Upload";
+
 import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
+import { CostExplorer } from "aws-sdk";
 
-// const REGISTER_USER = gql`
-//   mutation registerUser($userInput: UserInput) {
-//     registerUser(userInput: $userInput) {
-//       _id
-//       firstName
-//       lastName
-//       email
-//     }
-//   }
-// `;
-
-// const CURRENT_USER = gql`
-//   query currentUser {
-//     currentUser {
-//       _id
-//       email
-//       firstName
-//       lastName
-//     }
-//   }
-// `;
-
-// const Query = props => {
-//   //const [currUser, { loading, user }] = useLazyQuery(CURRENT_USER);
-
-//   const { loading, error, data } = useQuery(CURRENT_USER, {
-//     //pollInterval: 500
-//   });
-
-//   if (loading) return "Loading...";
-//   if (error) return `Error! ${error.message}`;
-
-//   if (data) {
-//     console.log("Response data: ", data);
-//   }
-//   //const reData = <p>data</p>
-//   return <p>Done</p>;
-// };
+const CREATE_ART = gql`
+  mutation createArt($artInput: ArtInput) {
+    createArt(artInput: $artInput) {
+      _id
+      artist
+      title
+      year
+      price
+      img {
+        url
+      }
+    }
+  }
+`;
 
 const ArtInfo = props => {
   return (
@@ -58,7 +37,7 @@ const ArtInfo = props => {
   );
 };
 
-const ArtForm = () => {
+const ArtForm = props => {
   const {
     register,
     handleSubmit,
@@ -68,18 +47,80 @@ const ArtForm = () => {
     formState: { isSubmitting }
   } = useForm();
 
-  const onSubmit = data => {
-    console.log(data);
-    //currUser();
+  const [url, setUrl] = useState("");
 
-    //console.log("current user res: ", user);
+  // const [loading, setLoading] = useState(false);
+  // const [success, setSuccess] = useState(false);
 
-    // .then(response => {
-    //   console.log("current user response", response);
-    // })
-    // .catch(err => {
-    //   console.log(err);
-    // });
+  const [addArt, { data }] = useMutation(CREATE_ART);
+
+  // state to hold for uploadImage component
+  const [selectedFiles, setSelectedFiles] = useState([]);
+
+  // function to pass as props to upload image which adds file to selectedFiles
+  const handleSetFiles = event => {
+    setSelectedFiles([...selectedFiles, event[0]]);
+  };
+
+  const handleSetUrl = s3Url => {
+    setUrl(s3Url);
+    console.log("url: ", url);
+  };
+
+  const handleCancel = () => {
+    props.handleClose();
+  };
+
+  // const Loader = () => {
+  //   if (loading) {
+  //     return <p>...Uploading Image</p>;
+  //   } else if (success) {
+  //     return <p>UPLOAD SUCCESSFUL!</p>;
+  //   } else {
+  //     return null;
+  //   }
+  // };
+
+  // function to upload files to S3
+  const fileUploadHandler = async () => {
+    const fileName = selectedFiles[0].name;
+    const file = selectedFiles[0];
+    return await uploadImage(fileName, file)
+      .then(url => {
+        console.log("response from s3 url in ArtForm: ", url);
+        return url;
+      })
+      .catch(err => console.log(err));
+  };
+
+  const onSubmit = async formData => {
+    //setLoading(true);
+    await fileUploadHandler()
+      .then(res => {
+        addArt({
+          variables: {
+            artInput: {
+              artist: formData.artist,
+              title: formData.title,
+              year: formData.year,
+              price: formData.price,
+              img: {
+                url: res
+              }
+            }
+          }
+        }).then(res => {
+          console.log("respoonse from gql addArt", res);
+          props.handleRefetch();
+          //setSuccess(true);
+          // setLoading(false);
+          props.handleHideModal();
+          //setSuccess(false);
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
   };
 
   return (
@@ -88,7 +129,11 @@ const ArtForm = () => {
         <h1 className={classes.h1}>Upload Art</h1>
         <div className={classes.topContainer}>
           <div className={classes.upload}>
-            <UploadImage />
+            <UploadImage
+              handleSettingUrl={handleSetUrl}
+              handleSetSelectedFiles={handleSetFiles}
+              selectedFiles={selectedFiles}
+            />
           </div>
           <div className={classes.artInfo}>
             <ArtInfo
@@ -120,10 +165,10 @@ const ArtForm = () => {
             <ErrorMessage error={errors.lastName} />
           </div>
           <div className={classes.inputContainer}>
-            <label className={classes.label}>Date:</label>
+            <label className={classes.label}>Year:</label>
             <input
               className={classes.input}
-              name="artist"
+              name="year"
               ref={register({ required: false, maxLength: 25 })}
             />
             <ErrorMessage error={errors.lastName} />
@@ -131,16 +176,20 @@ const ArtForm = () => {
             <label className={classes.label}>Price:</label>
             <input
               className={classes.input}
-              name="artist"
+              name="price"
               ref={register({ required: false, maxLength: 25 })}
             />
             <ErrorMessage error={errors.lastName} />
           </div>
+          {/* <Loader /> */}
           <input
             className={classes.input}
             disabled={isSubmitting}
             type="submit"
           />
+          <div className={classes.cancelButton} onClick={props.handleHideModal}>
+            Cancel
+          </div>
         </div>
       </form>
     </div>

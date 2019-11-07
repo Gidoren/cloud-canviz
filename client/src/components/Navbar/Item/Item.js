@@ -11,7 +11,7 @@ class Item extends Component {
   render() {
     return (
       <div className={classes.topMenuItem} onClick={this.click}>
-        {this.text}
+        {this.props.children}
       </div>
     );
   }
