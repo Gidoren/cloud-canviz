@@ -1,15 +1,15 @@
-Sprint 1 Plan
--------------------------------------------------
+## Sprint 1 Plan ##
+---
 
-Goal:
+## Goal: ##
 
 We will begin this sprint by learning the various technologies required for
 out architecture. After, we will create a react app and a MongoDB server capable
 of uploading image data and storing it.
 
+---
 
-
-Task Listing (Organized by user story):
+## Task Listing (Organized by user story): ##
 
 1. "As an artist I would like a clean UI that shows me images with their
    relevant data" (3)
@@ -26,9 +26,9 @@ Task Listing (Organized by user story):
 
    Total estimated hours for Task 2: 7
 
+---
 
-
-Team Roles:
+## Team Roles: ##
 
 Thomas: Scrum Master
 Emerson: Product Owner
@@ -38,7 +38,7 @@ Farris: Team Member
 
 
 
-Initial Task Assignemnt:
+## Initial Task Assignemnt: ##
 
 Thomas: Task1, Task2, Task 3
 Emerson: Task 4, Task 5, Task 6
@@ -46,13 +46,19 @@ Yusef: Task1, Task2, Task 3
 Cameron: Task 4, Task 5
 Farris: Task 5, Task 6
 
+---
 
+## Initial Burnup Chart: ## 
+See PDF
 
-Initial Burnup Chart: See Excel Page
+---
 
-Intial Scrum Board: See Notion Page
+## Intial Scrum Board: ## 
+See PDF
 
-Scrum Times:
+---
+
+## Scrum Times: ##
 1. Mon 10-10:30 AM (BE 302)
 2. Wed 10-10:30 AM (TA meeting as well) (BE 302)
 3. Fri 10-10:30 AM (BE 302)
