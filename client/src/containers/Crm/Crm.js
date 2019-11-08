@@ -33,7 +33,6 @@ class Crm extends Component {
             console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
-                <button onClick={() => refetch()}>Refetch!</button>
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>

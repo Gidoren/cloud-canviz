@@ -39,7 +39,7 @@ class Navbar extends Component {
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo />
+          <Logo width="11em" />
           <div className={classes.left}></div>
           <div className={classes.right}>
             <Item text="Profile">

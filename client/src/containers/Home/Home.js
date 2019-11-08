@@ -23,7 +23,7 @@ class Home extends Component {
   showModal = () => {
     // const registeredUser = localStorage.getItem(AUTH_TOKEN);
     // const typeModal = registeredUser ? "Login" : "register";
-    this.setState({ show: true, modalType: "register" });
+    this.setState({ show: true, modalType: "Login" });
   };
 
   hideModal = () => {
@@ -37,6 +37,9 @@ class Home extends Component {
   // hideLoginModal = () => {
   //   this.setState({ showLogin: false });
   // };
+  switchToRegister = () => {
+    this.setState({ modalType: "register" });
+  };
 
   switchToLogin = email => {
     this.setState({ modalType: "Login", usersEmail: email });
@@ -51,6 +54,7 @@ class Home extends Component {
         <Login
           usersEmail={this.state.usersEmail}
           handleHideModal={this.hideModal}
+          handleSwitchToRegister={this.switchToRegister}
         />
       );
     }

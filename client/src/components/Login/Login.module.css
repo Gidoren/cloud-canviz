@@ -17,6 +17,7 @@
   background: white;
   max-width: 500px;
   margin: 0 auto;
+  text-align: center;
 }
 
 /* .p {
@@ -109,6 +110,20 @@
   margin-top: 30px;
 }
 
+.logoContainer {
+  margin: 30px;
+  display: block;
+}
+
+.line {
+  display: block;
+  height: 2px;
+  border: 0;
+  border-top: 1px solid #4d6770;
+  margin: 1em 0;
+  padding: 0;
+}
+
 .button {
   display: block;
   appearance: none;
@@ -118,6 +133,26 @@
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+.notMember {
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+  /* height: 50px;
+  line-height: 50px; */
+}
+
+.notMember .signUp {
+  /* line-height: normal; */
+  /* min-height: 100px;
+  display: inline-flex; */
+  align-items: center;
+  justify-content: center;
+  font-weight: 300 !important;
+  color: #57adda !important;
 }
 
 /* textarea:focus, input:focus{

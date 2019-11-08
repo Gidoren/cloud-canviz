@@ -68,7 +68,9 @@ const ArtForm = props => {
   };
 
   const handleCancel = () => {
-    props.handleClose();
+    props.handleHideModal();
+    setSelectedFiles([]);
+    setUrl("");
   };
 
   // const Loader = () => {
@@ -114,9 +116,12 @@ const ArtForm = props => {
           props.handleRefetch();
           //setSuccess(true);
           // setLoading(false);
-          props.handleHideModal();
+          //props.handleHideModal();
           //setSuccess(false);
         });
+      })
+      .then(() => {
+        handleCancel();
       })
       .catch(err => {
         console.log(err);
@@ -187,7 +192,7 @@ const ArtForm = props => {
             disabled={isSubmitting}
             type="submit"
           />
-          <div className={classes.cancelButton} onClick={props.handleHideModal}>
+          <div className={classes.cancelButton} onClick={handleCancel}>
             Cancel
           </div>
         </div>

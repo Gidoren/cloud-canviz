@@ -4,6 +4,7 @@ import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./Login.module.css";
 import { LOGIN_USER } from "../../grqphql/mutations";
+import Logo from "../UI/Logo/Logo";
 
 import { useMutation } from "@apollo/react-hooks";
 
@@ -14,7 +15,7 @@ const setAuthToken = token => {
   localStorage.setItem(AUTH_TOKEN, token);
 };
 
-const Login = ({ usersEmail, handleHideModal }) => {
+const Login = ({ usersEmail, handleHideModal, handleSwitchToRegister }) => {
   const {
     register,
     handleSubmit,
@@ -48,7 +49,10 @@ const Login = ({ usersEmail, handleHideModal }) => {
   return (
     <div className={classes.body}>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes.h1}>Sign In</h1>
+        <div className={classes.logoContainer}>
+          <Logo className={classes.logo} width="9em" />
+          <hr className={classes.line} m />
+        </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
           <label className={classes.label}>Email</label>
           <input
@@ -74,6 +78,23 @@ const Login = ({ usersEmail, handleHideModal }) => {
           />
         </div>
       </form>
+      <div className={classes.notMember}>
+        <p>Not yet a member?</p>
+        <span
+          style={{
+            fontWeight: "600",
+            color: "#57adda",
+            justifyContent: "center",
+            paddingTop: "7px",
+            paddingLeft: "7px",
+            cursor: "pointer"
+          }}
+          className={classes.signup}
+          onClick={handleSwitchToRegister}
+        >
+          Sign Up
+        </span>
+      </div>
     </div>
   );
 };
