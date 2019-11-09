@@ -30,13 +30,6 @@ class Home extends Component {
     this.setState({ show: false, modalType: "" });
   };
 
-  // showLoginModal = () => {
-  //   this.setState({ showLogin: true, modalType: "Login" });
-  // };
-
-  // hideLoginModal = () => {
-  //   this.setState({ showLogin: false });
-  // };
   switchToRegister = () => {
     this.setState({ modalType: "register" });
   };

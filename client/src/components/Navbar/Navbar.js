@@ -31,11 +31,17 @@ class Navbar extends Component {
     console.log("After clear token: ", token);
   };
 
+  isLoggedIn = () => {
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+    // return authToken ? true
+  };
+
   render = () => {
     const cName =
       this.state.menu == "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
+
     return (
       <div className={classes.header}>
         <div className={cName}>
