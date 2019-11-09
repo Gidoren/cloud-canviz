@@ -5,9 +5,7 @@ import path from 'path'
 const uploadImage = (props) => {
   // Set the region 
   AWS.config.update({
-    region: 'us-west-2',
-    accessKeyId: 'AKIAXEJA2EQA4GG7FPVS',
-    secretAccessKey: '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'
+    region: 'us-west-2'
   })
   // Create S3 service object 
   var s3 = new AWS.S3()
