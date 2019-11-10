@@ -4,10 +4,9 @@
 .table{
     width: 100%;
     color: #696969;
-    margin: 50px;
 }
 .tr{
-    width: 80%;
+    width: 60%;
     display: flex;
     flex-direction: row;
     margin: auto;
@@ -32,9 +31,8 @@
 .profileInfo{
     display: flex;
     justify-content: space-between;
-    margin: 80px;
-    margin-top: 20px;
-    margin-right: 15%;
+    margin: auto;
+    width: 55%;
 }
 .name{
     font-weight: 500;
