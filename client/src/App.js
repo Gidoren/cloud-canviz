@@ -26,7 +26,6 @@ class App extends Component {
     // https://itnext.io/managing-local-state-with-apollo-client-and-react-hooks-9ad357e6d649
   }
 
-  ge
   render() {
     return (
       <div>

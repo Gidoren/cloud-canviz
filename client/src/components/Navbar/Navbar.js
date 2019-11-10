@@ -31,16 +31,13 @@ class Navbar extends Component {
     console.log("After clear token: ", token);
   };
 
-  isLoggedIn = () => {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
-    // return authToken ? true
-  };
-
   render = () => {
     const cName =
       this.state.menu == "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
+
+    const authToken = localStorage.getItem(AUTH_TOKEN);
 
     return (
       <div className={classes.header}>
@@ -48,15 +45,26 @@ class Navbar extends Component {
           <Logo width="11em" />
           <div className={classes.left}></div>
           <div className={classes.right}>
-            <Item text="Profile">
-              <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
-            </Item>
-            <Item text="Login" click={this.props.click}>
-              Login
-            </Item>
-            <Item text="Logout" click={this.clearLocalStorage}>
-              Logout
-            </Item>
+            {authToken && (
+              <Item text="Profile">
+                <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+              </Item>
+            )}
+            {authToken && (
+              <Item text="CRM">
+                <Link to={{ pathname: "/crm" }}>CRM</Link>
+              </Item>
+            )}
+            {!authToken && (
+              <Item text="Login" click={this.props.click}>
+                Login
+              </Item>
+            )}
+            {authToken && (
+              <Item text="Logout" click={this.clearLocalStorage}>
+                Logout
+              </Item>
+            )}
           </div>
           <div
             className={classes.topMenuIcon}
