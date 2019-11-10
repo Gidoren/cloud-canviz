@@ -34,7 +34,7 @@
     opacity: 1;
 }
 .cover{
-    width: 80%;
+    width: 55%;
     border: 0 2px 2px lightgrey;
     background-color:#4052B5;
     border-radius: 5px;
@@ -54,8 +54,16 @@
 .root{
     margin: auto;
     margin-bottom: 50px;
-    width: 80%;
+    width: 55%;
 }
 .tableWrapper{
     overflow: auto;
+}
+@media (max-width: 1000px) {
+    .cover{
+        width: 80%;
+    }
+    .root{
+        width: 80%;
+    }
 }

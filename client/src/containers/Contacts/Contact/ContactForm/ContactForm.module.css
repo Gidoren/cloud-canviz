@@ -1,8 +1,3 @@
-.textField{
-    width: 100%;
-    height: 50px;
-    font-size: 15px;
-}
 .table{
     width: 100%;
     color: #696969;
@@ -19,6 +14,11 @@
     padding: 10px;
     width: 100%;
     margin-top: 1px;
+}
+.textField{
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
 }
 @media (max-width: 800px) {
     .tr{
