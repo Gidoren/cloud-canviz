@@ -11,12 +11,10 @@ import Reducer from "./store/reducer";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
+// import { InMemoryCache } from "apollo-cache-inmemory";
+// import { HttpLink } from "apollo-link-http";
 
 import { AUTH_TOKEN } from "./utils/constants";
-
-const token = localStorage.getItem(AUTH_TOKEN);
 
 // changed the way ApolloClient is imported to new version
 // here are links to references
@@ -35,28 +33,6 @@ const client = new ApolloClient({
         authorization: token ? `${token}` : ""
       }
     });
-  },
-  onError: ({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      // sendToLoggingService(graphQLErrors);
-    }
-    if (networkError) {
-      // logoutUser();
-    }
-  },
-  clientState: {
-    defaults: {
-      // isConnected: trues
-      currentUser: {}
-    },
-    resolvers: {
-      Mutation: {
-        // updateNetworkStatus: (_, { isConnected }, { cache }) => {
-        //   cache.writeData({ data: { isConnected }});
-        //   return null;
-      }
-    },
-    typeDefs: ``
   }
 });
 

@@ -30,19 +30,13 @@ class Crm extends Component {
           {({ loading, error, data, refetch }) => {
             if (loading) return "loading ..";
             if (error) console.log("query error get user art :", error);
-            console.log("Data from currentUser: ", data);
+            //console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>
-                {/* {data.currentUser.createdArtWorks.map(art => (
-                  <img
-                    key={art._id}
-                    style={{ width: "300px" }}
-                    src={art.img.url}
-                  ></img>
-                ))} */}
+
                 <Gallery {...data.currentUser} />
                 <Modal show={this.state.show} handleClose={this.hideModal}>
                   <ArtForm
