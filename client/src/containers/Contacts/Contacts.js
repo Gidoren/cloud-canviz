@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Contacts.module.css";
+import AddContact from "./AddContact/AddContact";
 
 class Contacts extends Component {
   state = {
@@ -10,20 +11,7 @@ class Contacts extends Component {
   };
 
   render() {
-    let addContactForum = <p></p>;
-    if (this.state.showAddContactForum === true) {
-      addContactForum = (
-        <table className={classes.table}>
-          <tr className={classes.tr}>
-            <th className={classes.th}>First Name</th>
-            <th className={classes.th}>
-              <input type="text" />
-            </th>
-          </tr>
-        </table>
-      );
-    }
-    return (
+    let pageToShow = (
       <div>
         <button
           className={classes.button}
@@ -31,7 +19,6 @@ class Contacts extends Component {
         >
           ADD CONTACT
         </button>
-        {addContactForum}
         <table className={classes.table}>
           <tr className={classes.tr}>
             <th className={classes.th}>Contact</th>
@@ -55,6 +42,19 @@ class Contacts extends Component {
             <th className={classes.th}>$10000</th>
           </tr>
         </table>
+      </div>
+    );
+
+    if (this.state.showAddContactForum === true) {
+      pageToShow = <AddContact 
+                      firstName="Unnamed"
+                      lastName="Contact"
+                      city="Unknown City"
+                      totalSales="0.00"/>
+    }
+    return (
+      <div> 
+        {pageToShow}
       </div>
     );
   }
