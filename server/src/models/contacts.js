@@ -29,8 +29,8 @@ const contactsSchema = new Schema(
             required: false
         },
         lead_owner: {
-            type: String,
-            required: true
+            type: Schema.Types.ObjectId,
+            ref: "user"
         }
     },
     { timestamps: true }

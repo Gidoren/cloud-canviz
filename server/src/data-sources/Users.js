@@ -109,7 +109,7 @@ class Users extends DataSource {
   createContact(args) {
     const contact = new Contact({
       ...args.contactInput,
-      lead_owner: "5dc48e79bffbc312cc7979b5"
+      lead_owner: "5dc8c9a20d7ae72885164ac3"
     });
     let createdContact
     return contact

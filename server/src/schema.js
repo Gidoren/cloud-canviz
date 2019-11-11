@@ -31,7 +31,7 @@ module.exports = `
         username: String
         typeUser: String
         createdArtWorks: [Art!]
-        contactList: [Contact!]
+        contactList: [Contact]
     }
 
     input UserInput {
