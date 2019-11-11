@@ -40,12 +40,12 @@ class Navbar extends Component {
 
     const authToken = localStorage.getItem(AUTH_TOKEN);
 
-    console.log("navbar loggedin: ", this.state.isLoggedIn);
-
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo width="11em" />
+          <Link to={{ pathname: "/" }}>
+            <Logo width="9em" />
+          </Link>
           <div className={classes.left}></div>
           <div className={classes.right}>
             {authToken && this.props.isLoggedIn && (

@@ -71,6 +71,12 @@ const artSchema = new Schema(
         type: String,
         required: false
       }
+    ],
+    likers: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user"
+      }
     ]
   },
   { timestamps: true }
