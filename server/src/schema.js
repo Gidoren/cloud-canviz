@@ -5,11 +5,13 @@ module.exports = `
             limit: Int
         ): [Art]
         getAllUsers: [User]
-        getUser(id: String): User
+        getUserContacts: [Contact]
+        getUser(username: String): User
         currentUser: User!
     }
     type Mutation {
         createArt(artInput: ArtInput): Art
+        createContact(contactInput: ContactInput): Contact
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
     }
@@ -29,6 +31,7 @@ module.exports = `
         username: String
         typeUser: String
         createdArtWorks: [Art!]
+        contactList: [Contact]
     }
 
     input UserInput {
@@ -38,6 +41,25 @@ module.exports = `
         lastName: String
         username: String
         typeUser: String
+    }
+
+    type Contact {
+        _id: ID!
+        firstName: String!
+        lastName: String!
+        phone_number: String!
+        email: String!
+        lead_status: String
+        lead_value: Int
+        lead_owner: String!
+        fullName: String
+    }
+    input ContactInput {
+        firstName: String!
+        lastName: String!
+        phone_number: String!
+        email: String!
+        fullName: String        
     }
 
     type Art {

@@ -36,6 +36,12 @@ const userSchema = new Schema(
       type: String,
       required: false
     },
+    contactList: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "contacts"
+      }
+    ],
     createdArtWorks: [
       {
         type: Schema.Types.ObjectId,
