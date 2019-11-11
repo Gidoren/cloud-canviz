@@ -4,7 +4,6 @@ import Paper from '@material-ui/core/Paper'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import ContactForm from './ContactForm/ContactForm'
-import gql from 'graphql-tag'
 import * as Query from '../../../grqphql/mutations'
 import { Mutation } from 'react-apollo';
 
@@ -48,7 +47,6 @@ class Contact extends Component {
                 }
             }
         })
-
     }
     render(){
         return (
@@ -77,46 +75,30 @@ class Contact extends Component {
                                 <Tab label="Contact Info" />
                             </Tabs>
                         </Paper>
-                        {this.state.value === 1 && <ContactForm
-                                                        contactFirstName={this.state.contactFirstName}
-                                                        contactLastName={this.state.contactLastName}
-                                                        spouseFirstName={this.state.spouseFirstName}
-                                                        spouseLastName={this.state.spouseLastName}
-                                                        email={this.state.email}
-                                                        phoneHome={this.state.phoneHome}
-                                                        phoneMobile={this.state.phoneMobile}
-                                                        phoneOther={this.state.phoneOther}
-                                                        website={this.state.website}
-                                                        birthday={this.state.birthday}
-                                                        company={this.state.company}
-                                                        privateNote={this.state.privateNote}
-                                                        streetAddress={this.state.streetAddress}
-                                                        city={this.state.city}
-                                                        state={this.state.state}
-                                                        zip={this.state.zip}
-                                                        formChangeHandler={this.formChangeHandler}/>}
-                        {this.state.showSaveChanges && <button 
-                                                            className={classes.saveChangesButton} 
-                                                            data-aos="slide-down"
-                                                            onClick={event => { 
-                                                                event.preventDefault();
-                                                                {console.log(this.state)}
-                                                                createContact({
-                                                                variables: {
-                                                                    contactInput: {
-                                                                        firstName: this.state.contactFirstName,
-                                                                        lastName: this.state.contactLastName,
-                                                                        phone_number: this.state.phoneHome,
-                                                                        email: this.state.email
-                                                                    }
-                                                                }
-                                                                })
-                                                                .then(res => {
-                                                                    console.log(res)
-                                                                })}}>SAVE CHANGES</button>}
+                        {this.state.value === 1 && <ContactForm {...this.state} formChangeHandler={this.formChangeHandler}/>}
+                        {this.state.showSaveChanges && 
+                        <button 
+                            className={classes.saveChangesButton} 
+                            data-aos="slide-down"
+                            onClick={event => { 
+                                event.preventDefault();
+                                {console.log(this.state)}
+                                createContact({
+                                variables: {
+                                    contactInput: {
+                                        firstName: this.state.contactFirstName,
+                                        lastName: this.state.contactLastName,
+                                        phone_number: this.state.phoneHome,
+                                        email: this.state.email
+                                    }
+                                }
+                                })
+                                .then(res => {
+                                    console.log(res)
+                                })}}>
+                            SAVE CHANGES
+                        </button>}
                     </div>
-    
-
                 )}
             </Mutation>
             

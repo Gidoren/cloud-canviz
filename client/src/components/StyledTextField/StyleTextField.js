@@ -22,9 +22,6 @@ const StyledTextField = withStyles(theme => ({
             },
           }
     },
-    label: {
-        color: theme.palette.secondary
-    }
 }))(TextField);
 
 export default StyledTextField

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import classes from "./Contacts.module.css";
 import Contact from "./Contact/Contact";
-import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -10,15 +9,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 
-const useStyles = makeStyles({
-  root: {
-    width: '100%',
-  },
-  tableWrapper: {
-    maxHeight: 440,
-    overflow: 'auto',
-  },
-});
 const columns = [
   { id: 'contact', label: 'Contact', minWidth: 170 },
   { id: 'phone', label: 'Phone', minWidth: 100 },
@@ -109,7 +99,7 @@ class Contacts extends Component {
               <TableBody>
                 {rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={row.code}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={rows.indexOf(row)}>
                       {columns.map(column => {
                         const value = row[column.id];
                         return (
