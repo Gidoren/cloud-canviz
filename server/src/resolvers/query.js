@@ -5,7 +5,8 @@ fieldName: (obj, args, context, info) => result;
 */
 module.exports = {
   Query: {
-    getAllArt: async (_, {offset = 0, limit}, { dataSources }) => dataSources.Art.getAllArt(offset, limit),
+    getAllArt: async (_, { offset = 0, limit }, { dataSources }) =>
+      dataSources.Art.getAllArt(offset, limit),
     getAllUsers: async (_, args, { dataSources }) =>
       dataSources.Users.getAllUsers(),    
     getUser: async (_, { username }, { dataSources }) =>

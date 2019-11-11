@@ -11,12 +11,10 @@ import Reducer from "./store/reducer";
 
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
+// import { InMemoryCache } from "apollo-cache-inmemory";
+// import { HttpLink } from "apollo-link-http";
 
 import { AUTH_TOKEN } from "./utils/constants";
-
-const token = localStorage.getItem(AUTH_TOKEN);
 
 // changed the way ApolloClient is imported to new version
 // here are links to references
@@ -29,7 +27,7 @@ const client = new ApolloClient({
     // gets the auth token from local storage if a user is signed in
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("current auth token: ", token);
-    // set the header of every request with the users auth token in header
+    // set the header of every request with the users auth token in headerd
     operation.setContext({
       headers: {
         authorization: token ? `${token}` : ""

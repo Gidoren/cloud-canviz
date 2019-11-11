@@ -46,7 +46,9 @@ class Users extends DataSource {
   async loginUser(email, password) {
     try {
       // check if user exists
-      const user = await User.findOne({ email: email }).exec();
+      const user = await User.findOne({ email: email }).populate(
+        "createdArtWorks"
+      );
       if (!user) {
         throw new Error("Invalid Login");
       }
@@ -60,10 +62,13 @@ class Users extends DataSource {
       //
       const token = jwt.sign(
         {
-          _id: user._id,
-          email: user.email,
-          firstName: user.firstName,
-          lastName: user.lastName
+          ...user._doc,
+          password: null
+          // _id: user._id,
+          // email: user.email,
+          // firstName: user.firstName,
+          // lastName: user.lastName,
+          // createdArtWorks: user.createdArtWorks
         },
         jwtSecret,
         {
@@ -96,7 +101,19 @@ class Users extends DataSource {
       });
   }
 
-  async getUser(username) {
+  async currentUser() {
+    const userId = this.context.user._id;
+    return User.findById(userId)
+      .populate("createdArtWorks")
+      .then(user => {
+        return { ...user._doc };
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  async getUser(id) {
     try {
       const user = await User.findOne({username: username})
         .populate("createdArtWorks")

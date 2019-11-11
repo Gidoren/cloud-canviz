@@ -3,6 +3,7 @@ import Logo from "../UI/Logo/Logo";
 import Item from "./Item/Item";
 import classes from "./Navbar.module.css";
 import UseAnimations from "react-useanimations";
+import { Link } from "react-router-dom";
 
 import { AUTH_TOKEN } from "../../utils/constants";
 
@@ -35,15 +36,35 @@ class Navbar extends Component {
       this.state.menu == "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
+
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo />
+          <Logo width="11em" />
           <div className={classes.left}></div>
           <div className={classes.right}>
-            <Item text="Profile" />
-            <Item text="Login" click={this.props.click} />
-            <Item text="Logout" click={this.clearLocalStorage} />
+            {authToken && (
+              <Item text="Profile">
+                <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+              </Item>
+            )}
+            {authToken && (
+              <Item text="CRM">
+                <Link to={{ pathname: "/crm" }}>CRM</Link>
+              </Item>
+            )}
+            {!authToken && (
+              <Item text="Login" click={this.props.click}>
+                Login
+              </Item>
+            )}
+            {authToken && (
+              <Item text="Logout" click={this.clearLocalStorage}>
+                Logout
+              </Item>
+            )}
           </div>
           <div
             className={classes.topMenuIcon}

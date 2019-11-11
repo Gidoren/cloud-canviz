@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Query } from "react-apollo";
 import { connect } from "react-redux";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
@@ -6,6 +7,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import Modal from "../../components/UI/Modal/Modal";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
+import { currentUser } from "../../grqphql/queries";
 
 import { AUTH_TOKEN } from "../../utils/constants";
 
@@ -21,20 +23,16 @@ class Home extends Component {
   showModal = () => {
     // const registeredUser = localStorage.getItem(AUTH_TOKEN);
     // const typeModal = registeredUser ? "Login" : "register";
-    this.setState({ show: true, modalType: "register" });
+    this.setState({ show: true, modalType: "Login" });
   };
 
   hideModal = () => {
     this.setState({ show: false, modalType: "" });
   };
 
-  // showLoginModal = () => {
-  //   this.setState({ showLogin: true, modalType: "Login" });
-  // };
-
-  // hideLoginModal = () => {
-  //   this.setState({ showLogin: false });
-  // };
+  switchToRegister = () => {
+    this.setState({ modalType: "register" });
+  };
 
   switchToLogin = email => {
     this.setState({ modalType: "Login", usersEmail: email });
@@ -49,23 +47,39 @@ class Home extends Component {
         <Login
           usersEmail={this.state.usersEmail}
           handleHideModal={this.hideModal}
+          handleSwitchToRegister={this.switchToRegister}
         />
       );
     }
 
     return (
       <div>
-        <Navbar click={this.showModal} />
+        <Query query={currentUser}>
+          {({ loading, error, data, refetch }) => {
+            if (loading) return "loading ..";
+            if (error) console.log("query error get user art :", error);
+            console.log("Data from currentUser: ", data);
 
-        <Modal show={this.state.show} handleClose={this.hideModal}>
-          {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
-          {modalContent}
-        </Modal>
+            return (
+              <div>
+                <Navbar
+                  click={this.showModal}
+                  profileLink={data ? "/profile/" + data.currentUser._id : "/"}
+                  // user={...data.currentUser}
+                />
 
-        <div className={classes.home}>
-          <SideDrawer />
-          <DisplayArt type="Home" />
-        </div>
+                <Modal show={this.state.show} handleClose={this.hideModal}>
+                  {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
+                  {modalContent}
+                </Modal>
+                <div className={classes.home}>
+                  <SideDrawer />
+                  <DisplayArt type="Home" />
+                </div>
+              </div>
+            );
+          }}
+        </Query>
       </div>
     );
   }

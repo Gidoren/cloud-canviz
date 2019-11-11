@@ -3,31 +3,12 @@ import ArtForm from "../../components/ArtForm/ArtForm";
 import Modal from "../../components/UI/Modal/Modal";
 import gql from "graphql-tag";
 import { Query } from "react-apollo";
+import Gallery from "../../components/Gallery/Gallery";
+import { currentUser } from "../../grqphql/queries";
 
 import { AUTH_TOKEN } from "../../utils/constants";
 
 import classes from "./Crm.module.css";
-
-const currentUser = gql`
-  query currentUser {
-    currentUser {
-      _id
-      email
-      firstName
-      lastName
-      createdArtWorks {
-        _id
-        artist
-        title
-        year
-        img {
-          url
-        }
-        price
-      }
-    }
-  }
-`;
 
 class Crm extends Component {
   state = {
@@ -46,15 +27,22 @@ class Crm extends Component {
     return (
       <div>
         <Query query={currentUser}>
-          {({ loading, error, data }) => {
+          {({ loading, error, data, refetch }) => {
             if (loading) return "loading ..";
             if (error) console.log("query error get user art :", error);
-            console.log("Data from currentUser: ", data);
+            //console.log("Data from currentUser: ", data);
             return (
-              <div>
-                <button onClick={this.showModal}>Upload Artwork</button>
+              <div className={classes.container}>
+                <button className={classes.button} onClick={this.showModal}>
+                  Upload Artwork
+                </button>
+
+                <Gallery {...data.currentUser} />
                 <Modal show={this.state.show} handleClose={this.hideModal}>
-                  <ArtForm />
+                  <ArtForm
+                    handleHideModal={this.hideModal}
+                    handleRefetch={refetch}
+                  />
                 </Modal>
               </div>
             );

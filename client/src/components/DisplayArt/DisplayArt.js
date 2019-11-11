@@ -20,9 +20,13 @@ const getArtsQuery = gql`
         height
         width
       }
+      img {
+        url
+      }
       year
       description
       creator {
+        _id
         email
         username
       }
@@ -50,59 +54,67 @@ const DisplayArt = ({ type }) => {
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
   if (error) return <span>{console.log(error)}</span>;
+  if (data) {
+    console.log("query data", data);
+  }
   return (
     <div className={classes.DisplayArt}>
       <div className={classes.row}>
         {/* it's data.getAllArt because the query was named getAllArt in Schema.
                 loop through it to get individual art. Each art have properties that we asked for in the query
                 which are defined in schema */}
-        {data.getAllArt.map((art, index) => (
-          <div key={index} className={classes.column}>
-            {/* Art component that takes art properties as props.*/}
-            <Art
-              artURL={Art1}
-              title={art.title}
-              year={art.year}
-              height={art.dimensions.height}
-              width={art.dimensions.width}
-              username={art.creator.username}
-              desc={art.description}
-              link={"/profile/" + art.creator.id}
-            />
-            {/* 1- Waypoint keep track of each image index and then fetch more images
+        {data &&
+          data.getAllArt.map((art, index) => (
+            <div key={index} className={classes.column}>
+              {/* Art component that takes art properties as props.*/}
+
+              <Art
+                artURL={art.img.url}
+                title={art.title}
+                year={art.year}
+                height={art.dimensions.height}
+                width={art.dimensions.width}
+                username={art.creator.username}
+                user={art.creator}
+                //username="username"
+                desc={art.description}
+                link={"/profile/" + art.creator._id}
+                // link={"/profile/username"}
+              />
+              {/* 1- Waypoint keep track of each image index and then fetch more images
                             when bottom art is reached that has index data.getAllArt.length-1
                             2- fetchMore takes the offset which is art[lengt-1] and fetch more art
                             that comes after that offset 
                             3- if hasMoreArt is false that means we all arts have been fetched so no
                             need to fetch more */}
-            {index === data.getAllArt.length - 1 && hasMoreArt === true && (
-              <Waypoint
-                onEnter={() =>
-                  fetchMore({
-                    variables: {
-                      offset: data.getAllArt.length
-                    },
-                    updateQuery: (prev, { fetchMoreResult }) => {
-                      {
-                        /* if fetched array is less than the limit then there's
+              {index === data.getAllArt.length - 1 && hasMoreArt === true && (
+                <Waypoint
+                  onEnter={() =>
+                    fetchMore({
+                      variables: {
+                        offset: data.getAllArt.length
+                      },
+                      updateQuery: (prev, { fetchMoreResult }) => {
+                        {
+                          /* if fetched array is less than the limit then there's
                                         no more arts left */
+                        }
+                        if (fetchMoreResult.getAllArt.length < limit)
+                          setHasMoreArt(false);
+                        if (!fetchMoreResult) return prev;
+                        return Object.assign({}, prev, {
+                          getAllArt: [
+                            ...prev.getAllArt,
+                            ...fetchMoreResult.getAllArt
+                          ]
+                        });
                       }
-                      if (fetchMoreResult.getAllArt.length < limit)
-                        setHasMoreArt(false);
-                      if (!fetchMoreResult) return prev;
-                      return Object.assign({}, prev, {
-                        getAllArt: [
-                          ...prev.getAllArt,
-                          ...fetchMoreResult.getAllArt
-                        ]
-                      });
-                    }
-                  })
-                }
-              />
-            )}
-          </div>
-        ))}
+                    })
+                  }
+                />
+              )}
+            </div>
+          ))}
       </div>
       {/* if there's more art left to be fetched then show load componenet until rerender */}
       {hasMoreArt === true && <Spinner />}
