@@ -6,7 +6,7 @@ module.exports = `
         ): [Art]
         getAllUsers: [User]
         getUserContacts: [Contact]
-        getUser(username: String): User
+        getUser(id: String): User
         currentUser: User!
     }
     type Mutation {

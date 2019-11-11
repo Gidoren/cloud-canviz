@@ -33,7 +33,7 @@ class Art extends DataSource {
     const user = this.context.user._id;
     const art = new ArtWork({
       ...args.artInput,
-      creator: "5dc8c9a20d7ae72885164ac3"
+      creator: user
     });
     let createdArt;
     return art

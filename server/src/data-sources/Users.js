@@ -46,7 +46,9 @@ class Users extends DataSource {
   async loginUser(email, password) {
     try {
       // check if user exists
-      const user = await User.findOne({ email: email }).exec();
+      const user = await User.findOne({ email: email })
+        .populate("createdArtWorks")
+        .exec();
       if (!user) {
         throw new Error("Invalid Login");
       }
@@ -96,9 +98,21 @@ class Users extends DataSource {
       });
   }
 
-  async getUser(username) {
+  async currentUser() {
+    const userId = this.context.user._id;
+    return User.findById(userId)
+      .populate("createdArtWorks")
+      .then(user => {
+        return { ...user._doc };
+      })
+      .catch(err => {
+        throw err;
+      });
+  }
+
+  async getUser(id) {
     try {
-      const user = await User.findOne({username: username})
+      const user = await User.findById(id)
         .populate("createdArtWorks")
         .populate("contactList")
         .exec();
@@ -114,20 +128,20 @@ class Users extends DataSource {
       ...args.contactInput,
       lead_owner: "5dc8c9a20d7ae72885164ac3"
     });
-    let createdContact
+    let createdContact;
     return contact
       .save()
       .then(result => {
         const user = this.context.user;
         createdContact = { ...result._doc };
-        return User.findById(createdContact.lead_owner._id)
+        return User.findById(createdContact.lead_owner._id);
       })
       .then(user => {
-        user.contactList.push(contact)
-        return user.save()
+        user.contactList.push(contact);
+        return user.save();
       })
       .then(res => {
-        return createdContact
+        return createdContact;
       })
       .catch(err => {
         console.log(err);

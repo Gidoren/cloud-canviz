@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Route, BrowserRouter } from "react-router-dom";
+import { gql } from "apollo-boost";
 import Home from "./containers/Home/Home";
 import Profile from "./containers/Profile/Profile";
 import Contacts from "./containers/Contacts/Contacts";
@@ -27,6 +28,16 @@ class App extends Component {
   }
 
   render() {
+    // const { data } = client.query({
+    //   query: gql`
+    //     {
+    //       showLogin @client
+    //     }
+    //   `
+    // });
+
+    // console.log("showLogin query: ", data);
+
     return (
       <div>
         <link

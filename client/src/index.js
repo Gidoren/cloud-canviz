@@ -10,7 +10,9 @@ import { Provider } from "react-redux";
 import Reducer from "./store/reducer";
 
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
+import { ApolloProvider, ApolloConsumer } from "react-apollo";
+import { defaults } from "./grqphql/store/defaults";
+
 // import { InMemoryCache } from "apollo-cache-inmemory";
 // import { HttpLink } from "apollo-link-http";
 
@@ -34,6 +36,18 @@ const client = new ApolloClient({
       }
     });
   }
+  // clientState: {
+  //   defaults: { defaults },
+  //   resolvers: {},
+  //   typeDefs: `
+  //     type Query {
+  //       isLoggedIn: Boolean
+  //     }
+  //     type Query {
+  //       showLogin: String
+  //     }
+  //   `
+  // }
 });
 
 const store = createStore(Reducer);
