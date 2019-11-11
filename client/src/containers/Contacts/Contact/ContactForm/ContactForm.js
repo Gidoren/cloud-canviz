@@ -6,20 +6,21 @@ import { withStyles } from '@material-ui/core/styles';
 const StyledTextField = withStyles(theme => ({
     root: {
         '& label.Mui-focused': {
-            color: '33A1DE',
+            color: '2A4B7C',
            },
            '& .MuiInput-underline:after': {
-            borderBottomColor: '33A1DE',
+            borderBottomColor: '2A4B7C',
            },
           '& .MuiOutlinedInput-root': {
             '& fieldset': {
-              borderColor: 'lightgrey',
+              border: '1px solid #F8F8F8',
+              boxShadow: '0 1px 1px darkgrey'
             },
             '&:hover fieldset': {
-              borderColor: '33A1DE',
+              borderColor: '2A4B7C',
             },
             '&.Mui-focused fieldset': {
-              borderColor: '33A1DE',
+              borderColor: '2A4B7C',
             },
           }
     },
@@ -40,26 +41,26 @@ const ContactForm = (props) => {
                         />
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="contactLastName" 
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="contactLastName" 
                         label="Last Name" value={props.contactLastName !== "Contact"? props.contactLastName : ""}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="spouseFirstName" label="Spouse First Name"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="spouseFirstName" label="Spouse First Name"
                         value={props.spouseFirtName}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="spouseLastName" label="Spouse Last Name"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="spouseLastName" label="Spouse Last Name"
                         value={props.spouseLastName}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="email" label="Email"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="email" label="Email"
                         value={props.email}
                         onChange={props.formChangeHandler}/>
                     </th>
@@ -67,36 +68,36 @@ const ContactForm = (props) => {
                 
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="phoneHome" label="Phone(Home)"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="phoneHome" label="Phone(Home)"
                         value={props.phoneHome}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="phoneMobile" label="Phone(Mobile)"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="phoneMobile" label="Phone(Mobile)"
                         value={props.phoneMobile}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="phoneOther" label="Phone(Other)"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="phoneOther" label="Phone(Other)"
                         value={props.phoneOther}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="company" label="Company"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="company" label="Company"
                         value={props.company}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="birthday" label="Birthday"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="birthday" label="Birthday"
                         value={props.birthday}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="website" label="Website"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="website" label="Website"
                         value={props.website}
                         onChange={props.formChangeHandler}/>
                     </th>
@@ -104,7 +105,7 @@ const ContactForm = (props) => {
                 <tr className={classes.tr}>
                     <th className={classes.th}>
                         <div className={classes.privateNote}>
-                            <TextField className={classes.textField} margin="normal" variant="outlined" name="privateNote" label="Private Note"
+                            <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="privateNote" label="Private Note"
                             d="outlined-multiline-flexible" multiline rowsMax="4"
                             value={props.privateNote}
                             onChange={props.formChangeHandler}/>
@@ -113,24 +114,24 @@ const ContactForm = (props) => {
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="streetAddress" label="Street Address"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="streetAddress" label="Street Address"
                         value={props.streetAddress}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="city" label="City"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="city" label="City"
                         value={props.city !== "Unknown City"? props.city : ""}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="state" label="State"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="state" label="State"
                         value={props.state}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>
-                        <TextField className={classes.textField} margin="normal" variant="outlined" name="zip" label="Zip"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="zip" label="Zip"
                         value={props.zip}
                         onChange={props.formChangeHandler}/>
                     </th>

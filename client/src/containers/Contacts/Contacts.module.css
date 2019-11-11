@@ -29,16 +29,15 @@
 }
 .button:hover{
     border-color: white;
-    background-color: #4052B5;
+    background-color: #2A4B7C;
     color: white;
     opacity: 1;
 }
 .cover{
     width: 55%;
     border: 0 2px 2px lightgrey;
-    background-color:#4052B5;
+    background-color:#2A4B7C;
     border-radius: 5px;
-    height: 200px;
     height: 200px;
     display: flex;
     justify-content: space-between;
@@ -62,8 +61,12 @@
 @media (max-width: 1000px) {
     .cover{
         width: 80%;
+        flex: none;
     }
     .root{
         width: 80%;
+    }
+    .button{
+        font-size: 8px;
     }
 }
