@@ -12,9 +12,61 @@ const contactsSchema = new Schema(
             type: String,
             required: true
         },
+        spouseFirstName: {
+            type: String,
+            required: false
+        },
+        spouseLastName: {
+            type: String,
+            required: false
+        },
         phone_number: {
             type: String,
             required: true
+        },
+        mobile_phone: {
+            type: String,
+            required: false
+        },
+        other_phone: {
+            type: String,
+            required: false
+        },
+        company: {
+            type: String,
+            required: false
+        },
+        birthday: {
+            type: String,
+            required: false
+        },
+        website: {
+            type: String,
+            required: false
+        },
+        private_note: {
+            type: String,
+            required: false
+        },
+        street_address: {
+            type: String,
+            required: false
+        },
+        city: {
+            type: String,
+            required: false
+        },
+        state: {
+            type: String,
+            required: false
+        },
+        city: {
+            type: String,
+            required: false
+        },
+        zip: {
+            type: String,
+            required: false
         },
         email: {
             type: String,
