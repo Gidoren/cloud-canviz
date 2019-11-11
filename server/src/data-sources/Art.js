@@ -28,7 +28,7 @@ class Art extends DataSource {
   createArt(args) {
     const art = new ArtWork({
       ...args.artInput,
-      creator: "5db3cd2f048b822783b5785d"
+      creator: "5dc8c9a20d7ae72885164ac3"
     });
     let createdArt
     return art

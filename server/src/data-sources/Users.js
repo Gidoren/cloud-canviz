@@ -85,6 +85,7 @@ class Users extends DataSource {
   async getAllUsers() {
     return User.find({})
       .populate("createdArtWorks")
+      .populate("contactList")
       .then(users => {
         return users.map(user => {
           return { ...user._doc };
@@ -98,6 +99,8 @@ class Users extends DataSource {
   async getUser(username) {
     try {
       const user = await User.findOne({username: username})
+        .populate("createdArtWorks")
+        .populate("contactList")
         .exec();
       return { ...user._doc };
     } catch (err) {
