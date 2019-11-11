@@ -47,7 +47,19 @@ module.exports = `
         _id: ID!
         firstName: String!
         lastName: String!
+        spouseFirstName: String
+        spouseLastName: String
         phone_number: String!
+        mobile_phone: String
+        other_phone: String
+        company: String
+        birthday: String
+        website: String
+        privacy_note: String
+        street_address: String
+        city: String
+        state: String
+        zip: String
         email: String!
         lead_status: String
         lead_value: Int
