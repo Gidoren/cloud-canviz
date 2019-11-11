@@ -38,7 +38,6 @@ class Contact extends Component {
         this.setState({value: newValue})
     }
     saveChangesHandler = (event, createContact) => {
-        event.preventDefault()
         createContact({
             variable: {
                 contactInput: {
@@ -96,7 +95,25 @@ class Contact extends Component {
                                                         state={this.state.state}
                                                         zip={this.state.zip}
                                                         formChangeHandler={this.formChangeHandler}/>}
-                        {this.state.showSaveChanges && <button className={classes.saveChangesButton} data-aos="slide-down">SAVE CHANGES</button>}
+                        {this.state.showSaveChanges && <button 
+                                                            className={classes.saveChangesButton} 
+                                                            data-aos="slide-down"
+                                                            onClick={event => { 
+                                                                event.preventDefault();
+                                                                {console.log(this.state)}
+                                                                createContact({
+                                                                variables: {
+                                                                    contactInput: {
+                                                                        firstName: this.state.contactFirstName,
+                                                                        lastName: this.state.contactLastName,
+                                                                        phone_number: this.state.phoneHome,
+                                                                        email: this.state.email
+                                                                    }
+                                                                }
+                                                                })
+                                                                .then(res => {
+                                                                    console.log(res)
+                                                                })}}>SAVE CHANGES</button>}
                     </div>
     
 
