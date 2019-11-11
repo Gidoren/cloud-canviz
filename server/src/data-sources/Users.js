@@ -7,6 +7,7 @@ const { UserInputError } = require("apollo-server");
 
 const { jwtSecret } = require("../../config");
 
+const Contact = require("../models/contacts");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
 
@@ -102,6 +103,33 @@ class Users extends DataSource {
     } catch (err) {
       throw err;
     }
+  }
+
+  // attempting to implement similar to createArt()
+  createContact(args) {
+    const contact = new Contact({
+      ...args.contactInput,
+      lead_owner: "5dc48e79bffbc312cc7979b5"
+    });
+    let createdContact
+    return contact
+      .save()
+      .then(result => {
+        const user = this.context.user;
+        createdContact = { ...result._doc };
+        return User.findById(createdContact.lead_owner._id)
+      })
+      .then(user => {
+        user.contactList.push(contact)
+        return user.save()
+      })
+      .then(res => {
+        return createdContact
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
   }
 }
 

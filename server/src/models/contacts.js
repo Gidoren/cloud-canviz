@@ -4,7 +4,11 @@ const Schema = mongoose.Schema;
 
 const contactsSchema = new Schema(
     {
-        name: {
+        firstName: {
+            type: String,
+            required: true
+        },
+        lastName: {
             type: String,
             required: true
         },
@@ -23,9 +27,17 @@ const contactsSchema = new Schema(
         lead_value: {
             type: Number,
             required: false
-        } 
+        },
+        lead_owner: {
+            type: String,
+            required: true
+        }
     },
     { timestamps: true }
 );
+
+contactsSchema.virtual("fullName").get(function() {
+    return this.firstName + " " + this.lastName;
+});
 
 module.exports = mongoose.model("contacts", contactsSchema)
