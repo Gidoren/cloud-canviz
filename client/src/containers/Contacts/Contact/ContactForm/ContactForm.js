@@ -35,7 +35,7 @@ const ContactForm = (props) => {
             <tbody>
                 <tr className={classes.tr}>
                     <th className={classes.th}>
-                        <StyledTextField inputProps={{ style: { fontFamily: 'nunito', color: 'grey'}}} className={classes.textField} margin="normal" variant="outlined" name="contactFirstName"
+                        <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="contactFirstName"
                         label="First Name" value={props.contactFirstName !== "Unnamed"? props.contactFirstName : ""}
                         onChange={props.formChangeHandler}
                         />

@@ -81,7 +81,7 @@ class Contacts extends Component {
 
   render() {
     let pageToShow = (
-      <div data-aos="slide-up">
+      <div data-aos="zoom-in">
         <div className={classes.cover}>
           <p className={classes.coverHeading}>Contacts</p>
           <button

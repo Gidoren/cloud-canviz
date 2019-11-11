@@ -5,7 +5,7 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import ContactForm from './ContactForm/ContactForm'
 
-class AddContact extends Component {
+class Contact extends Component {
     state = {
         contactFirstName: this.props.firstName,
         contactLastName: this.props.lastName,
@@ -24,10 +24,12 @@ class AddContact extends Component {
         city: this.props.city,
         state: this.props.state,
         zip: this.props.zip,
-        value: 1
+        value: 1,
+        showSaveChanges: false
     }
     formChangeHandler = event => {
         this.setState({[event.target.name]: event.target.value})
+        this.setState({showSaveChanges: true})
     }
     tabChangeHandler = (event, newValue) => {
         this.setState({value: newValue})
@@ -75,10 +77,11 @@ class AddContact extends Component {
                                                 state={this.state.state}
                                                 zip={this.state.zip}
                                                 formChangeHandler={this.formChangeHandler}/>}
+                {this.state.showSaveChanges && <button className={classes.saveChangesButton} data-aos="slide-down">SAVE CHANGES</button>}
             </div>
 
         )
     }
 }
 
-export default AddContact
+export default Contact

@@ -22,10 +22,11 @@
     border-radius: 5px;
     outline: none;
     float: right;
-    margin: 130px 50px;
+    margin: 25px 50px;
     transition: 0.5s;
     outline: none;
     cursor: pointer;
+    z-index: 100;
 }
 .button:hover{
     border-color: white;
@@ -35,25 +36,31 @@
 }
 .cover{
     width: 55%;
-    border: 0 2px 2px lightgrey;
-    background-color:#2A4B7C;
+    border: 1px solid #f8f8f8;
+    box-shadow: 0 1px 1px darkgrey;
+    background-color:white;
     border-radius: 5px;
-    height: 200px;
+    height: 100px;
     display: flex;
     justify-content: space-between;
     margin: 50px auto;
+    top: 0px;
+    position: sticky;
+    z-index: 100;
 }
 .coverHeading{
-    color: white;
+    color: #282828;
     font-weight: 600;
     font-family: "Josefin Sans";
     font-size: 25px;
-    margin: 50px;
+    margin: 30px;
 }
 .root{
     margin: auto;
     margin-bottom: 50px;
     width: 55%;
+    border: 1px solid #f8f8f8;
+    box-shadow: 0 1px 1px darkgrey;
 }
 .tableWrapper{
     overflow: auto;
