@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
+import React from "react";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./Login.module.css";
@@ -15,20 +14,23 @@ const setAuthToken = token => {
   localStorage.setItem(AUTH_TOKEN, token);
 };
 
-const Login = ({ usersEmail, handleHideModal, handleSwitchToRegister }) => {
+const Login = ({
+  usersEmail,
+  handleHideModal,
+  handleSwitchToRegister,
+  client,
+  handleIsLoggedin
+}) => {
   const {
     register,
     handleSubmit,
     errors,
-    setError,
-    clearError,
     formState: { isSubmitting }
   } = useForm();
 
   const [loginUser, { data }] = useMutation(LOGIN_USER);
 
   const onSubmit = data => {
-    console.log("login data", data);
     loginUser({ variables: { email: data.email, password: data.password } })
       .then(response => {
         // close modal
@@ -38,6 +40,8 @@ const Login = ({ usersEmail, handleHideModal, handleSwitchToRegister }) => {
         // set local storage with auth token returned for users
         setAuthToken(token);
         // TODO logout button that removes auth token
+        client.writeData({ data: { isLoggedIn: true } });
+        handleIsLoggedin(true);
       })
       .catch(err => {
         console.log("gql error: ", err);
@@ -51,7 +55,7 @@ const Login = ({ usersEmail, handleHideModal, handleSwitchToRegister }) => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.logoContainer}>
           <Logo className={classes.logo} width="9em" />
-          <hr className={classes.line} m />
+          <hr className={classes.line} />
         </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
           <label className={classes.label}>Email</label>

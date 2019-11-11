@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./App.css";
 import { Route, BrowserRouter } from "react-router-dom";
-import { gql } from "apollo-boost";
+// import { gql } from "apollo-boost";
 import Home from "./containers/Home/Home";
 import Profile from "./containers/Profile/Profile";
 import Contacts from "./containers/Contacts/Contacts";
@@ -9,35 +9,26 @@ import Crm from "./containers/Crm/Crm";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
-import AUTH_TOKEN from "./utils/constants";
-import CURRENT_USER from "./grqphql/queries";
-
 class App extends Component {
-  state = {
-    currUser: null
-  };
+  state = {};
 
   componentDidMount() {
     AOS.init({
       duration: 2000
     });
 
-    const authToken = localStorage.getItem("auth-token");
-    // TODO init state
-    // https://itnext.io/managing-local-state-with-apollo-client-and-react-hooks-9ad357e6d649
-  }
-
-  render() {
-    // const { data } = client.query({
+    // const { data } = await this.props.client.query({
     //   query: gql`
     //     {
-    //       showLogin @client
+    //       isLoggedIn @client
     //     }
     //   `
     // });
 
-    // console.log("showLogin query: ", data);
+    // console.log(" is logged In: ", data);
+  }
 
+  render() {
     return (
       <div>
         <link
@@ -49,7 +40,14 @@ class App extends Component {
           rel="stylesheet"
         ></link>
         <BrowserRouter>
-          <Route path="/" exact component={Home} />
+          {/* <Route path="/" exact component={Home} /> */}
+          {/* Below Route for home is the same as above but passes the apollo client down as prop
+            which allows for queries to apollo client to manage local state */}
+          <Route
+            exact
+            path="/"
+            render={props => <Home {...props} client={this.props.client} />}
+          />
           <Route path="/crm" component={Crm} />
           <Route path="/home/:username" component={Home} />
           <Route path="/profile/:username" component={Profile} />

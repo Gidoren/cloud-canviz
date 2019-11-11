@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import ArtForm from "../../components/ArtForm/ArtForm";
 import Modal from "../../components/UI/Modal/Modal";
-import gql from "graphql-tag";
+// import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import { currentUser } from "../../grqphql/queries";
-
-import { AUTH_TOKEN } from "../../utils/constants";
 
 import classes from "./Crm.module.css";
 

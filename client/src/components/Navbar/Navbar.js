@@ -24,20 +24,23 @@ class Navbar extends Component {
     }
   };
 
-  clearLocalStorage = () => {
+  handleLogout = () => {
     console.log("Clearing local storage");
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
+    this.props.handleIsLoggedin(false);
   };
 
   render = () => {
     const cName =
-      this.state.menu == "toggled"
+      this.state.menu === "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
 
     const authToken = localStorage.getItem(AUTH_TOKEN);
+
+    console.log("navbar loggedin: ", this.state.isLoggedIn);
 
     return (
       <div className={classes.header}>
@@ -45,12 +48,12 @@ class Navbar extends Component {
           <Logo width="11em" />
           <div className={classes.left}></div>
           <div className={classes.right}>
-            {authToken && (
+            {authToken && this.props.isLoggedIn && (
               <Item text="Profile">
                 <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
               </Item>
             )}
-            {authToken && (
+            {authToken && this.props.isLoggedIn && (
               <Item text="CRM">
                 <Link to={{ pathname: "/crm" }}>CRM</Link>
               </Item>
@@ -60,8 +63,8 @@ class Navbar extends Component {
                 Login
               </Item>
             )}
-            {authToken && (
-              <Item text="Logout" click={this.clearLocalStorage}>
+            {authToken && this.props.isLoggedIn && (
+              <Item text="Logout" click={this.handleLogout}>
                 Logout
               </Item>
             )}

@@ -35,27 +35,46 @@ const client = new ApolloClient({
         authorization: token ? `${token}` : ""
       }
     });
+  },
+  // intializes the clientState store for
+  clientState: {
+    resolvers: {},
+    typeDefs: `
+      type Query {
+        isLoggedIn: Boolean
+      }
+      type Query {
+        showLogin: String
+      }
+    `
   }
-  // clientState: {
-  //   defaults: { defaults },
-  //   resolvers: {},
-  //   typeDefs: `
-  //     type Query {
-  //       isLoggedIn: Boolean
-  //     }
-  //     type Query {
-  //       showLogin: String
-  //     }
-  //   `
-  // }
 });
+
+// TODO HANDLE GRAPHQL ERROR FOR USERS AUTH TOKEN EXPIRED
+
+// check if there is auth token in local storage
+let isAuthToken = false;
+// if auth token then user is logged in.
+if (localStorage.getItem(AUTH_TOKEN)) {
+  isAuthToken = true;
+}
+
+// Sets the default values for local state schema
+// ...defaults imported from file (see above)
+client.writeData({ data: { ...defaults, isLoggedIn: isAuthToken } });
 
 const store = createStore(Reducer);
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ApolloConsumer>
+      {apolloClient => {
+        return (
+          <Provider store={store}>
+            <App client={apolloClient} />
+          </Provider>
+        );
+      }}
+    </ApolloConsumer>
   </ApolloProvider>,
   document.getElementById("root")
 );

@@ -1,11 +1,6 @@
-import React, { Component, Fragment } from "react";
-// import ReactResizeDetector from "react-resize-detector";
+import React from "react";
 import ArtCard from "../UI/ArtCard/ArtCard";
-import Spinner from "../UI/Spinner/Spinner";
 import styles from "./Gallery.module.css";
-// import './Gallery.css';
-
-// const transition = transitions.scaleDown;
 
 const Gallery = props => {
   // removeItem = id => {
