@@ -24,33 +24,50 @@ class Navbar extends Component {
     }
   };
 
-  clearLocalStorage = () => {
+  handleLogout = () => {
     console.log("Clearing local storage");
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
+    this.props.handleIsLoggedin(false);
   };
 
   render = () => {
     const cName =
-      this.state.menu == "toggled"
+      this.state.menu === "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
+
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo />
+          <Link to={{ pathname: "/" }}>
+            <Logo width="9em" />
+          </Link>
           <div className={classes.left}></div>
           <div className={classes.right}>
-            <Item text="Profile">
-              <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
-            </Item>
-            <Item text="Login" click={this.props.click}>
-              Login
-            </Item>
-            <Item text="Logout" click={this.clearLocalStorage}>
-              Logout
-            </Item>
+            {authToken && this.props.isLoggedIn && (
+              <Item text="Profile">
+                <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+              </Item>
+            )}
+            {authToken && this.props.isLoggedIn && (
+              <Item text="CRM">
+                <Link to={{ pathname: "/crm" }}>CRM</Link>
+              </Item>
+            )}
+            {!authToken && (
+              <Item text="Login" click={this.props.click}>
+                Login
+              </Item>
+            )}
+            {authToken && this.props.isLoggedIn && (
+              <Item text="Logout" click={this.handleLogout}>
+                Logout
+              </Item>
+            )}
           </div>
           <div
             className={classes.topMenuIcon}

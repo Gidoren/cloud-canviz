@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./ArtForm.module.css";
@@ -7,9 +6,8 @@ import UploadImage from "../UploadImage/UploadImage";
 
 import { uploadImage } from "../UploadImage/S3/s3Upload";
 
-import { useMutation, useQuery, useLazyQuery } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { gql } from "apollo-boost";
-import { CostExplorer } from "aws-sdk";
 
 const CREATE_ART = gql`
   mutation createArt($artInput: ArtInput) {
@@ -42,8 +40,6 @@ const ArtForm = props => {
     register,
     handleSubmit,
     errors,
-    setError,
-    clearError,
     formState: { isSubmitting }
   } = useForm();
 
@@ -68,7 +64,9 @@ const ArtForm = props => {
   };
 
   const handleCancel = () => {
-    props.handleClose();
+    props.handleHideModal();
+    setSelectedFiles([]);
+    setUrl("");
   };
 
   // const Loader = () => {
@@ -112,11 +110,10 @@ const ArtForm = props => {
         }).then(res => {
           console.log("respoonse from gql addArt", res);
           props.handleRefetch();
-          //setSuccess(true);
-          // setLoading(false);
-          props.handleHideModal();
-          //setSuccess(false);
         });
+      })
+      .then(() => {
+        handleCancel();
       })
       .catch(err => {
         console.log(err);
@@ -187,7 +184,7 @@ const ArtForm = props => {
             disabled={isSubmitting}
             type="submit"
           />
-          <div className={classes.cancelButton} onClick={props.handleHideModal}>
+          <div className={classes.cancelButton} onClick={handleCancel}>
             Cancel
           </div>
         </div>

@@ -5,7 +5,6 @@ import { gql } from "apollo-boost";
 import { useQuery } from "react-apollo";
 
 import Spinner from "../UI/Spinner/Spinner";
-import Art1 from "../../assets/images/art.jpg";
 import Art from "./Art/Art";
 //import UploadImage from "../UploadImage/UploadImage";
 
@@ -52,7 +51,7 @@ const DisplayArt = ({ type }) => {
     fetchPolicy: "cache-and-network"
   });
   /* if there's no art fetched yet */
-  if (!data || !data.getAllArt) return <Spinner />;
+  if (!data || !data.getAllArt || loading) return <Spinner />;
   if (error) return <span>{console.log(error)}</span>;
   if (data) {
     console.log("query data", data);
@@ -95,10 +94,9 @@ const DisplayArt = ({ type }) => {
                         offset: data.getAllArt.length
                       },
                       updateQuery: (prev, { fetchMoreResult }) => {
-                        {
-                          /* if fetched array is less than the limit then there's
+                        /* if fetched array is less than the limit then there's
                                         no more arts left */
-                        }
+
                         if (fetchMoreResult.getAllArt.length < limit)
                           setHasMoreArt(false);
                         if (!fetchMoreResult) return prev;

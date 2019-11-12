@@ -4,7 +4,6 @@ import classes from "./Profile.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Top from "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
-import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import About from "../../components/DisplayProfile/About";
 import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";

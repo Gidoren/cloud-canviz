@@ -4,8 +4,17 @@
 }
 
 .button {
-  height: 5em;
+  height: 3em;
   width: 10em;
-  float: right;
-  margin-bottom: 5em;
+  align-self: flex-end;
+  margin: 5em;
+  background-color: #57adda;
+  font: 1em sans-serif;
+  border: none;
+  border-radius: 5px;
+  color: white;
+}
+
+.button:hover {
+  background-color: #69828f;
 }
