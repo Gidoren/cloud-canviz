@@ -1,4 +1,4 @@
-FROM node:12.13.0-alpine
+FROM node:latest
 
 RUN mkdir -p /srv/app/client-admin
 WORKDIR /srv/app/client-admin

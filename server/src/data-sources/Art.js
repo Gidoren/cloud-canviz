@@ -71,13 +71,12 @@ class Art extends DataSource {
       });
   }
 
-  // likeArt -> uses the artID argument to find an artwork object
+  // likeArt() -> uses the artID argument to find an artwork object
   //            then pushes the id of the current user onto the likers array of art object
   //            then pushes the ID of the art object onto the users likedArtworks array
   //            then saves and returns the liked artwork
   // inputs: artId (the ID of the artwork the current user wants to save/like)
   // output: the art object the user liked
-  //
   likeArt(args) {
     const usr = this.context.user._id;
     return User.findById(usr)
