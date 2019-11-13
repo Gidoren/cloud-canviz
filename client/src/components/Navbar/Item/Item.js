@@ -2,17 +2,19 @@ import React, { Component } from "react";
 import classes from "./Item.module.css";
 
 class Item extends Component {
-  constructor(props) {
-    super(props);
-    this.text = props.text;
-    this.click = props.click;
+  state = {
+    text: this.props.text,
+    activeClass: this.props.active
   }
-
+  handleClick = () => {
+    this.setState({text: this.props.text,
+                   click: this.props.click})
+  }
   render() {
     return (
-      <div className={classes.topMenuItem} onClick={this.click}>
+      <p className={this.props.text === this.props.active ? classes.active : classes.topMenuItem} onClick={this.props.click}>
         {this.props.children}
-      </div>
+      </p>
     );
   }
 }

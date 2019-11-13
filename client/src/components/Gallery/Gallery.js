@@ -16,7 +16,11 @@ const Gallery = props => {
 
   const renderPaintings = columnNum => {
     const columnItems = [];
-    const len = props.createdArtWorks.length;
+
+
+    let len = 0
+    if(props.createdArtWorks)
+      len = props.createdArtWorks.length
 
     console.log("gallery props", props);
 

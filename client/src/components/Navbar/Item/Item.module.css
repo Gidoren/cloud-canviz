@@ -1,3 +1,14 @@
+.topMenuItem{
+  text-decoration: none;
+  width: 80px;
+}
 .topMenuItem:hover {
   background-color: white;
+  color: #282828;
+  border-bottom: 1px solid #282828;
+}
+.active{
+  text-decoration: none;
+  width: 80px;
+  border-bottom: 1px solid #282828;
 }

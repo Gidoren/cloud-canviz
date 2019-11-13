@@ -5,7 +5,7 @@ import gql from "graphql-tag";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import { currentUser } from "../../grqphql/queries";
-
+import Navbar from '../../components/Navbar/Navbar';
 import { AUTH_TOKEN } from "../../utils/constants";
 
 import classes from "./Crm.module.css";
@@ -36,6 +36,7 @@ class Crm extends Component {
             //console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
+                <Navbar />
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>

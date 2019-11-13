@@ -9,7 +9,8 @@ import { AUTH_TOKEN } from "../../utils/constants";
 
 class Navbar extends Component {
   state = {
-    menu: ""
+    menu: "",
+    rerender: ""
   };
 
   setToggleTopMenuClass = () => {
@@ -29,6 +30,8 @@ class Navbar extends Component {
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
+    this.forceUpdate()
+
   };
 
   render = () => {
@@ -38,21 +41,25 @@ class Navbar extends Component {
         : `${classes.topMenu}`;
 
     const authToken = localStorage.getItem(AUTH_TOKEN);
+    console.log(authToken)
 
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo width="11em" />
+          <Logo className={classes.logo} width="8em" />
           <div className={classes.left}></div>
           <div className={classes.right}>
+            <Item text={this.props.item1} active={this.props.active}>
+              <Link to={{ pathname: this.props.homeLink }} className={classes.link}>Home</Link>
+            </Item>
             {authToken && (
-              <Item text="Profile">
-                <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+              <Item text={this.props.item2} active={this.props.active}>
+                <Link to={{ pathname: this.props.profileLink }} className={classes.link}>Profile</Link>
               </Item>
             )}
             {authToken && (
-              <Item text="CRM">
-                <Link to={{ pathname: "/crm" }}>CRM</Link>
+              <Item text={this.props.item3} active={this.props.active}>
+                <Link to={{ pathname: this.props.crmLink }} className={classes.link}>CRM</Link>
               </Item>
             )}
             {!authToken && (

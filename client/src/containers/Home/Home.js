@@ -65,6 +65,13 @@ class Home extends Component {
                 <Navbar
                   click={this.showModal}
                   profileLink={data ? "/profile/" + data.currentUser._id : "/"}
+                  homeLink={data ? "/home/" + data.currentUser._id : "/"}
+                  crmLink={data ? "/crm/" + data.currentUser._id : "/"}
+                  active="Home"
+                  item1="Home"
+                  item2="Profile"
+                  item3="CRM"
+                  
                   // user={...data.currentUser}
                 />
 

@@ -89,7 +89,19 @@ class Contact extends Component {
                                         firstName: this.state.contactFirstName,
                                         lastName: this.state.contactLastName,
                                         phone_number: this.state.phoneHome,
-                                        email: this.state.email
+                                        email: this.state.email,
+                                        mobile_phone: this.state.phoneMobile,
+                                        spouseFirstName: this.state.spouseFirstName,
+                                        spouseLastName: this.state.spouseLastName,
+                                        other_phone: this.state.phoneOther,
+                                        company: this.state.company,
+                                        birthday: this.state.birthday,
+                                        website: this.state.website,
+                                        privacy_note: this.state.privateNote,
+                                        street_address: this.state.streetAddress,
+                                        city: this.state.city,
+                                        state: this.state.state,
+                                        zip: this.state.zip
                                     }
                                 }
                                 })
