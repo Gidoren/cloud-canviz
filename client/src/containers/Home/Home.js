@@ -17,8 +17,23 @@ class Home extends Component {
     show: false,
     modalType: "",
     usersEmail: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    menu: "disabled"
   };
+
+  setToggleMenuClass = () =>{
+    /*If menu is disabled, enable*/
+    if(this.state.menu === "disabled"){
+      this.setState({
+        menu: "enabled"
+      });
+    }else{
+      /*else, enable*/
+      this.setState({
+        menu: "disabled"
+      });
+    }
+  }
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
