@@ -8,3 +8,12 @@
         margin: 0;
     }
 }
+
+.bar{
+}
+
+@media screen and (max-width: 600px){
+    .bar{
+        display: none;
+    }
+}

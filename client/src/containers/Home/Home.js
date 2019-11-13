@@ -111,7 +111,7 @@ class Home extends Component {
                   {modalContent}
                 </Modal>
                 <div className={classes.home}>
-                  <SideDrawer />
+                  <div className={classes.bar}><SideDrawer /></div>
                   <DisplayArt type="Home" />
                 </div>
               </div>
