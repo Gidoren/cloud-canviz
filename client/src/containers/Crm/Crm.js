@@ -31,7 +31,7 @@ class Crm extends Component {
           {({ loading, error, data, refetch }) => {
             if (loading) return "loading ..";
             if (error) console.log("query error get user art :", error);
-            //console.log("Data from currentUser: ", data);
+            console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
                 <Navbar
