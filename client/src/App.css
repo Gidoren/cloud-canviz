@@ -1,3 +1,8 @@
+@import url("https://fonts.googleapis.com/css?family=Lexend+Exa&display=swap");
+
+body {
+  font-family: "Lexend Exa", sans-serif;
+}
 .App {
   text-align: center;
 }

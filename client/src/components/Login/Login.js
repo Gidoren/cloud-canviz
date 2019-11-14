@@ -20,7 +20,8 @@ const Login = ({
   handleHideModal,
   handleSwitchToRegister,
   client,
-  handleIsLoggedin
+  handleIsLoggedin,
+  handleRefetchUser
 }) => {
   const {
     register,
@@ -45,6 +46,7 @@ const Login = ({
         // TODO logout button that removes auth token
         client.writeData({ data: { isLoggedIn: true } });
         handleIsLoggedin(true);
+        handleRefetchUser();
       })
       .catch(err => {
         console.log("gql error: ", err);
@@ -76,11 +78,10 @@ const Login = ({
             placeholder="Email"
             fullWidth
             defaultValue={usersEmail}
+            margin="normal"
           />
 
           <ErrorMessage error={errors.email} />
-
-          <label className={classes.label}>Password</label>
 
           <TextField
             type="password"
@@ -89,6 +90,7 @@ const Login = ({
             inputRef={register({ required: true })}
             placeholder="Password"
             fullWidth
+            margin="normal"
           />
           <ErrorMessage error={errors.password} />
 
