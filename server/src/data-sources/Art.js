@@ -9,7 +9,8 @@ class Art extends DataSource {
   initialize(config) {
     this.context = config.context;
   }
-
+  //getAllArt
+  //returns all the art in a users library
   getAllArt(offset, limit) {
     return ArtWork.find()
       .skip(offset)
@@ -33,7 +34,7 @@ class Art extends DataSource {
     const user = this.context.user._id;
     const art = new ArtWork({
       ...args.artInput,
-      creator: "5dc8c9a20d7ae72885164ac3"
+      creator: user
     });
     let createdArt;
     return art
@@ -69,6 +70,47 @@ class Art extends DataSource {
         throw err;
       });
   }
+
+  // likeArt() -> uses the artID argument to find an artwork object
+  //            then pushes the id of the current user onto the likers array of art object
+  //            then pushes the ID of the art object onto the users likedArtworks array
+  //            then saves and returns the liked artwork
+  // inputs: artId (the ID of the artwork the current user wants to save/like)
+  // output: the art object the user liked
+  likeArt(args) {
+    const usr = this.context.user._id;
+    return User.findById(usr)
+      .exec()
+      .then(user => {
+        user.likedArtWorks.push(args.artId);
+        return user.save();
+      })
+      .then(user => {
+        return ArtWork.findById(args.artId)
+          .exec()
+          .then(Art => {
+            Art.likers.push(user._id);
+            return Art.save();
+          });
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  }
+
+  // removeArt(artId){
+  //   const usr = context.usr._id;
+  //   return User.findById(usr)
+  //     .exec()
+  //     .then(user => {
+  //       user.likedArtWorks.pop(artId);
+  //       user.createdArtWorks.pop(artId);
+  //       return User.save();
+
+  //     })
+
+  // }
 }
 
 module.exports = Art;

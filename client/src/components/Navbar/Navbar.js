@@ -25,18 +25,18 @@ class Navbar extends Component {
     }
   };
 
-  clearLocalStorage = () => {
+  handleLogout = () => {
     console.log("Clearing local storage");
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
     this.forceUpdate()
-
+    this.props.handleIsLoggedin(false);
   };
 
   render = () => {
     const cName =
-      this.state.menu == "toggled"
+      this.state.menu === "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
 
@@ -46,18 +46,20 @@ class Navbar extends Component {
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo className={classes.logo} width="8em" />
+          <Link to={{ pathname: "/" }}>
+            <Logo className={classes.logo}  width="9em" />
+          </Link>
           <div className={classes.left}></div>
           <div className={classes.right}>
             <Item text={this.props.item1} active={this.props.active}>
               <Link to={{ pathname: this.props.link1 }} className={classes.link}>{this.props.item1}</Link>
             </Item>
-            {authToken && (
+            {authToken && this.props.isLoggedIn (
               <Item text={this.props.item2} active={this.props.active}>
                 <Link to={{ pathname: this.props.link2 }} className={classes.link}>{this.props.item2}</Link>
               </Item>
             )}
-            {authToken && (
+            {authToken && this.props.isLoggedIn (
               <Item text={this.props.item3} active={this.props.active}>
                 <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
               </Item>
@@ -67,8 +69,8 @@ class Navbar extends Component {
                 Login
               </Item>
             )}
-            {authToken && (
-              <Item text="Logout" click={this.clearLocalStorage}>
+            {authToken && this.props.isLoggedIn && (
+              <Item text="Logout" click={this.handleLogout}>
                 Logout
               </Item>
             )}

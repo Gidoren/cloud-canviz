@@ -47,6 +47,12 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "artWork"
       }
+    ],
+    likedArtWorks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "artWork"
+      }
     ]
   },
   { timestamps: true }
