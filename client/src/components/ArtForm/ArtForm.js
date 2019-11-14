@@ -88,10 +88,10 @@ const ArtForm = props => {
     });
   };
 
-  const handleStyleDelete = (e, val) => {
-    e.preventDefault();
-    console.log("style delete: ", e.target.value);
-  };
+  // const handleStyleDelete = (e, val) => {
+  //   e.preventDefault();
+  //   console.log("style delete: ", e.target.value);
+  // };
 
   // function to pass as props to upload image which adds file to selectedFiles
   const handleSetFiles = event => {
@@ -323,7 +323,7 @@ const ArtForm = props => {
                   style={{ marginRight: 8 }}
                   checked={selected}
                   value={option.title}
-                  onChange={handleStyleDelete}
+                  //onChange={handleStyleDelete}
                 />
                 {option.title}
               </React.Fragment>
