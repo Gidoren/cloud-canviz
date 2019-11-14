@@ -50,16 +50,16 @@ class Navbar extends Component {
           <div className={classes.left}></div>
           <div className={classes.right}>
             <Item text={this.props.item1} active={this.props.active}>
-              <Link to={{ pathname: this.props.homeLink }} className={classes.link}>Home</Link>
+              <Link to={{ pathname: this.props.link1 }} className={classes.link}>{this.props.item1}</Link>
             </Item>
             {authToken && (
               <Item text={this.props.item2} active={this.props.active}>
-                <Link to={{ pathname: this.props.profileLink }} className={classes.link}>Profile</Link>
+                <Link to={{ pathname: this.props.link2 }} className={classes.link}>{this.props.item2}</Link>
               </Item>
             )}
             {authToken && (
               <Item text={this.props.item3} active={this.props.active}>
-                <Link to={{ pathname: this.props.crmLink }} className={classes.link}>CRM</Link>
+                <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
               </Item>
             )}
             {!authToken && (

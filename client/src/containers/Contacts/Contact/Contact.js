@@ -27,11 +27,12 @@ class Contact extends Component {
         state: this.props.state,
         zip: this.props.zip,
         value: 1,
-        showSaveChanges: false
+        showSaveChangesBtn: false,
+        showChangesSavedMsg: false
     }
     formChangeHandler = event => {
         this.setState({[event.target.name]: event.target.value})
-        this.setState({showSaveChanges: true})
+        this.setState({showSaveChangesBtn: true})
     }
     tabChangeHandler = (event, newValue) => {
         this.setState({value: newValue})
@@ -76,7 +77,7 @@ class Contact extends Component {
                             </Tabs>
                         </Paper>
                         {this.state.value === 1 && <ContactForm {...this.state} formChangeHandler={this.formChangeHandler}/>}
-                        {this.state.showSaveChanges && 
+                        {this.state.showSaveChangesBtn && 
                         <button 
                             className={classes.saveChangesButton} 
                             data-aos="slide-down"
@@ -106,10 +107,12 @@ class Contact extends Component {
                                 }
                                 })
                                 .then(res => {
-                                    console.log(res)
+                                    this.setState({showChangesSavedMsg: true})
+                                    this.setState({showSaveChangesBtn: false})
                                 })}}>
                             SAVE CHANGES
                         </button>}
+                        {this.state.showChangesSavedMsg && <button className={classes.changesSavedMsg}>Changes Saved</button>}
                     </div>
                 )}
             </Mutation>

@@ -31,10 +31,10 @@ class App extends Component {
       <div>
         <BrowserRouter>
           <Route path="/" exact component={Home} />
-          <Route path="/crm/:username" component={Crm} />
+          <Route path="/crm/:username" exact component={Crm} />
           <Route path="/home/:username" component={Home} />
           <Route path="/profile/:username" component={Profile} />
-          <Route path="/contacts/:username" component={Contacts} />
+          <Route path="/crm/contacts/:username" exact component={Contacts} />
         </BrowserRouter>
       </div>
     );

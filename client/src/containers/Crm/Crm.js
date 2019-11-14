@@ -36,7 +36,18 @@ class Crm extends Component {
             //console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
-                <Navbar />
+                <Navbar
+  
+                  link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
+                  link2={data ? "/crm/inventory/" + data.currentUser._id : "/"}
+                  link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
+                  active="Contacts"
+                  item1="Dashboard"
+                  item2="Inventory"
+                  item3="Contacts"
+                  
+                  // user={...data.currentUser}
+                />
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>
