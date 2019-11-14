@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { connect } from "react-redux";
+import UseAnimations from "react-useanimations";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
 import Navbar from "../../components/Navbar/Navbar";
@@ -21,7 +22,7 @@ class Home extends Component {
     menu: "disabled"
   };
 
-  setToggleMenuClass = () =>{
+  setToggleMenuClass = () => {
     /*If menu is disabled, enable*/
     if(this.state.menu === "disabled"){
       this.setState({
@@ -72,6 +73,12 @@ class Home extends Component {
   };
 
   render() {
+    /*Determine if sidebar is toggled or not*/
+    const cName =
+      this.state.menu === "enabled"
+      ? '${classes.sideBar} ${classes.toggled}'
+      : '${classes.sideBar}';
+
     let modalContent;
     if (this.state.modalType === "register") {
       modalContent = <Register handleSwitchToLogin={this.switchToLogin} />;
@@ -111,7 +118,21 @@ class Home extends Component {
                   {modalContent}
                 </Modal>
                 <div className={classes.home}>
-                  <div className={classes.bar}><SideDrawer /></div>
+                  <div
+                  className={classes.sideBarIcon}
+                  onClick={this.setToggleMenuClass}
+                  >
+                    <UseAnimations
+                    animationKey="menu2"
+                    size={35}
+                    style={{ cursor: "pointer" }}
+                    />
+                  </div>
+
+                  <div className={cName}>
+                    <SideDrawer />
+                  </div>
+
                   <DisplayArt type="Home" />
                 </div>
               </div>

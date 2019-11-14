@@ -9,11 +9,28 @@
     }
 }
 
-.bar{
+
+
+.midBar{
+    display: none;
 }
 
 @media screen and (max-width: 600px){
-    .bar{
+    .sideBar{
         display: none;
+    }
+
+    .midBar{
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px){
+    .sideBar.toggled{
+        display: block !important;
+    }
+
+    .midBar{
+        display: block;
     }
 }
