@@ -119,13 +119,22 @@ class Home extends Component {
                   />
                 </div>
 
-                <div>
-                  <Modal show={this.state.show} handleClose={this.hideModal}>
-                    {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
-                    {modalContent}
-                  </Modal>
-                </div>
-
+                <Modal show={this.state.show} handleClose={this.hideModal}>
+                  {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
+                  {/* {modalContent} */}
+                  {this.state.modalType === "Login" ? (
+                    <Login
+                      usersEmail={this.state.usersEmail}
+                      handleHideModal={this.hideModal}
+                      handleSwitchToRegister={this.switchToRegister}
+                      client={this.props.client}
+                      handleIsLoggedin={this.handleIsLoggedin}
+                      handleRefetchUser={refetch}
+                    />
+                  ) : (
+                    <Register handleSwitchToLogin={this.switchToLogin} />
+                  )}
+                </Modal>
                 <div className={classes.home}>
                   <div
                     className={classes.sideBarIcon}

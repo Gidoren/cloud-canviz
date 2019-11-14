@@ -45,7 +45,54 @@ export const theme = createMuiTheme({
     "0px 11px 15px -7px rgba(0, 0, 0, 0.2),0px 24px 38px 3px rgba(0, 0, 0, 0.14),0px 9px 46px 8px rgba(0, 0, 0, 0.12)"
   ],
   direction: "ltr",
-  overrides: {},
+  overrides: {
+    MuiInput: {
+      input: {
+        "&::placeholder": {
+          color: "rgba(60, 118, 133, 1)"
+        },
+        color: "rgba(60, 118, 133, 1)"
+      }
+    },
+    MuiFormLabel: {
+      root: {
+        color: "rgba(60, 118, 133, 0.6)",
+        fontFamily: '"Lexend Exa", sans-serif',
+        fontSize: "1rem"
+      }
+    },
+    MuiInput: {
+      underline: {
+        "&:before": {
+          borderBottomColor: "rgba(78,104,113, 0.7)",
+          transitionDuration: "600ms"
+        },
+        "&:after": {
+          transitionDuration: "600ms"
+        },
+        "&:hover:not($disabled):before": {
+          borderBottom: "2px solid rgba(0, 0, 0, 0.1)",
+          transitionDuration: "50ms"
+        }
+      }
+    },
+    MuiInputLabel: {
+      shrink: {
+        transform: "translate(0, 2px) scale(0.9)"
+      }
+    },
+    MuiInputBase: {
+      input: {
+        padding: "13px 0 9px"
+      }
+    },
+    MuiAutocomplete: {
+      tag: {
+        marginTop: "12px",
+        marginBottom: "7px"
+      }
+    }
+  },
   transitions: {
     easing: {
       easeInOut: "cubic-bezier(0.4, 0, 0.2, 1)",
@@ -113,7 +160,7 @@ export const theme = createMuiTheme({
       fontSize: "0.875rem",
       fontWeight: 500
     },
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Lexend Exa", sans-serif',
     body2: {
       color: "rgba(0, 0, 0, 0.87)",
       fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
