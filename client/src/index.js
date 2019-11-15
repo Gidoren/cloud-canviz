@@ -10,13 +10,13 @@ import { Provider } from "react-redux";
 import Reducer from "./store/reducer";
 
 import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "react-apollo";
-import { InMemoryCache } from "apollo-cache-inmemory";
-import { HttpLink } from "apollo-link-http";
+import { ApolloProvider, ApolloConsumer } from "react-apollo";
+import { defaults } from "./grqphql/store/defaults";
+
+// import { InMemoryCache } from "apollo-cache-inmemory";
+// import { HttpLink } from "apollo-link-http";
 
 import { AUTH_TOKEN } from "./utils/constants";
-
-const token = localStorage.getItem(AUTH_TOKEN);
 
 // changed the way ApolloClient is imported to new version
 // here are links to references
@@ -36,36 +36,45 @@ const client = new ApolloClient({
       }
     });
   },
-  onError: ({ graphQLErrors, networkError }) => {
-    if (graphQLErrors) {
-      // sendToLoggingService(graphQLErrors);
-    }
-    if (networkError) {
-      // logoutUser();
-    }
-  },
+  // intializes the clientState store for
   clientState: {
-    defaults: {
-      // isConnected: trues
-      currentUser: {}
-    },
-    resolvers: {
-      Mutation: {
-        // updateNetworkStatus: (_, { isConnected }, { cache }) => {
-        //   cache.writeData({ data: { isConnected }});
-        //   return null;
+    resolvers: {},
+    typeDefs: `
+      type Query {
+        isLoggedIn: Boolean
       }
-    },
-    typeDefs: ``
+      type Query {
+        showLogin: String
+      }
+    `
   }
 });
+
+// TODO HANDLE GRAPHQL ERROR FOR USERS AUTH TOKEN EXPIRED
+
+// check if there is auth token in local storage
+let isAuthToken = false;
+// if auth token then user is logged in.
+if (localStorage.getItem(AUTH_TOKEN)) {
+  isAuthToken = true;
+}
+
+// Sets the default values for local state schema
+// ...defaults imported from file (see above)
+client.writeData({ data: { ...defaults, isLoggedIn: isAuthToken } });
 
 const store = createStore(Reducer);
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <ApolloConsumer>
+      {apolloClient => {
+        return (
+          <Provider store={store}>
+            <App client={apolloClient} />
+          </Provider>
+        );
+      }}
+    </ApolloConsumer>
   </ApolloProvider>,
   document.getElementById("root")
 );

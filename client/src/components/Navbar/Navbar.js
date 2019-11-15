@@ -9,7 +9,8 @@ import { AUTH_TOKEN } from "../../utils/constants";
 
 class Navbar extends Component {
   state = {
-    menu: ""
+    menu: "",
+    rerender: ""
   };
 
   setToggleTopMenuClass = () => {
@@ -24,39 +25,59 @@ class Navbar extends Component {
     }
   };
 
-  clearLocalStorage = () => {
+  handleLogout = () => {
     console.log("Clearing local storage");
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
-  };
-
-  isLoggedIn = () => {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
-    // return authToken ? true
+    this.forceUpdate()
+    this.props.handleIsLoggedin(false);
   };
 
   render = () => {
     const cName =
-      this.state.menu == "toggled"
+      this.state.menu === "toggled"
         ? `${classes.topMenu} ${classes.toggled}`
         : `${classes.topMenu}`;
+
+    const authToken = localStorage.getItem(AUTH_TOKEN);
+    console.log(authToken)
 
     return (
       <div className={classes.header}>
         <div className={cName}>
-          <Logo width="11em" />
+          <Link to={{ pathname: "/" }}>
+            <Logo className={classes.logo}  width="9em" />
+          </Link>
           <div className={classes.left}></div>
           <div className={classes.right}>
-            <Item text="Profile">
-              <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+            {this.props.page === "Crm" && <Item text={this.props.item4} active={this.props.active}>
+              <Link to={{ pathname: this.props.link4 }} className={classes.link}>{this.props.item4}</Link>
+            </Item>}
+            <Item text={this.props.item1} active={this.props.active}>
+              <Link to={{ pathname: this.props.link1 }} className={classes.link}>{this.props.item1}</Link>
             </Item>
-            <Item text="Login" click={this.props.click}>
-              Login
-            </Item>
-            <Item text="Logout" click={this.clearLocalStorage}>
-              Logout
-            </Item>
+            {authToken && this.props.isLoggedIn && (
+              <Item text={this.props.item2} active={this.props.active}>
+                <Link to={{ pathname: this.props.link2 }} className={classes.link}>{this.props.item2}</Link>
+              </Item>
+            )}
+            {console.log(this.props.link3)} 
+            {authToken && this.props.isLoggedIn && (
+              <Item text={this.props.item3} active={this.props.active}>
+                <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
+              </Item>
+            )}
+            {!authToken && (
+              <Item text="Login" click={this.props.click}>
+                Login
+              </Item>
+            )}
+            {authToken && this.props.isLoggedIn && (
+              <Item text="Logout" click={this.handleLogout}>
+                Logout
+              </Item>
+            )}
           </div>
           <div
             className={classes.topMenuIcon}

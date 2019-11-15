@@ -24,7 +24,13 @@ export const REGISTER_USER = gql`
     }
   }
 `;
-
-// export const CURRENT_USER = gql`
-//     query c
-// `;
+export const CREATE_CONTACT = gql`
+  mutation createContact($contactInput: ContactInput) {
+    createContact(contactInput: $contactInput) {
+      _id
+      firstName
+      lastName
+      email
+    }
+  }
+`;

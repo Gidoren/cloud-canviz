@@ -1,0 +1,98 @@
+.addContact{
+    margin: auto;
+    width: 55%;
+}
+.profileInfo{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    width: 95%;
+}
+.name{
+    font-weight: 500;
+}
+.city{
+    margin-top: -5px;
+}
+.totalSales{
+    font-weight: 500;
+    margin-top: -5px;
+}
+.paper{
+    flex-grow: 1;
+    width: 95%;
+    margin: 10px auto;
+}
+.goBack{
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+    color: black;
+    border: 0;
+    outline: none;
+    transition: 0.5s;
+    cursor: pointer;
+    margin: 10px 0px;
+}
+.goBack:hover{
+    background-color: #4052B5;
+    color: white;
+}
+.saveChangesButton{
+    float: right;
+    width: 150px;
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    background-color: #282828;
+    border: 1px solid #f8f8f8;
+    box-shadow: 0 1px 1px darkgrey;
+    transition: 0.5s;
+    margin: 10px;
+    outline: none;
+    cursor: pointer;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 10px;
+    z-index: 1;
+}
+.saveChangesButton:hover{
+    color: white;
+    border-color: black;
+    background-color: black;
+    opacity: 1;
+}
+.changesSavedMsg{
+    width: 300px;
+    height: 50px;
+    border-radius: 5px;
+    color: white;
+    background-color: #282828;
+    border: 1px solid #f8f8f8;
+    box-shadow: 0 1px 1px darkgrey;
+    transition: 0.5s;
+    margin-left: 20%;
+    outline: none;
+    cursor: pointer;
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 20px;
+    z-index: 2;
+    animation: hide 1s ease-in 5s forwards;
+}
+.changesSavedMsg:hover{
+    color: white;
+    border-color: black;
+    background-color: black;
+    opacity: 1;
+}
+@keyframes hide {
+    to {
+        opacity: 0;
+    }
+}
+@media (max-width: 800px) {
+    .addContact{
+        width: 85%;
+    }
+}

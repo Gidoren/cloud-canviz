@@ -1,0 +1,28 @@
+.table{
+    width: 100%;
+    color: #696969;
+    margin-bottom: 50px;
+}
+.tr{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+}
+.th{
+    font-weight: normal;
+    text-align: left;
+    padding: 10px;
+    width: 100%;
+    margin-top: 1px;
+}
+.textField{
+    width: 100%;
+    height: 30px;
+    font-size: 15px;
+}
+@media (max-width: 800px) {
+    .tr{
+        flex-direction: column;
+    }
+}

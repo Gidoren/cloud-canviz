@@ -7,6 +7,7 @@ const { UserInputError } = require("apollo-server");
 
 const { jwtSecret } = require("../../config");
 
+const Contact = require("../models/contacts");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
 
@@ -45,9 +46,9 @@ class Users extends DataSource {
   async loginUser(email, password) {
     try {
       // check if user exists
-      const user = await User.findOne({ email: email }).populate(
-        "createdArtWorks"
-      );
+      const user = await User.findOne({ email: email })
+        .populate("createdArtWorks")
+        .exec();
       if (!user) {
         throw new Error("Invalid Login");
       }
@@ -61,13 +62,10 @@ class Users extends DataSource {
       //
       const token = jwt.sign(
         {
-          ...user._doc,
-          password: null
-          // _id: user._id,
-          // email: user.email,
-          // firstName: user.firstName,
-          // lastName: user.lastName,
-          // createdArtWorks: user.createdArtWorks
+          _id: user._id,
+          email: user.email,
+          firstName: user.firstName,
+          lastName: user.lastName
         },
         jwtSecret,
         {
@@ -89,6 +87,7 @@ class Users extends DataSource {
   async getAllUsers() {
     return User.find({})
       .populate("createdArtWorks")
+      .populate("contactList")
       .then(users => {
         return users.map(user => {
           return { ...user._doc };
@@ -115,11 +114,39 @@ class Users extends DataSource {
     try {
       const user = await User.findById(id)
         .populate("createdArtWorks")
+        .populate("contactList")
         .exec();
       return { ...user._doc };
     } catch (err) {
       throw err;
     }
+  }
+
+  // attempting to implement similar to createArt()
+  createContact(args) {
+    const usr = this.context.user._id;
+    const contact = new Contact({
+      ...args.contactInput,
+      lead_owner: usr
+    });
+    let createdContact;
+    return contact
+      .save()
+      .then(result => {
+        createdContact = { ...result._doc };
+        return User.findById(createdContact.lead_owner._id);
+      })
+      .then(user => {
+        user.contactList.push(contact._id);
+        return user.save();
+      })
+      .then(res => {
+        return createdContact;
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
   }
 }
 

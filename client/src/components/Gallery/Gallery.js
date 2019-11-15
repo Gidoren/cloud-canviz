@@ -1,11 +1,6 @@
-import React, { Component, Fragment } from "react";
-// import ReactResizeDetector from "react-resize-detector";
+import React from "react";
 import ArtCard from "../UI/ArtCard/ArtCard";
-import Spinner from "../UI/Spinner/Spinner";
 import styles from "./Gallery.module.css";
-// import './Gallery.css';
-
-// const transition = transitions.scaleDown;
 
 const Gallery = props => {
   // removeItem = id => {
@@ -16,7 +11,11 @@ const Gallery = props => {
 
   const renderPaintings = columnNum => {
     const columnItems = [];
-    const len = props.createdArtWorks.length;
+
+
+    let len = 0
+    if(props.createdArtWorks)
+      len = props.createdArtWorks.length
 
     console.log("gallery props", props);
 

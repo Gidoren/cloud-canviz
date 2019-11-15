@@ -2,17 +2,17 @@ import React from "react";
 import classes from "./Art.module.css";
 import Heart from "../../../assets/images/heart.png";
 import { Link } from "react-router-dom";
-{
-  /* props are properties that are passed from displayComment such as title, creator of the art.
+
+/* props are properties that are passed from displayComment such as title, creator of the art.
 Think of it as parameters in Functions.*/
-}
+
 const Art = props => (
   <div>
     <img
       data-aos="zoom-in"
       className={classes.img}
       src={props.artURL}
-      alt="image"
+      alt={props.title}
     />
     <div
       data-aos="zoom-in"
@@ -26,7 +26,7 @@ const Art = props => (
         {props.username}
       </Link>
       <span>
-        <img className={classes.heart} src={Heart} />
+        <img className={classes.heart} src={Heart} alt="like" />
       </span>
       <p className={classes.title}>
         {props.title}, {props.year}

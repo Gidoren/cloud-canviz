@@ -8,17 +8,31 @@ import Modal from "../../components/UI/Modal/Modal";
 import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
-
-import { AUTH_TOKEN } from "../../utils/constants";
-
+import { gql } from "apollo-boost";
+import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from "./Home.module.css";
 
 class Home extends Component {
   state = {
     show: false,
     modalType: "",
-    usersEmail: ""
+    usersEmail: "",
+    isLoggedIn: false
   };
+
+  async componentDidMount() {
+    const { data } = await this.props.client.query({
+      query: gql`
+        {
+          isLoggedIn @client
+        }
+      `
+    });
+
+    this.setState({ isLoggedIn: data.isLoggedIn });
+    console.log("isLoggedIn data: ", data);
+    console.log("isLoggedIn state: ", this.state.isLoggedIn);
+  }
 
   showModal = () => {
     // const registeredUser = localStorage.getItem(AUTH_TOKEN);
@@ -38,6 +52,10 @@ class Home extends Component {
     this.setState({ modalType: "Login", usersEmail: email });
   };
 
+  handleIsLoggedin = value => {
+    this.setState({ isLoggedIn: value });
+  };
+
   render() {
     let modalContent;
     if (this.state.modalType === "register") {
@@ -48,6 +66,8 @@ class Home extends Component {
           usersEmail={this.state.usersEmail}
           handleHideModal={this.hideModal}
           handleSwitchToRegister={this.switchToRegister}
+          client={this.props.client}
+          handleIsLoggedin={this.handleIsLoggedin}
         />
       );
     }
@@ -56,21 +76,44 @@ class Home extends Component {
       <div>
         <Query query={currentUser}>
           {({ loading, error, data, refetch }) => {
-            if (loading) return "loading ..";
-            if (error) console.log("query error get user art :", error);
+            if (loading) return <Spinner />;
+            if (error) {
+              console.log("query error get user art :", error);
+            }
             console.log("Data from currentUser: ", data);
 
             return (
               <div>
                 <Navbar
                   click={this.showModal}
-                  profileLink={data ? "/profile/" + data.currentUser._id : "/"}
-                  // user={...data.currentUser}
-                />
+                  link2={data ? "/profile/" + data.currentUser._id : "/"}
+                  link1={data ? "/home/" + data.currentUser._id : "/"}
+                  link3={data ? "/crm/" + data.currentUser._id : "/"}
+                  active="Home"
+                  item1="Home"
+                  item2="Profile"
+                  item3="CRM"
 
+                  // user={...data.currentUser}
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleIsLoggedin={this.handleIsLoggedin}
+                />
+                {console.log(data)}
                 <Modal show={this.state.show} handleClose={this.hideModal}>
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
-                  {modalContent}
+                  {/* {modalContent} */}
+                  {this.state.modalType === "Login" ? (
+                    <Login
+                      usersEmail={this.state.usersEmail}
+                      handleHideModal={this.hideModal}
+                      handleSwitchToRegister={this.switchToRegister}
+                      client={this.props.client}
+                      handleIsLoggedin={this.handleIsLoggedin}
+                      handleRefetchUser={refetch}
+                    />
+                  ) : (
+                    <Register handleSwitchToLogin={this.switchToLogin} />
+                  )}
                 </Modal>
                 <div className={classes.home}>
                   <SideDrawer />
@@ -90,7 +133,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {};
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
