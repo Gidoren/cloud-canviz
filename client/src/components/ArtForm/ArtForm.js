@@ -415,6 +415,14 @@ const CREATE_ART = gql`
       title
       year
       price
+      tags
+      styles
+      medium
+      category
+      dimensions {
+        height
+        width
+      }
       img {
         url
       }
@@ -425,10 +433,20 @@ const CREATE_ART = gql`
 const ArtInfo = props => {
   return (
     <div className={classes.artInfoContainer}>
-      <h3>{props.title}</h3>
+      <Grid container direction="column" spacing={2}>
+        <Grid item>
+          <Typography>{props.title}</Typography>
+        </Grid>
+        <Grid item>
+          <Typography>{props.artist}</Typography>
+        </Grid>
+        <Typography>{props.year}</Typography>
+        <Typography>{props.price}</Typography>
+      </Grid>
+      {/* <h3>{props.title}</h3>
       <p>{props.artist}</p>
       <p>{props.year}</p>
-      <p>{props.price}</p>
+      <p>{props.price}</p> */}
     </div>
   );
 };
