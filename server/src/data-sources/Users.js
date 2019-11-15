@@ -124,20 +124,20 @@ class Users extends DataSource {
 
   // attempting to implement similar to createArt()
   createContact(args) {
+    const usr = this.context.user._id;
     const contact = new Contact({
       ...args.contactInput,
-      lead_owner: "5dc8c9a20d7ae72885164ac3"
+      lead_owner: usr
     });
     let createdContact;
     return contact
       .save()
       .then(result => {
-        const user = this.context.user;
         createdContact = { ...result._doc };
         return User.findById(createdContact.lead_owner._id);
       })
       .then(user => {
-        user.contactList.push(contact);
+        user.contactList.push(contact._id);
         return user.save();
       })
       .then(res => {
