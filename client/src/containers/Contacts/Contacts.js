@@ -9,6 +9,10 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Navbar from '../../components/Navbar/Navbar'
+import {currentUser} from '../../grqphql/queries'
+import Spinner from "../../components/UI/Spinner/Spinner";
+import { Query } from "react-apollo";
+
 const columns = [
   { id: 'contact', label: 'Contact', minWidth: 170 },
   { id: 'phone', label: 'Phone', minWidth: 100 },
@@ -142,8 +146,33 @@ class Contacts extends Component {
                       addContactForumHandler={this.addContactForumHandler}/>
     }
     return (
-      <div> 
-        {pageToShow}
+      <div>
+        <Query
+          query={currentUser}
+          variables={{
+            id: window.location.href.replace(
+              "http://localhost:3000/crm/contacts/",
+              ""
+            )
+          }}
+        >
+          {({ loading, error, data }) => {
+            if (loading) return <Spinner />;
+            if (error) {
+              console.log(error);
+              console.log(data);
+            }
+            if (data) {
+              console.log("data from profile", data);
+            }
+            return (
+              <div>
+                {console.log(data)}
+                {pageToShow}
+              </div>
+            );
+          }}
+        </Query> 
       </div>
     );
   }

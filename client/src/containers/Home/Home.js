@@ -98,7 +98,7 @@ class Home extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
-
+                {console.log(data)}
                 <Modal show={this.state.show} handleClose={this.hideModal}>
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
                   {/* {modalContent} */}
