@@ -232,14 +232,14 @@ export const theme = createMuiTheme({
       A200: "#aaaaaa"
     },
     text: {
-      primary: "rgba(0, 0, 0, 0.87)",
-      secondary: "rgba(0, 0, 0, 0.54)",
+      primary: "#2f4f55",
+      secondary: "#556c6f",
       disabled: "rgba(0, 0, 0, 0.38)",
       hint: "rgba(0, 0, 0, 0.38)"
     },
     divider: "rgba(0, 0, 0, 0.12)",
     secondary: {
-      main: "#ef7c65",
+      main: "#d03e68",
       light: "rgb(242, 150, 131)",
       dark: "rgb(167, 86, 70)",
       contrastText: "#000000"
