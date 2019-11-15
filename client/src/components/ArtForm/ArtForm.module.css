@@ -87,7 +87,7 @@
 
 .button[type="submit"],
 .input[type="submit"] {
-  background: #0496ff;
+  background: #5aa1b4;
   color: white;
   text-transform: uppercase;
   border: none;
@@ -101,7 +101,7 @@
 
 .button[type="submit"]:hover,
 .input[type="submit"]:hover {
-  background: #027bce;
+  background: #4e6871;
 }
 
 .button[type="submit"]:active,
@@ -151,4 +151,8 @@
   text-transform: uppercase;
   padding: 10px 20px;
   border-radius: 4px;
+}
+
+.imgGrid {
+  padding: "3rem";
 }

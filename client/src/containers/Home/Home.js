@@ -91,7 +91,11 @@ class Home extends Component {
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
 
-                <Modal show={this.state.show} handleClose={this.hideModal}>
+                <Modal
+                  show={this.state.show}
+                  handleClose={this.hideModal}
+                  showCloseButton={true}
+                >
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
                   {/* {modalContent} */}
                   {this.state.modalType === "Login" ? (
