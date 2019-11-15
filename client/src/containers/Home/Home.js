@@ -23,6 +23,7 @@ class Home extends Component {
   };
 
   setToggleMenuClass = () => {
+    console.log("menu is orginally: "+this.state.menu);
     /*If menu is disabled, enable*/
     if(this.state.menu === "disabled"){
       this.setState({
@@ -72,7 +73,7 @@ class Home extends Component {
     this.setState({ isLoggedIn: value });
   };
 
-  render() {
+  render = () => {
     /*Determine if sidebar is toggled or not*/
     const cName =
       this.state.menu === "enabled"
@@ -106,17 +107,22 @@ class Home extends Component {
 
             return (
               <div>
-                <Navbar
-                  click={this.showModal}
-                  profileLink={data ? "/profile/" + data.currentUser._id : "/"}
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleIsLoggedin={this.handleIsLoggedin}
-                />
+                <div>
+                  <Navbar
+                    click={this.showModal}
+                    profileLink={data ? "/profile/" + data.currentUser._id : "/"}
+                    isLoggedIn={this.state.isLoggedIn}
+                    handleIsLoggedin={this.handleIsLoggedin}
+                  />
+                </div>
 
-                <Modal show={this.state.show} handleClose={this.hideModal}>
-                  {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
-                  {modalContent}
-                </Modal>
+                <div>
+                  <Modal show={this.state.show} handleClose={this.hideModal}>
+                    {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
+                    {modalContent}
+                  </Modal>
+                </div>
+
                 <div className={classes.home}>
                   <div
                   className={classes.sideBarIcon}

@@ -9,15 +9,21 @@
     }
 }
 
-
+.home > .sideBarIcon{
+    display: none;
+}
 
 .midBar{
     display: none;
 }
 
-@media screen and (max-width: 600px){
-    .sideBar{
-        display: none;
+@media screen and (max-width: 1000px){
+    .home > .sideBar{
+        display: none !important;
+    }
+
+    .home > .sideBarIcon{
+        display: block;
     }
 
     .midBar{
@@ -26,8 +32,8 @@
 }
 
 @media screen and (max-width: 600px){
-    .sideBar.toggled{
-        display: block !important;
+    .home > .sideBar.toggled{
+        display: flex !important;
     }
 
     .midBar{
