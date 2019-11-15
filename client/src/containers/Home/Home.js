@@ -23,19 +23,19 @@ class Home extends Component {
   };
 
   setToggleMenuClass = () => {
-    console.log("menu is orginally: "+this.state.menu);
+    console.log("menu is orginally: " + this.state.menu);
     /*If menu is disabled, enable*/
-    if(this.state.menu === "disabled"){
+    if (this.state.menu === "disabled") {
       this.setState({
         menu: "enabled"
       });
-    }else{
+    } else {
       /*else, enable*/
       this.setState({
         menu: "disabled"
       });
     }
-  }
+  };
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -77,8 +77,8 @@ class Home extends Component {
     /*Determine if sidebar is toggled or not*/
     const cName =
       this.state.menu === "enabled"
-      ? '${classes.sideBar} ${classes.toggled}'
-      : '${classes.sideBar}';
+        ? `${classes.sideBar} ${classes.toggled}`
+        : `${classes.sideBar}`;
 
     let modalContent;
     if (this.state.modalType === "register") {
@@ -110,7 +110,9 @@ class Home extends Component {
                 <div>
                   <Navbar
                     click={this.showModal}
-                    profileLink={data ? "/profile/" + data.currentUser._id : "/"}
+                    profileLink={
+                      data ? "/profile/" + data.currentUser._id : "/"
+                    }
                     isLoggedIn={this.state.isLoggedIn}
                     handleIsLoggedin={this.handleIsLoggedin}
                   />
@@ -125,13 +127,13 @@ class Home extends Component {
 
                 <div className={classes.home}>
                   <div
-                  className={classes.sideBarIcon}
-                  onClick={this.setToggleMenuClass}
+                    className={classes.sideBarIcon}
+                    onClick={this.setToggleMenuClass}
                   >
                     <UseAnimations
-                    animationKey="menu2"
-                    size={35}
-                    style={{ cursor: "pointer" }}
+                      animationKey="menu2"
+                      size={35}
+                      style={{ cursor: "pointer" }}
                     />
                   </div>
 
@@ -147,7 +149,7 @@ class Home extends Component {
         </Query>
       </div>
     );
-  }
+  };
 }
 const mapStateToProps = state => {
   return {};
@@ -155,7 +157,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {};
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
