@@ -119,16 +119,20 @@ const ArtForm = props => {
       })
       .catch(err => console.log(err));
   };
-
-  const printState = async e => {
+  // prints the current state
+  const printState = e => {
     // e.preventDefault();
     console.log(state);
   };
 
+  // handles the submission of art form
   const handleSubmit = event => {
-    //setLoading(true);
+    // preent default submission
     event.preventDefault();
+    //reset input values
+    // TODO fix bug - autocomplete inputs not resetting
     event.target.reset();
+    // uploadArt to mongoDB
     addArt({
       variables: {
         artInput: {
@@ -152,9 +156,11 @@ const ArtForm = props => {
       }
     })
       .then(res => {
+        // reset intitial state
         setState({ ...initialState });
 
         console.log("respoonse from gql addArt", res);
+        // refetch current user so new art work shows in CRM
         props.handleRefetch();
       })
       .then(() => {
@@ -205,7 +211,6 @@ const ArtForm = props => {
             pr={4}
             label="Artist"
             name="artist"
-            //inputRef={register({ required: false, maxLength: 30 })}
             fullWidth
             margin="normal"
             onChange={updateField}
@@ -215,7 +220,6 @@ const ArtForm = props => {
           <TextField
             label="Title"
             name="title"
-            //inputRef={register({ required: false, maxLength: 30 })}
             fullWidth
             margin="normal"
             onChange={updateField}
@@ -225,7 +229,6 @@ const ArtForm = props => {
           <TextField
             label="Medium"
             name="medium"
-            //inputRef={register({ required: false, maxLength: 25 })}
             fullWidth
             margin="normal"
             onChange={updateField}

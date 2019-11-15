@@ -17,16 +17,20 @@ const HEADER_NAME = "Authorization";
 
 // Apollo Server
 const server = new ApolloServer({
+  // typedefs are schema imported above
   typeDefs,
   resolvers,
+  // context holds the user
+  // accesible from anywhere in backend
   context: async ({ req }) => {
     let user = null;
     let authToken = null;
 
     try {
+      // check the header of incoming request for authtoken
       authToken = req.headers.authorization;
-      // console.log('auth token', authToken);
       if (authToken) {
+        // function to find the user with matching auth token
         user = await getUserFromToken(authToken);
       }
     } catch (err) {
@@ -52,7 +56,7 @@ mongoose
     `mongodb+srv://${mongoUser}:${mongoPwd}@cloud-canviz-y7acv.mongodb.net/${mongoDB}?retryWrites=true&w=majority`
   )
   .then(() => {
-    // Start server
+    // Start server upon successful connection to mongodb
     server.listen().then(({ url }) => console.log(`🚀 app running at ${url}`));
   })
   .catch(err => {
