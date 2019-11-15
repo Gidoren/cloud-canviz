@@ -10,15 +10,18 @@ import classes from "./Crm.module.css";
 
 class Crm extends Component {
   state = {
-    show: false
+    show: false,
+    originalBodyOverflow: document.body.style.overflow
   };
 
   showModal = () => {
     this.setState({ show: true });
+    document.body.style.overflow = "hidden";
   };
 
   hideModal = () => {
     this.setState({ show: false });
+    document.body.style.overflow = this.state.originalBodyOverflow;
   };
 
   render() {
@@ -36,7 +39,11 @@ class Crm extends Component {
                 </button>
 
                 <Gallery {...data.currentUser} />
-                <Modal show={this.state.show} handleClose={this.hideModal}>
+                <Modal
+                  show={this.state.show}
+                  handleClose={this.hideModal}
+                  showCloseButton={false}
+                >
                   <ArtForm
                     handleHideModal={this.hideModal}
                     handleRefetch={refetch}
