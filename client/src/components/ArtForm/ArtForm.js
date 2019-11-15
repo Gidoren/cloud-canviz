@@ -1,17 +1,13 @@
 import React, { useState } from "react";
-import useForm from "react-hook-form";
-import ErrorMessage from "./errorMessage";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
 
 import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Chip from "@material-ui/core/Chip";
@@ -28,31 +24,28 @@ import { gql } from "apollo-boost";
 const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
-const ArtForm = props => {
-  const {
-    register,
-    handleSubmit,
-    errors,
-    formState: { isSubmitting }
-  } = useForm();
+const initialState = {
+  title: "Untitled",
+  artist: "Unknown Artist",
+  medium: "",
+  height: "",
+  width: "",
+  price: "",
+  category: "",
+  tags: [],
+  styles: [],
+  year: "2019",
+  description: "",
+  url: ""
+};
 
+const ArtForm = props => {
   const [state, setState] = useState({
-    title: "Untitled",
-    artist: "Artist",
-    medium: "",
-    height: 0,
-    width: 0,
-    price: 0.0,
-    category: "",
-    tags: [],
-    styles: [],
-    year: "2019"
+    ...initialState
   });
 
-  const [url, setUrl] = useState("");
-
-  // const [loading, setLoading] = useState(false);
-  // const [success, setSuccess] = useState(false);
+  // boolean for when upload was successful
+  const [uploadSuccess, setUploadSuccess] = useState(false);
 
   const [addArt, { data }] = useMutation(CREATE_ART);
 
@@ -88,19 +81,16 @@ const ArtForm = props => {
     });
   };
 
-  // const handleStyleDelete = (e, val) => {
-  //   e.preventDefault();
-  //   console.log("style delete: ", e.target.value);
-  // };
-
   // function to pass as props to upload image which adds file to selectedFiles
   const handleSetFiles = event => {
     setSelectedFiles([...selectedFiles, event[0]]);
   };
 
-  const handleSetUrl = s3Url => {
-    setUrl(s3Url);
-    console.log("url: ", url);
+  const setUrl = s3url => {
+    setState({
+      ...state,
+      url: s3url
+    });
   };
 
   const handleCancel = () => {
@@ -109,6 +99,9 @@ const ArtForm = props => {
     setUrl("");
   };
 
+  const handleClearInputs = () => {
+    document.getElementById("create-course-form").reset();
+  };
   // function to upload files to S3
   const fileUploadHandler = async () => {
     const fileName = selectedFiles[0].name;
@@ -116,36 +109,53 @@ const ArtForm = props => {
     return await uploadImage(fileName, file)
       .then(url => {
         console.log("response from s3 url in ArtForm: ", url);
+        setUploadSuccess(true);
+        setUrl(url);
         return url;
+      })
+      .then(() => {
+        console.log("upload succes val: ", uploadSuccess);
+        console.log("seturl url: ", state.url);
       })
       .catch(err => console.log(err));
   };
 
-  const printState = e => {
+  const printState = async e => {
     // e.preventDefault();
     console.log(state);
   };
 
-  const onSubmit = async formData => {
+  const handleSubmit = event => {
     //setLoading(true);
-    await fileUploadHandler()
-      .then(res => {
-        addArt({
-          variables: {
-            artInput: {
-              artist: formData.artist,
-              title: formData.title,
-              year: formData.year,
-              price: formData.price,
-              img: {
-                url: res
-              }
-            }
+    event.preventDefault();
+    event.target.reset();
+    addArt({
+      variables: {
+        artInput: {
+          artist: state.artist,
+          title: state.title,
+          medium: state.medium,
+          category: state.category,
+          dimensions: {
+            height: parseInt(state.height),
+            width: parseInt(state.width)
+          },
+          year: state.year,
+          price: state.price.toString(),
+          tags: state.tags,
+          styles: state.styles,
+          description: state.description,
+          img: {
+            url: state.url
           }
-        }).then(res => {
-          console.log("respoonse from gql addArt", res);
-          props.handleRefetch();
-        });
+        }
+      }
+    })
+      .then(res => {
+        setState({ ...initialState });
+
+        console.log("respoonse from gql addArt", res);
+        props.handleRefetch();
       })
       .then(() => {
         handleCancel();
@@ -156,19 +166,29 @@ const ArtForm = props => {
   };
 
   return (
-    <form className={classes.form} onSubmit={handleSubmit(printState)}>
+    <form
+      id="upload-art-form"
+      className={classes.form}
+      onSubmit={event => handleSubmit(event)}
+    >
+      {/* TODO handle delete s3 image on cancel */}
       <Grid container spacing={2}>
-        <Grid item xs={12}>
-          <Typography component="h1" variant="h5" align="center">
-            UPLOAD ART
-          </Typography>
+        <Grid container item xs={12} justify="flex-end">
+          <Grid item>
+            <Button size="large" onClick={handleCancel} color="secondary">
+              Cancel
+            </Button>
+          </Grid>
         </Grid>
         <Grid container item xs={12} justify="center" alignItems="center">
           <Grid item xs={12} sm={6}>
             <UploadImage
-              handleSettingUrl={handleSetUrl}
+              handleSettingUrl={setUrl}
               handleSetSelectedFiles={handleSetFiles}
               selectedFiles={selectedFiles}
+              handleUpload={fileUploadHandler}
+              uploadSuccess={uploadSuccess}
+              s3url={state.url}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -180,38 +200,36 @@ const ArtForm = props => {
             ></ArtInfo>
           </Grid>
         </Grid>
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12} sm={6} l={4}>
           <TextField
+            pr={4}
             label="Artist"
             name="artist"
-            inputRef={register({ required: false, maxLength: 30 })}
+            //inputRef={register({ required: false, maxLength: 30 })}
             fullWidth
             margin="normal"
             onChange={updateField}
           />
-          <ErrorMessage error={errors.lastName} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             label="Title"
             name="title"
-            inputRef={register({ required: false, maxLength: 30 })}
+            //inputRef={register({ required: false, maxLength: 30 })}
             fullWidth
             margin="normal"
             onChange={updateField}
           />
-          <ErrorMessage error={errors.lastName} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
             label="Medium"
             name="medium"
-            inputRef={register({ required: false, maxLength: 25 })}
+            //inputRef={register({ required: false, maxLength: 25 })}
             fullWidth
             margin="normal"
             onChange={updateField}
           />
-          <ErrorMessage error={errors.lastName} />
         </Grid>
         <Grid item xs={12} sm={6}>
           <FormControl fullWidth margin="normal">
@@ -233,7 +251,7 @@ const ArtForm = props => {
           </FormControl>
         </Grid>
 
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="height"
             label="Height"
@@ -247,7 +265,7 @@ const ArtForm = props => {
             margin="normal"
           />
         </Grid>
-        <Grid item xs={6} sm={3}>
+        <Grid item xs={12} sm={6}>
           <TextField
             id="width"
             label="Width"
@@ -267,6 +285,20 @@ const ArtForm = props => {
             label="Year Created"
             type="number"
             name="year"
+            fullWidth
+            onChange={updateField}
+            InputLabelProps={{
+              shrink: true
+            }}
+            margin="normal"
+          />
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <TextField
+            id="price"
+            label="Price"
+            type="number"
+            name="price"
             fullWidth
             onChange={updateField}
             InputLabelProps={{
@@ -308,8 +340,6 @@ const ArtForm = props => {
           <Autocomplete
             name="styles"
             onChange={updateStylesArr}
-            //onInputChange={handleStyleDelete}
-            //onDelete={handleStyleDelete}
             autoSelect
             multiple
             id="checkboxes-tags-demo"
@@ -323,7 +353,6 @@ const ArtForm = props => {
                   checkedIcon={checkedIcon}
                   style={{ marginRight: 8 }}
                   checked={selected}
-                  // value={option.title}
                 />
                 {option.title}
               </React.Fragment>
@@ -339,68 +368,20 @@ const ArtForm = props => {
             )}
           />
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            id="description"
+            label="Description"
+            multiline
+            fullWidth
+            name="description"
+            rows="3"
+            margin="normal"
+            onChange={updateField}
+          />
+        </Grid>
       </Grid>
-
-      {/* <h1 className={classes.h1}>Upload Art</h1>
-      <div className={classes.topContainer}>
-        <div className={classes.upload}>
-          <UploadImage
-            handleSettingUrl={handleSetUrl}
-            handleSetSelectedFiles={handleSetFiles}
-            selectedFiles={selectedFiles}
-          />
-        </div>
-        <div className={classes.artInfo}>
-          <ArtInfo
-            title="Art Title"
-            artist="Artist"
-            year="2018"
-            price="$1000"
-          ></ArtInfo>
-        </div>
-      </div>
-      <div style={{ padding: "0 1rem 0 1rem" }}>
-        <div className={classes.inputContainer}>
-          <label className={classes.label}>Title:</label>
-
-          <input
-            className={classes.input}
-            name="title"
-            ref={register({ required: false, maxLength: 25 })}
-          />
-
-          <ErrorMessage error={errors.firstName} />
-
-          <label className={classes.label}>Artist:</label>
-          <input
-            className={classes.input}
-            name="artist"
-            ref={register({ required: false, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
-        </div>
-        <div className={classes.inputContainer}>
-          <label className={classes.label}>Year:</label>
-          <input
-            className={classes.input}
-            name="year"
-            ref={register({ required: false, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
-
-          <label className={classes.label}>Price:</label>
-          <input
-            className={classes.input}
-            name="price"
-            ref={register({ required: false, maxLength: 25 })}
-          />
-          <ErrorMessage error={errors.lastName} />
-        </div>
-        {/* <Loader /> */}
-      <input className={classes.input} disabled={isSubmitting} type="submit" />
-      <div className={classes.cancelButton} onClick={handleCancel}>
-        Cancel
-      </div>
+      <input className={classes.input} type="submit" />
     </form>
   );
 };
@@ -435,18 +416,26 @@ const ArtInfo = props => {
     <div className={classes.artInfoContainer}>
       <Grid container direction="column" spacing={2}>
         <Grid item>
-          <Typography>{props.title}</Typography>
+          <Typography variant="h5" color="textPrimary">
+            {props.title}
+          </Typography>
         </Grid>
         <Grid item>
-          <Typography>{props.artist}</Typography>
+          <Typography variant="h6" color="textSecondary">
+            {props.artist}
+          </Typography>
         </Grid>
-        <Typography>{props.year}</Typography>
-        <Typography>{props.price}</Typography>
+        <Grid item>
+          <Typography variant="subtitle1" color="textSecondary">
+            {props.year}
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Typography variant="subtitle1" color="textSecondary">
+            {props.price}
+          </Typography>
+        </Grid>
       </Grid>
-      {/* <h3>{props.title}</h3>
-      <p>{props.artist}</p>
-      <p>{props.year}</p>
-      <p>{props.price}</p> */}
     </div>
   );
 };
@@ -473,200 +462,3 @@ const stylesOptions = [
   { title: "Dada" },
   { title: "Body Art" }
 ];
-
-// import React, { useState } from "react";
-// import useForm from "react-hook-form";
-// import ErrorMessage from "./errorMessage";
-// import classes from "./ArtForm.module.css";
-// import UploadImage from "../UploadImage/UploadImage";
-
-// import { uploadImage } from "../UploadImage/S3/s3Upload";
-
-// import { useMutation } from "@apollo/react-hooks";
-// import { gql } from "apollo-boost";
-
-// const CREATE_ART = gql`
-//   mutation createArt($artInput: ArtInput) {
-//     createArt(artInput: $artInput) {
-//       _id
-//       artist
-//       title
-//       year
-//       price
-//       img {
-//         url
-//       }
-//     }
-//   }
-// `;
-
-// const ArtInfo = props => {
-//   return (
-//     <div className={classes.artInfoContainer}>
-//       <h3>{props.title}</h3>
-//       <p>{props.artist}</p>
-//       <p>{props.year}</p>
-//       <p>{props.price}</p>
-//     </div>
-//   );
-// };
-
-// const ArtForm = props => {
-//   const {
-//     register,
-//     handleSubmit,
-//     errors,
-//     formState: { isSubmitting }
-//   } = useForm();
-
-//   const [url, setUrl] = useState("");
-
-//   // const [loading, setLoading] = useState(false);
-//   // const [success, setSuccess] = useState(false);
-
-//   const [addArt, { data }] = useMutation(CREATE_ART);
-
-//   // state to hold for uploadImage component
-//   const [selectedFiles, setSelectedFiles] = useState([]);
-
-//   // function to pass as props to upload image which adds file to selectedFiles
-//   const handleSetFiles = event => {
-//     setSelectedFiles([...selectedFiles, event[0]]);
-//   };
-
-//   const handleSetUrl = s3Url => {
-//     setUrl(s3Url);
-//     console.log("url: ", url);
-//   };
-
-//   const handleCancel = () => {
-//     props.handleHideModal();
-//     setSelectedFiles([]);
-//     setUrl("");
-//   };
-
-//   // const Loader = () => {
-//   //   if (loading) {
-//   //     return <p>...Uploading Image</p>;
-//   //   } else if (success) {
-//   //     return <p>UPLOAD SUCCESSFUL!</p>;
-//   //   } else {
-//   //     return null;
-//   //   }
-//   // };
-
-//   // function to upload files to S3
-//   const fileUploadHandler = async () => {
-//     const fileName = selectedFiles[0].name;
-//     const file = selectedFiles[0];
-//     return await uploadImage(fileName, file)
-//       .then(url => {
-//         console.log("response from s3 url in ArtForm: ", url);
-//         return url;
-//       })
-//       .catch(err => console.log(err));
-//   };
-
-//   const onSubmit = async formData => {
-//     //setLoading(true);
-//     await fileUploadHandler()
-//       .then(res => {
-//         addArt({
-//           variables: {
-//             artInput: {
-//               artist: formData.artist,
-//               title: formData.title,
-//               year: formData.year,
-//               price: formData.price,
-//               img: {
-//                 url: res
-//               }
-//             }
-//           }
-//         }).then(res => {
-//           console.log("respoonse from gql addArt", res);
-//           props.handleRefetch();
-//         });
-//       })
-//       .then(() => {
-//         handleCancel();
-//       })
-//       .catch(err => {
-//         console.log(err);
-//       });
-//   };
-
-//   return (
-//     <div className={classes.body}>
-//       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-//         <h1 className={classes.h1}>Upload Art</h1>
-//         <div className={classes.topContainer}>
-//           <div className={classes.upload}>
-//             <UploadImage
-//               handleSettingUrl={handleSetUrl}
-//               handleSetSelectedFiles={handleSetFiles}
-//               selectedFiles={selectedFiles}
-//             />
-//           </div>
-//           <div className={classes.artInfo}>
-//             <ArtInfo
-//               title="Art Title"
-//               artist="Artist"
-//               year="2018"
-//               price="$1000"
-//             ></ArtInfo>
-//           </div>
-//         </div>
-//         <div style={{ padding: "0 1rem 0 1rem" }}>
-//           <div className={classes.inputContainer}>
-//             <label className={classes.label}>Title:</label>
-
-//             <input
-//               className={classes.input}
-//               name="title"
-//               ref={register({ required: false, maxLength: 25 })}
-//             />
-
-//             <ErrorMessage error={errors.firstName} />
-
-//             <label className={classes.label}>Artist:</label>
-//             <input
-//               className={classes.input}
-//               name="artist"
-//               ref={register({ required: false, maxLength: 25 })}
-//             />
-//             <ErrorMessage error={errors.lastName} />
-//           </div>
-//           <div className={classes.inputContainer}>
-//             <label className={classes.label}>Year:</label>
-//             <input
-//               className={classes.input}
-//               name="year"
-//               ref={register({ required: false, maxLength: 25 })}
-//             />
-//             <ErrorMessage error={errors.lastName} />
-
-//             <label className={classes.label}>Price:</label>
-//             <input
-//               className={classes.input}
-//               name="price"
-//               ref={register({ required: false, maxLength: 25 })}
-//             />
-//             <ErrorMessage error={errors.lastName} />
-//           </div>
-//           {/* <Loader /> */}
-//           <input
-//             className={classes.input}
-//             disabled={isSubmitting}
-//             type="submit"
-//           />
-//           <div className={classes.cancelButton} onClick={handleCancel}>
-//             Cancel
-//           </div>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default ArtForm;
