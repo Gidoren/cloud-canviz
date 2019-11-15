@@ -7,7 +7,7 @@ import Gallery from "../../components/Gallery/Gallery";
 import { currentUser } from "../../grqphql/queries";
 import Navbar from '../../components/Navbar/Navbar'
 import classes from "./Crm.module.css";
-
+import Spinner from '../../components/UI/Spinner/Spinner'
 
 
 
@@ -29,7 +29,7 @@ class Crm extends Component {
       <div>
         <Query query={currentUser}>
           {({ loading, error, data, refetch }) => {
-            if (loading) return "loading ..";
+            if (loading) return <Spinner />;
             if (error) console.log("query error get user art :", error);
             console.log("Data from currentUser: ", data);
             return (
@@ -39,7 +39,7 @@ class Crm extends Component {
                   link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
                   link2={data ? "/crm/inventory/" + data.currentUser._id : "/"}
                   link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
-                  active="Contacts"
+                  active="Inventory"
                   item1="Dashboard"
                   item2="Inventory"
                   item3="Contacts"

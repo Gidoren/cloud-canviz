@@ -44,10 +44,10 @@ class App extends Component {
               path="/"
               render={props => <Home {...props} client={this.props.client} />}
             />
-            <Route path="/crm/:username" component={Crm} />
+            <Route path="/crm/:username" exact component={Crm} />
             <Route path="/home/:username" component={Home} />
             <Route path="/profile/:username" component={Profile} />
-            <Route path="/contacts/:username" exact component={Contacts} />
+            <Route path="/crm/contacts/:username" component={Contacts} />
           </MuiThemeProvider>
         </BrowserRouter>
       </div>

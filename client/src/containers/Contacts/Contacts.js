@@ -8,7 +8,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-
+import Navbar from '../../components/Navbar/Navbar'
 const columns = [
   { id: 'contact', label: 'Contact', minWidth: 170 },
   { id: 'phone', label: 'Phone', minWidth: 100 },

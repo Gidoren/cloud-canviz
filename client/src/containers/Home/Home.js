@@ -9,7 +9,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
-
+import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -76,7 +76,7 @@ class Home extends Component {
       <div>
         <Query query={currentUser}>
           {({ loading, error, data, refetch }) => {
-            if (loading) return "loading ..";
+            if (loading) return <Spinner />;
             if (error) {
               console.log("query error get user art :", error);
             }
