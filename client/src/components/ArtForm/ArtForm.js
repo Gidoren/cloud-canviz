@@ -80,8 +80,8 @@ const ArtForm = props => {
   // updates the state of styles when new style added
   const updateStylesArr = e => {
     e.preventDefault();
-    console.log("styles: ", e.target.textContent);
-    console.log("state array: ", e.target.State);
+    console.log("text context: ", e.target.textContent);
+    console.log("value: ", e.target.value);
     setState({
       ...state,
       styles: state.styles.concat(e.target.textContent)
@@ -310,6 +310,7 @@ const ArtForm = props => {
             onChange={updateStylesArr}
             //onInputChange={handleStyleDelete}
             //onDelete={handleStyleDelete}
+            autoSelect
             multiple
             id="checkboxes-tags-demo"
             options={stylesOptions}
@@ -322,8 +323,7 @@ const ArtForm = props => {
                   checkedIcon={checkedIcon}
                   style={{ marginRight: 8 }}
                   checked={selected}
-                  value={option.title}
-                  //onChange={handleStyleDelete}
+                  // value={option.title}
                 />
                 {option.title}
               </React.Fragment>
