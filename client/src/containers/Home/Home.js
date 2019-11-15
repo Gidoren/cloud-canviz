@@ -35,6 +35,7 @@ class Home extends Component {
         menu: "disabled"
       });
     }
+    console.log("menu is now: "+this.state.menu);
   }
 
   async componentDidMount() {
@@ -134,6 +135,8 @@ class Home extends Component {
                     style={{ cursor: "pointer" }}
                     />
                   </div>
+
+                  {console.log("cName is: "+cName)}
 
                   <div className={cName}>
                     <SideDrawer />

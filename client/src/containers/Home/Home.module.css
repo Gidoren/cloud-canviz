@@ -9,6 +9,10 @@
     }
 }
 
+.home > .sideBar{
+    display: block;
+}
+
 .home > .sideBarIcon{
     display: none;
 }
@@ -19,7 +23,7 @@
 
 @media screen and (max-width: 1000px){
     .home > .sideBar{
-        display: none !important;
+        display: none;
     }
 
     .home > .sideBarIcon{
@@ -31,9 +35,9 @@
     }
 }
 
-@media screen and (max-width: 600px){
-    .home > .sideBar.toggled{
-        display: flex !important;
+@media screen and (max-width: 1000px){
+    .home > .toggled{
+        display: block !important;
     }
 
     .midBar{
