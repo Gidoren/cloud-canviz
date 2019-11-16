@@ -23,6 +23,12 @@ const columns = [
     align: 'right',
   },
   {
+    id: 'city',
+    label: 'City',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
     id: 'leadStatus',
     label: 'Lead Status',
     minWidth: 170,

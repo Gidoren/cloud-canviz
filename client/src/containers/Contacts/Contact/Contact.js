@@ -100,7 +100,7 @@ class Contact extends Component {
                                         website: this.state.website,
                                         privacy_note: this.state.privateNote,
                                         street_address: this.state.streetAddress,
-                                        city: this.state.city,
+                                        city: this.state.city == "Unknown City" ? null: this.state.city,
                                         state: this.state.state,
                                         zip: this.state.zip
                                     }
