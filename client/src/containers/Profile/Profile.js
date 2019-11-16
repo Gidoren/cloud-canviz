@@ -10,6 +10,7 @@ import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 
+/*Query data from the server to display on the profile*/
 const getUserQuery = gql`
   query getUser($id: String) {
     getUser(id: $id) {
@@ -31,9 +32,11 @@ const getUserQuery = gql`
   }
 `;
 
+/*Contents of the profile component*/
 class Profile extends Component {
   constructor(props) {
     super(props);
+    /*Default state is set to display the artwork*/
     this.state = { page: "artwork" };
   }
   render() {
@@ -48,6 +51,7 @@ class Profile extends Component {
             )
           }}
         >
+          {/*Decides what to display based on what server returns*/}
           {({ loading, error, data }) => {
             if (loading) return <p>loading..</p>;
             if (error) {
@@ -62,6 +66,7 @@ class Profile extends Component {
                 <Navbar />
                 <Top name={data.getUser.firstName} />
                 <hr />
+                {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
                   <div onClick={() => this.changePage("artwork")}>
                     <Tab option={"Artwork"} />
@@ -85,6 +90,7 @@ class Profile extends Component {
   changePage = newPage => {
     this.setState({ page: newPage });
   };
+  /*Function to change between tabs on profile*/
   displayPage = user => {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);

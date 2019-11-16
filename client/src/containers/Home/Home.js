@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { connect } from "react-redux";
+import UseAnimations from "react-useanimations";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
 import Navbar from "../../components/Navbar/Navbar";
@@ -17,8 +18,25 @@ class Home extends Component {
     show: false,
     modalType: "",
     usersEmail: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    menu: "disabled"
   };
+
+  setToggleMenuClass = () => {
+    console.log("menu is orginally: " + this.state.menu);
+    /*If menu is disabled, enable*/
+    if (this.state.menu === "disabled") {
+      this.setState({
+        menu: "enabled"
+      });
+    } else {
+      /*else, enable*/
+      this.setState({
+        menu: "disabled"
+      });
+    }
+    console.log("menu is now: "+this.state.menu);
+  }
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -56,7 +74,13 @@ class Home extends Component {
     this.setState({ isLoggedIn: value });
   };
 
-  render() {
+  render = () => {
+    /*Determine if sidebar is toggled or not*/
+    const cName =
+      this.state.menu === "enabled"
+        ? `${classes.sideBar} ${classes.toggled}`
+        : `${classes.sideBar}`;
+
     let modalContent;
     if (this.state.modalType === "register") {
       modalContent = <Register handleSwitchToLogin={this.switchToLogin} />;
@@ -84,12 +108,16 @@ class Home extends Component {
 
             return (
               <div>
-                <Navbar
-                  click={this.showModal}
-                  profileLink={data ? "/profile/" + data.currentUser._id : "/"}
-                  isLoggedIn={this.state.isLoggedIn}
-                  handleIsLoggedin={this.handleIsLoggedin}
-                />
+                <div>
+                  <Navbar
+                    click={this.showModal}
+                    profileLink={
+                      data ? "/profile/" + data.currentUser._id : "/"
+                    }
+                    isLoggedIn={this.state.isLoggedIn}
+                    handleIsLoggedin={this.handleIsLoggedin}
+                  />
+                </div>
 
                 <Modal
                   show={this.state.show}
@@ -112,7 +140,23 @@ class Home extends Component {
                   )}
                 </Modal>
                 <div className={classes.home}>
-                  <SideDrawer />
+                  <div
+                    className={classes.sideBarIcon}
+                    onClick={this.setToggleMenuClass}
+                  >
+                    <UseAnimations
+                      animationKey="menu2"
+                      size={35}
+                      style={{ cursor: "pointer" }}
+                    />
+                  </div>
+
+                  {console.log("cName is: "+cName)}
+
+                  <div className={cName}>
+                    <SideDrawer />
+                  </div>
+
                   <DisplayArt type="Home" />
                 </div>
               </div>
@@ -121,7 +165,7 @@ class Home extends Component {
         </Query>
       </div>
     );
-  }
+  };
 }
 const mapStateToProps = state => {
   return {};

@@ -8,3 +8,39 @@
         margin: 0;
     }
 }
+
+.home > .sideBar{
+    display: block;
+}
+
+.home > .sideBarIcon{
+    display: none;
+}
+
+.midBar{
+    display: none;
+}
+
+@media screen and (max-width: 1000px){
+    .home > .sideBar{
+        display: none;
+    }
+
+    .home > .sideBarIcon{
+        display: block;
+    }
+
+    .midBar{
+        display: block;
+    }
+}
+
+@media screen and (max-width: 1000px){
+    .home > .toggled{
+        display: block !important;
+    }
+
+    .midBar{
+        display: block;
+    }
+}
