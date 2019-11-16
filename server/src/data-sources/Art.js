@@ -98,6 +98,14 @@ class Art extends DataSource {
         throw err;
       });
   }
+  // TODO removeArt to delete artwork
+  // Needs to:
+  // 1. Find the user
+  // 2. Delete the artwork from the users createdArtworks list
+  // 3. Find all users in the arts likers array and delete this arts id from the array
+  // 4. Do the same for followers and any other references to this art in other collections
+  //  https://stackoverflow.com/questions/46911393/mongoose-remove-document-with-references
+  // 4. Find the art by the id given and delete
 
   // removeArt(artId){
   //   const usr = context.usr._id;

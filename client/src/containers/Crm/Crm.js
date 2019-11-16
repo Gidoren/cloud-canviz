@@ -14,7 +14,8 @@ import { gql } from "apollo-boost";
 class Crm extends Component {
   state = {
     show: false,
-    isLoggedIn: false
+    isLoggedIn: false,
+    originalBodyOverflow: document.body.style.overflow
   };
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -31,10 +32,12 @@ class Crm extends Component {
   }
   showModal = () => {
     this.setState({ show: true });
+    document.body.style.overflow = "hidden";
   };
 
   hideModal = () => {
     this.setState({ show: false });
+    document.body.style.overflow = this.state.originalBodyOverflow;
   };
   handleIsLoggedin = value => {
     this.setState({ isLoggedIn: value });
@@ -67,8 +70,13 @@ class Crm extends Component {
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>
-                {data.currentUser && <Gallery {...data.currentUser} />}
-                <Modal show={this.state.show} handleClose={this.hideModal}>
+
+                <Gallery {...data.currentUser} />
+                <Modal
+                  show={this.state.show}
+                  handleClose={this.hideModal}
+                  showCloseButton={false}
+                >
                   <ArtForm
                     handleHideModal={this.hideModal}
                     handleRefetch={refetch}

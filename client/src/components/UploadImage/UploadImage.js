@@ -2,20 +2,24 @@ import React, { Component } from "react";
 import classes from "./UploadImage.module.css";
 import Dropzone from "react-dropzone";
 import image from "../../assets/images/UploadImage.png";
-// import { withPreviews } from "./WithPreviews/WithPreviews";
+import { withPreviews } from "./WithPreviews/WithPreviews";
 
 class UploadImage extends Component {
   state = {
     selectedFiles: [],
     uploadFiles: false
   };
-  fileSelectHandler = event => {
+  fileSelectHandler = async event => {
     this.props.handleSetSelectedFiles(event);
+    this.props.handleUpload();
   };
 
   render() {
     return (
       <div>
+        {this.props.uploadSuccess && (
+          <img className={classes.uploadImage} src={this.props.s3url}></img>
+        )}
         {this.props.selectedFiles.length === 0 && (
           <Dropzone onDrop={this.fileSelectHandler}>
             {({ getRootProps, getInputProps }) => (
