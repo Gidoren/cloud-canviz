@@ -1,10 +1,4 @@
-// _id: ID!
-//         email: String!
-//         password: String
-//         firstName: String
-//         lastName: String
-//         type: String
-//         artWorks: [String!]
+// User model for mongoDB
 
 const mongoose = require("mongoose");
 
@@ -36,7 +30,19 @@ const userSchema = new Schema(
       type: String,
       required: false
     },
+    contactList: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "contacts"
+      }
+    ],
     createdArtWorks: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "artWork"
+      }
+    ],
+    likedArtWorks: [
       {
         type: Schema.Types.ObjectId,
         ref: "artWork"

@@ -24,7 +24,3 @@ export const REGISTER_USER = gql`
     }
   }
 `;
-
-// export const CURRENT_USER = gql`
-//     query c
-// `;

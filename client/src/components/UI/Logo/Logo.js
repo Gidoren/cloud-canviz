@@ -2,7 +2,7 @@ import React from "react";
 import classes from "./Logo.module.css";
 
 const SvgComponent = props => (
-  <div className={classes.logo}>
+  <div className={classes.logo} style={{ width: `${props.width}` }}>
     <div className={classes.svg}>
       <svg
         id="prefix__b1bcea3e-3912-4606-9c1d-850d58aa109b"

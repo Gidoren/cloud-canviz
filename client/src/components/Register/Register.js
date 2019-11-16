@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./Register.module.css";
@@ -19,12 +18,14 @@ const Register = ({ handleSwitchToLogin }) => {
 
   const [registerUser, { data }] = useMutation(REGISTER_USER);
 
-  // const afterSumit = ()
-
   const onSubmit = data => {
     console.log("register data", data);
     delete data.confirmPassword;
-    registerUser({ variables: { userInput: data } })
+    registerUser({
+      variables: {
+        userInput: { ...data, username: data.lastName }
+      }
+    })
       .then(response => {
         console.log("response from gql", response.data);
         handleSwitchToLogin(response.data.registerUser.email);
