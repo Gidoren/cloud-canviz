@@ -34,7 +34,7 @@ module.exports = `
         typeUser: String
         createdArtWorks: [Art!]
         likedArtWorks: [Art!]
-        contactList: [Contact]
+        contactList: [Contact!]
     }
 
     input UserInput {

@@ -17,8 +17,29 @@ export const currentUser = gql`
         }
         price
       }
-      
-      
+      contactList {
+        firstName
+        lastName
+        phone_number
+        email
+        spouseFirstName
+        spouseLastName
+        mobile_phone
+        other_phone
+        company
+        birthday
+        website
+        privacy_note
+        street_address
+        city
+        state
+        zip
+        lead_status
+        lead_value
+        lead_owner
+        fullName
+
+      }
     }
   }
 
@@ -42,29 +63,5 @@ export const getUserQuery = gql`
         price
       }
     }
-    contactList {
-        _id
-        firstName
-        lastName
-        phone_number
-        email
-        spouseFirstName
-        spouseLastName
-        mobile_phone
-        other_phone
-        company
-        birthday
-        website
-        privacy_note
-        street_address
-        city
-        state
-        zip
-        lead_status
-        lead_value
-        lead_owner
-        fullName
-
-      }
   }
 `;

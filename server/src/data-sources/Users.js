@@ -102,6 +102,7 @@ class Users extends DataSource {
     const userId = this.context.user._id;
     return User.findById(userId)
       .populate("createdArtWorks")
+      .populate("contactList")
       .then(user => {
         return { ...user._doc };
       })
@@ -138,6 +139,8 @@ class Users extends DataSource {
       })
       .then(user => {
         user.contactList.push(contact._id);
+        console.log(user.contactList)
+        console.log(user.createdArtWorks)
         return user.save();
       })
       .then(res => {
