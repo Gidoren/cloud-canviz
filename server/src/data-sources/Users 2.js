@@ -3,15 +3,10 @@ const isEmail = require("isemail");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 
-const { UserInputError } = require("apollo-server");
-
 const { jwtSecret } = require("../../config");
 
-const Contact = require("../models/contacts");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
-
-// A class for all of User related requests' logic
 
 class Users extends DataSource {
   constructor() {
@@ -23,19 +18,15 @@ class Users extends DataSource {
     this.context = config.context;
   }
 
-  // function to register new user
-  // inputs: userInput (See schema for types)
   async registerUser(args) {
     try {
       let existingUser = await User.findOne({ email: args.userInput.email });
       if (existingUser) {
-        throw new UserInputError("This user already exists, try logging in.");
+        throw new Error("User exists already.");
       }
-      // bcrypt library hashes password
+
       const hashedPassword = await bcrypt.hash(args.userInput.password, 12);
 
-      // create new user based on User model (imported above)
-      // save userinput but overwrite password input with hashed password
       const user = new User({
         ...args.userInput,
         password: hashedPassword
@@ -49,16 +40,10 @@ class Users extends DataSource {
     }
   }
 
-  // function to log existing user in
-  // inputs: email and password
-  // returns: user object of user that logged in
   async loginUser(email, password) {
     try {
       // check if user exists
-      const user = await User.findOne({ email: email })
-        // fill the createdArtworks array with art objects corresponding to each art id
-        .populate("createdArtWorks")
-        .exec(); // no more options so execute
+      const user = await User.findOne({ email: email }).exec();
       if (!user) {
         throw new Error("Invalid Login");
       }
@@ -69,7 +54,7 @@ class Users extends DataSource {
       if (!passwordCorrect) {
         throw new Error("Invalid Login");
       }
-      // library signs the JWT token based on users info
+      //
       const token = jwt.sign(
         {
           _id: user._id,
@@ -79,8 +64,7 @@ class Users extends DataSource {
         },
         jwtSecret,
         {
-          expiresIn: "30d" // expires in 30 days
-          // TODO change expiration time
+          expiresIn: "30d"
         }
       );
 
@@ -95,11 +79,9 @@ class Users extends DataSource {
     }
   }
 
-  // function to list all users in DB
   async getAllUsers() {
     return User.find({})
       .populate("createdArtWorks")
-      .populate("contactList")
       .then(users => {
         return users.map(user => {
           return { ...user._doc };
@@ -110,59 +92,15 @@ class Users extends DataSource {
       });
   }
 
-  // gets the current user with id from context
-  async currentUser() {
-    const userId = this.context.user._id;
-    return User.findById(userId)
-      .populate("createdArtWorks")
-      .then(user => {
-        return { ...user._doc };
-      })
-      .catch(err => {
-        throw err;
-      });
-  }
-
-  // gets a user
-  // input: id of desired user
-  // returns: user if one found matching id argument value
   async getUser(id) {
     try {
       const user = await User.findById(id)
         .populate("createdArtWorks")
-        .populate("contactList")
         .exec();
       return { ...user._doc };
     } catch (err) {
       throw err;
     }
-  }
-
-  // attempting to implement similar to createArt()
-  createContact(args) {
-    const usr = this.context.user._id;
-    const contact = new Contact({
-      ...args.contactInput,
-      lead_owner: usr
-    });
-    let createdContact;
-    return contact
-      .save()
-      .then(result => {
-        createdContact = { ...result._doc };
-        return User.findById(createdContact.lead_owner._id);
-      })
-      .then(user => {
-        user.contactList.push(contact._id);
-        return user.save();
-      })
-      .then(res => {
-        return createdContact;
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
   }
 }
 
