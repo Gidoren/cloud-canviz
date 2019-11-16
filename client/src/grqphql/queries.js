@@ -18,8 +18,10 @@ export const currentUser = gql`
         price
       }
       
+      
     }
   }
+
 `;
 
 export const getUserQuery = gql`
