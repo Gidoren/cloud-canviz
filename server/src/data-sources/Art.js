@@ -98,6 +98,48 @@ class Art extends DataSource {
         throw err;
       });
   }
+  // removeArt() -> uses the artID argument to find an artwork object in the users Created artwork
+  //            then filters the id of the art from the created users array
+  //            then finds the Artworks likers array using the artID argument and iterates through the loop as it finds
+  //            users that liked said artwork
+  //            then filters the artwork from the users likedArtWorks array as it iterates through the loop
+  // inputs: artId (the ID of the artwork the current user wants to save/like)
+  // output: the art object the user liked
+  removeArt(artId) {
+    const usr = this.context.user._id
+    // 1. Find the user
+    return User.findById(usr)
+      .exec()
+      .then(user =>{
+      // 2) Delete the artwork from the users createdArtworks list
+        user.createdArtWorks = user.createdArtWorks.filter(function(value){
+          return value != artId
+        })
+        user.save()
+      }).then(user => {
+        //3) Find all users in the arts likers array and delete this arts id from the array
+        return ArtWork.findById(artId)
+          .exec()
+          .then(art =>{
+            const len = art.likers.length
+            var i = 0
+            for (; i < len;) {
+              User.findById(art.likers[i])
+              .exec()
+              .then(user =>{
+                user.likedArtWorks = user.likedArtWorks.filter(function(value){
+                  return value != artId
+                })
+                user.save()
+              })
+            }
+          })
+      })
+      .catch(err=>{
+        console.log(err);
+        throw err;
+      })
+  }
   // TODO removeArt to delete artwork
   // Needs to:
   // 1. Find the user
