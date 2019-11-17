@@ -14,6 +14,7 @@ import {DELETE_CONTACT} from '../../grqphql/mutations'
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Query } from "react-apollo";
 import deleteIcon from '../../assets/images/delete.png'
+
 const columns = [
   { id: 'delete', label: '', width: 50},
   { id: 'fullName', label: 'Contact' , minWidth: 170},
@@ -49,7 +50,9 @@ class Contacts extends Component {
     showContactForm: false,
     page: 0,
     rowsPerPage: 10, 
-    rows: []
+    rows: [],
+    contactListLoaded: false,
+    showContactDeletedMsg: false
   };
   handleChangePage = (event, newPage) => {
     this.setState({page: newPage})
@@ -62,19 +65,29 @@ class Contacts extends Component {
     this.setState(prevState => ({showContactForm: !prevState.showContactForm }));
   };
   deleteContactHandler = (contact) => {
-    return(
-      <Query query={DELETE_CONTACT} variables={contact['_id']}>
-        {({data, loading, error}) => {
-          if(loading) return <Spinner />
-          if(error) return error
-          if(data) console.log("contact deleted")
-        }}
-      </Query>
-    )
+    const id = contact['_id']
+    const {data} = this.props.client.mutate({
+      mutation: DELETE_CONTACT,
+      variables: {contactID: id}
+    })
+    this.setState({rows: this.state.rows.filter(function(value){
+      return value['_id'] != id
+    })})
+    this.setState({showContactDeletedMsg: true})
+    {setTimeout(
+      function(){
+        this.setState({showContactDeletedMsg: false})
+      }.bind(this),8000)
+    }
+    
+  }
+  saveNewContactHandler = (contact) => {
+    console.log(this.state.rows)
+    this.setState({rows: this.state.rows.concat(contact)})
   }
   render() {
     let pageToShow = (
-      this.state.rows && <div data-aos="zoom-in">
+      this.state.contactListLoaded && <div data-aos="zoom-in">
         <div className={classes.cover}>
           <p className={classes.coverHeading}>Contacts</p>
           <button
@@ -101,7 +114,6 @@ class Contacts extends Component {
               </TableHead>
               <TableBody>
                 {this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
-                  console.log(row)
                   return (
                     <TableRow hover role="checkbox" tabIndex={-1} key={this.state.rows.indexOf(row)}>
                       {columns.map(column => {
@@ -109,7 +121,7 @@ class Contacts extends Component {
                         if(column.id === "delete"){
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              <button className={classes.deleteButton} onClick={() => this.deleteContactHandler(row)}><img id="img1" className={classes.deleteIcon} src={deleteIcon} alt="delete" onClick={console.log("HI")}/></button>
+                              <button className={classes.deleteButton} onClick={() => this.deleteContactHandler(row)}><img id="img1" className={classes.deleteIcon} src={deleteIcon} alt="delete"/></button>
                             </TableCell>
                           )
                         }
@@ -152,7 +164,9 @@ class Contacts extends Component {
                       lastName="Contact"
                       city="Unknown City"
                       totalSales="0.00"
-                      showContactForm={this.showContactFormHandler}/>
+                      showContactForm={this.showContactFormHandler}
+                      saveNewContact={this.saveNewContactHandler}
+                      client={this.props.client}/>
     }
     return (
       <div>
@@ -169,19 +183,18 @@ class Contacts extends Component {
             if (loading) return <Spinner />;
             if (error) {
               console.log(error);
-              console.log(data);
             }
             if (data) {
-              console.log("data from profile", data.currentUser.contactList[0]['firstName']);
-              if(this.state.rows.length == 0){
+              if((this.state.rows.length === 0 && this.state.contactListLoaded === false) || this.state.contactListLoaded === false){
+                console.log(data.currentUser.contactList)
                 this.setState({rows: data.currentUser.contactList})
-                console.log(this.state.rows)
+                this.setState({contactListLoaded: true})
+                
               }
               
             }
             return (
               <div>
-                {console.log(data)}
                 <Navbar
                   link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
                   link2={data ? "/crm/" + data.currentUser._id : "/"}
@@ -197,6 +210,8 @@ class Contacts extends Component {
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
                 {pageToShow}
+                {this.state.showContactDeletedMsg && <button className={classes.contactDeletedMsg}>Contact Deleted!</button>}
+                
               </div>
             );
           }}
