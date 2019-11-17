@@ -142,7 +142,7 @@ class Home extends Component {
                   )}
                 </Modal>
                 <div className={classes.home}>
-                  <div className={classes.con}>
+                  <div className={classes.sideBarContainer}>
                     <div className={classes.bar}>
                       <div
                       className={classes.sideBarIcon}

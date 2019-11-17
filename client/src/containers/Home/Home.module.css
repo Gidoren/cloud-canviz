@@ -13,7 +13,7 @@
     display: block;
 }
 
-.home > .sideBarIcon{
+.home > .sideBarContainer{
     display: none;
 }
 
@@ -24,7 +24,7 @@
     padding: 50vh 0vh;
 }
 
-.con{
+.sideBarContainer{
     min-height: 100vh; 
     display: inline-block;
 }
@@ -34,7 +34,7 @@
         display: none;
     }
 
-    .home > .sideBarIcon{
+    .home > .sideBarContainer{
         display: block;
     }
 
