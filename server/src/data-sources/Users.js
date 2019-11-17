@@ -165,15 +165,31 @@ class Users extends DataSource {
       });
   }
 
-  updateContact(contactID, args) {
-    return contacts.findByIDAndUpdate(
-      ...args.contactInput
-    )
-    .catch(err => {
-      console.log(err);
-      throw errl
-    });
-  }
+  // updateContact(contactID, args) {
+  //   const usr = this.context.user._id;
+  //   const contact = Contact({
+  //     ...args.contactInput,
+  //     lead_owner: usr
+  //   });
+  //   let updatedContact;
+  //   return contact
+  //     .save()
+  //     .then(result => {
+  //       updatedContact = { ...result._doc };
+  //       return User.findById(updatedContact.lead_owner._id);
+  //     })
+  //     .then(user => {
+  //       user.contactList.push(contact._id);
+  //       return user.save()
+  //     })
+  //     .then(res => {
+  //       return updatedContact;
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       throw err;
+  //     });
+  // }
 
   async deleteContact(contactID) {
     const user = this.context.user._id;
