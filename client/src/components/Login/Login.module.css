@@ -15,7 +15,7 @@
 
 .form {
   background: white;
-  max-width: 500px;
+  max-width: 600px;
   margin: 0 auto;
   text-align: center;
 }
@@ -55,21 +55,21 @@
 
 .button[type="submit"],
 .input[type="submit"] {
-  background: #0496ff;
+  background: #5aa1b4;
   color: white;
   text-transform: uppercase;
   border: none;
   margin-top: 40px;
   padding: 20px;
   font-size: 16px;
-  font-weight: 100;
+  font-weight: 200;
   letter-spacing: 10px;
   border-radius: 5px;
 }
 
 .button[type="submit"]:hover,
 .input[type="submit"]:hover {
-  background: #027bce;
+  background: #4e6871;
 }
 
 .button[type="submit"]:active,

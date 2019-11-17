@@ -1,0 +1,31 @@
+.logo {
+  display: inline-block;
+  width: 11em;
+  height: auto;
+}
+
+.svg {
+  /* width: 100%; */
+}
+
+@media screen and (max-width: 600px) {
+  .logo {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    float: none;
+  }
+}
+.c {
+  fill: #64b3c8;
+}
+
+.an {
+  fill: #64b3c8;
+}
+
+.viz {
+  fill: #435f68;
+  stroke: #435f68;
+  stroke-miterlimit: 10;
+}

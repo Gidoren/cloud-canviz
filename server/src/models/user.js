@@ -1,10 +1,4 @@
-// _id: ID!
-//         email: String!
-//         password: String
-//         firstName: String
-//         lastName: String
-//         type: String
-//         artWorks: [String!]
+// User model for mongoDB
 
 const mongoose = require("mongoose");
 

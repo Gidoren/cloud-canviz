@@ -4,6 +4,7 @@ import ErrorMessage from "./errorMessage";
 import classes from "./Login.module.css";
 import { LOGIN_USER } from "../../grqphql/mutations";
 import Logo from "../UI/Logo/Logo";
+import TextField from "@material-ui/core/TextField";
 
 import { useMutation } from "@apollo/react-hooks";
 
@@ -19,7 +20,8 @@ const Login = ({
   handleHideModal,
   handleSwitchToRegister,
   client,
-  handleIsLoggedin
+  handleIsLoggedin,
+  handleRefetchUser
 }) => {
   const {
     register,
@@ -31,10 +33,12 @@ const Login = ({
   const [loginUser, { data }] = useMutation(LOGIN_USER);
 
   const onSubmit = data => {
+    console.log("form data", data);
     loginUser({ variables: { email: data.email, password: data.password } })
       .then(response => {
         // close modal
         handleHideModal();
+
         console.log("response from gql", response);
         const token = response.data.loginUser.token;
         // set local storage with auth token returned for users
@@ -42,6 +46,7 @@ const Login = ({
         // TODO logout button that removes auth token
         client.writeData({ data: { isLoggedIn: true } });
         handleIsLoggedin(true);
+        handleRefetchUser();
       })
       .catch(err => {
         console.log("gql error: ", err);
@@ -58,20 +63,34 @@ const Login = ({
           <hr className={classes.line} />
         </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          <label className={classes.label}>Email</label>
+          {/* <label className={classes.label}>Email</label>
           <input
             className={classes.input}
             name="email"
             defaultValue={usersEmail}
             ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+          /> */}
+
+          <TextField
+            label="Email"
+            name="email"
+            inputRef={register({ required: true, pattern: /^\S+@\S+$/i })}
+            placeholder="Email"
+            fullWidth
+            defaultValue={usersEmail}
+            margin="normal"
           />
+
           <ErrorMessage error={errors.email} />
 
-          <label className={classes.label}>Password</label>
-          <input
-            className={classes.input}
+          <TextField
+            type="password"
+            label="Password"
             name="password"
-            ref={register({ required: true })}
+            inputRef={register({ required: true })}
+            placeholder="Password"
+            fullWidth
+            margin="normal"
           />
           <ErrorMessage error={errors.password} />
 

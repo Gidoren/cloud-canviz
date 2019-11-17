@@ -9,6 +9,9 @@ import Crm from "./containers/Crm/Crm";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
+import { theme } from "./muiTheme/theme";
+import { MuiThemeProvider } from "@material-ui/core/styles";
+
 class App extends Component {
   state = {};
 
@@ -31,27 +34,24 @@ class App extends Component {
   render() {
     return (
       <div>
-        <link
-          href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap"
-          rel="stylesheet"
-        ></link>
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-          rel="stylesheet"
-        ></link>
         <BrowserRouter>
-          {/* <Route path="/" exact component={Home} /> */}
-          {/* Below Route for home is the same as above but passes the apollo client down as prop
+          <MuiThemeProvider theme={theme}>
+            {/* <Route path="/" exact component={Home} /> */}
+            {/* Below Route for home is the same as above but passes the apollo client down as prop
             which allows for queries to apollo client to manage local state */}
-          <Route
-            exact
-            path="/"
-            render={props => <Home {...props} client={this.props.client} />}
-          />
-          <Route path="/crm" component={Crm} />
-          <Route path="/home/:username" component={Home} />
-          <Route path="/profile/:username" component={Profile} />
-          <Route path="/contacts/:username" component={Contacts} />
+            <Route
+              exact
+              path="/"
+              render={props => <Home {...props} client={this.props.client} />}
+            />
+            <Route
+              exact
+              path="/crm/:username"
+              render={props => <Crm {...props} client={this.props.client} />}
+            />
+            <Route path="/profile/:username" component={Profile} />
+            <Route path="/crm/contacts/:username" component={Contacts} />
+          </MuiThemeProvider>
         </BrowserRouter>
       </div>
     );

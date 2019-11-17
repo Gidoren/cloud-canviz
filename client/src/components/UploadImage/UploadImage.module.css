@@ -80,3 +80,12 @@
   /* margin-left: 140px; */
   cursor: pointer;
 }
+
+.uploadImage {
+  width: 100%;
+  max-width: 400px;
+  padding-right: 2rem;
+  padding-left: 2rem;
+  margin-right: 2em;
+  margin: 0 auto;
+}

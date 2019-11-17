@@ -1,0 +1,10 @@
+.home{
+    display: flex;
+    justify-content: space-between;
+    margin: 50px;
+} 
+@media (max-width: 800px) {
+    .home {
+        margin: 0;
+    }
+}

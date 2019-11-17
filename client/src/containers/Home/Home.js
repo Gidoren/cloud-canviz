@@ -9,7 +9,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
-
+import Spinner from '../../components/UI/Spinner/Spinner';
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -76,7 +76,7 @@ class Home extends Component {
       <div>
         <Query query={currentUser}>
           {({ loading, error, data, refetch }) => {
-            if (loading) return "loading ..";
+            if (loading) return <Spinner />;
             if (error) {
               console.log("query error get user art :", error);
             }
@@ -86,14 +86,38 @@ class Home extends Component {
               <div>
                 <Navbar
                   click={this.showModal}
-                  profileLink={data ? "/profile/" + data.currentUser._id : "/"}
+                  link2={data ? "/profile/" + data.currentUser._id : "/"}
+                  link1={data ? "/home/" + data.currentUser._id : "/"}
+                  link3={data ? "/crm/" + data.currentUser._id : "/"}
+                  active="Home"
+                  item1="Home"
+                  item2="Profile"
+                  item3="CRM"
+
+                  // user={...data.currentUser}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
 
-                <Modal show={this.state.show} handleClose={this.hideModal}>
+                <Modal
+                  show={this.state.show}
+                  handleClose={this.hideModal}
+                  showCloseButton={true}
+                >
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
-                  {modalContent}
+                  {/* {modalContent} */}
+                  {this.state.modalType === "Login" ? (
+                    <Login
+                      usersEmail={this.state.usersEmail}
+                      handleHideModal={this.hideModal}
+                      handleSwitchToRegister={this.switchToRegister}
+                      client={this.props.client}
+                      handleIsLoggedin={this.handleIsLoggedin}
+                      handleRefetchUser={refetch}
+                    />
+                  ) : (
+                    <Register handleSwitchToLogin={this.switchToLogin} />
+                  )}
                 </Modal>
                 <div className={classes.home}>
                   <SideDrawer />
@@ -113,7 +137,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {};
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
