@@ -18,6 +18,7 @@ export const currentUser = gql`
         price
       }
       contactList {
+        _id
         firstName
         lastName
         phone_number

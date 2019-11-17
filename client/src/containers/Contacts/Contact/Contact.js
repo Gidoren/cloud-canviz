@@ -54,7 +54,7 @@ class Contact extends Component {
             <Mutation mutation={Query.CREATE_CONTACT}>
                 {(createContact, {data}) => (
                     <div data-aos="slide-up" className={classes.addContact}>
-                        <button className={classes.goBack} onClick={this.props.addContactForumHandler}>&#8249;</button>
+                        <button className={classes.goBack} onClick={this.props.showContactFormHandler}>&#8249;</button>
                         <div className={classes.profileInfo}>
                             <div>
                                 <h3 className={classes.name}>{this.state.contactFirstName} {this.state.contactLastName}</h3>

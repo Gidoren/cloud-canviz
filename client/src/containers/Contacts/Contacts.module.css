@@ -77,3 +77,14 @@
         font-size: 8px;
     }
 }
+.deleteIcon{
+    width: 15px;
+    height: 15px;
+    margin-top: 7px;
+    cursor: pointer;
+}
+.deleteButton{
+    border: 0;
+    outline: none;
+    background-color: inherit;
+}

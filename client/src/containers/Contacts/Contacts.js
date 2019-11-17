@@ -10,11 +10,13 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Navbar from '../../components/Navbar/Navbar'
 import {currentUser} from '../../grqphql/queries'
+import {DELETE_CONTACT} from '../../grqphql/mutations'
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Query } from "react-apollo";
-
+import deleteIcon from '../../assets/images/delete.png'
 const columns = [
-  { id: 'fullName', label: 'Contact', minWidth: 170 },
+  { id: 'delete', label: '', width: 50},
+  { id: 'fullName', label: 'Contact' , minWidth: 170},
   { id: 'phone_number', label: 'Phone', minWidth: 100 },
   {
     id: 'email',
@@ -44,7 +46,7 @@ const columns = [
 
 class Contacts extends Component {
   state = {
-    showAddContactForum: false,
+    showContactForm: false,
     page: 0,
     rowsPerPage: 10, 
     rows: []
@@ -56,12 +58,19 @@ class Contacts extends Component {
     this.setState({rowsPerPage: +event.target.value})
     this.setState({page: 0})
   }
-  addContactForumHandler = () => {
-    this.setState(prevState => ({showAddContactForum: !prevState.showAddContactForum }));
+  showContactFormHandler = () => {
+    this.setState(prevState => ({showContactForm: !prevState.showContactForm }));
   };
-  addContactListHandler = (contactList) => {
-    console.log(contactList, "Contactlist")
-    this.setState({rows: contactList})
+  deleteContactHandler = (contact) => {
+    return(
+      <Query query={DELETE_CONTACT} variables={contact['_id']}>
+        {({data, loading, error}) => {
+          if(loading) return <Spinner />
+          if(error) return error
+          if(data) console.log("contact deleted")
+        }}
+      </Query>
+    )
   }
   render() {
     let pageToShow = (
@@ -70,7 +79,7 @@ class Contacts extends Component {
           <p className={classes.coverHeading}>Contacts</p>
           <button
             className={classes.button}
-            onClick={this.addContactForumHandler}>
+            onClick={this.showContactFormHandler}>
             ADD CONTACT
           </button>
         </div>
@@ -83,7 +92,7 @@ class Contacts extends Component {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                      style={{ minWidth: column.minWidth, width: column.width }}
                     >
                       {column.label}
                     </TableCell>
@@ -97,12 +106,20 @@ class Contacts extends Component {
                     <TableRow hover role="checkbox" tabIndex={-1} key={this.state.rows.indexOf(row)}>
                       {columns.map(column => {
                         const value = row[column.id];
-                        console.log(value)
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number' ? column.format(value) : value}
-                          </TableCell>
-                        );
+                        if(column.id === "delete"){
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              <button className={classes.deleteButton} onClick={() => this.deleteContactHandler(row)}><img id="img1" className={classes.deleteIcon} src={deleteIcon} alt="delete" onClick={console.log("HI")}/></button>
+                            </TableCell>
+                          )
+                        }
+                        else{
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === 'number' ? column.format(value) : value}
+                            </TableCell>
+                          );
+                        }
                       })}
                     </TableRow>
                   );
@@ -129,13 +146,13 @@ class Contacts extends Component {
       </div>
     ); 
 
-    if (this.state.showAddContactForum === true) {
+    if (this.state.showContactForm === true) {
       pageToShow = <Contact 
                       firstName="Unnamed"
                       lastName="Contact"
                       city="Unknown City"
                       totalSales="0.00"
-                      addContactForumHandler={this.addContactForumHandler}/>
+                      showContactForm={this.showContactFormHandler}/>
     }
     return (
       <div>
