@@ -165,16 +165,15 @@ class Users extends DataSource {
       });
   }
 
-  // updateContact(contactID, args) {
-  //   const usr = this.context.user._id;
-  //   const contact = usr.contactList.findByID(contactID)
-  //   let updatedContact;
-  //   return User.findByID(usr)
-  //     .exec()
-  //     .then(contact => {
-
-  //     })
-  // }
+  updateContact(contactID, args) {
+    return contacts.findByIDAndUpdate(
+      ...args.contactInput
+    )
+    .catch(err => {
+      console.log(err);
+      throw errl
+    });
+  }
 
   async deleteContact(contactID) {
     const user = this.context.user._id;
