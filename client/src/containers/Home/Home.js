@@ -10,7 +10,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -23,7 +23,6 @@ class Home extends Component {
   };
 
   setToggleMenuClass = () => {
-    console.log("menu is orginally: " + this.state.menu);
     /*If menu is disabled, enable*/
     if (this.state.menu === "disabled") {
       this.setState({
@@ -35,7 +34,6 @@ class Home extends Component {
         menu: "disabled"
       });
     }
-    console.log("menu is now: "+this.state.menu);
   }
 
   async componentDidMount() {
@@ -144,6 +142,9 @@ class Home extends Component {
                   )}
                 </Modal>
                 <div className={classes.home}>
+                  <div className={classes.con}>
+                    <div className={classes.bar}> > </div>
+                  </div>
                   <div
                     className={classes.sideBarIcon}
                     onClick={this.setToggleMenuClass}
@@ -154,13 +155,9 @@ class Home extends Component {
                       style={{ cursor: "pointer" }}
                     />
                   </div>
-
-                  {console.log("cName is: "+cName)}
-
                   <div className={cName}>
                     <SideDrawer />
                   </div>
-
                   <DisplayArt type="Home" />
                 </div>
               </div>

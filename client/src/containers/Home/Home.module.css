@@ -17,8 +17,15 @@
     display: none;
 }
 
-.midBar{
-    display: none;
+.bar{
+    min-height: 100%;
+    min-width: 100%;
+    display: inline-block;
+    background-color: #169;
+}
+
+.con{
+    display: inline-block;
 }
 
 @media screen and (max-width: 1000px){
@@ -30,9 +37,6 @@
         display: block;
     }
 
-    .midBar{
-        display: block;
-    }
 }
 
 @media screen and (max-width: 1000px){
@@ -40,7 +44,4 @@
         display: block !important;
     }
 
-    .midBar{
-        display: block;
-    }
 }
