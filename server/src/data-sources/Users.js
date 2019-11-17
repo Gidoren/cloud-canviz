@@ -139,8 +139,17 @@ class Users extends DataSource {
   }
 
   // attempting to implement similar to createArt()
-  createContact(args) {
+  async createContact(args) {
     const usr = this.context.user._id;
+    //const existingContact = Contact.findOne({ email: args.contactInput.email });
+    // if (existingContact){
+    //   existingContact.firstName = args.contactInput.firstName
+    //   existingContact.lastName = args.contactInput.lastName
+    //   existingContact.phone_number = args.contactInput.phone_number
+    //   existingContact.email = args.contactInput.email
+    //   return existingContact
+    //     .save()
+    // } else {
     const contact = new Contact({
       ...args.contactInput,
       lead_owner: usr
@@ -163,33 +172,7 @@ class Users extends DataSource {
         console.log(err);
         throw err;
       });
-  }
-
-  // updateContact(contactID, args) {
-  //   const usr = this.context.user._id;
-  //   const contact = Contact({
-  //     ...args.contactInput,
-  //     lead_owner: usr
-  //   });
-  //   let updatedContact;
-  //   return contact
-  //     .save()
-  //     .then(result => {
-  //       updatedContact = { ...result._doc };
-  //       return User.findById(updatedContact.lead_owner._id);
-  //     })
-  //     .then(user => {
-  //       user.contactList.push(contact._id);
-  //       return user.save()
-  //     })
-  //     .then(res => {
-  //       return updatedContact;
-  //     })
-  //     .catch(err => {
-  //       console.log(err);
-  //       throw err;
-  //     });
-  // }
+    }    
 
   async deleteContact(contactID) {
     const user = this.context.user._id;
@@ -200,6 +183,10 @@ class Users extends DataSource {
           return value != contactID;
         })
         user.save();
+      })
+      .then(user => {
+        return Contact.findByIdAndDelete(contactID)
+          .exec()
       })
       .catch(err => {
         console.log(err);
