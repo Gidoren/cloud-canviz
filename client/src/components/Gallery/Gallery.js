@@ -12,10 +12,8 @@ const Gallery = props => {
   const renderPaintings = columnNum => {
     const columnItems = [];
 
-
-    let len = 0
-    if(props.createdArtWorks)
-      len = props.createdArtWorks.length
+    let len = 0;
+    if (props.createdArtWorks) len = props.createdArtWorks.length;
 
     console.log("gallery props", props);
 
@@ -29,8 +27,13 @@ const Gallery = props => {
           artist={art.artist}
           title={art.title}
           date={art.year}
-          dimensions={art.diemsions}
+          dimensions={art.dimensions}
           key={art._id}
+          price={art.price}
+          primaryColor={art.primaryColor}
+          secondaryColor={art.secondaryColor}
+          tertiaryColor={art.tertiaryColor}
+          colors={art.colors}
         />
       );
     }

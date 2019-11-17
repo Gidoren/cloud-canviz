@@ -115,6 +115,7 @@ class Users extends DataSource {
     const userId = this.context.user._id;
     return User.findById(userId)
       .populate("createdArtWorks")
+      .populate("contactList")
       .then(user => {
         return { ...user._doc };
       })
@@ -139,25 +140,54 @@ class Users extends DataSource {
   }
 
   // attempting to implement similar to createArt()
-  createContact(args) {
+  async createContact(args) {
     const usr = this.context.user._id;
-    const contact = new Contact({
+    console.log("usr id", usr);
+    const contact = {
       ...args.contactInput,
-      lead_owner: usr
-    });
-    let createdContact;
-    return contact
-      .save()
-      .then(result => {
-        createdContact = { ...result._doc };
-        return User.findById(createdContact.lead_owner._id);
+      lead_owner: this.context.user._id
+    };
+
+    return Contact.findOneAndUpdate(
+      { email: args.contactInput.email }, // find a document with that filter
+      { $set: contact }, // document to insert when nothing was found
+      { upsert: true, new: true, runValidators: true, omitUndefined: true },
+      (err, doc) => {
+        if (err) {
+          console.log("findoneandupdate err: ", err);
+        }
+
+        console.log("doc", doc);
+        const createdContact = doc;
+        return User.findById(createdContact.lead_owner)
+
+          .then(user => {
+            user.contactList.push(doc._id);
+            return user.save();
+          })
+          .then(res => {
+            return createdContact;
+          })
+          .catch(err => {
+            console.log(err);
+            throw err;
+          });
+      }
+    );
+  }
+
+  async deleteContact(contactID) {
+    const user = this.context.user._id;
+    return User.findById(user)
+      .exec()
+      .then(user => {
+        user.contactList = user.contactList.filter(function(value) {
+          return value != contactID;
+        });
+        user.save();
       })
       .then(user => {
-        user.contactList.push(contact._id);
-        return user.save();
-      })
-      .then(res => {
-        return createdContact;
+        return Contact.findByIdAndDelete(contactID).exec();
       })
       .catch(err => {
         console.log(err);

@@ -5,5 +5,7 @@ module.exports = {
   mongoUser: process.env.MONGO_USER,
   mongoPwd: process.env.MONGO_PWD,
   mongoDB: process.env.MONGO_DB,
-  jwtSecret: process.env.JWT_SECRET
+  jwtSecret: process.env.JWT_SECRET,
+  gcvEmail: process.env.GCV_EMAIL,
+  gcvKey: process.env.GCV_KEY
 };

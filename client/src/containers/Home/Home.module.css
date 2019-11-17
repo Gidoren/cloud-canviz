@@ -13,12 +13,20 @@
     display: block;
 }
 
-.home > .sideBarIcon{
+.home > .sideBarContainer{
     display: none;
 }
 
-.midBar{
-    display: none;
+.bar{
+    min-height: 100vh;
+    display: inline-block;
+    background-color: #D3D3D3;
+    padding: 50vh 0vh;
+}
+
+.sideBarContainer{
+    min-height: 100vh; 
+    display: inline-block;
 }
 
 @media screen and (max-width: 1000px){
@@ -26,21 +34,16 @@
         display: none;
     }
 
-    .home > .sideBarIcon{
+    .home > .sideBarContainer{
         display: block;
     }
 
-    .midBar{
-        display: block;
-    }
 }
 
 @media screen and (max-width: 1000px){
     .home > .toggled{
         display: block !important;
+        background-color: #D3D3D3;
     }
 
-    .midBar{
-        display: block;
-    }
 }

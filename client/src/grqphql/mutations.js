@@ -30,7 +30,13 @@ export const CREATE_CONTACT = gql`
       _id
       firstName
       lastName
-      email
+    }
+  }
+`;
+export const DELETE_CONTACT = gql`
+  mutation deleteContact($contactID: String){
+    deleteContact(contactID: $contactID){
+      _id
     }
   }
 `;

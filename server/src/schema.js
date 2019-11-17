@@ -12,6 +12,7 @@ module.exports = `
     type Mutation {
         createArt(artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
+        deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
         likeArt(artId: String): Art
@@ -34,7 +35,7 @@ module.exports = `
         typeUser: String
         createdArtWorks: [Art!]
         likedArtWorks: [Art!]
-        contactList: [Contact]
+        contactList: [Contact!]
     }
 
     input UserInput {
@@ -109,8 +110,13 @@ module.exports = `
         orientation: String
         styles: [String!]
         tags: [String!]
-        likers: [User!]   
+        likers: [User!]
+        primaryColor: Color
+        secondaryColor: Color
+        tertiaryColor: Color
+        colors: [Color!]  
     }
+
     input ArtInput {
         artist: String
         artistCountry: String
@@ -125,7 +131,21 @@ module.exports = `
         material: String
         orientation: String
         styles: [String!]
-        tags: [String!]    
+        tags: [String!]
+        primaryColor: ColorInput
+        secondaryColor: ColorInput
+        tertiaryColor: ColorInput
+        colors: [ColorInput!]    
+    }
+
+    type Color {
+        hexColor: String
+        pixelPercent: Float
+    }
+
+    input ColorInput {
+        hexColor: String
+        pixelPercent: Float
     }
 
     input ImageInput {

@@ -79,6 +79,7 @@
     bottom: 20px;
     z-index: 2;
     animation: hide 1s ease-in 5s forwards;
+    opacity: 1;
 }
 .changesSavedMsg:hover{
     color: white;
