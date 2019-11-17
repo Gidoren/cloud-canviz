@@ -143,17 +143,18 @@ class Home extends Component {
                 </Modal>
                 <div className={classes.home}>
                   <div className={classes.con}>
-                    <div className={classes.bar}> > </div>
-                  </div>
-                  <div
-                    className={classes.sideBarIcon}
-                    onClick={this.setToggleMenuClass}
-                  >
-                    <UseAnimations
-                      animationKey="menu2"
-                      size={35}
-                      style={{ cursor: "pointer" }}
-                    />
+                    <div className={classes.bar}>
+                      <div
+                      className={classes.sideBarIcon}
+                      onClick={this.setToggleMenuClass}
+                      >
+                        <UseAnimations
+                          animationKey="menu2"
+                          size={35}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </div>
+                    </div>
                   </div>
                   <div className={cName}>
                     <SideDrawer />

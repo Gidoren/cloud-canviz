@@ -18,13 +18,14 @@
 }
 
 .bar{
-    min-height: 100%;
-    min-width: 100%;
+    min-height: 100vh;
     display: inline-block;
-    background-color: #169;
+    background-color: #D3D3D3;
+    padding: 50vh 0vh;
 }
 
 .con{
+    min-height: 100vh; 
     display: inline-block;
 }
 
