@@ -164,6 +164,33 @@ class Users extends DataSource {
         throw err;
       });
   }
+
+  // updateContact(contactID, args) {
+  //   const usr = this.context.user._id;
+  //   const contact = usr.contactList.findByID(contactID)
+  //   let updatedContact;
+  //   return User.findByID(usr)
+  //     .exec()
+  //     .then(contact => {
+
+  //     })
+  // }
+
+  async deleteContact(contactID) {
+    const user = this.context.user._id;
+    return User.findById(user)
+      .exec()
+      .then(user => {
+        user.contactList = user.contactList.filter(function(value) {
+          return value != contactID;
+        })
+        user.save();
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      })
+  }
 }
 
 module.exports = Users;

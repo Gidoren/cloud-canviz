@@ -12,6 +12,8 @@ module.exports = `
     type Mutation {
         createArt(artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
+        deleteContact(contactID: String): Contact
+        updateContact(contactID: String, contactInput: ContactInput): Contact
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
         likeArt(artId: String): Art
