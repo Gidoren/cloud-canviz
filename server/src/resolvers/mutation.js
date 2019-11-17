@@ -15,9 +15,8 @@ module.exports = {
   Mutation: {
     createContact: async (_, args, { dataSources }) =>
       await dataSources.Users.createContact(args),
-    updateContact: authenticated((root, args, context, _) =>
-      context.dataSources.Users.updateContact(args.contactID)
-    ),
+    updateContact: async (_, args, { dataSources }) =>
+      await dataSources.Users.createContact(args),
     deleteContact: authenticated((root, args, context, _) =>
       context.dataSources.Users.deleteContact(args.contactID)
     ),
