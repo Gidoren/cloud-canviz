@@ -1,6 +1,8 @@
 const { DataSource } = require("apollo-datasource");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
+const { getColors } = require("../googleVision/googleVision");
+
 class Art extends DataSource {
   constructor() {
     super();
@@ -46,6 +48,9 @@ class Art extends DataSource {
         console.log("data returned from createArt", result);
 
         console.log("user from context", user);
+
+        // get colors from google cloud vision
+        // getColors(result.img.url);
 
         {
           /* save result to return it later */
