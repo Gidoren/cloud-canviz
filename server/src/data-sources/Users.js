@@ -141,39 +141,40 @@ class Users extends DataSource {
   // attempting to implement similar to createArt()
   async createContact(args) {
     const usr = this.context.user._id;
-    //const existingContact = Contact.findOne({ email: args.contactInput.email });
-    // if (existingContact){
-    //   existingContact.firstName = args.contactInput.firstName
-    //   existingContact.lastName = args.contactInput.lastName
-    //   existingContact.phone_number = args.contactInput.phone_number
-    //   existingContact.email = args.contactInput.email
-    //   return existingContact
-    //     .save()
-    // } else {
-    const contact = new Contact({
+    console.log("usr id", usr);
+    const contact = {
       ...args.contactInput,
-      lead_owner: usr
-    });
-    let createdContact;
-    return contact
-      .save()
-      .then(result => {
-        createdContact = { ...result._doc };
-        return User.findById(createdContact.lead_owner._id);
-      })
-      .then(user => {
-        user.contactList.push(contact._id);
-        return user.save();
-      })
-      .then(res => {
-        return createdContact;
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
-    }    
+      lead_owner: this.context.user._id
+    };
 
+    return Contact.findOneAndUpdate(
+      { email: args.contactInput.email }, // find a document with that filter
+      { $set: contact }, // document to insert when nothing was found
+      { upsert: true, new: true, runValidators: true, omitUndefined: true },
+      (err, doc) => {
+        if (err) {
+          console.log("findoneandupdate err: ", err);
+        }
+
+        console.log("doc", doc);
+        const createdContact = doc;
+        return User.findById(createdContact.lead_owner)
+
+          .then(user => {
+            user.contactList.push(doc._id);
+            return user.save();
+          })
+          .then(res => {
+            return createdContact;
+          })
+          .catch(err => {
+            console.log(err);
+            throw err;
+          });
+      }
+    );
+  }
+  
   async deleteContact(contactID) {
     const user = this.context.user._id;
     return User.findById(user)
