@@ -410,6 +410,18 @@ const CREATE_ART = gql`
       img {
         url
       }
+      primaryColor {
+        hexColor
+        pixelPercent
+      }
+      secondaryColor {
+        hexColor
+        pixelPercent
+      }
+      tertiaryColor {
+        hexColor
+        pixelPercent
+      }
     }
   }
 `;
