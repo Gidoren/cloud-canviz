@@ -5,15 +5,34 @@ import Modal from "../../components/UI/Modal/Modal";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import { currentUser } from "../../grqphql/queries";
-
+import Navbar from '../../components/Navbar/Navbar'
 import classes from "./Crm.module.css";
+import Spinner from '../../components/UI/Spinner/Spinner'
+import { gql } from "apollo-boost";
+
 
 class Crm extends Component {
   state = {
     show: false,
+<<<<<<< HEAD
+=======
+    isLoggedIn: false,
+>>>>>>> origin/dev
     originalBodyOverflow: document.body.style.overflow
   };
+  async componentDidMount() {
+    const { data } = await this.props.client.query({
+      query: gql`
+        {
+          isLoggedIn @client
+        }
+      `
+    });
 
+    this.setState({ isLoggedIn: data.isLoggedIn });
+    console.log("isLoggedIn data: ", data);
+    console.log("isLoggedIn state: ", this.state.isLoggedIn);
+  }
   showModal = () => {
     this.setState({ show: true });
     document.body.style.overflow = "hidden";
@@ -22,18 +41,38 @@ class Crm extends Component {
   hideModal = () => {
     this.setState({ show: false });
     document.body.style.overflow = this.state.originalBodyOverflow;
+<<<<<<< HEAD
+=======
   };
-
+  handleIsLoggedin = value => {
+    this.setState({ isLoggedIn: value });
+>>>>>>> origin/dev
+  };
   render() {
     return (
       <div>
         <Query query={currentUser}>
           {({ loading, error, data, refetch }) => {
-            if (loading) return "loading ..";
+            if (loading) return <Spinner />;
             if (error) console.log("query error get user art :", error);
             console.log("Data from currentUser: ", data);
             return (
               <div className={classes.container}>
+                <Navbar
+  
+                  link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
+                  link2={data ? "/crm/inventory/" + data.currentUser._id : "/"}
+                  link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
+                  link4="/"
+                  active="Inventory"
+                  item1="Dashboard"
+                  item2="Inventory"
+                  item3="Contacts"
+                  item4="Home"
+                  page="Crm"
+                  isLoggedIn={this.state.isLoggedIn}
+                  handleIsLoggedin={this.handleIsLoggedin}
+                />
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
                 </button>

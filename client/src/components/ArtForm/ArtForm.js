@@ -410,6 +410,7 @@ const CREATE_ART = gql`
       img {
         url
       }
+<<<<<<< HEAD
       primaryColor {
         hexColor
         pixelPercent
@@ -422,6 +423,8 @@ const CREATE_ART = gql`
         hexColor
         pixelPercent
       }
+=======
+>>>>>>> origin/dev
     }
   }
 `;

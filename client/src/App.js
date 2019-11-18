@@ -34,14 +34,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        <link
-          href="https://fonts.googleapis.com/css?family=Josefin+Sans&display=swap"
-          rel="stylesheet"
-        ></link>
-        <link
-          href="https://fonts.googleapis.com/css?family=Roboto&display=swap"
-          rel="stylesheet"
-        ></link>
         <BrowserRouter>
           <MuiThemeProvider theme={theme}>
             {/* <Route path="/" exact component={Home} /> */}
@@ -52,10 +44,20 @@ class App extends Component {
               path="/"
               render={props => <Home {...props} client={this.props.client} />}
             />
+<<<<<<< HEAD
             <Route path="/crm" component={Crm} />
             <Route path="/home/:username" component={Home} />
             <Route path="/profile/:username" component={Profile} />
             <Route path="/contacts/:username" component={Contacts} />
+=======
+            <Route
+              exact
+              path="/crm/:username"
+              render={props => <Crm {...props} client={this.props.client} />}
+            />
+            <Route path="/profile/:username" component={Profile} />
+            <Route path="/crm/contacts/:username" component={Contacts} />
+>>>>>>> origin/dev
           </MuiThemeProvider>
         </BrowserRouter>
       </div>
