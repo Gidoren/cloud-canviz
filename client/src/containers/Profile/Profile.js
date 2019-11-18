@@ -27,6 +27,27 @@ const getUserQuery = gql`
           url
         }
         price
+        styles
+        tags
+        description
+        dimensions {
+          height
+          width
+        }
+        category
+        medium
+        primaryColor {
+          hexColor
+          pixelPercent
+        }
+        secondaryColor {
+          hexColor
+          pixelPercent
+        }
+        tertiaryColor {
+          hexColor
+          pixelPercent
+        }
       }
     }
   }
@@ -108,7 +129,4 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {};
 };
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Profile);
+export default connect(mapStateToProps, mapDispatchToProps)(Profile);

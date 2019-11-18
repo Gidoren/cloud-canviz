@@ -78,7 +78,37 @@ const artSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "user"
       }
-    ]
+    ],
+    primaryColor: {
+      hexColor: {
+        type: String,
+        required: false
+      },
+      pixelPercent: {
+        type: Number,
+        required: false
+      }
+    },
+    secondaryColor: {
+      hexColor: {
+        type: String,
+        required: false
+      },
+      pixelPercent: {
+        type: Number,
+        required: false
+      }
+    },
+    tertiaryColor: {
+      hexColor: {
+        type: String,
+        required: false
+      },
+      pixelPercent: {
+        type: Number,
+        required: false
+      }
+    }
   },
   { timestamps: true }
 );

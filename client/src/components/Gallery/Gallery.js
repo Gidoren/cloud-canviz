@@ -29,8 +29,12 @@ const Gallery = props => {
           artist={art.artist}
           title={art.title}
           date={art.year}
-          dimensions={art.diemsions}
+          dimensions={art.dimensions}
           key={art._id}
+          price={art.price}
+          primaryColor={art.primaryColor}
+          secondaryColor={art.secondaryColor}
+          tertiaryColor={art.tertiaryColor}
         />
       );
     }

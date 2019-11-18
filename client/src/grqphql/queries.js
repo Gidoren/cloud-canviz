@@ -16,6 +16,27 @@ export const currentUser = gql`
           url
         }
         price
+        styles
+        tags
+        description
+        dimensions {
+          height
+          width
+        }
+        category
+        medium
+        primaryColor {
+          hexColor
+          pixelPercent
+        }
+        secondaryColor {
+          hexColor
+          pixelPercent
+        }
+        tertiaryColor {
+          hexColor
+          pixelPercent
+        }
       }
       
     }

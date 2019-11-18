@@ -110,8 +110,12 @@ module.exports = `
         orientation: String
         styles: [String!]
         tags: [String!]
-        likers: [User!]   
+        likers: [User!]
+        primaryColor: Color
+        secondaryColor: Color
+        tertiaryColor: Color  
     }
+
     input ArtInput {
         artist: String
         artistCountry: String
@@ -126,7 +130,20 @@ module.exports = `
         material: String
         orientation: String
         styles: [String!]
-        tags: [String!]    
+        tags: [String!]
+        primaryColor: ColorInput
+        secondaryColor: ColorInput
+        tertiaryColor: ColorInput    
+    }
+
+    type Color {
+        hexColor: String
+        pixelPercent: Float
+    }
+
+    input ColorInput {
+        hexColor: String
+        pixelPercent: Float
     }
 
     input ImageInput {

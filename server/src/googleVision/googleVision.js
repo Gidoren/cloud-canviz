@@ -43,24 +43,43 @@ const _compareScore = (a, b) => {
   return 0;
 };
 
-getColors = async imgUrl => {
+const _decorateColors = colors => {
+  var scoresSum =
+    colors.reduce(function(sum, color) {
+      return sum + color.score;
+    }, 0) / 100;
+
+  return colors.map(function(color) {
+    color.percent = color.score / scoresSum;
+    return color;
+  });
+};
+
+const getColors = async imgUrl => {
   let hexColors = [];
   console.log("url in gcv: ", imgUrl);
-  await client
+  return await client
     .imageProperties(imgUrl)
     .then(result => {
       const colors = result[0].imagePropertiesAnnotation.dominantColors.colors;
-      console.log("Colors before sort", colors);
+      _decorateColors(colors);
+      //console.log("Colors before sort", colors);
       colors.sort(_compareScore);
-      console.log("Colors after sort", colors);
+      //console.log("Colors after sort", colors);
       colors.forEach(currColor => {
         const hex = _rgbaToHex(
           `rgba(${currColor.color.red},${currColor.color.green},${currColor.color.blue},null)`
         );
+        const percent = currColor.percent;
+        const colorObj = {
+          hexColor: hex,
+          pixelPercent: percent
+        };
 
-        hexColors.push(hex);
+        hexColors.push(colorObj);
       });
-      console.log("Hex Colors", hexColors);
+      //console.log("Hex Colors", hexColors);
+      return hexColors;
     })
     .catch(err => {
       console.error("Error:", err);
