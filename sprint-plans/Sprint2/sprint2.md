@@ -10,17 +10,15 @@ For sprint two the main goals will be setting up the UI layouts for the differen
 
 ### Task Listing: ###
 
-1. "As a collector I want to be able to view artwork so that I can decide which ones I like."
-   * Task 1: Setup Layout of React Forntend: 5 points
-   * Task 2: Setup State Management for Front End: 7 points
+1. "As a collector I want to be able to view artwork so that I can decide which ones I like." 8 points
+   * Task 1: Setup Layout of React Forntend: 5 hours
+   * Task 2: Setup State Management for Front End: 7 hours
    
-   Total points for Task 1: 12
 
-2. “As an artist I want to be able to upload my images so that collectors can view them on the site.”
-   * Task 3: Implement Amazon S3 Resolvers for uploading artwork: 7 points
-   * Task 4: Push image object ID to MongoDB Artwork Collection: 4 points
+2. “As an artist I want to be able to upload my images so that collectors can view them on the site.” 5 points
+   * Task 3: Implement Amazon S3 Resolvers for uploading artwork: 7 hours
+   * Task 4: Push image object ID to MongoDB Artwork Collection: 4 hours
 
-   Total points for Task 2: 11
 ---
 
 ### Team Roles: ###
