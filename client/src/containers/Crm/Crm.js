@@ -5,11 +5,10 @@ import Modal from "../../components/UI/Modal/Modal";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import { currentUser } from "../../grqphql/queries";
-import Navbar from '../../components/Navbar/Navbar'
+import Navbar from "../../components/Navbar/Navbar";
 import classes from "./Crm.module.css";
-import Spinner from '../../components/UI/Spinner/Spinner'
+import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
-
 
 class Crm extends Component {
   state = {
@@ -53,7 +52,6 @@ class Crm extends Component {
             return (
               <div className={classes.container}>
                 <Navbar
-  
                   link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
                   link2={data ? "/crm/inventory/" + data.currentUser._id : "/"}
                   link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}

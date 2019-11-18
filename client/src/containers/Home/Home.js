@@ -34,7 +34,8 @@ class Home extends Component {
         menu: "disabled"
       });
     }
-  }
+    console.log("menu is now: " + this.state.menu);
+  };
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -115,7 +116,6 @@ class Home extends Component {
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
-
                   // user={...data.currentUser}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
@@ -145,8 +145,8 @@ class Home extends Component {
                   <div className={classes.sideBarContainer}>
                     <div className={classes.bar}>
                       <div
-                      className={classes.sideBarIcon}
-                      onClick={this.setToggleMenuClass}
+                        className={classes.sideBarIcon}
+                        onClick={this.setToggleMenuClass}
                       >
                         <UseAnimations
                           animationKey="menu2"
@@ -156,6 +156,9 @@ class Home extends Component {
                       </div>
                     </div>
                   </div>
+
+                  {console.log("cName is: " + cName)}
+
                   <div className={cName}>
                     <SideDrawer />
                   </div>

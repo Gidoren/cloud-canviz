@@ -175,7 +175,7 @@ class Users extends DataSource {
       }
     );
   }
-  
+
   async deleteContact(contactID) {
     const user = this.context.user._id;
     return User.findById(user)
@@ -183,17 +183,16 @@ class Users extends DataSource {
       .then(user => {
         user.contactList = user.contactList.filter(function(value) {
           return value != contactID;
-        })
+        });
         user.save();
       })
       .then(user => {
-        return Contact.findByIdAndDelete(contactID)
-          .exec()
+        return Contact.findByIdAndDelete(contactID).exec();
       })
       .catch(err => {
         console.log(err);
         throw err;
-      })
+      });
   }
 }
 
