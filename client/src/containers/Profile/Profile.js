@@ -53,7 +53,7 @@ const getUserQuery = gql`
           pixelPercent
         }
       }
-      contactList{
+      contactList {
         firstName
       }
     }

@@ -64,11 +64,9 @@ export const currentUser = gql`
         lead_value
         lead_owner
         fullName
-
       }
     }
   }
-
 `;
 
 export const getUserQuery = gql`
