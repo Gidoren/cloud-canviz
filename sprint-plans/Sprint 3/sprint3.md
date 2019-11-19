@@ -12,10 +12,19 @@ For sprint 3 the goal will be to get the Google Cloud Vision up and running. We 
 
 1. "As a collector I want to be able to search for art by size, price and style so that I can find the exact piece I want for my home." 8 points
 
+Acceptance Criteria:
+-Google Cloud vision responds to MongoDB without failure
+-Querying the artwork is responsive and does not produce errors
+
    - Task 1: Push artwork meta data form Google Cloud Vision response to MongoDB: 6 hours
    - Task 2: Queryng artwork resolvers to feed images and data to views: 4 hours
 
 2. “As an artist I want to be able to organize and manage my artwork and contacts so that I can more easily follow up on my leads.” 13 points
+
+Acceptance Criteria:
+-The team agrees on the CRM page layout
+-The form to upload art and contacts is responsive and uploads are sucessful
+-resolvers work without errors
 
    - Task 3: Create CRM page layout: 4 hours
    - Task 4: Create forms to upload art and new contacts: 6 hours
@@ -23,10 +32,18 @@ For sprint 3 the goal will be to get the Google Cloud Vision up and running. We 
 
 3. "As a collector I want to be able to search for art on my phone as well as my desktop" 3 points
 
+Acceptance Criteria:
+-Search bar collapses when a mobile phone is used
+-Search bar is responsive
+-Search bar does not collapse on regular screens
+
    - Task 6: Implement Search Bar styling layout for smaller screen sizes (mobile phones) 4 hours
 
 
 4. "As a collector I want to be able to comment and follow artists artwork" 5 points
+
+Acceptance Criteria:
+-Likes and comments are saved on the backend
 
    - Task 7: Implement resolvers for liking and commenting art 4 hours
 
