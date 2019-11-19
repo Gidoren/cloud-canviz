@@ -56,6 +56,7 @@ export const theme = createMuiTheme({
     },
     MuiFormLabel: {
       root: {
+
         color: 'grey',
         
         fontSize: "0.8rem"

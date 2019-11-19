@@ -10,7 +10,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -35,8 +35,8 @@ class Home extends Component {
         menu: "disabled"
       });
     }
-    console.log("menu is now: "+this.state.menu);
-  }
+    console.log("menu is now: " + this.state.menu);
+  };
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -117,7 +117,6 @@ class Home extends Component {
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
-
                   // user={...data.currentUser}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
@@ -155,7 +154,7 @@ class Home extends Component {
                     />
                   </div>
 
-                  {console.log("cName is: "+cName)}
+                  {console.log("cName is: " + cName)}
 
                   <div className={cName}>
                     <SideDrawer />
