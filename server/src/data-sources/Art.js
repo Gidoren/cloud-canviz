@@ -46,7 +46,8 @@ class Art extends DataSource {
           creator: user,
           primaryColor: colors[0],
           secondaryColor: colors[1],
-          tertiaryColor: colors[2]
+          tertiaryColor: colors[2],
+          colors: colors
         });
         let createdArt;
         return art

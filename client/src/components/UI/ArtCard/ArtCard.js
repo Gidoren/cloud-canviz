@@ -19,22 +19,43 @@ const CardInfo = ({ artist, title, date, dimensions, key }) => {
   );
 };
 
+const _getCardStyles = (hexColor, pixelPercent) => {
+  const style = {
+    background: hexColor,
+    width: `${pixelPercent}%`
+  };
+  return style;
+};
+
 const CardColors = props => {
-  var primaryColor = {
-    background: `${props.primaryColor.hexColor}`
-  };
-  var secondaryColor = {
-    background: `${props.secondaryColor.hexColor}`
-  };
-  var tertiaryColor = {
-    background: `${props.tertiaryColor.hexColor}`
-  };
+  // var primaryColor = {
+  //   background: `${props.primaryColor.hexColor}`
+  // };
+  // var secondaryColor = {
+  //   background: `${props.secondaryColor.hexColor}`
+  // };
+  // var tertiaryColor = {
+  //   background: `${props.tertiaryColor.hexColor}`
+  // };
+  // const colors = props.colors.map((color, index) => {
+  //   <div
+  //     className={styles.colorBox}
+  //     key={index}
+  //     style={_getCardStyles(color.hexColor, color.pixelPercent)}
+  //   ></div>;
+  // });
 
   return (
     <div className={styles.cardColors}>
-      <div className={styles.colorBox} style={primaryColor}></div>
-      <div className={styles.colorBox} style={secondaryColor}></div>
-      <div className={styles.colorBox} style={tertiaryColor}></div>
+      {props.colors.map((color, index) => {
+        return (
+          <div
+            className={styles.colorBox}
+            key={index}
+            style={_getCardStyles(color.hexColor, color.pixelPercent)}
+          ></div>
+        );
+      })}
     </div>
   );
 };

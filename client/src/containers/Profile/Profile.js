@@ -48,6 +48,10 @@ const getUserQuery = gql`
           hexColor
           pixelPercent
         }
+        colors {
+          hexColor
+          pixelPercent
+        }
       }
     }
   }
