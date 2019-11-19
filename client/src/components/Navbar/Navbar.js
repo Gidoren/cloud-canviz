@@ -9,7 +9,8 @@ import { AUTH_TOKEN } from "../../utils/constants";
 
 class Navbar extends Component {
   state = {
-    menu: ""
+    menu: "",
+    rerender: ""
   };
 
   setToggleTopMenuClass = () => {
@@ -29,6 +30,7 @@ class Navbar extends Component {
     localStorage.clear();
     const token = localStorage.getItem(AUTH_TOKEN);
     console.log("After clear token: ", token);
+    this.forceUpdate()
     this.props.handleIsLoggedin(false);
   };
 
@@ -39,23 +41,31 @@ class Navbar extends Component {
         : `${classes.topMenu}`;
 
     const authToken = localStorage.getItem(AUTH_TOKEN);
+    console.log(authToken)
 
     return (
       <div className={classes.header}>
         <div className={cName}>
           <Link to={{ pathname: "/" }}>
-            <Logo width="9em" />
+            <Logo className={classes.logo}  width="9em" />
           </Link>
           <div className={classes.left}></div>
           <div className={classes.right}>
+            {this.props.page === "Crm" && <Item text={this.props.item4} active={this.props.active}>
+              <Link to={{ pathname: this.props.link4 }} className={classes.link}>{this.props.item4}</Link>
+            </Item>}
+            <Item text={this.props.item1} active={this.props.active}>
+              <Link to={{ pathname: this.props.link1 }} className={classes.link}>{this.props.item1}</Link>
+            </Item>
             {authToken && this.props.isLoggedIn && (
-              <Item text="Profile">
-                <Link to={{ pathname: this.props.profileLink }}>Profile</Link>
+              <Item text={this.props.item2} active={this.props.active}>
+                <Link to={{ pathname: this.props.link2 }} className={classes.link}>{this.props.item2}</Link>
               </Item>
             )}
+            {console.log(this.props.link3)} 
             {authToken && this.props.isLoggedIn && (
-              <Item text="CRM">
-                <Link to={{ pathname: "/crm" }}>CRM</Link>
+              <Item text={this.props.item3} active={this.props.active}>
+                <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
               </Item>
             )}
             {!authToken && (

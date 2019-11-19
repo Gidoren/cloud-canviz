@@ -139,30 +139,60 @@ class Users extends DataSource {
   }
 
   // attempting to implement similar to createArt()
-  createContact(args) {
-    const contact = new Contact({
+  async createContact(args) {
+    const usr = this.context.user._id;
+    console.log("usr id", usr);
+    const contact = {
       ...args.contactInput,
-      lead_owner: "5dc8c9a20d7ae72885164ac3"
-    });
-    let createdContact;
-    return contact
-      .save()
-      .then(result => {
-        const user = this.context.user;
-        createdContact = { ...result._doc };
-        return User.findById(createdContact.lead_owner._id);
+      lead_owner: this.context.user._id
+    };
+
+    return Contact.findOneAndUpdate(
+      { email: args.contactInput.email }, // find a document with that filter
+      { $set: contact }, // document to insert when nothing was found
+      { upsert: true, new: true, runValidators: true, omitUndefined: true },
+      (err, doc) => {
+        if (err) {
+          console.log("findoneandupdate err: ", err);
+        }
+
+        console.log("doc", doc);
+        const createdContact = doc;
+        return User.findById(createdContact.lead_owner)
+
+          .then(user => {
+            user.contactList.push(doc._id);
+            return user.save();
+          })
+          .then(res => {
+            return createdContact;
+          })
+          .catch(err => {
+            console.log(err);
+            throw err;
+          });
+      }
+    );
+  }
+  
+  async deleteContact(contactID) {
+    const user = this.context.user._id;
+    return User.findById(user)
+      .exec()
+      .then(user => {
+        user.contactList = user.contactList.filter(function(value) {
+          return value != contactID;
+        })
+        user.save();
       })
       .then(user => {
-        user.contactList.push(contact);
-        return user.save();
-      })
-      .then(res => {
-        return createdContact;
+        return Contact.findByIdAndDelete(contactID)
+          .exec()
       })
       .catch(err => {
         console.log(err);
         throw err;
-      });
+      })
   }
 }
 

@@ -12,6 +12,7 @@ module.exports = `
     type Mutation {
         createArt(artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
+        deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
         likeArt(artId: String): Art
@@ -66,15 +67,30 @@ module.exports = `
         email: String!
         lead_status: String
         lead_value: Int
-        lead_owner: String!
+        lead_owner: String
         fullName: String
     }
     input ContactInput {
         firstName: String!
         lastName: String!
+        spouseFirstName: String
+        spouseLastName: String
         phone_number: String!
+        mobile_phone: String
+        other_phone: String
+        company: String
+        birthday: String
+        website: String
+        privacy_note: String
+        street_address: String
+        city: String
+        state: String
+        zip: String
         email: String!
-        fullName: String        
+        lead_status: String
+        lead_value: Int
+        lead_owner: String
+        fullName: String   
     }
 
     type Art {
