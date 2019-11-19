@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
 import { connect } from "react-redux";
+import UseAnimations from "react-useanimations";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
 import Navbar from "../../components/Navbar/Navbar";
@@ -9,7 +10,7 @@ import Login from "../../components/Login/Login";
 import Register from "../../components/Register/Register";
 import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
-import Spinner from '../../components/UI/Spinner/Spinner';
+import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
 
 class Home extends Component {
@@ -17,8 +18,23 @@ class Home extends Component {
     show: false,
     modalType: "",
     usersEmail: "",
-    isLoggedIn: false
+    isLoggedIn: false,
+    menu: "disabled"
   };
+
+  setToggleMenuClass = () => {
+    /*If menu is disabled, enable*/
+    if (this.state.menu === "disabled") {
+      this.setState({
+        menu: "enabled"
+      });
+    } else {
+      /*else, enable*/
+      this.setState({
+        menu: "disabled"
+      });
+    }
+  }
 
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -56,7 +72,13 @@ class Home extends Component {
     this.setState({ isLoggedIn: value });
   };
 
-  render() {
+  render = () => {
+    /*Determine if sidebar is toggled or not*/
+    const cName =
+      this.state.menu === "enabled"
+        ? `${classes.sideBar} ${classes.toggled}`
+        : `${classes.sideBar}`;
+
     let modalContent;
     if (this.state.modalType === "register") {
       modalContent = <Register handleSwitchToLogin={this.switchToLogin} />;
@@ -120,7 +142,23 @@ class Home extends Component {
                   )}
                 </Modal>
                 <div className={classes.home}>
-                  <SideDrawer />
+                  <div className={classes.sideBarContainer}>
+                    <div className={classes.bar}>
+                      <div
+                      className={classes.sideBarIcon}
+                      onClick={this.setToggleMenuClass}
+                      >
+                        <UseAnimations
+                          animationKey="menu2"
+                          size={35}
+                          style={{ cursor: "pointer" }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={cName}>
+                    <SideDrawer />
+                  </div>
                   <DisplayArt type="Home" />
                 </div>
               </div>
@@ -129,7 +167,7 @@ class Home extends Component {
         </Query>
       </div>
     );
-  }
+  };
 }
 const mapStateToProps = state => {
   return {};
