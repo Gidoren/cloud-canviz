@@ -51,7 +51,7 @@ const DisplayArt = ({ type }) => {
     fetchPolicy: "cache-and-network"
   });
   /* if there's no art fetched yet */
-  if (!data || !data.getAllArt || loading) return <Spinner />;
+  if (!data || !data.getAllArt) return <Spinner />;
   if (error) return <span>{console.log(error)}</span>;
   if (data) {
     console.log("query data", data);
