@@ -17,30 +17,7 @@ export const currentUser = gql`
         }
         price
       }
-      
-    }
-  }
-`;
-
-export const getUserQuery = gql`
-  query getUser($id: String) {
-    getUser(id: $id) {
-      _id
-      email
-      firstName
-      lastName
-      createdArtWorks {
-        _id
-        artist
-        title
-        year
-        img {
-          url
-        }
-        price
-      }
-    }
-    contactList {
+      contactList {
         _id
         firstName
         lastName
@@ -64,5 +41,28 @@ export const getUserQuery = gql`
         fullName
 
       }
+    }
+  }
+
+`;
+
+export const getUserQuery = gql`
+  query getUser($id: String) {
+    getUser(id: $id) {
+      _id
+      email
+      firstName
+      lastName
+      createdArtWorks {
+        _id
+        artist
+        title
+        year
+        img {
+          url
+        }
+        price
+      }
+    }
   }
 `;

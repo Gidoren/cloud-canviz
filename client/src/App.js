@@ -50,7 +50,11 @@ class App extends Component {
               render={props => <Crm {...props} client={this.props.client} />}
             />
             <Route path="/profile/:username" component={Profile} />
-            <Route path="/crm/contacts/:username" component={Contacts} />
+            <Route
+              exact
+              path="/crm/contacts/:username"
+              render={props => <Contacts {...props} client={this.props.client} />}
+            />
           </MuiThemeProvider>
         </BrowserRouter>
       </div>

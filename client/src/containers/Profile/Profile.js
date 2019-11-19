@@ -28,6 +28,9 @@ const getUserQuery = gql`
         }
         price
       }
+      contactList{
+        firstName
+      }
     }
   }
 `;
