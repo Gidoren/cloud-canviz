@@ -108,7 +108,19 @@ const artSchema = new Schema(
         type: Number,
         required: false
       }
-    }
+    },
+    colors: [
+      {
+        hexColor: {
+          type: String,
+          required: false
+        },
+        pixelPercent: {
+          type: Number,
+          required: false
+        }
+      }
+    ]
   },
   { timestamps: true }
 );

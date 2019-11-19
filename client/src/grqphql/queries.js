@@ -37,6 +37,10 @@ export const currentUser = gql`
           hexColor
           pixelPercent
         }
+        colors {
+          hexColor
+          pixelPercent
+        }
       }
     }
   }

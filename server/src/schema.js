@@ -97,7 +97,8 @@ module.exports = `
         likers: [User!]
         primaryColor: Color
         secondaryColor: Color
-        tertiaryColor: Color  
+        tertiaryColor: Color
+        colors: [Color!]  
     }
 
     input ArtInput {
@@ -117,7 +118,8 @@ module.exports = `
         tags: [String!]
         primaryColor: ColorInput
         secondaryColor: ColorInput
-        tertiaryColor: ColorInput    
+        tertiaryColor: ColorInput
+        colors: [ColorInput!]    
     }
 
     type Color {

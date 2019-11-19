@@ -422,6 +422,10 @@ const CREATE_ART = gql`
         hexColor
         pixelPercent
       }
+      colors {
+        hexColor
+        pixelPercent
+      }
     }
   }
 `;

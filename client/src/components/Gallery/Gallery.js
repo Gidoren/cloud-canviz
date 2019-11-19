@@ -31,6 +31,7 @@ const Gallery = props => {
           primaryColor={art.primaryColor}
           secondaryColor={art.secondaryColor}
           tertiaryColor={art.tertiaryColor}
+          colors={art.colors}
         />
       );
     }
