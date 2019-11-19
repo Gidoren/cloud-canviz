@@ -56,15 +56,9 @@ export const theme = createMuiTheme({
     },
     MuiFormLabel: {
       root: {
-<<<<<<< HEAD
-        color: "rgba(60, 118, 133, 0.6)",
-        fontFamily: '"Lexend Exa", sans-serif',
-        fontSize: "1rem"
-=======
-        color: 'grey',
-        
+        color: "grey",
+
         fontSize: "0.8rem"
->>>>>>> origin/dev
       }
     },
     MuiInput: {
