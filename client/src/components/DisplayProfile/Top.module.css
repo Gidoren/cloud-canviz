@@ -55,3 +55,8 @@
 .follow:hover{
     background: #eee;
 }
+
+.addImage{
+    width: 10px;
+    height: 10px;
+}
