@@ -11,12 +11,12 @@ const Top = props => (
         className={classes.img}
         imagealt="image"
         alt="profile"
-      ></img>
+      />
 
       {/*Div holding info*/}
       <div className={classes.content}>
         <p className={classes.name}>{props.name}</p>
-        <button className={classes.follow}>Test</button>
+        <button className={classes.follow}>Follow</button>
       </div>
     </div>
   </div>

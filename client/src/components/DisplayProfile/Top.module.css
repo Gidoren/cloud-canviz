@@ -44,5 +44,14 @@
 }
 
 .follow{
+    border: none;
+    background-color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    color: green;
     font-family: inherit;
+}
+
+.follow:hover{
+    background: #eee;
 }
