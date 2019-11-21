@@ -9,6 +9,7 @@ import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
+import DisplayArt from "../../components/DisplayArt/DisplayArt";
 
 /*Query data from the server to display on the profile*/
 const getUserQuery = gql`
@@ -122,7 +123,8 @@ class Profile extends Component {
   displayPage = user => {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);
-      return <Gallery {...user} />;
+      /*return <Gallery {...user} />;*/
+      return <DisplayArt type="Profile" />;
     } else if (this.state.page === "about") {
       return <About />;
     } else {
