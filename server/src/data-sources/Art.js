@@ -95,27 +95,50 @@ class Art extends DataSource {
   //            then saves and returns the liked artwork
   // inputs: artId (the ID of the artwork the current user wants to save/like)
   // output: the art object the user liked
+
+  // Emerson: changed like art so that the same user can't like an art multiple times
+  // if the users id is already the array it will not push
   likeArt(args) {
-    const usr = this.context.user._id;
-    return User.findById(usr)
-      .exec()
+    const usrID = this.context.user._id;
+    return User.findByIdAndUpdate(usrID, {
+      $addToSet: { likedArtWorks: args.artId } // $addToSet only pushes to array if entry is unique (isn't already in the array)
+    })
       .then(user => {
-        user.likedArtWorks.push(args.artId);
-        return user.save();
-      })
-      .then(user => {
-        return ArtWork.findById(args.artId)
-          .exec()
-          .then(Art => {
-            Art.likers.push(user._id);
-            return Art.save();
-          });
+        return ArtWork.findByIdAndUpdate(args.artId, {
+          $addToSet: { likers: user._id }
+        });
       })
       .catch(err => {
         console.log(err);
         throw err;
       });
   }
+  // Cameron: here is the old function for comparison. You didn't do anything wrong
+  //          I just forgot to tell you that the like should only add id if the user has not liked before.
+  //          I am leaving the old function so you can compare for next time you implement.
+
+  // likeArt(args) {
+  //   const usr = this.context.user._id;
+  //   return User.findById(usr)
+  //     .exec()
+  //     .then(user => {
+  //       user.likedArtWorks.push(args.artId);
+  //       return user.save();
+  //     })
+  //     .then(user => {
+  //       return ArtWork.findById(args.artId)
+  //         .exec()
+  //         .then(Art => {
+  //           Art.likers.push(user._id);
+  //           return Art.save();
+  //         });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       throw err;
+  //     });
+  // }
+
   // removeArt() -> uses the artID argument to find an artwork object in the users Created artwork
   //            then filters the id of the art from the created users array
   //            then finds the Artworks likers array using the artID argument and iterates through the loop as it finds
@@ -128,35 +151,38 @@ class Art extends DataSource {
     // 1. Find the user
     return User.findById(usr)
       .exec()
-      .then(user =>{
-      // 2) Delete the artwork from the users createdArtworks list
-        user.createdArtWorks = user.createdArtWorks.filter(function(value){
+      .then(user => {
+        // 2) Delete the artwork from the users createdArtworks list
+        user.createdArtWorks = user.createdArtWorks.filter(function(value) {
           return value != artId;
-        })
+        });
         user.save();
-      }).then(user => {
+      })
+      .then(user => {
         //3) Find all users in the arts likers array and delete this arts id from the array
         return ArtWork.findById(artId)
           .exec()
-          .then(art =>{
+          .then(art => {
             const len = art.likers.length;
             var i = 0;
-            for (; i < len;) {
+            for (; i < len; ) {
               User.findById(art.likers[i])
-              .exec()
-              .then(user =>{
-                user.likedArtWorks = user.likedArtWorks.filter(function(value){
-                  return value != artId;
-                })
-                user.save();
-              })
+                .exec()
+                .then(user => {
+                  user.likedArtWorks = user.likedArtWorks.filter(function(
+                    value
+                  ) {
+                    return value != artId;
+                  });
+                  user.save();
+                });
             }
-          })
+          });
       })
-      .catch(err=>{
+      .catch(err => {
         console.log(err);
         throw err;
-      })
+      });
   }
   // TODO removeArt to delete artwork
   // Needs to:
