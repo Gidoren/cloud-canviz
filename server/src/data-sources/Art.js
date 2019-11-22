@@ -2,6 +2,7 @@ const { DataSource } = require("apollo-datasource");
 const User = require("../models/user");
 const ArtWork = require("../models/artWork");
 const { getColors } = require("../googleVision/googleVision");
+const { AuthenticationError } = require("apollo-server");
 
 class Art extends DataSource {
   constructor() {
@@ -96,7 +97,7 @@ class Art extends DataSource {
   // inputs: artId (the ID of the artwork the current user wants to save/like)
   // output: the art object the user liked
 
-  // Emerson: changed like art so that the same user can't like an art multiple times
+  // changed like art so that the same user can't like an art multiple times
   // if the users id is already the array it will not push
   likeArt(args) {
     const usrID = this.context.user._id;
@@ -146,65 +147,66 @@ class Art extends DataSource {
   //            then filters the artwork from the users likedArtWorks array as it iterates through the loop
   // inputs: artId (the ID of the artwork the current user wants to save/like)
   // output: the art object the user liked
-  removeArt(artId) {
-    const usr = this.context.user._id;
-    // 1. Find the user
-    return User.findById(usr)
-      .exec()
-      .then(user => {
-        // 2) Delete the artwork from the users createdArtworks list
-        user.createdArtWorks = user.createdArtWorks.filter(function(value) {
-          return value != artId;
-        });
-        user.save();
-      })
-      .then(user => {
-        //3) Find all users in the arts likers array and delete this arts id from the array
-        return ArtWork.findById(artId)
-          .exec()
-          .then(art => {
-            const len = art.likers.length;
-            var i = 0;
-            for (; i < len; ) {
-              User.findById(art.likers[i])
-                .exec()
-                .then(user => {
-                  user.likedArtWorks = user.likedArtWorks.filter(function(
-                    value
-                  ) {
-                    return value != artId;
-                  });
-                  user.save();
-                });
-            }
-          });
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
-  }
-  // TODO removeArt to delete artwork
-  // Needs to:
-  // 1. Find the user
-  // 2. Delete the artwork from the users createdArtworks list
-  // 3. Find all users in the arts likers array and delete this arts id from the array
-  // 4. Do the same for followers and any other references to this art in other collections
-  //  https://stackoverflow.com/questions/46911393/mongoose-remove-document-with-references
-  // 4. Find the art by the id given and delete
 
-  // removeArt(artId){
-  //   const usr = context.usr._id;
+  // removeArt(artId) {
+  //   const usr = this.context.user._id;
+  //   // 1. Find the user
   //   return User.findById(usr)
   //     .exec()
   //     .then(user => {
-  //       user.likedArtWorks.pop(artId);
-  //       user.createdArtWorks.pop(artId);
-  //       return User.save();
-
+  //       // 2) Delete the artwork from the users createdArtworks list
+  //       user.createdArtWorks = user.createdArtWorks.filter(function(value) {
+  //         return value != artId;
+  //       });
+  //       user.save();
   //     })
-
+  //     .then(user => {
+  //       //3) Find all users in the arts likers array and delete this arts id from the array
+  //       return ArtWork.findById(artId)
+  //         .exec()
+  //         .then(art => {
+  //           const len = art.likers.length;
+  //           var i = 0;
+  //           for (; i < len; ) {
+  //             User.findById(art.likers[i])
+  //               .exec()
+  //               .then(user => {
+  //                 user.likedArtWorks = user.likedArtWorks.filter(function(
+  //                   value
+  //                 ) {
+  //                   return value != artId;
+  //                 });
+  //                 user.save();
+  //               });
+  //           }
+  //         });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       throw err;
+  //     });
   // }
+
+  // removeArt -> removes the art document matching the artID passed as argument
+  // input: artId
+  // returns: the art document deleted
+  // notes: The art object may have several references in other places of db such as
+  //        likedArtWorks and createdArtWorks arrays in the user collection
+  //        instead of deleting here there is middleware run just before .remove() is called
+  //        on any artwork document that removes the references specified. (see function at bottom of server/models/artWork.js)
+  removeArt(artId) {
+    // when calling a remove() function that applies middleware you must fist use Find()
+    // to retrieve the document then call remove()
+    return ArtWork.findById(artId).then(art => {
+      // make sure the person calling removwArt() is the user who created (id is in art's creator field)
+      if (art.creator.toString() === this.context.user._id.toString())
+        return art.remove().catch(err => console.log(err));
+      else
+        throw new AuthenticationError(
+          "Cannot delete art that doesn't you are not creator of"
+        );
+    });
+  }
 }
 
 module.exports = Art;
