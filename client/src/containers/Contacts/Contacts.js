@@ -10,15 +10,24 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Navbar from '../../components/Navbar/Navbar'
 import {currentUser} from '../../grqphql/queries'
+import {DELETE_CONTACT} from '../../grqphql/mutations'
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { Query } from "react-apollo";
+import deleteIcon from '../../assets/images/delete.png'
 
 const columns = [
-  { id: 'contact', label: 'Contact', minWidth: 170 },
-  { id: 'phone', label: 'Phone', minWidth: 100 },
+  { id: 'delete', label: '', width: 50},
+  { id: 'fullName', label: 'Contact' , minWidth: 170},
+  { id: 'phone_number', label: 'Phone', minWidth: 100 },
   {
     id: 'email',
     label: 'Email',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'city',
+    label: 'City',
     minWidth: 170,
     align: 'right',
   },
@@ -35,32 +44,15 @@ const columns = [
     align: 'right'
   },
 ];
-function createData(contact, phone, email, leadStatus) {
-  const l = 1000;
-  return { contact, phone, email, leadStatus, l};
-}
-const rows = [
-  createData('India', 'IN', 1324171354, 3287263),
-  createData('China', 'CN', 1403500365, 9596961),
-  createData('Italy', 'IT', 60483973, 301340),
-  createData('United States', 'US', 327167434, 9833520),
-  createData('Canada', 'CA', 37602103, 9984670),
-  createData('Australia', 'AU', 25475400, 7692024),
-  createData('Germany', 'DE', 83019200, 357578),
-  createData('Ireland', 'IE', 4857000, 70273),
-  createData('Mexico', 'MX', 126577691, 1972550),
-  createData('Japan', 'JP', 126317000, 377973),
-  createData('France', 'FR', 67022000, 640679),
-  createData('United Kingdom', 'GB', 67545757, 242495),
-  createData('Russia', 'RU', 146793744, 17098246),
-  createData('Nigeria', 'NG', 200962417, 923768),
-  createData('Brazil', 'BR', 210147125, 8515767),
-];
+
 class Contacts extends Component {
   state = {
-    showAddContactForum: false,
+    showContactForm: false,
     page: 0,
-    rowsPerPage: 10
+    rowsPerPage: 10, 
+    rows: [],
+    contactListLoaded: false,
+    showContactDeletedMsg: false
   };
   handleChangePage = (event, newPage) => {
     this.setState({page: newPage})
@@ -69,18 +61,38 @@ class Contacts extends Component {
     this.setState({rowsPerPage: +event.target.value})
     this.setState({page: 0})
   }
-  addContactForumHandler = () => {
-    this.setState(prevState => ({showAddContactForum: !prevState.showAddContactForum }));
+  showContactFormHandler = () => {
+    this.setState(prevState => ({showContactForm: !prevState.showContactForm }));
   };
-
+  deleteContactHandler = (contact) => {
+    const id = contact['_id']
+    const {data} = this.props.client.mutate({
+      mutation: DELETE_CONTACT,
+      variables: {contactID: id}
+    })
+    this.setState({rows: this.state.rows.filter(function(value){
+      return value['_id'] != id
+    })})
+    this.setState({showContactDeletedMsg: true})
+    {setTimeout(
+      function(){
+        this.setState({showContactDeletedMsg: false})
+      }.bind(this),8000)
+    }
+    
+  }
+  saveNewContactHandler = (contact) => {
+    console.log(this.state.rows)
+    this.setState({rows: this.state.rows.concat(contact)})
+  }
   render() {
     let pageToShow = (
-      <div data-aos="zoom-in">
+      this.state.contactListLoaded && <div data-aos="zoom-in">
         <div className={classes.cover}>
           <p className={classes.coverHeading}>Contacts</p>
           <button
             className={classes.button}
-            onClick={this.addContactForumHandler}>
+            onClick={this.showContactFormHandler}>
             ADD CONTACT
           </button>
         </div>
@@ -93,7 +105,7 @@ class Contacts extends Component {
                     <TableCell
                       key={column.id}
                       align={column.align}
-                      style={{ minWidth: column.minWidth }}
+                      style={{ minWidth: column.minWidth, width: column.width }}
                     >
                       {column.label}
                     </TableCell>
@@ -101,16 +113,25 @@ class Contacts extends Component {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
+                {this.state.rows.slice(this.state.page * this.state.rowsPerPage, this.state.page * this.state.rowsPerPage + this.state.rowsPerPage).map(row => {
                   return (
-                    <TableRow hover role="checkbox" tabIndex={-1} key={rows.indexOf(row)}>
+                    <TableRow hover role="checkbox" tabIndex={-1} key={this.state.rows.indexOf(row)}>
                       {columns.map(column => {
                         const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === 'number' ? column.format(value) : value}
-                          </TableCell>
-                        );
+                        if(column.id === "delete"){
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              <button className={classes.deleteButton} onClick={() => this.deleteContactHandler(row)}><img id="img1" className={classes.deleteIcon} src={deleteIcon} alt="delete"/></button>
+                            </TableCell>
+                          )
+                        }
+                        else{
+                          return (
+                            <TableCell key={column.id} align={column.align}>
+                              {column.format && typeof value === 'number' ? column.format(value) : value}
+                            </TableCell>
+                          );
+                        }
                       })}
                     </TableRow>
                   );
@@ -121,7 +142,7 @@ class Contacts extends Component {
           <TablePagination
             rowsPerPageOptions={[10, 25, 100]}
             component="div"
-            count={rows.length}
+            count={this.state.rows.length}
             rowsPerPage={this.state.rowsPerPage}
             page={this.state.page}
             backIconButtonProps={{
@@ -135,15 +156,17 @@ class Contacts extends Component {
           />
         </Paper>
       </div>
-    );
+    ); 
 
-    if (this.state.showAddContactForum === true) {
+    if (this.state.showContactForm === true) {
       pageToShow = <Contact 
                       firstName="Unnamed"
                       lastName="Contact"
                       city="Unknown City"
                       totalSales="0.00"
-                      addContactForumHandler={this.addContactForumHandler}/>
+                      showContactForm={this.showContactFormHandler}
+                      saveNewContact={this.saveNewContactHandler}
+                      client={this.props.client}/>
     }
     return (
       <div>
@@ -160,15 +183,35 @@ class Contacts extends Component {
             if (loading) return <Spinner />;
             if (error) {
               console.log(error);
-              console.log(data);
             }
             if (data) {
-              console.log("data from profile", data);
+              if((this.state.rows.length === 0 && this.state.contactListLoaded === false) || this.state.contactListLoaded === false){
+                console.log(data.currentUser.contactList)
+                this.setState({rows: data.currentUser.contactList})
+                this.setState({contactListLoaded: true})
+                
+              }
+              
             }
             return (
               <div>
-                {console.log(data)}
+                <Navbar
+                  link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
+                  link2={data ? "/crm/" + data.currentUser._id : "/"}
+                  link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
+                  link4="/"
+                  active="Contacts"
+                  item1="Dashboard"
+                  item2="Inventory"
+                  item3="Contacts"
+                  item4="Home"
+                  page="Crm"
+                  isLoggedIn={true}
+                  handleIsLoggedin={this.handleIsLoggedin}
+                />
                 {pageToShow}
+                {this.state.showContactDeletedMsg && <button className={classes.contactDeletedMsg}>Contact Deleted!</button>}
+                
               </div>
             );
           }}

@@ -16,8 +16,55 @@ export const currentUser = gql`
           url
         }
         price
+        styles
+        tags
+        description
+        dimensions {
+          height
+          width
+        }
+        category
+        medium
+        primaryColor {
+          hexColor
+          pixelPercent
+        }
+        secondaryColor {
+          hexColor
+          pixelPercent
+        }
+        tertiaryColor {
+          hexColor
+          pixelPercent
+        }
+        colors {
+          hexColor
+          pixelPercent
+        }
       }
-      
+      contactList {
+        _id
+        firstName
+        lastName
+        phone_number
+        email
+        spouseFirstName
+        spouseLastName
+        mobile_phone
+        other_phone
+        company
+        birthday
+        website
+        privacy_note
+        street_address
+        city
+        state
+        zip
+        lead_status
+        lead_value
+        lead_owner
+        fullName
+      }
     }
   }
 `;
@@ -40,29 +87,5 @@ export const getUserQuery = gql`
         price
       }
     }
-    contactList {
-        _id
-        firstName
-        lastName
-        phone_number
-        email
-        spouseFirstName
-        spouseLastName
-        mobile_phone
-        other_phone
-        company
-        birthday
-        website
-        privacy_note
-        street_address
-        city
-        state
-        zip
-        lead_status
-        lead_value
-        lead_owner
-        fullName
-
-      }
   }
 `;
