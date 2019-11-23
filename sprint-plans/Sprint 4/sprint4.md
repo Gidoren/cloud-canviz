@@ -1,4 +1,4 @@
-## Sprint 3 Plan
+## Sprint 4 Plan
 
 ---
 
@@ -33,7 +33,7 @@ Total hours for Story 1: 10
 ### Team Roles:
 
 - Thomas: Developer
-- Emerson: Product Owner, Scrum Master
+- Emerson: Product Owner
 - Yusef: Develper
 - Cameron: Developer
 - Farris: Developer, Scrum Master
