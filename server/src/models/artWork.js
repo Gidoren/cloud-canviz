@@ -125,4 +125,21 @@ const artSchema = new Schema(
   { timestamps: true }
 );
 
+// this pre function applies middleware to any artwork document that gets .remove() called on it
+// in this case we are:
+//   1) setting art variable equal to this art document that is being removed
+//   2) updating any user model documents that match the query { likedArtWorks}
+//
+artSchema.pre("remove", function(next) {
+  var art = this;
+  return art
+    .model("user")
+    .update(
+      { $or: [{ likedArtWorks: art._id }, { createdArtWorks: art._id }] },
+      { $pull: { likedArtWorks: art._id, createdArtWorks: art._id } },
+      { multi: true }
+    );
+  // TODO pull from contacts referenced art ids once we add to schmea
+});
+
 module.exports = mongoose.model("artWork", artSchema);
