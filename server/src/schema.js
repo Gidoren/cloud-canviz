@@ -1,9 +1,6 @@
 module.exports = `
     type Query {
-        getAllArt(
-            offset: Int,
-            limit: Int
-        ): [Art]
+        getAllArt(getAllArtInput: GetAllArtInput): [Art]
         getAllUsers: [User]
         getUserContacts: [Contact]
         getUser(id: String): User
@@ -37,7 +34,6 @@ module.exports = `
         likedArtWorks: [Art!]
         contactList: [Contact!]
     }
-
     input UserInput {
         email: String!
         password: String!
@@ -116,7 +112,17 @@ module.exports = `
         tertiaryColor: Color
         colors: [Color!]  
     }
-
+    input GetAllArtInput {
+        price: Int
+        title: String
+        year: Int
+        artistCountry: String
+        category: String
+        styles: [String!]
+        orientation: String
+        offset: Int
+        limit: Int
+    }
     input ArtInput {
         artist: String
         artistCountry: String

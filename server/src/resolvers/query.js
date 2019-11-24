@@ -12,8 +12,8 @@ args below with { argName } are destructured
 */
 module.exports = {
   Query: {
-    getAllArt: async (_, { offset = 0, limit }, { dataSources }) =>
-      dataSources.Art.getAllArt(offset, limit),
+    getAllArt: async (_, args, { dataSources }) =>
+      dataSources.Art.getAllArt(args),
     getAllUsers: async (_, args, { dataSources }) =>
       dataSources.Users.getAllUsers(),
     getUser: async (_, { id }, { dataSources }) =>

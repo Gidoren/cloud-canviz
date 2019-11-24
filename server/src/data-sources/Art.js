@@ -14,8 +14,15 @@ class Art extends DataSource {
   }
   //getAllArt
   //returns all the art in a users library
-  getAllArt(offset, limit) {
-    return ArtWork.find()
+  getAllArt(args) {
+    //deleting offset and limit from args because we don't need them in find query
+    const offset = args.getAllArtInput.offset
+    const limit = args.getAllArtInput.limit
+    delete args.getAllArtInput.offset
+    delete args.getAllArtInput.limit
+
+    //args.getAllArtInput contains filters e.g {price: 9.99, year: 1996}
+    return ArtWork.find(args.getAllArtInput)
       .skip(offset)
       .limit(limit)
       .sort("-createdAt")

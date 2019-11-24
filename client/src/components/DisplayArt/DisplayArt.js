@@ -12,8 +12,8 @@ import { Waypoint } from "react-waypoint";
 
 // with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
-  query getArtsQuery($offset: Int, $limit: Int) {
-    getAllArt(offset: $offset, limit: $limit) {
+  query getArtsQuery($getAllArtInput: GetAllArtInput) {
+    getAllArt(getAllArtInput: $getAllArtInput) {
       title
       dimensions {
         height
@@ -45,8 +45,12 @@ const DisplayArt = ({ type }) => {
 
   const { data, fetchMore, loading, error } = useQuery(getArtsQuery, {
     variables: {
-      offset: 0,
-      limit: limit
+      getAllArtInput: {
+        title: 'China Town Sacramento',
+        year: 2018,
+        offset: 0,
+        limit: limit,
+      }
     },
     fetchPolicy: "cache-and-network"
   });
@@ -91,7 +95,9 @@ const DisplayArt = ({ type }) => {
                   onEnter={() =>
                     fetchMore({
                       variables: {
-                        offset: data.getAllArt.length
+                        getAllArtInput: {
+                          offset: data.getAllArt.length
+                        }
                       },
                       updateQuery: (prev, { fetchMoreResult }) => {
                         /* if fetched array is less than the limit then there's
