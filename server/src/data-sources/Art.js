@@ -30,65 +30,210 @@ class Art extends DataSource {
       });
   }
 
-  // createArt
-  // saves art data
-  // adds userId of creator to creator field
-  async createArt(args) {
-    const user = this.context.user._id;
+  // attempting to implement similar to createArt()
+  async createContact(args) {
+    const usr = this.context.user._id;
+    console.log("usr id", usr);
+    const contact = {
+      ...args.contactInput,
+      lead_owner: this.context.user._id
+    };
 
-    // get colors from google cloud vision
-    return await getColors(args.artInput.img.url)
-      .then(colors => {
-        console.log("colors in await", colors);
+    return Contact.findOneAndUpdate(
+      { email: args.contactInput.email }, // find a document with that filter
+      { $set: contact }, // document to insert when nothing was found
+      { upsert: true, new: true, runValidators: true, omitUndefined: true },
+      (err, doc) => {
+        if (err) {
+          console.log("findoneandupdate err: ", err);
+        }
 
-        // set values for primary, secondary and tertiary colors with response form GCV
-        const art = new ArtWork({
-          ...args.artInput,
-          creator: user,
-          primaryColor: colors[0],
-          secondaryColor: colors[1],
-          tertiaryColor: colors[2],
-          colors: colors
-        });
-        let createdArt;
-        return art
-          .save()
-          .then(result => {
-            // Farris I added these console logs so that you could see how to access the current user from the context
-            // to get the id you would just need to do this.context.user._id and use that id to find the user by id
-            // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
-            console.log("data returned from createArt", result);
+        console.log("doc", doc);
+        const createdContact = doc;
+        return User.findById(createdContact.lead_owner)
 
-            console.log("user from context", user);
-
-            {
-              /* save result to return it later */
-            }
-            createdArt = { ...result._doc };
-            {
-              /* creator id is accessed from Art
-         Finds the user and pushes the new artwork in createdArtWork array*/
-            }
-            return User.findById(createdArt.creator._id);
-          })
           .then(user => {
-            console.log(user);
-            user.createdArtWorks.push(art._id);
+            user.contactList.push(doc._id);
             return user.save();
           })
           .then(res => {
-            return createdArt;
+            return createdContact;
           })
           .catch(err => {
             console.log(err);
             throw err;
           });
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
+      }
+    );
   }
+
+  // // createArt
+  // // saves art data
+  // // adds userId of creator to creator field
+  async createArt(args) {
+    const user = this.context.user._id;
+    const newArt = { ...args.artInput };
+    const artId = args._id;
+    if (artId) {
+      return ArtWork.findById(artId)
+        .exec()
+        .then(async art => {
+          // if there was a new image uploaded
+          if (art.img.url !== newArt.img.url) {
+            let colors;
+            return await getColors(args.artInput.img.url)
+              .then(result => {
+                console.log("result from colors!!!: ", result);
+              })
+              .catch(err => {
+                throw err;
+              });
+            console.log("colors!!!: ", colors);
+            newArt = {
+              ...newArt,
+              primaryColor: colors[0],
+              secondaryColor: colors[1],
+              tertiaryColor: colors[2],
+              colors: colors
+            };
+          }
+          art = { ...newArt, creator: art.creator };
+
+          return art.save().catch(err => {
+            console.log(err);
+            throw err;
+          });
+          // if (art.img.url === newArt.img.url) {
+          //   art = {...newArt, creator: art.creator, primaryColor: art.primaryColor, secondaryColor: art.secondaryColor, tertiaryColor: art.tertiaryColor, colors: art.colors};
+          //   return art.save().catch(err => {
+          //     console.log(err);
+          //     throw err;
+          //   })
+          // } else {
+          //   return await getColors(args.artInput.img.url)
+          //   .then(colors => {
+          //     console.log("colors in await", colors);
+          //   })
+          // }
+        })
+        .catch(err => {
+          throw err;
+        });
+    } else {
+      // get colors from google cloud vision
+      return await getColors(args.artInput.img.url)
+        .then(colors => {
+          console.log("colors in await", colors);
+
+          // set values for primary, secondary and tertiary colors with response form GCV
+          const art = new ArtWork({
+            ...args.artInput,
+            creator: user,
+            primaryColor: colors[0],
+            secondaryColor: colors[1],
+            tertiaryColor: colors[2],
+            colors: colors
+          });
+          let createdArt;
+          return art
+            .save()
+            .then(result => {
+              // Farris I added these console logs so that you could see how to access the current user from the context
+              // to get the id you would just need to do this.context.user._id and use that id to find the user by id
+              // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
+              console.log("data returned from createArt", result);
+
+              console.log("user from context", user);
+
+              {
+                /* save result to return it later */
+              }
+              createdArt = { ...result._doc };
+              {
+                /* creator id is accessed from Art
+           Finds the user and pushes the new artwork in createdArtWork array*/
+              }
+              return User.findById(createdArt.creator._id);
+            })
+            .then(user => {
+              console.log(user);
+              user.createdArtWorks.push(art._id);
+              return user.save();
+            })
+            .then(res => {
+              return createdArt;
+            })
+            .catch(err => {
+              console.log(err);
+              throw err;
+            });
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        });
+    }
+  }
+
+  // // createArt
+  // // saves art data
+  // // adds userId of creator to creator field
+  // async createArt(args) {
+  //   const user = this.context.user._id;
+
+  //   // get colors from google cloud vision
+  //   return await getColors(args.artInput.img.url)
+  //     .then(colors => {
+  //       console.log("colors in await", colors);
+
+  //       // set values for primary, secondary and tertiary colors with response form GCV
+  //       const art = new ArtWork({
+  //         ...args.artInput,
+  //         creator: user,
+  //         primaryColor: colors[0],
+  //         secondaryColor: colors[1],
+  //         tertiaryColor: colors[2],
+  //         colors: colors
+  //       });
+  //       let createdArt;
+  //       return art
+  //         .save()
+  //         .then(result => {
+  //           // Farris I added these console logs so that you could see how to access the current user from the context
+  //           // to get the id you would just need to do this.context.user._id and use that id to find the user by id
+  //           // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
+  //           console.log("data returned from createArt", result);
+
+  //           console.log("user from context", user);
+
+  //           {
+  //             /* save result to return it later */
+  //           }
+  //           createdArt = { ...result._doc };
+  //           {
+  //             /* creator id is accessed from Art
+  //        Finds the user and pushes the new artwork in createdArtWork array*/
+  //           }
+  //           return User.findById(createdArt.creator._id);
+  //         })
+  //         .then(user => {
+  //           console.log(user);
+  //           user.createdArtWorks.push(art._id);
+  //           return user.save();
+  //         })
+  //         .then(res => {
+  //           return createdArt;
+  //         })
+  //         .catch(err => {
+  //           console.log(err);
+  //           throw err;
+  //         });
+  //     })
+  //     .catch(err => {
+  //       console.log(err);
+  //       throw err;
+  //     });
+  // }
 
   // likeArt() -> uses the artID argument to find an artwork object
   //            then pushes the id of the current user onto the likers array of art object

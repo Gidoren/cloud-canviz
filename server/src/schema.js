@@ -10,7 +10,7 @@ module.exports = `
         currentUser: User!
     }
     type Mutation {
-        createArt(artInput: ArtInput): Art
+        createArt(_id: ID, artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
         deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
@@ -118,6 +118,7 @@ module.exports = `
     }
 
     input ArtInput {
+        _id: ID
         artist: String
         artistCountry: String
         title: String
