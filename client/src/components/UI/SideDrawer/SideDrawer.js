@@ -7,7 +7,7 @@ const SideDrawer = (props) => (
     <div className={classes.SideDrawer}>
         <div className={classes.productType}>
             <span className={classes.heading}>CATEGORY</span>
-            <OptionsList option1="Option 1" option2="Option 2" option3="Option 3"/>
+            <OptionsList option1="Painting" option2="Photography" option3="Drawing" option4="Sculpture" option5="Mixed Media" option6="Print"/>
         </div>
         <div className={classes.color}>
             <span className={classes.heading}>COLOR</span>

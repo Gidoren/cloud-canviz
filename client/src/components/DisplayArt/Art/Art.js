@@ -7,23 +7,21 @@ import { Link } from "react-router-dom";
 Think of it as parameters in Functions.*/
 
 const Art = props => (
-  <div>
+  <div data-aos="fade-up">
     <img
-      data-aos="zoom-in"
       className={classes.img}
       src={props.artURL}
       alt={props.title}
     />
     <div
-      data-aos="zoom-in"
       className={classes.artInfo}
       width={classes.img.width}
     >
       {/* Always use link instead of <a> tag so it doesn't reload the page but rerenders the component. 
             We do this so that website don't do api calls again, or don't lose our website state.
             This is what is called single page Webapp(SPA). */}
-      <Link to={{ pathname: props.link }} className={classes.username}>
-        {props.username}
+      <Link to={{ pathname: props.link }} className={classes.link}>
+        <p className={classes.username}>{props.fullname}</p>
       </Link>
       <span>
         <img className={classes.heart} src={Heart} alt="like" />
@@ -34,6 +32,9 @@ const Art = props => (
       {/* <p className={classes.desc}>{props.desc}</p> */}
       <p className={classes.dimensions}>
         {props.height}x{props.width}
+      </p>
+      <p className={classes.dimensions}>
+        {props.desc}
       </p>
     </div>
   </div>

@@ -28,6 +28,7 @@ const getArtsQuery = gql`
         _id
         email
         username
+        fullName
       }
     }
   }
@@ -46,8 +47,6 @@ const DisplayArt = ({ type }) => {
   const { data, fetchMore, loading, error } = useQuery(getArtsQuery, {
     variables: {
       getAllArtInput: {
-        title: 'China Town Sacramento',
-        year: 2018,
         offset: 0,
         limit: limit,
       }
@@ -56,9 +55,10 @@ const DisplayArt = ({ type }) => {
   });
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
-  if (error) return <span>{console.log(error)}</span>;
+  if (error) return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
   if (data) {
-    console.log("query data", data);
+    if(data.getAllArt.length == 0)
+      return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
   }
   return (
     <div className={classes.DisplayArt}>
@@ -77,7 +77,7 @@ const DisplayArt = ({ type }) => {
                 year={art.year}
                 height={art.dimensions.height}
                 width={art.dimensions.width}
-                username={art.creator.username}
+                fullname={art.creator.fullName}
                 user={art.creator}
                 //username="username"
                 desc={art.description}
@@ -96,7 +96,8 @@ const DisplayArt = ({ type }) => {
                     fetchMore({
                       variables: {
                         getAllArtInput: {
-                          offset: data.getAllArt.length
+                          offset: data.getAllArt.length,
+                          limit: limit,
                         }
                       },
                       updateQuery: (prev, { fetchMoreResult }) => {
