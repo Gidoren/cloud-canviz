@@ -30,9 +30,9 @@ const Art = props => (
         {props.title}, {props.year}
       </p>
       {/* <p className={classes.desc}>{props.desc}</p> */}
-      <p className={classes.dimensions}>
+      {props.height && <p className={classes.dimensions}>
         {props.height}x{props.width}
-      </p>
+      </p>}
       <p className={classes.dimensions}>
         {props.desc}
       </p>
