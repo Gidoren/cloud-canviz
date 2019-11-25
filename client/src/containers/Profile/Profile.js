@@ -126,7 +126,11 @@ class Profile extends Component {
       /*return <Gallery {...user} />;*/
       return <DisplayArt type="Profile" />;
     } else if (this.state.page === "about") {
-      return <About />;
+      return <About 
+      firstName={user.firstName} 
+      lastName={user.lastName}
+      email={user.email}
+      />;
     } else {
       return <Contact email={user.email}/>;
     }
