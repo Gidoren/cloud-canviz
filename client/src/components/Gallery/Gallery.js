@@ -22,7 +22,10 @@ const Gallery = props => {
 
       columnItems.push(
         <ArtCard
+          handleSetArtProps={props.handleSetArtProps}
+          showModal={props.showModal}
           className={styles.artCard}
+          art={props.createdArtWorks[i]}
           url={art.img.url}
           artist={art.artist}
           title={art.title}

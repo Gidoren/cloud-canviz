@@ -10,11 +10,29 @@ import classes from "./Crm.module.css";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
 
+const initialState = {
+  _id: null,
+  title: "Untitled",
+  artist: "Unknown Artist",
+  medium: "",
+  dimensions: { height: "", width: "" },
+  price: "",
+  category: "",
+  tags: [],
+  styles: [],
+  year: "2019",
+  description: "",
+  img: {
+    url: ""
+  }
+};
+
 class Crm extends Component {
   state = {
     show: false,
     isLoggedIn: false,
-    originalBodyOverflow: document.body.style.overflow
+    originalBodyOverflow: document.body.style.overflow,
+    artProps: { ...initialState }
   };
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -29,6 +47,13 @@ class Crm extends Component {
     console.log("isLoggedIn data: ", data);
     console.log("isLoggedIn state: ", this.state.isLoggedIn);
   }
+
+  handleSetArtProps = propsFromArt => {
+    console.log("artProps: ", { ...propsFromArt });
+    this.setState({ artProps: { ...propsFromArt } }, () => {
+      this.showModal();
+    });
+  };
   showModal = () => {
     this.setState({ show: true });
     document.body.style.overflow = "hidden";
@@ -69,7 +94,11 @@ class Crm extends Component {
                   Upload Artwork
                 </button>
 
-                <Gallery {...data.currentUser} />
+                <Gallery
+                  {...data.currentUser}
+                  handleSetArtProps={this.handleSetArtProps}
+                  showModal={this.showModal}
+                />
                 <Modal
                   show={this.state.show}
                   handleClose={this.hideModal}
@@ -78,6 +107,7 @@ class Crm extends Component {
                   <ArtForm
                     handleHideModal={this.hideModal}
                     handleRefetch={refetch}
+                    artProps={this.state.artProps}
                   />
                 </Modal>
               </div>

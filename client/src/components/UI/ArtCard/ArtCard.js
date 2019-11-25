@@ -59,10 +59,18 @@ const CardColors = props => {
     </div>
   );
 };
+//handleSetArtProps={this.handleSetArtProps} showModal={this.showModal}
 
 const ArtCard = props => {
+  const handleClick = () => {
+    console.log("props.art: ", props.art);
+    if (props.handleSetArtProps) {
+      props.handleSetArtProps({ ...props.art });
+    }
+  };
+
   return (
-    <div key={props.key} className={styles.cardContainer}>
+    <div key={props.key} className={styles.cardContainer} onClick={handleClick}>
       <div data-aos="fade-up">
         <ArtImage {...props} />
         <CardInfo {...props} />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
 
@@ -25,25 +25,34 @@ const icon = <CheckBoxOutlineBlankIcon fontSize="small" />;
 const checkedIcon = <CheckBoxIcon fontSize="small" />;
 
 const initialState = {
+  _id: null,
   title: "Untitled",
   artist: "Unknown Artist",
   medium: "",
-  height: "",
-  width: "",
+  dimensions: { height: "", width: "" },
   price: "",
   category: "",
   tags: [],
   styles: [],
   year: "2019",
   description: "",
-  url: ""
+  img: {
+    url: ""
+  }
 };
 
 const ArtForm = props => {
+  console.log("art props: ", props.artProps);
+  const art = props.artProps;
   const [state, setState] = useState({
-    ...initialState
+    ...props.artProps
   });
 
+  useEffect(() => {
+    setState(props.artProps);
+  }, [props.artProps]);
+
+  console.log("state: ", state);
   // boolean for when upload was successful
   const [uploadSuccess, setUploadSuccess] = useState(false);
 
@@ -55,11 +64,23 @@ const ArtForm = props => {
   //updates the state of non-array fields on input change
   const updateField = e => {
     e.preventDefault();
-    setState({
-      ...state,
-      [e.target.name]: e.target.value
-    });
+    if (e.target.name === "height" || e.target.name === "width") {
+      setState({
+        ...state,
+        dimensions: {
+          ...state.dimensions,
+          [e.target.name]: e.target.value
+        }
+      });
+    } else {
+      setState({
+        ...state,
+        [e.target.name]: e.target.value
+      });
+    }
   };
+
+  // const updateDimensions
 
   // updates the state of tags when new tag added
   const updateTagsArr = e => {
@@ -135,14 +156,15 @@ const ArtForm = props => {
     // uploadArt to mongoDB
     addArt({
       variables: {
+        _id: state._id,
         artInput: {
           artist: state.artist,
           title: state.title,
           medium: state.medium,
           category: state.category,
           dimensions: {
-            height: parseInt(state.height),
-            width: parseInt(state.width)
+            height: parseInt(state.dimensions.height),
+            width: parseInt(state.dimensions.width)
           },
           year: state.year,
           price: state.price.toString(),
@@ -150,7 +172,7 @@ const ArtForm = props => {
           styles: state.styles,
           description: state.description,
           img: {
-            url: state.url
+            url: state.img.url
           }
         }
       }
@@ -194,7 +216,7 @@ const ArtForm = props => {
               selectedFiles={selectedFiles}
               handleUpload={fileUploadHandler}
               uploadSuccess={uploadSuccess}
-              s3url={state.url}
+              s3url={state.img.url}
             />
           </Grid>
           <Grid item xs={12} sm={6}>
@@ -211,6 +233,7 @@ const ArtForm = props => {
             pr={4}
             label="Artist"
             name="artist"
+            value={state.artist}
             fullWidth
             margin="normal"
             onChange={updateField}
@@ -220,6 +243,7 @@ const ArtForm = props => {
           <TextField
             label="Title"
             name="title"
+            value={state.title}
             fullWidth
             margin="normal"
             onChange={updateField}
@@ -229,6 +253,7 @@ const ArtForm = props => {
           <TextField
             label="Medium"
             name="medium"
+            value={state.medium}
             fullWidth
             margin="normal"
             onChange={updateField}
@@ -260,6 +285,7 @@ const ArtForm = props => {
             label="Height"
             type="number"
             name="height"
+            value={state.dimensions.height}
             fullWidth
             onChange={updateField}
             InputLabelProps={{
@@ -274,6 +300,7 @@ const ArtForm = props => {
             label="Width"
             type="number"
             name="width"
+            value={state.dimensions.width}
             fullWidth
             onChange={updateField}
             InputLabelProps={{
@@ -288,6 +315,7 @@ const ArtForm = props => {
             label="Year Created"
             type="number"
             name="year"
+            value={state.year}
             fullWidth
             onChange={updateField}
             InputLabelProps={{
@@ -302,6 +330,7 @@ const ArtForm = props => {
             label="Price"
             type="number"
             name="price"
+            value={state.price}
             fullWidth
             onChange={updateField}
             InputLabelProps={{
@@ -378,6 +407,7 @@ const ArtForm = props => {
             multiline
             fullWidth
             name="description"
+            value={state.description}
             rows="3"
             margin="normal"
             onChange={updateField}
@@ -392,8 +422,8 @@ const ArtForm = props => {
 export default ArtForm;
 
 const CREATE_ART = gql`
-  mutation createArt($artInput: ArtInput) {
-    createArt(artInput: $artInput) {
+  mutation createArt($_id: String, $artInput: ArtInput) {
+    createArt(_id: $_id, artInput: $artInput) {
       _id
       artist
       title
