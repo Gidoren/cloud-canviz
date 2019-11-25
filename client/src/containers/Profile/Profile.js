@@ -128,7 +128,7 @@ class Profile extends Component {
     } else if (this.state.page === "about") {
       return <About />;
     } else {
-      return <Contact />;
+      return <Contact email={user.email}/>;
     }
   };
 }
