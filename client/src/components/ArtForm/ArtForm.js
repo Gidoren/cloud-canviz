@@ -92,13 +92,19 @@ const ArtForm = props => {
   };
 
   // updates the state of styles when new style added
-  const updateStylesArr = e => {
+  const updateStylesArr = (e, values) => {
     e.preventDefault();
-    console.log("text context: ", e.target.textContent);
-    console.log("value: ", e.target.value);
+    // console.log(
+    //   "styles opts:",
+    //   stylesOptions.map(a => a.title)
+    // );
+    // console.log("text content: ", e.target.textContent);
+    // let styles = values.map(option => option.title);
+    // console.log("styles", styles);
+    console.log("values: ", values);
     setState({
       ...state,
-      styles: state.styles.concat(e.target.textContent)
+      styles: values
     });
   };
 
@@ -118,6 +124,7 @@ const ArtForm = props => {
     props.handleHideModal();
     setSelectedFiles([]);
     setUrl("");
+    setState({ ...initialState });
   };
 
   const handleClearInputs = () => {
@@ -371,13 +378,14 @@ const ArtForm = props => {
         <Grid item xs={12}>
           <Autocomplete
             name="styles"
+            value={state.styles}
             onChange={updateStylesArr}
-            autoSelect
+            //autoSelect
             multiple
             id="checkboxes-tags-demo"
-            options={stylesOptions}
+            options={styleOpts}
             disableCloseOnSelect
-            getOptionLabel={option => option.title}
+            getOptionLabel={option => option}
             renderOption={(option, { selected }) => (
               <React.Fragment>
                 <Checkbox
@@ -386,7 +394,7 @@ const ArtForm = props => {
                   style={{ marginRight: 8 }}
                   checked={selected}
                 />
-                {option.title}
+                {option}
               </React.Fragment>
             )}
             renderInput={params => (
@@ -510,4 +518,27 @@ const stylesOptions = [
   { title: "Cubism" },
   { title: "Dada" },
   { title: "Body Art" }
+];
+
+const styleOpts = [
+  "Abstract",
+  "Fine Art",
+  "Modern",
+  "Abstract Expressionism",
+  "Expressionism",
+  "Figurative",
+  "Impressionism",
+  "Realism",
+  "Portraiture",
+  "Surrealism",
+  "Pop Art",
+  "Minimalism",
+  "Illustration",
+  "Art Deco",
+  "Street Art",
+  "Photorealism",
+  "Hyperrealism",
+  "Cubism",
+  "Dada",
+  "Body Art"
 ];
