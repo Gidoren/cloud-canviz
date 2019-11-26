@@ -168,7 +168,6 @@ class Art extends DataSource {
       );
     }
   }
- 
 
   // likeArt() -> uses the artID argument to find an artwork object
   //            then pushes the id of the current user onto the likers array of art object

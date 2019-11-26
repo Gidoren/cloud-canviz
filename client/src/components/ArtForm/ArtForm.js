@@ -42,8 +42,6 @@ const initialState = {
 };
 
 const ArtForm = props => {
-  console.log("art props: ", props.artProps);
-  const art = props.artProps;
   const [state, setState] = useState({
     ...props.artProps
   });
@@ -83,24 +81,17 @@ const ArtForm = props => {
   // const updateDimensions
 
   // updates the state of tags when new tag added
-  const updateTagsArr = e => {
+  const updateTagsArr = (e, values) => {
     e.preventDefault();
     setState({
       ...state,
-      tags: state.tags.concat(e.target.value)
+      tags: values
     });
   };
 
   // updates the state of styles when new style added
   const updateStylesArr = (e, values) => {
     e.preventDefault();
-    // console.log(
-    //   "styles opts:",
-    //   stylesOptions.map(a => a.title)
-    // );
-    // console.log("text content: ", e.target.textContent);
-    // let styles = values.map(option => option.title);
-    // console.log("styles", styles);
     console.log("values: ", values);
     setState({
       ...state,
@@ -116,7 +107,9 @@ const ArtForm = props => {
   const setUrl = s3url => {
     setState({
       ...state,
-      url: s3url
+      img: {
+        url: s3url
+      }
     });
   };
 
@@ -185,15 +178,13 @@ const ArtForm = props => {
       }
     })
       .then(res => {
-        // reset intitial state
-        setState({ ...initialState });
+        handleCancel();
 
         console.log("respoonse from gql addArt", res);
         // refetch current user so new art work shows in CRM
-        props.handleRefetch();
       })
       .then(() => {
-        handleCancel();
+        props.handleRefetch();
       })
       .catch(err => {
         console.log(err);
@@ -352,13 +343,14 @@ const ArtForm = props => {
             multiple
             id="tags-filled"
             name="tags"
+            value={state.tags}
             onChange={updateTagsArr}
             freeSolo
             renderTags={(value, getTagProps) =>
               value.map((option, index) => (
                 <Chip
-                  color="secondary"
-                  variant="outlined"
+                  //color="primary"
+                  //variant="outlined"
                   label={option}
                   {...getTagProps({ index })}
                 />

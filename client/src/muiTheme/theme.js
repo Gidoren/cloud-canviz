@@ -46,6 +46,13 @@ export const theme = createMuiTheme({
   ],
   direction: "ltr",
   overrides: {
+    MuiChip: {
+      root: {
+        color: "2f4f55",
+        backgroundColor: "rgba(60, 118, 133, 0.15)",
+        borderRadius: "7px"
+      }
+    },
     MuiInput: {
       input: {
         "&::placeholder": {
