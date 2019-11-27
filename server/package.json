@@ -4,14 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "start": "nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@google-cloud/vision": "^1.7.1",
+    "@google-cloud/vision": "^1.7.2",
     "apollo-datasource": "^0.6.3",
     "apollo-datasource-rest": "^0.6.6",
     "apollo-server": "^2.9.7",
@@ -25,6 +25,9 @@
     "mongoose-populate": "^2.1.0"
   },
   "devDependencies": {
+    "chai": "^4.2.0",
+    "easygraphql-tester": "^5.1.6",
+    "mocha": "^6.2.2",
     "nodemon": "^1.19.4"
   }
 }
