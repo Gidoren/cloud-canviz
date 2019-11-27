@@ -11,6 +11,7 @@ const tester = new EasyGraphQLTester(schemaCode)
 describe('Test my queries, mutations', () => {
    
     describe('Should pass if the query is invalid', () => {
+      //getAllUsers test
       it('Invalid query getAllUsers', () => {
         const invalidQuery = `
           {
@@ -23,7 +24,7 @@ describe('Test my queries, mutations', () => {
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, invalidQuery)
       })
-   
+      ///getAllUsers test
       it('Should pass if the query is valid', () => {
         const validQuery = `
           {
@@ -34,6 +35,81 @@ describe('Test my queries, mutations', () => {
         `
         tester.test(true, validQuery)
       })
+      //getUser test
+      it('Invalid query getUser', () => {
+        const invalidQuery = `
+          {
+            getUser {
+              id
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, invalidQuery)
+      })
+      //getUserContacts
+      it('Should pass if the query is valid', () => {
+        const validQuery = `
+          {
+            getUserContacts {
+              firstName
+              lastName
+            }
+          }
+        `
+        tester.test(true, validQuery)
+      })
+      //getUserContacts test
+      it('Invalid query getUserContacts', () => {
+        const invalidQuery = `
+          {
+            getUserContacts {
+              firstname
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, invalidQuery)
+      })
+      //currentUser test
+      it('Should pass if the query is valid', () => {
+        const validQuery = `
+          {
+            currentUser {
+              email
+              password
+            }
+          }
+        `
+        tester.test(true, validQuery)
+      })
+      //currentUserntest
+      it('Invalid query currentUser', () => {
+        const invalidQuery = `
+          {
+            currentUser {
+              Email
+              password
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, invalidQuery)
+      })
+      //getUser test
+      it('Should pass if the query is valid', () => {
+        const validQuery = `
+          {
+            getUser {
+              username
+            }
+          }
+        `
+        tester.test(true, validQuery)
+      })
+      
       //createContact test
       it('Should pass if the mutation is valid', () => {
         const mutation = `
