@@ -12,6 +12,7 @@ import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
+import FilterContext from '../../context/filter-context';
 
 class Home extends Component {
   state = {
@@ -19,7 +20,14 @@ class Home extends Component {
     modalType: "",
     usersEmail: "",
     isLoggedIn: false,
-    menu: "disabled"
+    menu: "disabled",
+    filters: {
+      category: [],
+      style: [],
+      orientation: [],
+      offset: 0,
+      limit: 9
+    }
   };
 
   setToggleMenuClass = () => {
@@ -72,7 +80,9 @@ class Home extends Component {
   handleIsLoggedin = value => {
     this.setState({ isLoggedIn: value });
   };
-
+  filterChangeHandler = state => {
+    this.setState({filters: state})
+  }
   render = () => {
     /*Determine if sidebar is toggled or not*/
     const cName =
@@ -158,12 +168,11 @@ class Home extends Component {
                   </div>
 
                   {console.log("cName is: " + cName)}
-
                   <div className={cName}>
-                    <SideDrawer />
+                    <SideDrawer filterHandler={(state)=>this.filterChangeHandler(state)}/>
                   </div>
-                  <DisplayArt type="Home" />
-                </div>
+                  <DisplayArt type="Home" filters={this.state.filters}/>
+                  </div>
               </div>
             );
           }}

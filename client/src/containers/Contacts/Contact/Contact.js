@@ -5,7 +5,6 @@ import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 import ContactForm from './ContactForm/ContactForm'
 import {CREATE_CONTACT} from '../../../grqphql/mutations'
-import { Mutation } from 'react-apollo';
 
 class Contact extends Component {
     state = {
@@ -86,7 +85,7 @@ class Contact extends Component {
                 <button className={classes.goBack} onClick={this.props.showContactForm}>&#8249;</button>
                 <div className={classes.profileInfo}>
                     <div>
-                        <h3 className={classes.name}>{this.state.contactFirstName} {this.state.contactLastName}</h3>
+                        <p className={classes.name} style={{fontWeight: 500, fontSize: '16px'}}>{this.state.contactFirstName} {this.state.contactLastName}</p>
                         <p className={classes.city}>{this.state.city}</p>  
                     </div>
                     <div>

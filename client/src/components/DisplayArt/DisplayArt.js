@@ -34,24 +34,27 @@ const getArtsQuery = gql`
   }
 `;
 
-const DisplayArt = ({ type }) => {
+const DisplayArt = (props) => {
+  const [filters, setFilters] = useState(props.filters)
   /* hasMoreArt is used to check if there is any more 
     art left to fetch if not setHasMoreArt set it to false*/
   const [hasMoreArt, setHasMoreArt] = useState(true);
   /* how many arts you want per fetch */
   const limit = 9;
+
+  if(filters !== props.filters){
+    setFilters(props.filters)
+    setHasMoreArt(true)
+    console.log(props.filters)
+  }
+    
   /* getArtsQuery which is defined above, to get all artworks. Data, 
     loading, error are predefined in useQuery syntax. Data is initialized 
     to returned Artwork Array */
-
   const { data, fetchMore, loading, error } = useQuery(getArtsQuery, {
     variables: {
-      getAllArtInput: {
-        offset: 0,
-        limit: limit,
-      }
-    },
-    fetchPolicy: "cache-and-network"
+      getAllArtInput: props.filters
+    }
   });
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
@@ -91,13 +94,14 @@ const DisplayArt = ({ type }) => {
                             3- if hasMoreArt is false that means we all arts have been fetched so no
                             need to fetch more */}
               {index === data.getAllArt.length - 1 && hasMoreArt === true && (
+                
                 <Waypoint
                   onEnter={() =>
                     fetchMore({
                       variables: {
                         getAllArtInput: {
-                          offset: data.getAllArt.length,
-                          limit: limit,
+                          ...props.filters,
+                          offset: data.getAllArt.length
                         }
                       },
                       updateQuery: (prev, { fetchMoreResult }) => {

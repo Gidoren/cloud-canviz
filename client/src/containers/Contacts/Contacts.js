@@ -107,7 +107,7 @@ class Contacts extends Component {
                       align={column.align}
                       style={{ minWidth: column.minWidth, width: column.width }}
                     >
-                      {column.label}
+                      <p>{column.label}</p>
                     </TableCell>
                   ))}
                 </TableRow>
@@ -128,7 +128,7 @@ class Contacts extends Component {
                         else{
                           return (
                             <TableCell key={column.id} align={column.align}>
-                              {column.format && typeof value === 'number' ? column.format(value) : value}
+                              <p>{column.format && typeof value === 'number' ? column.format(value) : value}</p>
                             </TableCell>
                           );
                         }

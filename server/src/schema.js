@@ -113,13 +113,14 @@ module.exports = `
         colors: [Color!]  
     }
     input GetAllArtInput {
-        price: Int
+        minPrice: Int
+        maxPrice: Int
         title: String
         year: Int
         artistCountry: String
-        category: String
-        styles: [String!]
-        orientation: String
+        category: [String]
+        style: [String]
+        orientation: [String]
         offset: Int
         limit: Int
     }

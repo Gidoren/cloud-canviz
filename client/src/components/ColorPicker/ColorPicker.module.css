@@ -1,3 +1,6 @@
+.colorPicker{
+    margin-left: 5px;
+}
 .red{
     height: 20px;
     width: 20px;
@@ -8,6 +11,7 @@
     background-color: red;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .blue{
     height: 20px;
@@ -19,6 +23,7 @@
     background-color: lightblue;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .orange{
     height: 20px;
@@ -30,6 +35,7 @@
     background-color: orange;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .brown{
     height: 20px;
@@ -41,6 +47,7 @@
     background-color: brown;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .yellow{
     height: 20px;
@@ -52,6 +59,7 @@
     background-color: yellow;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .green{
     height: 20px;
@@ -63,6 +71,7 @@
     background-color: lightgreen;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .pink{
     height: 20px;
@@ -74,6 +83,7 @@
     background-color: lightpink;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .purple{
     height: 20px;
@@ -85,6 +95,7 @@
     background-color: purple;
     border-color: white;
     outline: none;
+    border: 0;
 }
 .black{
     height: 20px;
@@ -96,4 +107,5 @@
     background-color: black;
     border-color: white;
     outline: none;
+    border: 0;
 }

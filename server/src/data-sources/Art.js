@@ -21,8 +21,21 @@ class Art extends DataSource {
     delete args.getAllArtInput.offset
     delete args.getAllArtInput.limit
 
-    //args.getAllArtInput contains filters e.g {price: 9.99, year: 1996}
-    return ArtWork.find(args.getAllArtInput)
+    //if filter is empty then delete it
+    if(args.getAllArtInput.category.length === 0)
+      delete args.getAllArtInput.category
+    if(args.getAllArtInput.style.length === 0)
+      delete args.getAllArtInput.style
+    if(args.getAllArtInput.orientation.length === 0)
+      delete args.getAllArtInput.orientation
+    
+    
+    
+    console.log(args.getAllArtInput)
+    //if there's no filer
+    if(!Object.keys(args.getAllArtInput).length){
+      console.log(args)
+      return ArtWork.find()
       .skip(offset)
       .limit(limit)
       .sort("-createdAt")
@@ -35,6 +48,27 @@ class Art extends DataSource {
       .catch(err => {
         throw err;
       });
+
+    }
+    //if there's filter
+    //args.getAllArtInput contains filters e.g {oreination: [portrait, square], style: ["Abstract"]}
+    else{
+      console.log(args.getAllArtInput)
+      return ArtWork.find(args.getAllArtInput)
+      .skip(offset)
+      .limit(limit)
+      .sort("-createdAt")
+      .populate("creator")
+      .then(artworks => {
+        return artworks.map(artwork => {
+          return { ...artwork._doc };
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+    }
+    
   }
 
   // createArt
