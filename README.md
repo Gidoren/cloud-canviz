@@ -11,9 +11,9 @@ Realease Name: Version 1
 
 Realease Date: December 6th 2019
 
-Revesion Number: #3
+Revesion Number: #4
 
-Revision Date: October 22nd 2019
+Revision Date: November 29th 2019
 
 High-level Goals:
 1. The Artists/Galleries should be able to login and create an account.
@@ -27,9 +27,9 @@ User Stories:
 
 Sprint 1: 
 
-"As an artist I would like a clean UI that shows me images with their relevant data" (1).
+"As an artist I would like a clean UI that shows me images with their relevant data." (1)
 
-"As an artist I want an easy way to upload images with relevant information" (3).
+"As an artist I want an easy way to upload images with relevant information." (3)
 
 Sprint 2:
 
@@ -39,7 +39,19 @@ Sprint 2:
 
 Sprint 3:
 
+"As a collector, I want to be able to search for art by size, price and style so that I can find the exact piece I want for my home." (8)
+
+"As an artist, I want to be able to to organize and manage my artwork and contacts so that I can more easily follow up on my leads." (13)
+
+"As a collector, I want to be able to search for art on my phone as well as on my desktop." (3)
+
+"As a collector, I want to be able to comment and follow artists artwork." (5)
+
 Sprint 4:
+
+"As a collector, I want to be able to easily filter my searches for art so that I can view only the art that is relevant to my tastes and budget." (10)
+
+"As a user, I want to be able to use a web app with cohesive styling and no bugs, so that i can find the art I want without the app crashing or looking unappealing." (46)
 
 Backlog:
 
