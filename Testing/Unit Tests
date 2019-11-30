@@ -1,0 +1,20 @@
+Unit Tests for queries and mutations located in 'server/test/UserTests.js'.
+All queries and mutations were tested to make sure valid ones were processed without error, and 
+invalid ones result in an error.
+
+List of queries tested:
+getAllUsers()
+getUser()
+getUserContacts()
+currentUser()
+
+List of mutations tested:
+createContact()
+registerUser()
+deleteContact()
+removeArt()
+likeArt()
+createArt()
+
+
+To run unit tests, simply run 'npm test' in the server directory.
