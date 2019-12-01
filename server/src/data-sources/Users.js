@@ -159,10 +159,15 @@ class Users extends DataSource {
 
         console.log("doc", doc);
         const createdContact = doc;
+
         return User.findById(createdContact.lead_owner)
 
           .then(user => {
+            console.log(user.contactList)
+            console.log(doc)
+            user.contactList = user.contactList.filter(i => !i.equals(doc._id))
             user.contactList.push(doc._id);
+            console.log(user.contactList)
             return user.save();
           })
           .then(res => {

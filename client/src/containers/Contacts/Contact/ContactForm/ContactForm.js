@@ -38,9 +38,9 @@ const ContactForm = (props) => {
                 <tr className={classes.tr}>
                     <th className={classes.th}>
                         <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="email" label="Email"
-                        error={props.email === '' || !/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm.test(props.email) ? true: false} 
-                        helperText={props.email === '' ? "invalid email": ''}
-                        value={props.email}
+                        error={props.email === '' || props.email === "Unknown@email.com" ? true: !/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm.test(props.email) ? true: false} 
+                        helperText={props.email === '' || props.email === "Unknown@email.com"? "required": !/[A-Z0-9._%+-]+@[A-Z0-9.-]+.[A-Z]{2,4}/igm.test(props.email) ? 'invalid email': ''}
+                        value={props.email !== "Unknown@email.com"? props.email : ""}
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
@@ -48,9 +48,9 @@ const ContactForm = (props) => {
                 <tr className={classes.tr}>
                     <th className={classes.th}>
                         <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="phoneHome" label="Phone(Home)"
-                        error={props.phoneHome === '' || !/^\d{10}$/.test(props.phoneHome) ? true: false} 
-                        helperText={props.phoneHome === '' || !/^\d{10}$/.test(props.phoneHome) ? "invalid phone": ''}
-                        value={props.phoneHome}
+                        error={props.phoneHome === '' || props.phoneHome === "Unknown Phone" ? true: !/^\d{10}$/.test(props.phoneHome) ? true: false} 
+                        helperText={props.phoneHome === '' || props.phoneHome === "Unknown Phone" ? "required": !/^\d{10}$/.test(props.phoneHome) ? "invalid phone": ''}
+                        value={props.phoneHome !== "Unknown Phone"? props.phoneHome : ""}
                         onChange={props.formChangeHandler}/>
                     </th>
                     <th className={classes.th}>

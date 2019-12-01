@@ -31,7 +31,7 @@ const columns = [
     minWidth: 170,
     align: 'right',
   },
-  {
+  /** {
     id: 'leadStatus',
     label: 'Lead Status',
     minWidth: 170,
@@ -42,7 +42,7 @@ const columns = [
     label: 'Lead Value',
     minWidth: 170,
     align: 'right'
-  },
+  }, */
 ];
 
 class Contacts extends Component {
@@ -83,6 +83,7 @@ class Contacts extends Component {
   }
   saveNewContactHandler = (contact) => {
     console.log(this.state.rows)
+    this.setState({rows: this.state.rows.filter(i => i.email != contact.email)})
     this.setState({rows: this.state.rows.concat(contact)})
   }
   render() {
@@ -164,6 +165,8 @@ class Contacts extends Component {
                       lastName="Contact"
                       city="Unknown City"
                       totalSales="0.00"
+                      email="Unknown@email.com"
+                      phoneHome="Unknown Phone"
                       showContactForm={this.showContactFormHandler}
                       saveNewContact={this.saveNewContactHandler}
                       client={this.props.client}/>
