@@ -9,6 +9,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import classes from "./Crm.module.css";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
+import { Paper, Grid, Typography } from "@material-ui/core";
 
 const initialState = {
   _id: null,
@@ -90,10 +91,27 @@ class Crm extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
-                <button className={classes.button} onClick={this.showModal}>
-                  Upload Artwork
-                </button>
-
+                <div style={{ padding: 30 }}>
+                  <Grid container alignContent="center" alignItems="center">
+                    <Grid
+                      item
+                      xs={12}
+                      justify="center"
+                      alignContent="center"
+                      alignItems="center"
+                    >
+                      <Typography variant="h5">INVENTORY</Typography>
+                    </Grid>
+                    <Grid item xs={12} justify="flex-end">
+                      <button
+                        className={classes.button}
+                        onClick={this.showModal}
+                      >
+                        Upload Artwork
+                      </button>
+                    </Grid>
+                  </Grid>
+                </div>
                 <Gallery
                   {...data.currentUser}
                   handleSetArtProps={this.handleSetArtProps}

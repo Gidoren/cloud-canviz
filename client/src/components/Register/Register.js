@@ -5,8 +5,10 @@ import classes from "./Register.module.css";
 
 import { useMutation } from "@apollo/react-hooks";
 import { REGISTER_USER } from "../../grqphql/mutations";
+import Logo from "../UI/Logo/Logo";
 
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 const Register = ({ handleSwitchToLogin }) => {
   const {
@@ -62,8 +64,16 @@ const Register = ({ handleSwitchToLogin }) => {
   return (
     <div className={classes.body}>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-        <h1 className={classes.h1}>Sign Up</h1>
+        <div className={classes.logoContainer}>
+          <Logo className={classes.logo} width="9em" />
+
+          <hr className={classes.line} />
+        </div>
+        {/* <h1 className={classes.h1}>Sign Up</h1> */}
         <div style={{ padding: "0 1rem 0 1rem" }}>
+          <Typography variant="h5" color="primary" style={{ float: "left" }}>
+            Sign Up
+          </Typography>
           <TextField
             label="First Name"
             name="firstName"

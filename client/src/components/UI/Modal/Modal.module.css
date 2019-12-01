@@ -19,7 +19,7 @@
   transform: translate(-50%, -50%);
   z-index: 1010;
   border-radius: 6px;
-  padding: 1.5rem;
+  margin: 1.5rem;
   max-height: calc(100vh - 2rem);
   overflow-y: auto;
 }

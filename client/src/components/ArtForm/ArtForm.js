@@ -15,6 +15,7 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
+import { Paper } from "@material-ui/core";
 
 import { uploadImage } from "../UploadImage/S3/s3Upload";
 
@@ -146,6 +147,14 @@ const ArtForm = props => {
     console.log(state);
   };
 
+  const _getColorStyles = (hexColor, pixelPercent) => {
+    const style = {
+      background: hexColor,
+      width: `${pixelPercent}%`
+    };
+    return style;
+  };
+
   // handles the submission of art form
   const handleSubmit = event => {
     // preent default submission
@@ -199,222 +208,266 @@ const ArtForm = props => {
     >
       {/* TODO handle delete s3 image on cancel */}
       <Grid container spacing={1}>
-        <Grid container item xs={12} justify="flex-end">
-          <Grid item>
-            <Button size="large" onClick={handleCancel} color="secondary">
-              Cancel
-            </Button>
-          </Grid>
-        </Grid>
-        <Grid container item xs={12} justify="center" alignItems="center">
-          <Grid item xs={12} sm={6}>
-            <UploadImage
-              handleSettingUrl={setUrl}
-              handleSetSelectedFiles={handleSetFiles}
-              selectedFiles={selectedFiles}
-              handleUpload={fileUploadHandler}
-              uploadSuccess={uploadSuccess}
-              s3url={state.img.url}
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <ArtInfo
-              title={state.title}
-              artist={state.artist}
-              year={state.year}
-              price={`$ ${state.price}`}
-            ></ArtInfo>
-          </Grid>
-        </Grid>
-        <Grid item xs={12} sm={6} l={4}>
-          <TextField
-            pr={4}
-            label="Artist"
-            name="artist"
-            value={state.artist}
-            fullWidth
-            margin="normal"
-            onChange={updateField}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Title"
-            name="title"
-            value={state.title}
-            fullWidth
-            margin="normal"
-            onChange={updateField}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            label="Medium"
-            name="medium"
-            value={state.medium}
-            fullWidth
-            margin="normal"
-            onChange={updateField}
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <FormControl fullWidth margin="normal">
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              id="category"
-              name="category"
-              value={state.category}
-              onChange={updateField}
-            >
-              <MenuItem value={"Painting"}>Painting</MenuItem>
-              <MenuItem value={"Photography"}>Photography</MenuItem>
-              <MenuItem value={"Drawing"}>Drawing</MenuItem>
-              <MenuItem value={"Sculpture"}>Sculpture</MenuItem>
-              <MenuItem value={"Mixed Media"}>Mixed Media</MenuItem>
-              <MenuItem value={"Print"}>Print</MenuItem>
-            </Select>
-          </FormControl>
-        </Grid>
+        <div
+          style={{
+            backgroundColor: "#fafafa",
+            width: "100%",
+            // padding: "1rem",
+            // paddingBottom: "2.5rem",
+            borderBottom: ".5px solid #ccd"
+            // webkitBoxShadow: "0px 9px 13px 4px rgba(0,0,0,0.13)",
+            // boxShadow: "0px 9px 13px 4px rgba(0,0,0,0.13)"
+          }}
+        >
+          <div style={{ padding: 10 }}>
+            {/* <Paper> */}
+            <Grid container item xs={12} justify="flex-end">
+              <Grid item>
+                <Button size="large" onClick={handleCancel} color="secondary">
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="height"
-            label="Height"
-            type="number"
-            name="height"
-            value={state.dimensions.height}
-            fullWidth
-            onChange={updateField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="width"
-            label="Width"
-            type="number"
-            name="width"
-            value={state.dimensions.width}
-            fullWidth
-            onChange={updateField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="year"
-            label="Year Created"
-            type="number"
-            name="year"
-            value={state.year}
-            fullWidth
-            onChange={updateField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6}>
-          <TextField
-            id="price"
-            label="Price"
-            type="number"
-            name="price"
-            value={state.price}
-            fullWidth
-            onChange={updateField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-          />
-        </Grid>
-
-        <Grid item xs={12}>
-          <Autocomplete
-            multiple
-            id="tags-filled"
-            name="tags"
-            value={state.tags}
-            onChange={updateTagsArr}
-            freeSolo
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
-                  //color="primary"
-                  //variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
+            <Grid container item xs={12} justify="center" alignItems="center">
+              <Grid item xs={12} sm={6}>
+                <UploadImage
+                  handleSettingUrl={setUrl}
+                  handleSetSelectedFiles={handleSetFiles}
+                  selectedFiles={selectedFiles}
+                  handleUpload={fileUploadHandler}
+                  uploadSuccess={uploadSuccess}
+                  s3url={state.img.url}
                 />
-              ))
-            }
-            renderInput={params => (
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <ArtInfo
+                  title={state.title}
+                  artist={state.artist}
+                  year={state.year}
+                  price={`$ ${state.price}`}
+                ></ArtInfo>
+              </Grid>
+            </Grid>
+          </div>
+          {state.colors && (
+            <div className={classes.cardColors}>
+              {state.colors.map((color, index) => {
+                return (
+                  <div
+                    className={classes.colorBox}
+                    key={index}
+                    style={_getColorStyles(color.hexColor, color.pixelPercent)}
+                  ></div>
+                );
+              })}
+            </div>
+          )}
+        </div>
+        <div style={{ padding: 25 }}>
+          <Grid
+            container
+            item
+            xs={12}
+            spacing={1}
+            justify="center"
+            alignItems="center"
+          >
+            <Grid item xs={12} sm={6} l={4}>
               <TextField
-                {...params}
-                label="Tags"
-                placeholder="Tags"
-                margin="normal"
-                fullWidth
-              />
-            )}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Autocomplete
-            name="styles"
-            value={state.styles}
-            onChange={updateStylesArr}
-            //autoSelect
-            multiple
-            id="checkboxes-tags-demo"
-            options={styleOpts}
-            disableCloseOnSelect
-            getOptionLabel={option => option}
-            renderOption={(option, { selected }) => (
-              <React.Fragment>
-                <Checkbox
-                  icon={icon}
-                  checkedIcon={checkedIcon}
-                  style={{ marginRight: 8 }}
-                  checked={selected}
-                />
-                {option}
-              </React.Fragment>
-            )}
-            renderInput={params => (
-              <TextField
-                {...params}
-                label="Styles"
-                placeholder="Styles"
+                pr={4}
+                label="Artist"
+                name="artist"
+                value={state.artist}
                 fullWidth
                 margin="normal"
+                onChange={updateField}
+                required
               />
-            )}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <TextField
-            id="description"
-            label="Description"
-            multiline
-            fullWidth
-            name="description"
-            value={state.description}
-            rows="3"
-            margin="normal"
-            onChange={updateField}
-          />
-        </Grid>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Title"
+                name="title"
+                value={state.title}
+                fullWidth
+                margin="normal"
+                onChange={updateField}
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                label="Medium"
+                name="medium"
+                value={state.medium}
+                fullWidth
+                margin="normal"
+                onChange={updateField}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth margin="normal">
+                <InputLabel id="category-label">Category</InputLabel>
+                <Select
+                  labelId="category-label"
+                  id="category"
+                  name="category"
+                  value={state.category}
+                  onChange={updateField}
+                >
+                  <MenuItem value={"Painting"}>Painting</MenuItem>
+                  <MenuItem value={"Photography"}>Photography</MenuItem>
+                  <MenuItem value={"Drawing"}>Drawing</MenuItem>
+                  <MenuItem value={"Sculpture"}>Sculpture</MenuItem>
+                  <MenuItem value={"Mixed Media"}>Mixed Media</MenuItem>
+                  <MenuItem value={"Print"}>Print</MenuItem>
+                </Select>
+              </FormControl>
+            </Grid>
+
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="height"
+                label="Height"
+                type="number"
+                name="height"
+                value={state.dimensions.height}
+                fullWidth
+                onChange={updateField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                margin="normal"
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="width"
+                label="Width"
+                type="number"
+                name="width"
+                value={state.dimensions.width}
+                fullWidth
+                onChange={updateField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                margin="normal"
+                required
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="year"
+                label="Year Created"
+                type="number"
+                name="year"
+                value={state.year}
+                fullWidth
+                onChange={updateField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                margin="normal"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                id="price"
+                label="Price"
+                type="number"
+                name="price"
+                value={state.price}
+                fullWidth
+                onChange={updateField}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                margin="normal"
+              />
+            </Grid>
+
+            <Grid item xs={12}>
+              <Autocomplete
+                multiple
+                id="tags-filled"
+                name="tags"
+                value={state.tags}
+                onChange={updateTagsArr}
+                freeSolo
+                renderTags={(value, getTagProps) =>
+                  value.map((option, index) => (
+                    <Chip
+                      //color="primary"
+                      //variant="outlined"
+                      label={option}
+                      {...getTagProps({ index })}
+                    />
+                  ))
+                }
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label="Tags"
+                    placeholder="Tags"
+                    margin="normal"
+                    fullWidth
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Autocomplete
+                name="styles"
+                value={state.styles}
+                onChange={updateStylesArr}
+                //autoSelect
+                multiple
+                id="checkboxes-tags-demo"
+                options={styleOpts}
+                disableCloseOnSelect
+                getOptionLabel={option => option}
+                renderOption={(option, { selected }) => (
+                  <React.Fragment>
+                    <Checkbox
+                      icon={icon}
+                      checkedIcon={checkedIcon}
+                      style={{ marginRight: 8 }}
+                      checked={selected}
+                    />
+                    {option}
+                  </React.Fragment>
+                )}
+                renderInput={params => (
+                  <TextField
+                    {...params}
+                    label="Styles"
+                    placeholder="Styles"
+                    fullWidth
+                    margin="normal"
+                  />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                id="description"
+                label="Description"
+                multiline
+                fullWidth
+                name="description"
+                value={state.description}
+                rows="3"
+                margin="normal"
+                onChange={updateField}
+              />
+            </Grid>
+          </Grid>
+          <input className={classes.input} type="submit" />
+        </div>
       </Grid>
-      <input className={classes.input} type="submit" />
     </form>
   );
 };
@@ -488,29 +541,6 @@ const ArtInfo = props => {
     </div>
   );
 };
-
-const stylesOptions = [
-  { title: "Abstract" },
-  { title: "Fine Art" },
-  { title: "Modern" },
-  { title: "Abstract Expressionism" },
-  { title: "Expressionism" },
-  { title: "Figurative" },
-  { title: "Impressionism" },
-  { title: "Realism" },
-  { title: "Portraiture" },
-  { title: "Surrealism" },
-  { title: "Pop Art" },
-  { title: "Minimalism" },
-  { title: "Illustration" },
-  { title: "Art Deco" },
-  { title: "Street Art" },
-  { title: "Photorealism" },
-  { title: "Hyperrealism" },
-  { title: "Cubism" },
-  { title: "Dada" },
-  { title: "Body Art" }
-];
 
 const styleOpts = [
   "Abstract",

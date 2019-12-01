@@ -7,7 +7,7 @@
   height: 3em;
   width: 10em;
   align-self: flex-end;
-  margin: 5em;
+  float: right;
   background-color: #57adda;
   font: 1em sans-serif;
   border: none;
