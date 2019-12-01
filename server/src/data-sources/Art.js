@@ -41,6 +41,7 @@ class Art extends DataSource {
       .sort("-createdAt")
       .populate("creator")
       .then(artworks => {
+        console.log(artworks)
         return artworks.map(artwork => {
           return { ...artwork._doc };
         });
@@ -60,6 +61,7 @@ class Art extends DataSource {
       .sort("-createdAt")
       .populate("creator")
       .then(artworks => {
+        console.log(artworks)
         return artworks.map(artwork => {
           return { ...artwork._doc };
         });

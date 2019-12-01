@@ -91,6 +91,11 @@ export const theme = createMuiTheme({
         marginTop: "12px",
         marginBottom: "7px"
       }
+    },
+    MuiFormHelperText: {
+      root: {
+        fontSize: '8px'
+      }
     }
   },
   transitions: {
