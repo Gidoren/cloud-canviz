@@ -63,14 +63,6 @@ const Login = ({
           <hr className={classes.line} />
         </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          {/* <label className={classes.label}>Email</label>
-          <input
-            className={classes.input}
-            name="email"
-            defaultValue={usersEmail}
-            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
-          /> */}
-
           <TextField
             label="Email"
             name="email"

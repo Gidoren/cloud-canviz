@@ -15,8 +15,10 @@
 
 .form {
   background: white;
+  width: 75vw;
   max-width: 1200px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .artInfoContainer {
@@ -40,7 +42,7 @@
 
 .artInfo {
   flex: 1 0px;
-  text-align: left;
+  text-align: center;
   padding-left: 2em;
 }
 

@@ -198,7 +198,7 @@ const ArtForm = props => {
       onSubmit={event => handleSubmit(event)}
     >
       {/* TODO handle delete s3 image on cancel */}
-      <Grid container spacing={2}>
+      <Grid container spacing={1}>
         <Grid container item xs={12} justify="flex-end">
           <Grid item>
             <Button size="large" onClick={handleCancel} color="secondary">

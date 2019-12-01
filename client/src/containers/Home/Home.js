@@ -66,7 +66,7 @@ class Home extends Component {
   };
 
   switchToLogin = email => {
-    this.setState({ modalType: "Login", usersEmail: email });
+    this.setState({ modalType: "Login", usersEmail: email ? email : "" });
   };
 
   handleIsLoggedin = value => {

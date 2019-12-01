@@ -6,6 +6,8 @@ import classes from "./Register.module.css";
 import { useMutation } from "@apollo/react-hooks";
 import { REGISTER_USER } from "../../grqphql/mutations";
 
+import TextField from "@material-ui/core/TextField";
+
 const Register = ({ handleSwitchToLogin }) => {
   const {
     register,
@@ -20,19 +22,25 @@ const Register = ({ handleSwitchToLogin }) => {
 
   const onSubmit = data => {
     console.log("register data", data);
-    delete data.confirmPassword;
-    registerUser({
-      variables: {
-        userInput: { ...data, username: data.lastName }
-      }
-    })
-      .then(response => {
-        console.log("response from gql", response.data);
-        handleSwitchToLogin(response.data.registerUser.email);
+    if (data.confirmPassword != data.password) {
+      setError("confirmPassword", "validate");
+    } else {
+      delete data.confirmPassword;
+      registerUser({
+        variables: {
+          userInput: { ...data, username: data.lastName }
+        }
       })
-      .catch(err => {
-        console.log("gql error: ", err);
-      });
+        .then(response => {
+          console.log("response from gql", response.data);
+          handleSwitchToLogin(response.data.registerUser.email);
+        })
+        .catch(err => {
+          console.log("gql error: ", err);
+          setError("email", "emailTaken");
+          // TODO check error message to ensure error is from existing user
+        });
+    }
   };
 
   const [pwd, setPwd] = useState("");
@@ -56,49 +64,63 @@ const Register = ({ handleSwitchToLogin }) => {
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <h1 className={classes.h1}>Sign Up</h1>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          <label className={classes.label}>First Name:</label>
-
-          <input
-            className={classes.input}
-            id="traceInput"
+          <TextField
+            label="First Name"
             name="firstName"
-            ref={register({ required: false, maxLength: 25 })}
+            inputRef={register({ required: true, maxLength: 25 })}
+            placeholder="First Name"
+            fullWidth
+            margin="normal"
           />
 
           <ErrorMessage error={errors.firstName} />
 
-          <label className={classes.label}>Last Name:</label>
-          <input
-            className={classes.input}
+          <TextField
+            label="Last Name"
             name="lastName"
-            ref={register({ required: false, maxLength: 25 })}
+            inputRef={register({ required: true, maxLength: 25 })}
+            placeholder="Last Name"
+            fullWidth
+            margin="normal"
           />
+
           <ErrorMessage error={errors.lastName} />
 
-          <label className={classes.label}>Email</label>
-          <input
-            className={classes.input}
+          <TextField
+            label="Email"
             name="email"
-            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
+            inputRef={register({ required: true, pattern: /^\S+@\S+$/i })}
+            placeholder="Email"
+            fullWidth
+            margin="normal"
           />
+
           <ErrorMessage error={errors.email} />
 
-          <label className={classes.label}>Password</label>
-          <input
-            className={classes.input}
+          <TextField
+            type="password"
+            label="Password"
             name="password"
+            inputRef={register({ required: true, maxLength: 25 })}
             onBlur={e => setFirstPassword(e.target.value)}
-            ref={register({ required: true })}
+            placeholder="Password"
+            fullWidth
+            margin="normal"
           />
+
           <ErrorMessage error={errors.password} />
 
-          <label className={classes.label}>Confirm Password</label>
-          <input
-            className={classes.input}
+          <TextField
+            type="password"
+            label="Confirm Password"
             name="confirmPassword"
-            onBlur={e => checkSamePassword(e.target.value)}
-            ref={register({ required: true })}
+            inputRef={register({ required: true, maxLength: 25 })}
+            onChange={e => checkSamePassword(e.target.value)}
+            placeholder="Confirm Password"
+            fullWidth
+            margin="normal"
           />
+
           <ErrorMessage error={errors.confirmPassword} />
 
           <input
@@ -108,6 +130,24 @@ const Register = ({ handleSwitchToLogin }) => {
           />
         </div>
       </form>
+
+      <div className={classes.notMember}>
+        <p>Already a Member?</p>
+        <span
+          style={{
+            fontWeight: "600",
+            color: "#57adda",
+            justifyContent: "center",
+            paddingTop: "7px",
+            paddingLeft: "7px",
+            cursor: "pointer"
+          }}
+          className={classes.signup}
+          onClick={() => handleSwitchToLogin()}
+        >
+          Login
+        </span>
+      </div>
     </div>
   );
 };

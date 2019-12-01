@@ -14,7 +14,7 @@ const Modal = ({ handleClose, show, children, showCloseButton }) => {
         {showCloseButton && (
           <Grid container item xs={12} justify="flex-end">
             <Grid item>
-              <Button size="large" onClick={handleClose} color="secondary">
+              <Button size="small" onClick={handleClose} color="secondary">
                 Cancel
               </Button>
             </Grid>
