@@ -6,3 +6,15 @@
     height: 15vw;
     width: 30vw;
 }
+
+.button{
+    background-color: rgb(90, 196, 90);
+    color: white;
+    border: none;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+    height: 3vw;
+    width: 6vw;
+    margin: 8px 4px;
+}

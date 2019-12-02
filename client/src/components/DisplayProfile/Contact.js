@@ -17,8 +17,8 @@ const Contact = (props) =>(
             <textarea className={classes.textBox} name="subject" placeholder="Enter Text Here" /><br />
             <br />
 
-            <input type="submit" value="Send" />
-            <input type="reset" value="Reset" />
+            <input className={classes.button} type="submit" value="Send" />
+            <input className={classes.button} type="reset" value="Reset" />
         </form>
     </div>
 )
