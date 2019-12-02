@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import classes from './SideDrawer.module.css'
 import ColorPicker from '../../ColorPicker/ColorPicker'
 import Item from './Item/Item'
-import OptionsList from '../../OptionsList/OptionsList'
 import PriceSlider from '../../PriceSlider/PriceSlider'
 import Painting from "../../../assets/images/painting.png"
 import Photography from "../../../assets/images/photography.png"
@@ -14,12 +13,12 @@ import Print from "../../../assets/images/print.png"
 class SideDrawer extends Component {
     state = {
         category: [],
-        style: [],
+        styles: [],
         orientation: [],
         offset: 0,
         limit: 9
     }
- 
+    //adds and removes category filters
     categoryChangeHandler = (category) => {
         let newState = this.state
         if(this.state.category.includes(category)){
@@ -32,18 +31,20 @@ class SideDrawer extends Component {
         }
         this.props.filterHandler(newState)
     }
+    //adds and removes style filters
     styleChangeHandler = (style) => {
         let newState = this.state
-        if(this.state.style.includes(style)){
-            newState.style = newState.style.filter(i => i !== style)
+        if(this.state.styles.includes(style)){
+            newState.styles = newState.styles.filter(i => i !== style)
             this.setState(newState)
         }
         else{
-            this.setState({style: this.state.style.concat(style)})
-            newState.style.push(style)
+            this.setState({styles: this.state.styles.concat(style)})
+            newState.styles.push(style)
         }
         this.props.filterHandler(newState)
     }
+    //adds and removes orientation filters
     orientationChangeHandler = (orientation) => {
         let newState = this.state
         if(this.state.orientation.includes(orientation)){
@@ -69,10 +70,10 @@ class SideDrawer extends Component {
                     <Item item="Mixed Media" url={Painting} selectedHandler={(category) => this.categoryChangeHandler(category)}/>
                     <Item item="Print" url={Print} selectedHandler={(category) => this.categoryChangeHandler(category)}/>
                 </div>
-                <div className={classes.color}>
+                {/**<div className={classes.color}>
                     <span className={classes.heading}>COLOR</span>
                     <ColorPicker />
-                </div>
+                </div> */}
                 <div className={classes.size}>
                     <span className={classes.heading}>STYLE</span>
                     <Item item="Abstract" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
@@ -82,10 +83,10 @@ class SideDrawer extends Component {
                     <Item item="Expressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Realism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                 </div>
-                <div className={classes.price}>
+                {/**<div className={classes.price}>
                     <span className={classes.heading}>PRICE</span>
                     <PriceSlider />
-                </div>
+                </div>*/}
                 <div className={classes.orientation}>
                     <span className={classes.heading}>ORIENTATION</span>
                     <Item item="Portrait" url={Option} selectedHandler={(orientation) => this.orientationChangeHandler(orientation)}/>

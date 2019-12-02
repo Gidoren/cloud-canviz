@@ -14,14 +14,14 @@ class Contact extends Component {
         spouseLastName: this.props.spouseLastName || '',
         totalSales: this.props.totalSales || '',
         email: this.props.email || '',
-        phoneHome: this.props.phoneHome || '',
-        phoneMobile: this.props.phoneMobile || '',
-        phoneOther: this.props.phoneOther || '',
+        phoneHome: this.props.phone_number || '',
+        phoneMobile: this.props.mobile_phone || '',
+        phoneOther: this.props.other_phone || '',
         website: this.props.website || '',
         birthday: this.props.birthday || '',
         company: this.props.company || '',
-        privateNote: this.props.privateNote || '',
-        streetAddress: this.props.streetAddress || '',
+        privateNote: this.props.privacy_note || '',
+        streetAddress: this.props.street_address || '',
         city: this.props.city || '',
         state: this.props.state || '',
         zip: this.props.zip || '',
@@ -67,6 +67,7 @@ class Contact extends Component {
                 state: this.state.state,
                 zip: this.state.zip
             }
+            console.log(contact)
             const {data} = this.props.client.mutate({
                 mutation: CREATE_CONTACT,
                 variables: {contactInput: contact}
@@ -94,7 +95,7 @@ class Contact extends Component {
     }
     render(){
         return (
-            <div data-aos="slide-up" className={classes.addContact}>
+            <div data-aos="fade-up" className={classes.addContact}>
                 <button className={classes.goBack} onClick={this.props.showContactForm}>&#8592;</button>
                 <div className={classes.profileInfo}>
                     <div>

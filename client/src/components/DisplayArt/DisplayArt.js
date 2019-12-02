@@ -15,6 +15,7 @@ const getArtsQuery = gql`
   query getArtsQuery($getAllArtInput: GetAllArtInput) {
     getAllArt(getAllArtInput: $getAllArtInput) {
       title
+      artist
       dimensions {
         height
         width
@@ -35,31 +36,39 @@ const getArtsQuery = gql`
 `;
 
 const DisplayArt = (props) => {
-  const [filters, setFilters] = useState(props.filters)
+  const [filters, setFilters] = useState({
+    category: [],
+    styles: [],
+    orientation: [],
+    offset: 0,
+    limit: 9
+  })
   /* hasMoreArt is used to check if there is any more 
     art left to fetch if not setHasMoreArt set it to false*/
   const [hasMoreArt, setHasMoreArt] = useState(true);
   /* how many arts you want per fetch */
   const limit = 9;
 
-  if(filters !== props.filters){
+  /* check if new filter is added, if yes then change filter state
+     and hasMoreArt state to true */
+  if(filters !== props.filters && Object.keys(props.filters).length){
     setFilters(props.filters)
-    setHasMoreArt(true)
     console.log(props.filters)
   }
-    
   /* getArtsQuery which is defined above, to get all artworks. Data, 
     loading, error are predefined in useQuery syntax. Data is initialized 
     to returned Artwork Array */
-  const { data, fetchMore, loading, error } = useQuery(getArtsQuery, {
+  const { data, fetchMore, loading, error, refetch } = useQuery(getArtsQuery, {
     variables: {
-      getAllArtInput: props.filters
-    }
+      getAllArtInput: filters
+    },
+    fetchPolicy: "cache-and-network"
   });
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
   if (error) return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
   if (data) {
+    console.log(data.getAllArt)
     if(data.getAllArt.length == 0)
       return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
   }
@@ -80,7 +89,7 @@ const DisplayArt = (props) => {
                 year={art.year}
                 height={art.dimensions.height}
                 width={art.dimensions.width}
-                fullname={art.creator.fullName}
+                fullname={art.artist}
                 user={art.creator}
                 //username="username"
                 desc={art.description}
@@ -100,7 +109,7 @@ const DisplayArt = (props) => {
                     fetchMore({
                       variables: {
                         getAllArtInput: {
-                          ...props.filters,
+                          ...filters,
                           offset: data.getAllArt.length
                         }
                       },

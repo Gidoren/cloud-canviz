@@ -21,13 +21,7 @@ class Home extends Component {
     usersEmail: "",
     isLoggedIn: false,
     menu: "disabled",
-    filters: {
-      category: [],
-      style: [],
-      orientation: [],
-      offset: 0,
-      limit: 9
-    }
+    filters: {}
   };
 
   setToggleMenuClass = () => {
@@ -81,6 +75,7 @@ class Home extends Component {
     this.setState({ isLoggedIn: value });
   };
   filterChangeHandler = state => {
+    console.log("home,", state)
     this.setState({filters: state})
   }
   render = () => {

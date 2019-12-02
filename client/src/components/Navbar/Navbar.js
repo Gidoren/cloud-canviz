@@ -54,9 +54,9 @@ class Navbar extends Component {
             {this.props.page === "Crm" && <Item text={this.props.item4} active={this.props.active}>
               <Link to={{ pathname: this.props.link4 }} className={classes.link}>{this.props.item4}</Link>
             </Item>}
-            <Item text={this.props.item1} active={this.props.active}>
+            {this.props.page !== "Crm" && <Item text={this.props.item1} active={this.props.active}>
               <Link to={{ pathname: this.props.link1 }} className={classes.link}>{this.props.item1}</Link>
-            </Item>
+            </Item>}
             {authToken && this.props.isLoggedIn && (
               <Item text={this.props.item2} active={this.props.active}>
                 <Link to={{ pathname: this.props.link2 }} className={classes.link}>{this.props.item2}</Link>

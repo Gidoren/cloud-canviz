@@ -89,6 +89,7 @@ const ContactForm = (props) => {
                         onChange={props.formChangeHandler}/>
                     </th>
                 </tr>
+                {/**
                 <tr className={classes.tr}>
                     <th className={classes.th}>
                         <div className={classes.privateNote}>
@@ -99,6 +100,7 @@ const ContactForm = (props) => {
                         </div>
                     </th>
                 </tr>
+                */}
                 <tr className={classes.tr}>
                     <th className={classes.th}>
                         <StyledTextField className={classes.textField} margin="normal" variant="outlined" name="streetAddress" label="Street Address"

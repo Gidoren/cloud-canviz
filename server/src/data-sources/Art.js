@@ -24,14 +24,11 @@ class Art extends DataSource {
     //if filter is empty then delete it
     if(args.getAllArtInput.category.length === 0)
       delete args.getAllArtInput.category
-    if(args.getAllArtInput.style.length === 0)
-      delete args.getAllArtInput.style
+    if(args.getAllArtInput.styles.length === 0)
+      delete args.getAllArtInput.styles
     if(args.getAllArtInput.orientation.length === 0)
       delete args.getAllArtInput.orientation
     
-    
-    
-    console.log(args.getAllArtInput)
     //if there's no filer
     if(!Object.keys(args.getAllArtInput).length){
       console.log(args)
@@ -41,7 +38,7 @@ class Art extends DataSource {
       .sort("-createdAt")
       .populate("creator")
       .then(artworks => {
-        console.log(artworks)
+        console.log(artworks.length)
         return artworks.map(artwork => {
           return { ...artwork._doc };
         });
@@ -61,7 +58,7 @@ class Art extends DataSource {
       .sort("-createdAt")
       .populate("creator")
       .then(artworks => {
-        console.log(artworks)
+        console.log(artworks.length)
         return artworks.map(artwork => {
           return { ...artwork._doc };
         });

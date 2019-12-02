@@ -17,12 +17,12 @@
     background-color: white;
     color: grey;
     font-weight: bold;
-    height: 35px;
+    height: 25px;
     width: 150px;
     border-radius: 5px;
     outline: none;
     float: right;
-    margin: 25px 50px;
+    margin: 10px 30px;
     transition: 0.5s;
     outline: none;
     cursor: pointer;
@@ -36,11 +36,11 @@
 }
 .cover{
     width: 55%;
+    height: 50px;
     border: 1px solid #f8f8f8;
     box-shadow: 0 1px 1px darkgrey;
     background-color:white;
     border-radius: 5px;
-    height: 100px;
     display: flex;
     justify-content: space-between;
     margin: 50px auto;
@@ -50,10 +50,9 @@
 }
 .coverHeading{
     color: #282828;
-    font-weight: 600;
-    font-family: "Josefin Sans";
-    font-size: 25px;
-    margin: 30px;
+    font-weight: 400;
+    font-size: 20px;
+    margin: 10px 30px;
 }
 .root{
     margin: auto;
@@ -75,6 +74,7 @@
     }
     .button{
         font-size: 8px;
+        width: 100px;
     }
 }
 .deleteIcon{
@@ -111,4 +111,7 @@
     to {
         opacity: 0;
     }
+}
+.tableCell{
+    cursor: pointer;
 }

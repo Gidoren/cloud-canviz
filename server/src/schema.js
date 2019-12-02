@@ -119,7 +119,7 @@ module.exports = `
         year: Int
         artistCountry: String
         category: [String]
-        style: [String]
+        styles: [String]
         orientation: [String]
         offset: Int
         limit: Int

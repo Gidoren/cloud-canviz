@@ -26,8 +26,56 @@ const columns = [
     align: 'right',
   },
   {
+    id: 'birthday',
+    label: 'Birthday',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'street_address',
+    label: 'Street Address',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
     id: 'city',
     label: 'City',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'state',
+    label: 'State',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'zip',
+    label: 'Zip Code',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'company',
+    label: 'Company',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'website',
+    label: 'Website',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'mobile_phone',
+    label: 'Phone(Mobile)',
+    minWidth: 170,
+    align: 'right',
+  },
+  {
+    id: 'other_phone',
+    label: 'Phone(Other)',
     minWidth: 170,
     align: 'right',
   },
@@ -52,7 +100,8 @@ class Contacts extends Component {
     rowsPerPage: 10, 
     rows: [],
     contactListLoaded: false,
-    showContactDeletedMsg: false
+    showContactDeletedMsg: false,
+    updateContactPage: ""
   };
   handleChangePage = (event, newPage) => {
     this.setState({page: newPage})
@@ -63,6 +112,8 @@ class Contacts extends Component {
   }
   showContactFormHandler = () => {
     this.setState(prevState => ({showContactForm: !prevState.showContactForm }));
+    if(this.state.showContactForm === true)
+      this.setState({updateContactPage: ""})
   };
   deleteContactHandler = (contact) => {
     const id = contact['_id']
@@ -86,9 +137,21 @@ class Contacts extends Component {
     this.setState({rows: this.state.rows.filter(i => i.email != contact.email)})
     this.setState({rows: this.state.rows.concat(contact)})
   }
+  showUpdateContactPageHandler = (contact) => {
+    this.setState(prevState => ({showContactForm: !prevState.showContactForm }));
+    this.setState({
+      updateContactPage:  <Contact 
+                            {...contact}
+                            showContactForm={this.showContactFormHandler}
+                            saveNewContact={this.saveNewContactHandler}
+                            client={this.props.client}/>
+    })
+   
+  }
   render() {
+    console.log(this.state.rows)
     let pageToShow = (
-      this.state.contactListLoaded && <div data-aos="zoom-in">
+      this.state.contactListLoaded && <div data-aos="fade-up">
         <div className={classes.cover}>
           <p className={classes.coverHeading}>Contacts</p>
           <button
@@ -128,7 +191,7 @@ class Contacts extends Component {
                         }
                         else{
                           return (
-                            <TableCell key={column.id} align={column.align}>
+                            <TableCell className={classes.tableCell} key={column.id} align={column.align} onClick={() => this.showUpdateContactPageHandler(row)}>
                               <p>{column.format && typeof value === 'number' ? column.format(value) : value}</p>
                             </TableCell>
                           );
@@ -166,7 +229,7 @@ class Contacts extends Component {
                       city="Unknown City"
                       totalSales="0.00"
                       email="Unknown@email.com"
-                      phoneHome="Unknown Phone"
+                      phone_number="Unknown Phone"
                       showContactForm={this.showContactFormHandler}
                       saveNewContact={this.saveNewContactHandler}
                       client={this.props.client}/>
@@ -212,7 +275,7 @@ class Contacts extends Component {
                   isLoggedIn={true}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
-                {pageToShow}
+                {this.state.updateContactPage === "" ? pageToShow: this.state.updateContactPage}
                 {this.state.showContactDeletedMsg && <button className={classes.contactDeletedMsg}>Contact Deleted!</button>}
                 
               </div>

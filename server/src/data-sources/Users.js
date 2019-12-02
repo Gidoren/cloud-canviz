@@ -141,6 +141,7 @@ class Users extends DataSource {
 
   // attempting to implement similar to createArt()
   async createContact(args) {
+    console.log(args.contactInput)
     const usr = this.context.user._id;
     console.log("usr id", usr);
     const contact = {
