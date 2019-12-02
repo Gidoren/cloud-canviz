@@ -36,8 +36,22 @@ module.exports = `
         createdArtWorks: [Art!]
         likedArtWorks: [Art!]
         contactList: [Contact!]
+
+        description: String!
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
     }
 
+    input AboutInput {
+        description: String!
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
+    }
+    
     input UserInput {
         email: String!
         password: String!

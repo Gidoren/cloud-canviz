@@ -47,6 +47,36 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "artWork"
       }
+    ],
+    description: [
+      {
+        type: String,
+        required: true
+      }
+    ],
+    website: [
+      {
+        type: String,
+        required: false
+      }
+    ],
+    profileImage: [
+      {
+        type: String,
+        required: false
+      }
+    ],
+    phoneNumber: [
+      {
+        type: String,
+        required: false
+      }
+    ],
+    address: [
+      {
+        type: String,
+        required: false
+      }
     ]
   },
   { timestamps: true }
