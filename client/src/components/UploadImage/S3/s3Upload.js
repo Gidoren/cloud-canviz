@@ -42,6 +42,7 @@ export const uploadImage = async (filename, file) => {
     .promise()
     .then(res => {
       console.log("upload url in promise: ", res.Location);
+      console.log("path base name: ", path.basename(filename));
       return res.Location;
     })
     .catch(err => {

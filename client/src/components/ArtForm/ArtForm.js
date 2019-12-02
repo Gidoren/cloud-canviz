@@ -17,6 +17,14 @@ import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import { Paper } from "@material-ui/core";
 
+import List from "@material-ui/core/List";
+import Drawer from "@material-ui/core/Drawer";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import InboxIcon from "@material-ui/icons/MoveToInbox";
+import MailIcon from "@material-ui/icons/Mail";
+
 import { uploadImage } from "../UploadImage/S3/s3Upload";
 
 import { useMutation } from "@apollo/react-hooks";

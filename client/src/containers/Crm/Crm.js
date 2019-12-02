@@ -11,6 +11,8 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
 import { Paper, Grid, Typography } from "@material-ui/core";
 
+import ArtFormDrawer from "../../components/ArtForm/ArtFormDrawer";
+
 const initialState = {
   _id: null,
   title: "Untitled",
@@ -122,11 +124,15 @@ class Crm extends Component {
                   handleClose={this.hideModal}
                   showCloseButton={false}
                 >
-                  <ArtForm
-                    handleHideModal={this.hideModal}
-                    handleRefetch={refetch}
-                    artProps={this.state.artProps}
-                  />
+                  <ArtFormDrawer>
+                    <div className={classes.artForm}>
+                      <ArtForm
+                        handleHideModal={this.hideModal}
+                        handleRefetch={refetch}
+                        artProps={this.state.artProps}
+                      />
+                    </div>
+                  </ArtFormDrawer>
                 </Modal>
               </div>
             );

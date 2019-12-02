@@ -11,7 +11,7 @@
 .modal > .modalMain {
   position: fixed;
   background: white;
-  /* width: 90%; */
+  width: 90%;
   max-width: 1200px;
   height: auto;
   top: 50%;
@@ -21,7 +21,7 @@
   border-radius: 6px;
   margin: 1.5rem;
   max-height: calc(100vh - 2rem);
-  overflow-y: auto;
+  /* overflow-y: auto; */
 }
 
 @media only screen and (max-width: 768px) {
