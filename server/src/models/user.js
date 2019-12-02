@@ -14,6 +14,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    isArtist: {
+      type: Boolean,
+      required: true
+    },
     firstName: {
       type: String,
       required: false
