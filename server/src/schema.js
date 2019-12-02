@@ -8,6 +8,7 @@ module.exports = `
     }
     type Mutation {
         createArt(artInput: ArtInput): Art
+        setAbout(aboutInput: AboutInput): User
         createContact(contactInput: ContactInput): Contact
         deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
@@ -34,7 +35,24 @@ module.exports = `
         createdArtWorks: [Art!]
         likedArtWorks: [Art!]
         contactList: [Contact!]
+
+        isArtist: Boolean
+
+        description: String
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
     }
+
+    input AboutInput {
+        description: String
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
+    }
+    
     input UserInput {
         email: String!
         password: String!
@@ -42,6 +60,7 @@ module.exports = `
         lastName: String
         username: String
         typeUser: String
+        isArtist: Boolean!
     }
 
     type Contact {

@@ -9,6 +9,7 @@ import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
+import DisplayArt from "../../components/DisplayArt/DisplayArt";
 
 /*Query data from the server to display on the profile*/
 const getUserQuery = gql`
@@ -92,7 +93,11 @@ class Profile extends Component {
             return (
               <div>
                 <Navbar />
-                <Top name={data.getUser.firstName} />
+                {data.getUser.createdArtWorks.reverse().map(art => (
+                  <Top name={data.getUser.firstName} imgURL={art.img.url}/>
+                )
+
+                )}
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
@@ -122,11 +127,16 @@ class Profile extends Component {
   displayPage = user => {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);
-      return <Gallery {...user} />;
+      /*return <Gallery {...user} />;*/
+      return <DisplayArt type="Profile" />;
     } else if (this.state.page === "about") {
-      return <About />;
+      return <About 
+      firstName={user.firstName} 
+      lastName={user.lastName}
+      email={user.email}
+      />;
     } else {
-      return <Contact />;
+      return <Contact email={user.email}/>;
     }
   };
 }

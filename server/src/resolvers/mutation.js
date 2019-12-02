@@ -34,6 +34,8 @@ module.exports = {
     ),
     removeArt: authenticated((root, args, context, _) =>
       context.dataSources.Art.removeArt(args.artId)
-    )
+    ),
+    setAbout: async (_, args, { dataSources }) =>
+      await dataSources.Users.setAbout(args)
   }
 };

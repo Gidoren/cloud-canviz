@@ -85,7 +85,6 @@ const DisplayArt = (props) => {
           data.getAllArt.map((art, index) => (
             <div key={index} className={classes.column}>
               {/* Art component that takes art properties as props.*/}
-              {console.log(props.currentUser.likedArtWorks)}
               <Art
                 artID={art._id}
                 artURL={art.img.url}

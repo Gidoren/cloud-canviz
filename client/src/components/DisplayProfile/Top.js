@@ -1,5 +1,6 @@
 import React from "react";
 import classes from "./Top.module.css";
+import Add from "../../assets/images/Add.png"
 import Art1 from "../../assets/images/heart.png";
 
 const Top = props => (
@@ -7,16 +8,23 @@ const Top = props => (
     <div className={classes.all}>
       {/*Image part of top bar*/}
       <img
-        src={Art1}
+        src={props.imgURL}
         className={classes.img}
         imagealt="image"
         alt="profile"
-      ></img>
+      />
 
       {/*Div holding info*/}
       <div className={classes.content}>
         <p className={classes.name}>{props.name}</p>
-        <button className={classes.follow}>Test</button>
+        <button className={classes.follow}>
+          <img 
+            src={Add}
+            className={classes.addImage}
+            imagealt="follow button"
+          />
+          Follow
+        </button>
       </div>
     </div>
   </div>

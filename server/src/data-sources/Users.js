@@ -139,6 +139,28 @@ class Users extends DataSource {
     }
   }
 
+  async setAbout(args) {
+    // const usr = this.context.user;
+    // usr.description = args.aboutInput.description;
+    // usr.website = args.aboutInput.website;
+    // usr.profileImage = args.aboutInput.profileImage;
+    // usr.phoneNumber = args.aboutInput.phoneNumber;
+    // usr.address = args.aboutInput.address;
+    // return usr;
+    const id = this.context.user._id;
+    console.log("usr id setabout ", this.context.user.firstName);
+    return User.findByIdAndUpdate(
+      id,
+      { $set: {
+        description: args.aboutInput.description,
+        website: args.aboutInput.website,
+        profileImage: args.aboutInput.profileImage,
+        phoneNumber: args.aboutInput.phoneNumber,
+        address: args.aboutInput.address }},
+        { new: true }
+    )
+  }
+
   // attempting to implement similar to createArt()
   async createContact(args) {
     console.log(args.contactInput)
