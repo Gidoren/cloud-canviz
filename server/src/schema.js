@@ -38,6 +38,8 @@ module.exports = `
         likedArtWorks: [Art!]
         contactList: [Contact!]
 
+        isArtist: Boolean
+
         description: String
         website: String
         profileImage: String
@@ -60,6 +62,7 @@ module.exports = `
         lastName: String
         username: String
         typeUser: String
+        isArtist: Boolean!
     }
 
     type Contact {
