@@ -65,6 +65,9 @@ export const currentUser = gql`
         lead_owner
         fullName
       }
+      likedArtWorks{
+        _id
+      }
     }
   }
 `;

@@ -13,6 +13,7 @@ module.exports = `
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
         likeArt(artId: String): Art
+        unlikeArt(artId: String): Art
         removeArt(artId: String): Art
     }
 

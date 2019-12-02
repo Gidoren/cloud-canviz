@@ -154,6 +154,35 @@ class Art extends DataSource {
         throw err;
       });
   }
+  async unlikeArt(args) {
+    const userId = this.context.user._id;
+    return User.findById(userId)
+      .exec()
+      .then(user => {
+        console.log("current user: ", user)
+        user.likedArtWorks = user.likedArtWorks.filter(function(value) {
+          return value != args.artId;
+        });
+        return user.save();
+      })
+      .then(user => {
+        return ArtWork.findById(args.artId)
+          .exec()
+          .then(art => {
+            art.likers = art.likers.filter(i => !i.equals(userId))
+            console.log(art.likers)
+            return art.save()
+          })
+          .then(art => {
+            return art
+            
+          })
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  }
   // Cameron: here is the old function for comparison. You didn't do anything wrong
   //          I just forgot to tell you that the like should only add id if the user has not liked before.
   //          I am leaving the old function so you can compare for next time you implement.

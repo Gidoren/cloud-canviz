@@ -40,3 +40,17 @@ export const DELETE_CONTACT = gql`
     }
   }
 `;
+export const LIKE_ART = gql`
+  mutation likeArt($artId: String){
+    likeArt(artId: $artId){
+      _id
+    }
+  }
+`;
+export const UNLIKE_ART = gql`
+  mutation unlikeArt($artId: String){
+    unlikeArt(artId: $artId){
+      _id
+    }
+  }
+`;

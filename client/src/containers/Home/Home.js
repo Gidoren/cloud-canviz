@@ -166,7 +166,11 @@ class Home extends Component {
                   <div className={cName}>
                     <SideDrawer filterHandler={(state)=>this.filterChangeHandler(state)}/>
                   </div>
-                  <DisplayArt type="Home" filters={this.state.filters}/>
+                  <DisplayArt 
+                    type="Home" 
+                    filters={this.state.filters} 
+                    client={this.props.client} 
+                    currentUser={data.currentUser}/>
                   </div>
               </div>
             );

@@ -9,11 +9,13 @@ import Art from "./Art/Art";
 //import UploadImage from "../UploadImage/UploadImage";
 
 import { Waypoint } from "react-waypoint";
+import { thisExpression } from "@babel/types";
 
 // with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
   query getArtsQuery($getAllArtInput: GetAllArtInput) {
     getAllArt(getAllArtInput: $getAllArtInput) {
+      _id
       title
       artist
       dimensions {
@@ -53,6 +55,7 @@ const DisplayArt = (props) => {
      and hasMoreArt state to true */
   if(filters !== props.filters && Object.keys(props.filters).length){
     setFilters(props.filters)
+    setHasMoreArt(true)
     console.log(props.filters)
   }
   /* getArtsQuery which is defined above, to get all artworks. Data, 
@@ -82,8 +85,9 @@ const DisplayArt = (props) => {
           data.getAllArt.map((art, index) => (
             <div key={index} className={classes.column}>
               {/* Art component that takes art properties as props.*/}
-
+              {console.log(props.currentUser.likedArtWorks)}
               <Art
+                artID={art._id}
                 artURL={art.img.url}
                 title={art.title}
                 year={art.year}
@@ -94,6 +98,8 @@ const DisplayArt = (props) => {
                 //username="username"
                 desc={art.description}
                 link={"/profile/" + art.creator._id}
+                client={props.client}
+                likedArtWorks={props.currentUser.likedArtWorks}
                 // link={"/profile/username"}
               />
               {/* 1- Waypoint keep track of each image index and then fetch more images
