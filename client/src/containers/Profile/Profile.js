@@ -93,7 +93,11 @@ class Profile extends Component {
             return (
               <div>
                 <Navbar />
-                <Top name={data.getUser.firstName} />
+                {data.getUser.createdArtWorks.reverse().map(art => (
+                  <Top name={data.getUser.firstName} imgURL={art.img.url}/>
+                )
+
+                )}
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
@@ -126,9 +130,13 @@ class Profile extends Component {
       /*return <Gallery {...user} />;*/
       return <DisplayArt type="Profile" />;
     } else if (this.state.page === "about") {
-      return <About />;
+      return <About 
+      firstName={user.firstName} 
+      lastName={user.lastName}
+      email={user.email}
+      />;
     } else {
-      return <Contact />;
+      return <Contact email={user.email}/>;
     }
   };
 }

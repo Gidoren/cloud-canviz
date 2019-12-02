@@ -8,7 +8,7 @@ const Top = props => (
     <div className={classes.all}>
       {/*Image part of top bar*/}
       <img
-        src={Art1}
+        src={props.imgURL}
         className={classes.img}
         imagealt="image"
         alt="profile"
