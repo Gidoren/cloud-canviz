@@ -93,7 +93,11 @@ class Profile extends Component {
             return (
               <div>
                 <Navbar />
-                <Top name={data.getUser.firstName} />
+                {data.getUser.createdArtWorks.reverse().map(art => (
+                  <Top name={data.getUser.firstName} imgURL={art.img.url}/>
+                )
+
+                )}
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
