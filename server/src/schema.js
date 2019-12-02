@@ -11,6 +11,7 @@ module.exports = `
     }
     type Mutation {
         createArt(artInput: ArtInput): Art
+        setAbout(aboutInput: AboutInput): User
         createContact(contactInput: ContactInput): Contact
         deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
@@ -37,7 +38,7 @@ module.exports = `
         likedArtWorks: [Art!]
         contactList: [Contact!]
 
-        description: String!
+        description: String
         website: String
         profileImage: String
         phoneNumber: String
@@ -45,7 +46,7 @@ module.exports = `
     }
 
     input AboutInput {
-        description: String!
+        description: String
         website: String
         profileImage: String
         phoneNumber: String

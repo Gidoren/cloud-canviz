@@ -48,36 +48,26 @@ const userSchema = new Schema(
         ref: "artWork"
       }
     ],
-    description: [
-      {
-        type: String,
-        required: true
-      }
-    ],
-    website: [
-      {
-        type: String,
-        required: false
-      }
-    ],
-    profileImage: [
-      {
-        type: String,
-        required: false
-      }
-    ],
-    phoneNumber: [
-      {
-        type: String,
-        required: false
-      }
-    ],
-    address: [
-      {
-        type: String,
-        required: false
-      }
-    ]
+    description: {
+      type: String,
+      required: false
+    },
+    website: {
+      type: String,
+      required: false
+    },
+    profileImage: {
+      type: String,
+      required: false
+    },
+    phoneNumber:{
+      type: String,
+      required: false
+    },
+    address: {
+      type: String,
+      required: false
+    }
   },
   { timestamps: true }
 );
