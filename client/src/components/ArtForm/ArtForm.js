@@ -242,7 +242,7 @@ const ArtForm = props => {
         })
         .catch(err => {
           console.log(err);
-          handleOpenErrorDialog();
+          // handleOpenErrorDialog();
         });
     }
   };

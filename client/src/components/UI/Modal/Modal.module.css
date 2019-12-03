@@ -6,6 +6,7 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
   z-index: 10;
+  overflow: hidden;
 }
 
 .modal > .modalMain {
@@ -20,9 +21,9 @@
   z-index: 1010;
   border-radius: 6px;
   /* margin: 1.5rem; */
-  overflow: hidden;
+  /* overflow: hidden; */
   max-height: calc(100vh - 2rem);
-  /* overflow-y: auto; */
+  overflow-y: auto;
 }
 
 @media only screen and (max-width: 768px) {
