@@ -7,8 +7,8 @@ module.exports = `
         currentUser: User!
     }
     type Mutation {
-        createArt(artInput: ArtInput): Art
         setAbout(aboutInput: AboutInput): User
+        createArt(_id: String, artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
         deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!

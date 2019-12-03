@@ -5,6 +5,7 @@ import classes from "./Login.module.css";
 import { LOGIN_USER } from "../../grqphql/mutations";
 import Logo from "../UI/Logo/Logo";
 import TextField from "@material-ui/core/TextField";
+import Typography from "@material-ui/core/Typography";
 
 import { useMutation } from "@apollo/react-hooks";
 
@@ -26,11 +27,16 @@ const Login = ({
   const {
     register,
     handleSubmit,
+    setError,
     errors,
     formState: { isSubmitting }
   } = useForm();
 
   const [loginUser, { data }] = useMutation(LOGIN_USER);
+
+  const checkError = () => {
+    console.log(errors);
+  };
 
   const onSubmit = data => {
     console.log("form data", data);
@@ -50,27 +56,22 @@ const Login = ({
       })
       .catch(err => {
         console.log("gql error: ", err);
+        setError("password", "validate");
       });
   };
-
-  //const [pwd, setPwd] = useState("");
 
   return (
     <div className={classes.body}>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={classes.logoContainer}>
           <Logo className={classes.logo} width="9em" />
+
           <hr className={classes.line} />
         </div>
         <div style={{ padding: "0 1rem 0 1rem" }}>
-          {/* <label className={classes.label}>Email</label>
-          <input
-            className={classes.input}
-            name="email"
-            defaultValue={usersEmail}
-            ref={register({ required: true, pattern: /^\S+@\S+$/i })}
-          /> */}
-
+          <Typography variant="h5" color="primary" style={{ float: "left" }}>
+            Login
+          </Typography>
           <TextField
             label="Email"
             name="email"
@@ -91,6 +92,7 @@ const Login = ({
             placeholder="Password"
             fullWidth
             margin="normal"
+            onChange={checkError}
           />
           <ErrorMessage error={errors.password} />
 
