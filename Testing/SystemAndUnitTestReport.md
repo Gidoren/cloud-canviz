@@ -86,8 +86,7 @@ Scenario:
 # 8. User story 4 from Sprint 3:
 “As a collector, I want to be able to comment and follow artists artwork”
 
-Scenario:
-- TO BE FILLED IN
+- This task was not completed, and therefore cannot be tested.
 
 # 9. User story 1 from Sprint 4:
 “As a collector, I want to be able to easily filter my searches for art so that I can view only the art that is relevant to my tastes and budget.”
