@@ -61,6 +61,7 @@ class Crm extends Component {
                   item3="Contacts"
                   item4="Home"
                   page="Crm"
+                  isArtist={true}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
