@@ -14,9 +14,9 @@ const Gallery = props => {
 
     let len = 0;
     if (props.createdArtWorks) len = props.createdArtWorks.length;
-
+    
     console.log("gallery props", props);
-
+    
     for (let i = columnNum - 1; i < len; i += 4) {
       const art = props.createdArtWorks[i];
 
