@@ -16,3 +16,6 @@ The location of the fault is in the sidedrawer component. To fix this bug, we wo
 When a user attempts to contact an artist by clicking the profile of the artist, followed by clicking on contact, the user is greeted with a form to fill out their name, email, and to provide a message. When the user clicks send, it opens the user's email application correctly, however it prefills the fields incorrectly. The provided name, email address, and message fields, are formatted in an unnatural way.
 
 The location of the fault is in the contact component. Fixing the bug would require additional research on how HTML handles email forms.
+
+# 4
+When liking/unliking an art piece, and then switch to a different web page, and go back to the home page, the likes take time to register 
