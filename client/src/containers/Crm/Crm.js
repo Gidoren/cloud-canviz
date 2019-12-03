@@ -63,7 +63,7 @@ class Crm extends Component {
   };
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, artProps: { ...initialState } });
     document.body.style.overflow = this.state.originalBodyOverflow;
   };
   handleIsLoggedin = value => {
@@ -124,7 +124,13 @@ class Crm extends Component {
                   handleClose={this.hideModal}
                   showCloseButton={false}
                 >
-                  <ArtFormDrawer>
+                  <ArtFormDrawer
+                    artId={this.state.artProps._id}
+                    artTitle={this.state.artProps.title}
+                    artUrl={this.state.artProps.img.url}
+                    handleHideModal={this.hideModal}
+                    handleRefetch={refetch}
+                  >
                     <div className={classes.artForm}>
                       <ArtForm
                         handleHideModal={this.hideModal}
