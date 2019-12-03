@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./DisplayArt.module.css";
 
 import { gql } from "apollo-boost";
