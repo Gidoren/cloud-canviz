@@ -16,14 +16,6 @@ const Top = props => (
       {/*Div holding info*/}
       <div className={classes.content}>
         <p className={classes.name}>{props.name}</p>
-        {/*<button className={classes.follow}>
-          <img 
-            src={Add}
-            className={classes.addImage}
-            imagealt="follow button"
-          />
-          Follow
-        </button>*/}
       </div>
     </div>
   </div>

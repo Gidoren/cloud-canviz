@@ -4,7 +4,6 @@ import classes from "./Profile.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Top from "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
-import About from "../../components/DisplayProfile/About";
 import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
@@ -96,16 +95,13 @@ class Profile extends Component {
                 {data.getUser.createdArtWorks.reverse().map(art => (
                   <Top name={data.getUser.firstName} imgURL={art.img.url}/>
                 )
-
                 )}
+                
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
                   <div onClick={() => this.changePage("artwork")}>
                     <Tab option={"Artwork"} />
-                  </div>
-                  <div onClick={() => this.changePage("about")}>
-                    <Tab option={"About"} />
                   </div>
                   <div onClick={() => this.changePage("contact")}>
                     <Tab option={"Contact"} />
