@@ -36,6 +36,30 @@ describe('Test my queries, mutations', () => {
         tester.test(true, validQuery)
       })
 
+      it('Invalid query getAllArt', () => {
+        const invalidQuery = `
+          {
+            getAllArt {
+              id
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, invalidQuery)
+      })
+   
+      it('Should pass if the getAllArt query is valid', () => {
+        const validQuery = `
+          {
+            getAllArt {
+              _id
+            }
+          }
+        `
+        tester.test(true, validQuery)
+      })
+
       it('Invalid query getUser', () => {
         const invalidQuery = `
           {
@@ -260,6 +284,38 @@ describe('Test my queries, mutations', () => {
         })
       })
       
+      it('Should pass if the setAbout mutation is valid', () => {
+        const mutation = `
+          mutation setAbout($aboutInput: AboutInput) {
+            setAbout(aboutInput: $aboutInput) {
+              _id
+            }
+          }
+        `
+        tester.test(true, mutation, {
+          setAbout: {
+            description: "hi"
+          }
+        })
+      })
+   
+      it('Should not pass if one value on the setAbout mutation input is invalid', () => {
+        const mutation = `
+          mutation setAbout($aboutInput: AboutInput) {
+            setAbout(aboutInput: $aboutInput) {
+              description
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, mutation, {
+          setAbout: {
+            description: "bye",
+            invalidField: "test"
+          }
+        })
+      })
       
       it('Should pass if the likeArt mutation is valid', () => {
         const mutation = `
