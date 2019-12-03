@@ -12,6 +12,7 @@ import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
+import FilterContext from '../../context/filter-context';
 
 class Home extends Component {
   state = {
@@ -19,7 +20,8 @@ class Home extends Component {
     modalType: "",
     usersEmail: "",
     isLoggedIn: false,
-    menu: "disabled"
+    menu: "disabled",
+    filters: {}
   };
 
   setToggleMenuClass = () => {
@@ -72,7 +74,10 @@ class Home extends Component {
   handleIsLoggedin = value => {
     this.setState({ isLoggedIn: value });
   };
-
+  filterChangeHandler = state => {
+    console.log("home,", state)
+    this.setState({filters: state})
+  }
   render = () => {
     /*Determine if sidebar is toggled or not*/
     const cName =
@@ -105,6 +110,10 @@ class Home extends Component {
             }
             console.log("Data from currentUser: ", data);
 
+            if(this.props.currentUser != null){
+              this.props.currentUserHandler(data.currentUser)
+            }
+            
             return (
               <div>
                 <Navbar
@@ -116,7 +125,7 @@ class Home extends Component {
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
-                  // user={...data.currentUser}
+                  isArtist={data ? data.currentUser.isArtist: false}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
@@ -158,12 +167,16 @@ class Home extends Component {
                   </div>
 
                   {console.log("cName is: " + cName)}
-
                   <div className={cName}>
-                    <SideDrawer />
+                    <SideDrawer filterHandler={(state)=>this.filterChangeHandler(state)}/>
                   </div>
-                  <DisplayArt type="Home" />
-                </div>
+                  <DisplayArt 
+                    type="Home" 
+                    filters={this.state.filters} 
+                    client={this.props.client} 
+                    currentUser={data ? data.currentUser : null}
+                    isLoggedIn={this.state.isLoggedIn}/>
+                  </div>
               </div>
             );
           }}

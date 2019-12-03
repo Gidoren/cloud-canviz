@@ -1,3 +1,9 @@
+.header{
+  top: 0;
+  z-index: 1;
+  position: -webkit-sticky;
+  position: sticky;
+}
 .topMenu {
   background-color: white;
   padding: 8px 10px 8px 30px;

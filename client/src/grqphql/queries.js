@@ -7,6 +7,7 @@ export const currentUser = gql`
       email
       firstName
       lastName
+      isArtist
       createdArtWorks {
         _id
         artist
@@ -64,6 +65,9 @@ export const currentUser = gql`
         lead_value
         lead_owner
         fullName
+      }
+      likedArtWorks{
+        _id
       }
     }
   }

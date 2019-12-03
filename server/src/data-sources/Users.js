@@ -42,7 +42,7 @@ class Users extends DataSource {
       });
 
       const response = await user.save();
-
+      console.log(response)
       return { ...response._doc, password: null }; // don't return password in response
     } catch (err) {
       throw err;
@@ -139,8 +139,31 @@ class Users extends DataSource {
     }
   }
 
+  async setAbout(args) {
+    // const usr = this.context.user;
+    // usr.description = args.aboutInput.description;
+    // usr.website = args.aboutInput.website;
+    // usr.profileImage = args.aboutInput.profileImage;
+    // usr.phoneNumber = args.aboutInput.phoneNumber;
+    // usr.address = args.aboutInput.address;
+    // return usr;
+    const id = this.context.user._id;
+    console.log("usr id setabout ", this.context.user.firstName);
+    return User.findByIdAndUpdate(
+      id,
+      { $set: {
+        description: args.aboutInput.description,
+        website: args.aboutInput.website,
+        profileImage: args.aboutInput.profileImage,
+        phoneNumber: args.aboutInput.phoneNumber,
+        address: args.aboutInput.address }},
+        { new: true }
+    )
+  }
+
   // attempting to implement similar to createArt()
   async createContact(args) {
+    console.log(args.contactInput)
     const usr = this.context.user._id;
     console.log("usr id", usr);
     const contact = {
@@ -159,10 +182,15 @@ class Users extends DataSource {
 
         console.log("doc", doc);
         const createdContact = doc;
+
         return User.findById(createdContact.lead_owner)
 
           .then(user => {
+            console.log(user.contactList)
+            console.log(doc)
+            user.contactList = user.contactList.filter(i => !i.equals(doc._id))
             user.contactList.push(doc._id);
+            console.log(user.contactList)
             return user.save();
           })
           .then(res => {

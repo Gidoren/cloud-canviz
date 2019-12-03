@@ -9,6 +9,7 @@ export const LOGIN_USER = gql`
         email
         password
         username
+        isArtist
       }
     }
   }
@@ -21,6 +22,7 @@ export const REGISTER_USER = gql`
       firstName
       lastName
       email
+      isArtist
     }
   }
 `;
@@ -36,6 +38,20 @@ export const CREATE_CONTACT = gql`
 export const DELETE_CONTACT = gql`
   mutation deleteContact($contactID: String){
     deleteContact(contactID: $contactID){
+      _id
+    }
+  }
+`;
+export const LIKE_ART = gql`
+  mutation likeArt($artId: String){
+    likeArt(artId: $artId){
+      _id
+    }
+  }
+`;
+export const UNLIKE_ART = gql`
+  mutation unlikeArt($artId: String){
+    unlikeArt(artId: $artId){
       _id
     }
   }

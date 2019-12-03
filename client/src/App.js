@@ -13,8 +13,13 @@ import { theme } from "./muiTheme/theme";
 import { MuiThemeProvider } from "@material-ui/core/styles";
 
 class App extends Component {
-  state = {};
+  state = {
+    currentUser: null
+  };
 
+  currentUserHandler = (currentUser) => {
+    this.setState({currentUser: currentUser})
+  }
   componentDidMount() {
     AOS.init({
       duration: 2000
@@ -42,14 +47,14 @@ class App extends Component {
             <Route
               exact
               path="/"
-              render={props => <Home {...props} client={this.props.client} />}
+              render={props => <Home {...props} client={this.props.client} currentUser={this.state.currentUser}  currentUserHandler ={(currentUser) => this.currentUserHandler(currentUser)}/>}
             />
             <Route
               exact
               path="/crm/:username"
               render={props => <Crm {...props} client={this.props.client} />}
             />
-            <Route path="/profile/:username" component={Profile} />
+            <Route path="/profile/:username" component={Profile} client={this.props.client} currentUser={this.state.currentUser}/>
             <Route
               exact
               path="/crm/contacts/:username"

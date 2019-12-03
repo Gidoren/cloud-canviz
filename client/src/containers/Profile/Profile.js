@@ -4,12 +4,11 @@ import classes from "./Profile.module.css";
 import Navbar from "../../components/Navbar/Navbar";
 import Top from "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
-import About from "../../components/DisplayProfile/About";
 import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
-import DisplayArt from "../../components/DisplayArt/DisplayArt";
+import ProfileImage from '../../assets/images/noprofileimage.png'
 
 /*Query data from the server to display on the profile*/
 const getUserQuery = gql`
@@ -92,16 +91,24 @@ class Profile extends Component {
             }
             return (
               <div>
-                <Navbar />
-                <Top name={data.getUser.firstName} />
+                <Navbar
+                  link2={data ? "/profile/" + data.getUser._id : "/"}
+                  link1={"/"}
+                  active="Profile"
+                  item1="Home"
+                  item2="Profile"
+                />
+                
+                {data.getUser.createdArtWorks.length > 0 ? 
+                  <Top name={data.getUser.firstName} imgURL={data.getUser.createdArtWorks[0].img.url}/> :
+                  <Top name={data.getUser.firstName} imgURL={ProfileImage}/>
+                }
+                
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
                   <div onClick={() => this.changePage("artwork")}>
                     <Tab option={"Artwork"} />
-                  </div>
-                  <div onClick={() => this.changePage("about")}>
-                    <Tab option={"About"} />
                   </div>
                   <div onClick={() => this.changePage("contact")}>
                     <Tab option={"Contact"} />
@@ -124,11 +131,10 @@ class Profile extends Component {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);
       /*return <Gallery {...user} />;*/
-      return <DisplayArt type="Profile" />;
-    } else if (this.state.page === "about") {
-      return <About />;
-    } else {
-      return <Contact />;
+      return <Gallery {...user}/>
+    } 
+    else {
+      return <Contact email={user.email}/>;
     }
   };
 }

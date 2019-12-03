@@ -57,11 +57,11 @@ class Crm extends Component {
                   link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
                   link4="/"
                   active="Inventory"
-                  item1="Dashboard"
                   item2="Inventory"
                   item3="Contacts"
                   item4="Home"
                   page="Crm"
+                  isArtist={true}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />

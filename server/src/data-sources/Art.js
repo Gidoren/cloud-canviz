@@ -14,13 +14,31 @@ class Art extends DataSource {
   }
   //getAllArt
   //returns all the art in a users library
-  getAllArt(offset, limit) {
-    return ArtWork.find()
+  getAllArt(args) {
+    //deleting offset and limit from args because we don't need them in find query
+    const offset = args.getAllArtInput.offset
+    const limit = args.getAllArtInput.limit
+    delete args.getAllArtInput.offset
+    delete args.getAllArtInput.limit
+
+    //if filter is empty then delete it
+    if(args.getAllArtInput.category.length === 0)
+      delete args.getAllArtInput.category
+    if(args.getAllArtInput.styles.length === 0)
+      delete args.getAllArtInput.styles
+    if(args.getAllArtInput.orientation.length === 0)
+      delete args.getAllArtInput.orientation
+    
+    //if there's no filer
+    if(!Object.keys(args.getAllArtInput).length){
+      console.log(args)
+      return ArtWork.find()
       .skip(offset)
       .limit(limit)
       .sort("-createdAt")
       .populate("creator")
       .then(artworks => {
+        console.log(artworks.length)
         return artworks.map(artwork => {
           return { ...artwork._doc };
         });
@@ -28,6 +46,28 @@ class Art extends DataSource {
       .catch(err => {
         throw err;
       });
+
+    }
+    //if there's filter
+    //args.getAllArtInput contains filters e.g {oreination: [portrait, square], style: ["Abstract"]}
+    else{
+      console.log(args.getAllArtInput)
+      return ArtWork.find(args.getAllArtInput)
+      .skip(offset)
+      .limit(limit)
+      .sort("-createdAt")
+      .populate("creator")
+      .then(artworks => {
+        console.log(artworks.length)
+        return artworks.map(artwork => {
+          return { ...artwork._doc };
+        });
+      })
+      .catch(err => {
+        throw err;
+      });
+    }
+    
   }
 
   // createArt
@@ -108,6 +148,35 @@ class Art extends DataSource {
         return ArtWork.findByIdAndUpdate(args.artId, {
           $addToSet: { likers: user._id }
         });
+      })
+      .catch(err => {
+        console.log(err);
+        throw err;
+      });
+  }
+  async unlikeArt(args) {
+    const userId = this.context.user._id;
+    return User.findById(userId)
+      .exec()
+      .then(user => {
+        console.log("current user: ", user)
+        user.likedArtWorks = user.likedArtWorks.filter(function(value) {
+          return value != args.artId;
+        });
+        return user.save();
+      })
+      .then(user => {
+        return ArtWork.findById(args.artId)
+          .exec()
+          .then(art => {
+            art.likers = art.likers.filter(i => !i.equals(userId))
+            console.log(art.likers)
+            return art.save()
+          })
+          .then(art => {
+            return art
+            
+          })
       })
       .catch(err => {
         console.log(err);
