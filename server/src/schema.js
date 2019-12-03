@@ -1,21 +1,20 @@
 module.exports = `
     type Query {
-        getAllArt(
-            offset: Int,
-            limit: Int
-        ): [Art]
+        getAllArt(getAllArtInput: GetAllArtInput): [Art]
         getAllUsers: [User]
         getUserContacts: [Contact]
         getUser(id: String): User
         currentUser: User!
     }
     type Mutation {
-        createArt(artInput: ArtInput): Art
+        setAbout(aboutInput: AboutInput): User
+        createArt(_id: String, artInput: ArtInput): Art
         createContact(contactInput: ContactInput): Contact
         deleteContact(contactID: String): Contact
         registerUser(userInput: UserInput): User!
         loginUser(email: String!, password: String!): LoginResponse!
         likeArt(artId: String): Art
+        unlikeArt(artId: String): Art
         removeArt(artId: String): Art
     }
 
@@ -36,8 +35,23 @@ module.exports = `
         createdArtWorks: [Art!]
         likedArtWorks: [Art!]
         contactList: [Contact!]
+        isArtist: Boolean
+
+        description: String
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
     }
 
+    input AboutInput {
+        description: String
+        website: String
+        profileImage: String
+        phoneNumber: String
+        address: String
+    }
+    
     input UserInput {
         email: String!
         password: String!
@@ -45,6 +59,7 @@ module.exports = `
         lastName: String
         username: String
         typeUser: String
+        isArtist: Boolean
     }
 
     type Contact {
@@ -116,7 +131,18 @@ module.exports = `
         tertiaryColor: Color
         colors: [Color!]  
     }
-
+    input GetAllArtInput {
+        minPrice: Int
+        maxPrice: Int
+        title: String
+        year: Int
+        artistCountry: String
+        category: [String]
+        styles: [String]
+        orientation: [String]
+        offset: Int
+        limit: Int
+    }
     input ArtInput {
         artist: String
         artistCountry: String

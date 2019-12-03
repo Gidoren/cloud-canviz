@@ -1,7 +1,7 @@
 import React from 'react';
 import classes from './ColorPicker.module.css'
 const ColorDots = (props) => (
-    <div>
+    <div className={classes.colorPicker}>
         <span><button className={classes.red}/></span>
         <span><button className={classes.blue}/></span>
         <span><button className={classes.green}/></span>

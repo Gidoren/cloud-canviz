@@ -14,6 +14,10 @@ const userSchema = new Schema(
       type: String,
       required: true
     },
+    isArtist: {
+      type: Boolean,
+      required: false
+    },
     firstName: {
       type: String,
       required: false
@@ -47,7 +51,27 @@ const userSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "artWork"
       }
-    ]
+    ],
+    description: {
+      type: String,
+      required: false
+    },
+    website: {
+      type: String,
+      required: false
+    },
+    profileImage: {
+      type: String,
+      required: false
+    },
+    phoneNumber:{
+      type: String,
+      required: false
+    },
+    address: {
+      type: String,
+      required: false
+    }
   },
   { timestamps: true }
 );

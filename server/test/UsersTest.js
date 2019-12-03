@@ -355,4 +355,8 @@ describe('Test my queries, mutations', () => {
         })
       })
     })
+<<<<<<< HEAD
   })
+=======
+  })
+>>>>>>> 7f2f4ca6b496a681cd22586de1744c1c689b70f3

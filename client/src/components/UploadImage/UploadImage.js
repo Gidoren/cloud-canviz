@@ -17,10 +17,10 @@ class UploadImage extends Component {
   render() {
     return (
       <div>
-        {this.props.uploadSuccess && (
+        {this.props.s3url && (
           <img className={classes.uploadImage} src={this.props.s3url}></img>
         )}
-        {this.props.selectedFiles.length === 0 && (
+        {this.props.selectedFiles.length === 0 && !this.props.s3url && (
           <Dropzone onDrop={this.fileSelectHandler}>
             {({ getRootProps, getInputProps }) => (
               <div className={classes.innerBox} {...getRootProps()}>

@@ -29,8 +29,13 @@ module.exports = {
     likeArt: authenticated((root, args, context, info) =>
       context.dataSources.Art.likeArt(args)
     ),
+    unlikeArt: authenticated((root, args, context, info) =>
+      context.dataSources.Art.unlikeArt(args)
+    ),
     removeArt: authenticated((root, args, context, _) =>
       context.dataSources.Art.removeArt(args.artId)
-    )
+    ),
+    setAbout: async (_, args, { dataSources }) =>
+      await dataSources.Users.setAbout(args)
   }
 };

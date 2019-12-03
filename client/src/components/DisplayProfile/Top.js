@@ -1,22 +1,21 @@
 import React from "react";
 import classes from "./Top.module.css";
-import Art1 from "../../assets/images/heart.png";
+import Add from "../../assets/images/Add.png"
 
 const Top = props => (
   <div>
     <div className={classes.all}>
       {/*Image part of top bar*/}
       <img
-        src={Art1}
+        src={props.imgURL}
         className={classes.img}
         imagealt="image"
         alt="profile"
-      ></img>
+      />
 
       {/*Div holding info*/}
       <div className={classes.content}>
         <p className={classes.name}>{props.name}</p>
-        <button className={classes.follow}>Test</button>
       </div>
     </div>
   </div>

@@ -25,17 +25,18 @@
 }
 .goBack{
     border-radius: 50%;
-    height: 20px;
-    width: 20px;
+    height: 40px;
+    width: 40px;
     color: black;
     border: 0;
     outline: none;
     transition: 0.5s;
     cursor: pointer;
-    margin: 10px 0px;
+    margin: 30px 0px;
+    font-size: 20px;
 }
 .goBack:hover{
-    background-color: #4052B5;
+    background-color: #282828;
     color: white;
 }
 .saveChangesButton{

@@ -1,11 +1,19 @@
 .SideDrawer{
     left: 0;
-    height: 800px;
-    min-width: 150px;
-    top: 0;
+    top: 100px;
+    min-width: 230px;
     margin-top: 20px;
-    margin-right: 10px;
-    color: black;
+    color: white;
+    background-color: #011627;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding-top: 15px;
+    padding-bottom: 5px;
+    -webkit-box-shadow: 9px 11px 20px 0px rgba(0, 0, 0, 0.19);
+    -moz-box-shadow: 9px 11px 20px 0px rgba(0, 0, 0, 0.19);
+    box-shadow: 9px 11px 20px 0px rgba(0, 0, 0, 0.19);
+    z-index: 0;
+  
 }
 .productType{
     margin-bottom: 50px;
@@ -33,12 +41,13 @@
 }
 
 .heading{
-    color: #696969;
+    color: #435369;
     font-family: 'Josefin Sans', sans-serif;
-    border-bottom: solid 3px #eeeeee;
-    margin-left: 10px;
+    margin-left: 40px;
     display: block;
     margin-bottom: 20px;
+    font-weight: bold;
+    width: 80%;
 }
 /*@media (max-width: 1000px){
     .SideDrawer{
