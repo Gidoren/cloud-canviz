@@ -98,7 +98,7 @@ const DisplayArt = (props) => {
                 desc={art.description}
                 link={"/profile/" + art.creator._id}
                 client={props.client}
-                likedArtWorks={props.currentUser.likedArtWorks}
+                likedArtWorks={props.currentUser ? props.currentUser.likedArtWorks : null}
                 // link={"/profile/username"}
               />
               {/* 1- Waypoint keep track of each image index and then fetch more images

@@ -41,7 +41,7 @@ const Art = props => {
   const [likeIcon, setLikeIcon] = useState(
     (<FavoriteBorderIcon className={classes.heart} onClick={likeArtHandler}/>)
   )
-  if(likeIcon.type !== (<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>).type){
+  if(props.likedArtWorks !== null && likeIcon.type !== (<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>).type){
     props.likedArtWorks.map(likedArt => {
       if(likedArt[Object.keys(likedArt)[0]] === props.artID){
         setLikeIcon(<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>)
@@ -67,7 +67,7 @@ const Art = props => {
           <p className={classes.username}>{props.fullname}</p>
         </Link>
     
-        {likeIcon}
+        {props.likedArtWorks !== null ? likeIcon: ""}
 
         <p className={classes.title}>
           {props.title}, {props.year}

@@ -110,6 +110,10 @@ class Home extends Component {
             }
             console.log("Data from currentUser: ", data);
 
+            if(this.props.currentUser != null){
+              this.props.currentUserHandler(data.currentUser)
+            }
+            
             return (
               <div>
                 <Navbar
@@ -170,7 +174,8 @@ class Home extends Component {
                     type="Home" 
                     filters={this.state.filters} 
                     client={this.props.client} 
-                    currentUser={data.currentUser}/>
+                    currentUser={data ? data.currentUser : null}
+                    isLoggedIn={this.state.isLoggedIn}/>
                   </div>
               </div>
             );
