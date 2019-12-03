@@ -79,9 +79,24 @@ class SideDrawer extends Component {
                     <Item item="Abstract" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Fine Art" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Modern" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
-                    <Item item="Photo Realism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Abstract Expressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Expressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Figurative" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Impressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Realism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Portraiture" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Surrealism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Pop Art" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Minimalism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Illustration" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Art Deco" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Street Art" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Photorealism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Hyperrealism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Cubism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Dada" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+                    <Item item="Body Art" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
+
                 </div>
                 {/**<div className={classes.price}>
                     <span className={classes.heading}>PRICE</span>
