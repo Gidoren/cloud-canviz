@@ -273,6 +273,7 @@ class Contacts extends Component {
                   item4="Home"
                   page="Crm"
                   isLoggedIn={true}
+                  isArtist={true}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
                 {this.state.updateContactPage === "" ? pageToShow: this.state.updateContactPage}
