@@ -5,7 +5,6 @@ invalid ones result in an error.
 List of queries tested:
 getAllUsers()
 getUser()
-getUserContacts()
 currentUser()
 
 List of mutations tested:
