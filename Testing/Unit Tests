@@ -3,16 +3,19 @@ All queries and mutations were tested to make sure valid ones were processed wit
 invalid ones result in an error.
 
 List of queries tested:
+getAllArt
 getAllUsers()
 getUser()
 currentUser()
 
 List of mutations tested:
+setAbout()
 createContact()
 registerUser()
 deleteContact()
 removeArt()
 likeArt()
+unlikeArt()
 createArt()
 
 
