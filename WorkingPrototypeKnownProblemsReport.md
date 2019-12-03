@@ -18,4 +18,7 @@ When a user attempts to contact an artist by clicking the profile of the artist,
 The location of the fault is in the contact component. Fixing the bug would require additional research on how HTML handles email forms.
 
 # 4
-When liking/unliking an art piece, and then switch to a different web page, and go back to the home page, the likes take time to register 
+When liking and unliking art, and switch to a different page on the web application, the previous old state is remembered, and doesn't change to the new state
+when you go back to the original page. However, the changes were made in the backend, it just requires a refresh for the state of the gallery to update.
+
+The location of the fault is in in the backend, in the Art.js model. Fixing the bug would require additional research to see how we can refresh the component to have the new updated states instead of the old one.
