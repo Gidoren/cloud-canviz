@@ -1,12 +1,9 @@
 import React, { Component } from 'react'
 import classes from './SideDrawer.module.css'
-import ColorPicker from '../../ColorPicker/ColorPicker'
 import Item from './Item/Item'
-import PriceSlider from '../../PriceSlider/PriceSlider'
 import Painting from "../../../assets/images/painting.png"
 import Photography from "../../../assets/images/photography.png"
 import Drawing from "../../../assets/images/drawing.png"
-import MixedMedia from "../../../assets/images/mixedmedia.png"
 import Option from "../../../assets/images/option.png"
 import Print from "../../../assets/images/print.png"
 
@@ -79,7 +76,6 @@ class SideDrawer extends Component {
                     <Item item="Abstract" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Fine Art" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Modern" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
-                    <Item item="Abstract Expressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Expressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Figurative" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
                     <Item item="Impressionism" url={Option} selectedHandler={(style) => this.styleChangeHandler(style)}/>
