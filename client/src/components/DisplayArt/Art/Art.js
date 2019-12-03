@@ -36,18 +36,18 @@ const Art = props => {
       .then(res => {
         console.log("unlike",res)
         console.log(likedArtWorks)
-        setLikeIcon(0)
         setLikedArtWorks(props.likedArtWorks.filter(i => i._id != props.artID)) 
+        setLikeIcon(0)
         console.log(props.artID)
         console.log(likedArtWorks)
       })
     }
     
   }
-  if(likedArtWorks !== null && likeIcon.type !== (<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>).type){
+  if(likedArtWorks !== null && likeIcon !== 1){
     likedArtWorks.map(likedArt => {
       if(likedArt[Object.keys(likedArt)[0]] === props.artID){
-        setLikeIcon(<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>)
+        setLikeIcon(1)
       }
     })
   }
