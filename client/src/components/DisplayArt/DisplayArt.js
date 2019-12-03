@@ -55,7 +55,8 @@ const DisplayArt = (props) => {
      and hasMoreArt state to true */
   if(filters !== props.filters && Object.keys(props.filters).length){
     setFilters(props.filters)
-    setHasMoreArt(true)
+    setHasMoreArt(true) 
+    console.log(props.filters)
     console.log(props.filters)
   }
   /* getArtsQuery which is defined above, to get all artworks. Data, 
