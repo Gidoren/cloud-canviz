@@ -125,7 +125,7 @@ class Home extends Component {
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
-                  // user={...data.currentUser}
+                  isArtist={data.currentUser.isArtist}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />

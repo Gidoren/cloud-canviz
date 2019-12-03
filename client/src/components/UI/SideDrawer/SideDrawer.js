@@ -26,8 +26,8 @@ class SideDrawer extends Component {
             this.setState(newState)
         }
         else{
-            this.setState({category: this.state.category.concat(category)})
             newState.category.push(category)
+            this.setState({category: this.state.category.concat(category)})
         }
         this.props.filterHandler(newState)
     }
@@ -39,8 +39,8 @@ class SideDrawer extends Component {
             this.setState(newState)
         }
         else{
-            this.setState({styles: this.state.styles.concat(style)})
             newState.styles.push(style)
+            this.setState({styles: this.state.styles.concat(style)})
         }
         this.props.filterHandler(newState)
     }

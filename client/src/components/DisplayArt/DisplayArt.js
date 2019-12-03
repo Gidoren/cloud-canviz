@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./DisplayArt.module.css";
 
 import { gql } from "apollo-boost";
@@ -33,6 +33,10 @@ const getArtsQuery = gql`
         username
         fullName
       }
+      colors {
+        hexColor
+        pixelPercent
+      }
     }
   }
 `;
@@ -55,7 +59,8 @@ const DisplayArt = (props) => {
      and hasMoreArt state to true */
   if(filters !== props.filters && Object.keys(props.filters).length){
     setFilters(props.filters)
-    setHasMoreArt(true)
+    setHasMoreArt(true) 
+    console.log(props.filters)
     console.log(props.filters)
   }
   /* getArtsQuery which is defined above, to get all artworks. Data, 
@@ -85,6 +90,7 @@ const DisplayArt = (props) => {
           data.getAllArt.map((art, index) => (
             <div key={index} className={classes.column}>
               {/* Art component that takes art properties as props.*/}
+
               <Art
                 artID={art._id}
                 artURL={art.img.url}
@@ -100,6 +106,7 @@ const DisplayArt = (props) => {
                 client={props.client}
                 likedArtWorks={props.currentUser ? props.currentUser.likedArtWorks : null}
                 // link={"/profile/username"}
+                colors={art.colors}
               />
               {/* 1- Waypoint keep track of each image index and then fetch more images
                             when bottom art is reached that has index data.getAllArt.length-1

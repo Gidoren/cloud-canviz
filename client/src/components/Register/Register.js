@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import useForm from "react-hook-form";
 import ErrorMessage from "./errorMessage";
 import classes from "./Register.module.css";
-
+import Roll from '../UI/Roll/Roll'
 import { useMutation } from "@apollo/react-hooks";
 import { REGISTER_USER } from "../../grqphql/mutations";
 
@@ -17,26 +17,9 @@ const Register = ({ handleSwitchToLogin }) => {
   } = useForm();
 
   const [registerUser, { data }] = useMutation(REGISTER_USER);
-
-  const onSubmit = data => {
-    console.log("register data", data);
-    delete data.confirmPassword;
-    registerUser({
-      variables: {
-        userInput: { ...data, username: data.lastName }
-      }
-    })
-      .then(response => {
-        console.log("response from gql", response.data);
-        handleSwitchToLogin(response.data.registerUser.email);
-      })
-      .catch(err => {
-        console.log("gql error: ", err);
-      });
-  };
-
+  const [isArtist, setIsArtist] = useState(false)
   const [pwd, setPwd] = useState("");
-
+  
   const setFirstPassword = value => {
     setPwd(value);
     console.log("first pasword", pwd);
@@ -50,7 +33,26 @@ const Register = ({ handleSwitchToLogin }) => {
       clearError("confirmPassword");
     }
   };
-
+  const isArtistHandler = (_isArtist) => {
+    setIsArtist(_isArtist)
+    console.log(isArtist)
+  }
+  const onSubmit = data => {
+    console.log("register data", data);
+    delete data.confirmPassword;
+    registerUser({
+      variables: {
+        userInput: { ...data, isArtist: !isArtist, username: data.lastName }
+      }
+    })
+      .then(response => {
+        console.log("response from gql", response.data);
+        handleSwitchToLogin(response.data.registerUser.email);
+      })
+      .catch(err => {
+        console.log("gql error: ", err);
+      });
+  };
   return (
     <div className={classes.body}>
       <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
@@ -100,7 +102,8 @@ const Register = ({ handleSwitchToLogin }) => {
             ref={register({ required: true })}
           />
           <ErrorMessage error={errors.confirmPassword} />
-
+          <label className={classes.label}>Are you an Artist?</label>
+          <Roll isArtist={(isArtist) => isArtistHandler(isArtist)}/>
           <input
             className={classes.input}
             disabled={isSubmitting}

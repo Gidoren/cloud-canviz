@@ -4,8 +4,8 @@ import classes from "./Item.module.css";
 const Item = props => {
   const [selected, setSelected] = useState(false)
   const selectedHandler = (item) => {
-    props.selectedHandler(item)
     setSelected(!selected)
+    props.selectedHandler(item)
   }
   
   return (

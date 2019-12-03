@@ -1,18 +1,19 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import classes from "./Art.module.css";
 import { Link } from "react-router-dom";
 import {LIKE_ART, UNLIKE_ART} from '../../../grqphql/mutations'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import CardColors from '../../CardColors/CardColors'
 
 /* props are properties that are passed from displayComment such as title, creator of the art.
 Think of it as parameters in Functions.*/
 
 const Art = props => {
+  const [likedArtWorks, setLikedArtWorks] = useState(props.likedArtWorks)
+  const [likeIcon, setLikeIcon] = useState(0)
   const likeArtHandler = () => {
-    console.log(likeIcon.type.displ)
-    console.log((<FavoriteIcon />).type)
-    if(likeIcon.type.displayName !== (<FavoriteIcon />).type.displayName){
+    if(likeIcon == 0){
       const {data} = props.client.mutate({
         mutation: LIKE_ART,
         variables:{
@@ -21,8 +22,10 @@ const Art = props => {
       })
       .then(res => {
         console.log("like",res)
-        setLikeIcon(<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>)
+        console.log(likedArtWorks)
+        setLikeIcon(1)
       })
+
     }
     else{
       const {data} = props.client.mutate({
@@ -33,22 +36,23 @@ const Art = props => {
       })
       .then(res => {
         console.log("unlike",res)
-        setLikeIcon(<FavoriteBorderIcon className={classes.heart} onClick={likeArtHandler}/>)
+        console.log(likedArtWorks)
+        setLikedArtWorks(props.likedArtWorks.filter(i => i._id != props.artID)) 
+        setLikeIcon(0)
+        console.log(props.artID)
+        console.log(likedArtWorks)
       })
     }
     
   }
-  const [likeIcon, setLikeIcon] = useState(
-    (<FavoriteBorderIcon className={classes.heart} onClick={likeArtHandler}/>)
-  )
-  if(props.likedArtWorks !== null && likeIcon.type !== (<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>).type){
-    props.likedArtWorks.map(likedArt => {
+  if(likedArtWorks !== null && likeIcon !== 1){
+    likedArtWorks.map(likedArt => {
       if(likedArt[Object.keys(likedArt)[0]] === props.artID){
-        setLikeIcon(<FavoriteIcon style={{color: '#011627'}} className={classes.heart} onClick={likeArtHandler}/>)
+        setLikeIcon(1)
       }
     })
   }
-  
+
   return (
     <div data-aos="fade-up">
       <img
@@ -63,11 +67,12 @@ const Art = props => {
         {/* Always use link instead of <a> tag so it doesn't reload the page but rerenders the component. 
               We do this so that website don't do api calls again, or don't lose our website state.
               This is what is called single page Webapp(SPA). */}
-        <Link to={{ pathname: props.link }} className={classes.link}>
+
+        <Link to={{ pathname: props.link}} params={{userid: props.link}}  className={classes.link}>
           <p className={classes.username}>{props.fullname}</p>
         </Link>
     
-        {props.likedArtWorks !== null ? likeIcon: ""}
+        {likedArtWorks !== null ? likeIcon == 0 ? <FavoriteBorderIcon className={classes.heart} onClick={likeArtHandler}/>:<FavoriteIcon className={classes.heart} onClick={likeArtHandler}/> : ""}
 
         <p className={classes.title}>
           {props.title}, {props.year}

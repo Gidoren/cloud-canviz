@@ -63,7 +63,7 @@ class Navbar extends Component {
               </Item>
             )}
             {console.log(this.props.link3)} 
-            {authToken && this.props.isLoggedIn && (
+            {authToken && this.props.isLoggedIn && this.props.isArtist && (
               <Item text={this.props.item3} active={this.props.active}>
                 <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
               </Item>
