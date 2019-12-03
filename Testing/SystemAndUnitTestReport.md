@@ -6,7 +6,7 @@ December 2, 2019
 
 ### System Test Scenarios
 
-1. User story 1 from Sprint 1:
+# 1. User story 1 from Sprint 1:
  “As an artist, I would like a clean UI that shows me images with their relevant data”
 
 Scenario:
@@ -17,7 +17,7 @@ Name of art
 The year the art was created
 The dimensions of the art piece
 
-2. User story 2 from Sprint 1: 
+# 2. User story 2 from Sprint 1: 
 “As an artist, I want an easy way to upload image data with relevant information”
 
 Scenario:
@@ -30,7 +30,7 @@ Scenario:
 - The user now has the option of dragging the desired file into the specified area, or to select the file from their computer
 - The user can then fill in the fields the user thinks is relevant to their art piece.
 
-3. User story 1 from Sprint 2:
+# 3. User story 1 from Sprint 2:
 “As a collector, I want to be able to view artwork so that I can decide which ones I like”
 
 Scenario:
@@ -38,7 +38,7 @@ Scenario:
 - User is immediately greeted with a gallery of art from all artists
 - If the user likes a certain piece of art displayed, the user can then click on the artist name displayed underneath the image, which will bring the user to the artist’s profile page, which displays the artist’s other created works
 
-4. User story 2 from Sprint 2:
+# 4. User story 2 from Sprint 2:
 “As an artist, I want to be able to upload my images so that collectors can view them on the site”
 
 Scenario:
@@ -52,7 +52,7 @@ Scenario:
 - The user can then fill in the fields the user thinks is relevant to their art piece.
 - Collectors can then see the artist’s uploaded image in the main gallery of the web application, and can also be viewed on the artist’s profile page.
 
-5. User story 1 from Sprint 3:
+# 5. User story 1 from Sprint 3:
 “As a collector, I want to be able to search for art by size, price and style so that I can find the exact piece I want for my home”
 
 Scenario:
@@ -61,7 +61,7 @@ Scenario:
 - If the window is not full sized, the sidebar may not be expanded. In that case, simply click on the hamburger icon in the middle of the sidebar to expand it. 
 - This allows the collector to be able to search for art with certain tags, however the user is not able to search for art by size or price.
 
-6. User story 2 from Sprint 3:
+# 6. User story 2 from Sprint 3:
 “As an artist, I want to be able to organize and manage my artwork and contacts so that I can more easily follow up on my leads”
 
 Scenario:
@@ -75,7 +75,7 @@ Scenario:
 - After clicking the ‘CRM’ button, click the ‘Contacts’ button in the top right corner to see a list of the user’s contacts.
 - The contacts page displays the name of the contact, phone number and email, along with other relevant information, allowing the artist to easily follow up on leads.
 
-7. User story 3 from Sprint 3:
+# 7. User story 3 from Sprint 3:
 “As a collector, I want to be able to search for art on my phone as well as my desktop”
 
 Scenario:
@@ -83,13 +83,13 @@ Scenario:
 - The web application will recognize this and display a minimized sidebar to make sure a majority of the screen is not blocked by it (if it was expanded).
 - If the user wants to search for art in this scenario, simply click the hamburger icon in the middle of the sidebar to expand the sidebar to filter art by certain tags.
 
-8. User story 4 from Sprint 3:
+# 8. User story 4 from Sprint 3:
 “As a collector, I want to be able to comment and follow artists artwork”
 
 Scenario:
 - TO BE FILLED IN
 
-9. User story 1 from Sprint 4:
+# 9. User story 1 from Sprint 4:
 “As a collector, I want to be able to easily filter my searches for art so that I can view only the art that is relevant to my tastes and budget.”
 
 Scenario:
@@ -98,7 +98,7 @@ Scenario:
 - If the window is not full sized, the sidebar may not be expanded. In that case, simply click on the hamburger icon in the middle of the sidebar to expand it. 
 - This allows the collector to be able to search for art with certain tags.
 
-10. User story 2 from Sprint 4:
+# 10. User story 2 from Sprint 4:
 “As a user, I want to be able to use a web app with cohesive styling and no bugs, so that I can find art I want without the app crashing or looking unappealing”
 
 Scenario:
