@@ -16,6 +16,7 @@ Build Instructions:
   2)  docker-compose up
   
   3)  visit https://localhost:3000
+  NOTE: The program will not spin correctly without the proper enviroment variables. There are 2 .env files that are not included      in this repository as they contain sensitive information. they are located in the server and client directories respectively. They   can be provided by our TA or ourselves via email
   
   
  Termination Instructions:
