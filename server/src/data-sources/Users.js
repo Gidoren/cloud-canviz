@@ -42,7 +42,7 @@ class Users extends DataSource {
       });
 
       const response = await user.save();
-
+      console.log(response)
       return { ...response._doc, password: null }; // don't return password in response
     } catch (err) {
       throw err;

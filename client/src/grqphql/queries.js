@@ -7,6 +7,7 @@ export const currentUser = gql`
       email
       firstName
       lastName
+      isArtist
       createdArtWorks {
         _id
         artist

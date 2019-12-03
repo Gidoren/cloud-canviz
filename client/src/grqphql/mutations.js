@@ -9,6 +9,7 @@ export const LOGIN_USER = gql`
         email
         password
         username
+        isArtist
       }
     }
   }
@@ -21,6 +22,7 @@ export const REGISTER_USER = gql`
       firstName
       lastName
       email
+      isArtist
     }
   }
 `;
