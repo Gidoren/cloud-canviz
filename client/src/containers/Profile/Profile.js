@@ -124,18 +124,9 @@ class Profile extends Component {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);
       /*return <Gallery {...user} />;*/
-      return <DisplayArt 
-                type="Profile" 
-                client={this.props.client} 
-                currentUser={this.props.currentUser}
-                filters={{}}/>
-    } else if (this.state.page === "about") {
-      return <About 
-      firstName={user.firstName} 
-      lastName={user.lastName}
-      email={user.email}
-      />;
-    } else {
+      return <Gallery {...user}/>
+    } 
+    else {
       return <Contact email={user.email}/>;
     }
   };
