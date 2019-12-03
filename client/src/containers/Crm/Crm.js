@@ -92,6 +92,7 @@ class Crm extends Component {
                   page="Crm"
                   isArtist={true}
                   isLoggedIn={this.state.isLoggedIn}
+                  handleIsLoggedin={this.handleIsLoggedin}
                 />
                 <div style={{ padding: 30 }}>
                   <Grid container alignContent="center" alignItems="center">
