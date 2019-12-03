@@ -14,7 +14,7 @@ const Art = props => {
   const [likeIcon, setLikeIcon] = useState(0)
   const likeArtHandler = () => {
     if(likeIcon == 0){
-      const {data} = props.client.mutate({
+      const {data,refetch} = props.client.mutate({
         mutation: LIKE_ART,
         variables:{
           artId: props.artID
@@ -28,7 +28,7 @@ const Art = props => {
 
     }
     else{
-      const {data} = props.client.mutate({
+      const {data, refetch} = props.client.mutate({
         mutation: UNLIKE_ART,
         variables:{
           artId: props.artID

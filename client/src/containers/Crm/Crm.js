@@ -63,7 +63,6 @@ class Crm extends Component {
                   page="Crm"
                   isArtist={true}
                   isLoggedIn={this.state.isLoggedIn}
-                  handleIsLoggedin={this.handleIsLoggedin}
                 />
                 <button className={classes.button} onClick={this.showModal}>
                   Upload Artwork
