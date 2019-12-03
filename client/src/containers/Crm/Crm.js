@@ -27,7 +27,8 @@ const initialState = {
   description: "",
   img: {
     url: ""
-  }
+  },
+  orientation: ""
 };
 
 class Crm extends Component {

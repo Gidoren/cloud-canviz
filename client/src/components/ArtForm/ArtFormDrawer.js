@@ -97,8 +97,9 @@ const useStyles = makeStyles(theme => ({
     width: 600,
     backgroundColor: theme.palette.background.paper,
     boxShadow: theme.shadows[7],
-    padding: theme.spacing(2),
-    overflow: "hidden"
+    padding: theme.spacing(2, 2),
+    overflow: "hidden",
+    borderRadius: "6px"
   },
   modalText: {
     paddingLeft: "5px"
@@ -292,7 +293,7 @@ const ArtFormDrawer = props => {
                     color="primary"
                     onClick={handleCloseDelModal}
                   >
-                    No
+                    No, Cancel
                   </Button>
                 </Grid>
                 <Grid item xs={6}>

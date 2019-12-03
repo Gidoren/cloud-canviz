@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -15,15 +16,18 @@ import Autocomplete from "@material-ui/lab/Autocomplete";
 import Checkbox from "@material-ui/core/Checkbox";
 import CheckBoxOutlineBlankIcon from "@material-ui/icons/CheckBoxOutlineBlank";
 import CheckBoxIcon from "@material-ui/icons/CheckBox";
-import { Paper } from "@material-ui/core";
+import Snackbar from "@material-ui/core/Snackbar";
+import IconButton from "@material-ui/core/IconButton";
+import CloseIcon from "@material-ui/icons/Close";
+// import { Paper } from "@material-ui/core";
 
-import List from "@material-ui/core/List";
-import Drawer from "@material-ui/core/Drawer";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+// import List from "@material-ui/core/List";
+// import Drawer from "@material-ui/core/Drawer";
+// import ListItem from "@material-ui/core/ListItem";
+// import ListItemIcon from "@material-ui/core/ListItemIcon";
+// import ListItemText from "@material-ui/core/ListItemText";
+// import InboxIcon from "@material-ui/icons/MoveToInbox";
+// import MailIcon from "@material-ui/icons/Mail";
 
 import { uploadImage } from "../UploadImage/S3/s3Upload";
 
@@ -47,13 +51,47 @@ const initialState = {
   description: "",
   img: {
     url: ""
-  }
+  },
+  orientation: ""
 };
+
+const useStyles = makeStyles(theme => ({
+  close: {
+    padding: theme.spacing(0.5)
+  }
+}));
 
 const ArtForm = props => {
   const [state, setState] = useState({
     ...props.artProps
   });
+
+  const styles = useStyles();
+  // const theme = useTheme();
+
+  // Error verification dialog
+  const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
+  const handleOpenErrorDialog = () => {
+    setOpenErrorDialog(true);
+  };
+  const handleCloseErrorDialog = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenUrlDialog(false);
+  };
+
+  // URL verification dialog
+  const [openUrlDialog, setOpenUrlDialog] = React.useState(false);
+  const handleOpenUrlDialog = () => {
+    setOpenUrlDialog(true);
+  };
+  const handleCloseUrlDialog = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+    setOpenUrlDialog(false);
+  };
 
   useEffect(() => {
     setState(props.artProps);
@@ -87,8 +125,6 @@ const ArtForm = props => {
     }
   };
 
-  // const updateDimensions
-
   // updates the state of tags when new tag added
   const updateTagsArr = (e, values) => {
     e.preventDefault();
@@ -113,6 +149,7 @@ const ArtForm = props => {
     setSelectedFiles([...selectedFiles, event[0]]);
   };
 
+  // sets the url returned by s3 in state
   const setUrl = s3url => {
     setState({
       ...state,
@@ -122,6 +159,7 @@ const ArtForm = props => {
     });
   };
 
+  // handles cancel button being pushed
   const handleCancel = () => {
     props.handleHideModal();
     setSelectedFiles([]);
@@ -149,11 +187,6 @@ const ArtForm = props => {
       })
       .catch(err => console.log(err));
   };
-  // prints the current state
-  const printState = e => {
-    // e.preventDefault();
-    console.log(state);
-  };
 
   const _getColorStyles = (hexColor, pixelPercent) => {
     const style = {
@@ -167,316 +200,404 @@ const ArtForm = props => {
   const handleSubmit = event => {
     // preent default submission
     event.preventDefault();
-    //reset input values
-    // TODO fix bug - autocomplete inputs not resetting
-    event.target.reset();
-    // uploadArt to mongoDB
-    addArt({
-      variables: {
-        _id: state._id,
-        artInput: {
-          artist: state.artist,
-          title: state.title,
-          medium: state.medium,
-          category: state.category,
-          dimensions: {
-            height: parseInt(state.dimensions.height),
-            width: parseInt(state.dimensions.width)
-          },
-          year: state.year,
-          price: state.price.toString(),
-          tags: state.tags,
-          styles: state.styles,
-          description: state.description,
-          img: {
-            url: state.img.url
+    // check if image was uploaded
+    if (!state.img.url) {
+      handleOpenUrlDialog();
+    } else {
+      //reset input values
+      event.target.reset();
+      // uploadArt to mongoDB
+      addArt({
+        variables: {
+          _id: state._id,
+          artInput: {
+            artist: state.artist,
+            title: state.title,
+            medium: state.medium,
+            category: state.category,
+            dimensions: {
+              height: parseInt(state.dimensions.height),
+              width: parseInt(state.dimensions.width)
+            },
+            year: state.year,
+            price: state.price.toString(),
+            tags: state.tags,
+            styles: state.styles,
+            description: state.description,
+            img: {
+              url: state.img.url
+            },
+            orientation: state.orientation
           }
         }
-      }
-    })
-      .then(res => {
-        handleCancel();
+      })
+        .then(res => {
+          handleCancel();
 
-        console.log("respoonse from gql addArt", res);
-        // refetch current user so new art work shows in CRM
-      })
-      .then(() => {
-        props.handleRefetch();
-      })
-      .catch(err => {
-        console.log(err);
-      });
+          console.log("respoonse from gql addArt", res);
+          // refetch current user so new art work shows in CRM
+        })
+        .then(() => {
+          props.handleRefetch();
+        })
+        .catch(err => {
+          console.log(err);
+          handleOpenErrorDialog();
+        });
+    }
   };
 
   return (
-    <form
-      id="upload-art-form"
-      className={classes.form}
-      onSubmit={event => handleSubmit(event)}
-    >
-      {/* TODO handle delete s3 image on cancel */}
-      <Grid container spacing={1}>
-        <div
-          style={{
-            backgroundColor: "#fafafa",
-            width: "100%",
-            // padding: "1rem",
-            // paddingBottom: "2.5rem",
-            borderBottom: ".5px solid #ccd"
-            // webkitBoxShadow: "0px 9px 13px 4px rgba(0,0,0,0.13)",
-            // boxShadow: "0px 9px 13px 4px rgba(0,0,0,0.13)"
-          }}
-        >
-          <div style={{ padding: 10 }}>
-            {/* <Paper> */}
-            <Grid container item xs={12} justify="flex-end">
-              <Grid item>
-                <Button size="large" onClick={handleCancel} color="secondary">
-                  Cancel
-                </Button>
+    <div>
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        open={openErrorDialog}
+        autoHideDuration={6000}
+        onClose={handleCloseErrorDialog}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={
+          <span id="message-id">
+            Ooops, There was an error. Please Try Again.
+          </span>
+        }
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={styles.close}
+            onClick={handleCloseErrorDialog}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
+      <Snackbar
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "center"
+        }}
+        open={openUrlDialog}
+        autoHideDuration={6000}
+        onClose={handleCloseUrlDialog}
+        ContentProps={{
+          "aria-describedby": "message-id"
+        }}
+        message={<span id="message-id">Please Upload an Image File</span>}
+        action={[
+          <IconButton
+            key="close"
+            aria-label="close"
+            color="inherit"
+            className={styles.close}
+            onClick={handleCloseUrlDialog}
+          >
+            <CloseIcon />
+          </IconButton>
+        ]}
+      />
+      <form
+        id="upload-art-form"
+        className={classes.form}
+        onSubmit={event => handleSubmit(event)}
+      >
+        {/* TODO handle delete s3 image on cancel */}
+        <Grid container spacing={1}>
+          <div
+            style={{
+              backgroundColor: "#fafafa",
+              width: "100%",
+              borderBottom: ".5px solid #ccd"
+            }}
+          >
+            <div style={{ padding: 10 }}>
+              <Grid container item xs={12} justify="flex-end">
+                <Grid item>
+                  <Button
+                    className={classes.cancelButton}
+                    size="large"
+                    onClick={handleCancel}
+                    color="secondary"
+                  >
+                    Cancel
+                  </Button>
+                </Grid>
               </Grid>
-            </Grid>
 
-            <Grid container item xs={12} justify="center" alignItems="center">
-              <Grid item xs={12} sm={6}>
-                <UploadImage
-                  handleSettingUrl={setUrl}
-                  handleSetSelectedFiles={handleSetFiles}
-                  selectedFiles={selectedFiles}
-                  handleUpload={fileUploadHandler}
-                  uploadSuccess={uploadSuccess}
-                  s3url={state.img.url}
+              <Grid container item xs={12} justify="center" alignItems="center">
+                <Grid item xs={12} sm={6}>
+                  <UploadImage
+                    handleSettingUrl={setUrl}
+                    handleSetSelectedFiles={handleSetFiles}
+                    selectedFiles={selectedFiles}
+                    handleUpload={fileUploadHandler}
+                    uploadSuccess={uploadSuccess}
+                    s3url={state.img.url}
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <ArtInfo
+                    title={state.title}
+                    artist={state.artist}
+                    year={state.year}
+                    price={`$ ${state.price}`}
+                  ></ArtInfo>
+                </Grid>
+              </Grid>
+            </div>
+            {state.colors && (
+              <div className={classes.cardColors}>
+                {state.colors.map((color, index) => {
+                  return (
+                    <div
+                      className={classes.colorBox}
+                      key={index}
+                      style={_getColorStyles(
+                        color.hexColor,
+                        color.pixelPercent
+                      )}
+                    ></div>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+          <div style={{ padding: 25 }}>
+            <Grid
+              container
+              item
+              xs={12}
+              spacing={1}
+              justify="center"
+              alignItems="center"
+            >
+              <Grid item xs={12} sm={6} l={4}>
+                <TextField
+                  pr={4}
+                  label="Artist"
+                  name="artist"
+                  value={state.artist}
+                  fullWidth
+                  margin="normal"
+                  onChange={updateField}
+                  required
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <ArtInfo
-                  title={state.title}
-                  artist={state.artist}
-                  year={state.year}
-                  price={`$ ${state.price}`}
-                ></ArtInfo>
+                <TextField
+                  label="Title"
+                  name="title"
+                  value={state.title}
+                  fullWidth
+                  margin="normal"
+                  onChange={updateField}
+                  required
+                />
+              </Grid>
+
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel required id="category-label">
+                    Category
+                  </InputLabel>
+                  <Select
+                    labelId="category-label"
+                    id="category"
+                    name="category"
+                    value={state.category}
+                    onChange={updateField}
+                    required
+                  >
+                    <MenuItem value={"Painting"}>Painting</MenuItem>
+                    <MenuItem value={"Photography"}>Photography</MenuItem>
+                    <MenuItem value={"Drawing"}>Drawing</MenuItem>
+                    <MenuItem value={"Sculpture"}>Sculpture</MenuItem>
+                    <MenuItem value={"Mixed Media"}>Mixed Media</MenuItem>
+                    <MenuItem value={"Print"}>Print</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={4}>
+                <FormControl fullWidth margin="normal">
+                  <InputLabel required id="orientation-label">
+                    Orientation
+                  </InputLabel>
+                  <Select
+                    required
+                    labelId="orientation-label"
+                    id="orientation"
+                    name="orientation"
+                    value={state.orientation}
+                    onChange={updateField}
+                  >
+                    <MenuItem value={"Portrait"}>Portrait</MenuItem>
+                    <MenuItem value={"Landscape"}>Landscape</MenuItem>
+                    <MenuItem value={"Square"}>Square</MenuItem>
+                  </Select>
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  label="Medium"
+                  name="medium"
+                  value={state.medium}
+                  fullWidth
+                  margin="normal"
+                  onChange={updateField}
+                />
+              </Grid>
+
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  id="height"
+                  label="Height"
+                  type="number"
+                  name="height"
+                  value={state.dimensions.height}
+                  fullWidth
+                  onChange={updateField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin="normal"
+                  required
+                />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  id="width"
+                  label="Width"
+                  type="number"
+                  name="width"
+                  value={state.dimensions.width}
+                  fullWidth
+                  onChange={updateField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin="normal"
+                  required
+                />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  required
+                  id="year"
+                  label="Year Created"
+                  type="number"
+                  name="year"
+                  value={state.year}
+                  fullWidth
+                  onChange={updateField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin="normal"
+                />
+              </Grid>
+              <Grid item xs={6} sm={3}>
+                <TextField
+                  id="price"
+                  label="Price"
+                  type="number"
+                  name="price"
+                  value={state.price}
+                  fullWidth
+                  onChange={updateField}
+                  InputLabelProps={{
+                    shrink: true
+                  }}
+                  margin="normal"
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Autocomplete
+                  required
+                  name="styles"
+                  value={state.styles}
+                  onChange={updateStylesArr}
+                  //autoSelect
+                  // multiple
+                  id="checkboxes-tags-demo"
+                  options={styleOpts}
+                  disableCloseOnSelect
+                  getOptionLabel={option => option}
+                  renderOption={(option, { selected }) => (
+                    <React.Fragment>
+                      <Checkbox
+                        icon={icon}
+                        checkedIcon={checkedIcon}
+                        style={{ marginRight: 8 }}
+                        checked={selected}
+                      />
+                      {option}
+                    </React.Fragment>
+                  )}
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="Style"
+                      placeholder="Style"
+                      fullWidth
+                      margin="normal"
+                      required
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <Autocomplete
+                  multiple
+                  id="tags-filled"
+                  name="tags"
+                  value={state.tags}
+                  onChange={updateTagsArr}
+                  freeSolo
+                  renderTags={(value, getTagProps) =>
+                    value.map((option, index) => (
+                      <Chip label={option} {...getTagProps({ index })} />
+                    ))
+                  }
+                  renderInput={params => (
+                    <TextField
+                      {...params}
+                      label="Tags"
+                      placeholder="Tags"
+                      margin="normal"
+                      fullWidth
+                    />
+                  )}
+                />
+              </Grid>
+
+              <Grid item xs={12}>
+                <TextField
+                  id="description"
+                  label="Description"
+                  multiline
+                  fullWidth
+                  name="description"
+                  value={state.description}
+                  rows="3"
+                  margin="normal"
+                  onChange={updateField}
+                />
               </Grid>
             </Grid>
+            <input className={classes.input} type="submit" />
           </div>
-          {state.colors && (
-            <div className={classes.cardColors}>
-              {state.colors.map((color, index) => {
-                return (
-                  <div
-                    className={classes.colorBox}
-                    key={index}
-                    style={_getColorStyles(color.hexColor, color.pixelPercent)}
-                  ></div>
-                );
-              })}
-            </div>
-          )}
-        </div>
-        <div style={{ padding: 25 }}>
-          <Grid
-            container
-            item
-            xs={12}
-            spacing={1}
-            justify="center"
-            alignItems="center"
-          >
-            <Grid item xs={12} sm={6} l={4}>
-              <TextField
-                pr={4}
-                label="Artist"
-                name="artist"
-                value={state.artist}
-                fullWidth
-                margin="normal"
-                onChange={updateField}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Title"
-                name="title"
-                value={state.title}
-                fullWidth
-                margin="normal"
-                onChange={updateField}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                label="Medium"
-                name="medium"
-                value={state.medium}
-                fullWidth
-                margin="normal"
-                onChange={updateField}
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth margin="normal">
-                <InputLabel id="category-label">Category</InputLabel>
-                <Select
-                  labelId="category-label"
-                  id="category"
-                  name="category"
-                  value={state.category}
-                  onChange={updateField}
-                >
-                  <MenuItem value={"Painting"}>Painting</MenuItem>
-                  <MenuItem value={"Photography"}>Photography</MenuItem>
-                  <MenuItem value={"Drawing"}>Drawing</MenuItem>
-                  <MenuItem value={"Sculpture"}>Sculpture</MenuItem>
-                  <MenuItem value={"Mixed Media"}>Mixed Media</MenuItem>
-                  <MenuItem value={"Print"}>Print</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
-
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="height"
-                label="Height"
-                type="number"
-                name="height"
-                value={state.dimensions.height}
-                fullWidth
-                onChange={updateField}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="width"
-                label="Width"
-                type="number"
-                name="width"
-                value={state.dimensions.width}
-                fullWidth
-                onChange={updateField}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="year"
-                label="Year Created"
-                type="number"
-                name="year"
-                value={state.year}
-                fullWidth
-                onChange={updateField}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                id="price"
-                label="Price"
-                type="number"
-                name="price"
-                value={state.price}
-                fullWidth
-                onChange={updateField}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                margin="normal"
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <Autocomplete
-                multiple
-                id="tags-filled"
-                name="tags"
-                value={state.tags}
-                onChange={updateTagsArr}
-                freeSolo
-                renderTags={(value, getTagProps) =>
-                  value.map((option, index) => (
-                    <Chip
-                      //color="primary"
-                      //variant="outlined"
-                      label={option}
-                      {...getTagProps({ index })}
-                    />
-                  ))
-                }
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Tags"
-                    placeholder="Tags"
-                    margin="normal"
-                    fullWidth
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <Autocomplete
-                name="styles"
-                value={state.styles}
-                onChange={updateStylesArr}
-                //autoSelect
-                multiple
-                id="checkboxes-tags-demo"
-                options={styleOpts}
-                disableCloseOnSelect
-                getOptionLabel={option => option}
-                renderOption={(option, { selected }) => (
-                  <React.Fragment>
-                    <Checkbox
-                      icon={icon}
-                      checkedIcon={checkedIcon}
-                      style={{ marginRight: 8 }}
-                      checked={selected}
-                    />
-                    {option}
-                  </React.Fragment>
-                )}
-                renderInput={params => (
-                  <TextField
-                    {...params}
-                    label="Styles"
-                    placeholder="Styles"
-                    fullWidth
-                    margin="normal"
-                  />
-                )}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <TextField
-                id="description"
-                label="Description"
-                multiline
-                fullWidth
-                name="description"
-                value={state.description}
-                rows="3"
-                margin="normal"
-                onChange={updateField}
-              />
-            </Grid>
-          </Grid>
-          <input className={classes.input} type="submit" />
-        </div>
-      </Grid>
-    </form>
+        </Grid>
+      </form>
+    </div>
   );
 };
 
@@ -517,6 +638,7 @@ const CREATE_ART = gql`
         hexColor
         pixelPercent
       }
+      orientation
     }
   }
 `;

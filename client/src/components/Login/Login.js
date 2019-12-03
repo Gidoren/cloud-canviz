@@ -27,11 +27,16 @@ const Login = ({
   const {
     register,
     handleSubmit,
+    setError,
     errors,
     formState: { isSubmitting }
   } = useForm();
 
   const [loginUser, { data }] = useMutation(LOGIN_USER);
+
+  const checkError = () => {
+    console.log(errors);
+  };
 
   const onSubmit = data => {
     console.log("form data", data);
@@ -51,10 +56,9 @@ const Login = ({
       })
       .catch(err => {
         console.log("gql error: ", err);
+        setError("password", "validate");
       });
   };
-
-  //const [pwd, setPwd] = useState("");
 
   return (
     <div className={classes.body}>
@@ -88,6 +92,7 @@ const Login = ({
             placeholder="Password"
             fullWidth
             margin="normal"
+            onChange={checkError}
           />
           <ErrorMessage error={errors.password} />
 

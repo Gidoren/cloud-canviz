@@ -41,6 +41,7 @@ export const currentUser = gql`
           hexColor
           pixelPercent
         }
+        orientation
       }
       contactList {
         _id
@@ -85,6 +86,7 @@ export const getUserQuery = gql`
           url
         }
         price
+        orientation
       }
     }
   }
