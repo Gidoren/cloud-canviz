@@ -1,5 +1,6 @@
 # cloud-canviz
 A Web App for sharing, managing, and finding art.
+BUILD INSTRUCTIONS: https://github.com/EmersonChristie/cloud-canviz/blob/master/BUILDINSTR.md
 
 Release Plan
 --------------------------------------------------
