@@ -24,7 +24,7 @@ import { AUTH_TOKEN } from "./utils/constants";
 // https://github.com/apollographql/apollo-client/issues/3639#issuecomment-401602915
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/graphql",
+  uri: "http://34.203.218.222:8080/graphql",
   request: operation => {
     // gets the auth token from local storage if a user is signed in
     const token = localStorage.getItem(AUTH_TOKEN);

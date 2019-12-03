@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . /srv/app/client-admin
 
-EXPOSE 3000
+EXPOSE 8081
 
 CMD ["npm", "start"]

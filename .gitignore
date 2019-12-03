@@ -60,4 +60,8 @@ typings/
 # next.js build output
 .next
 
+#deploy compose files
+ecs-params.yml
+aws-compose.yml
+
 .DS_Store
