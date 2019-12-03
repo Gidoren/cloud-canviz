@@ -10,8 +10,8 @@ const tester = new EasyGraphQLTester(schemaCode)
 
 describe('Test my queries, mutations', () => {
    
-    describe('Should pass if the query is invalid', () => {
-      //getAllUsers test
+    describe('Should pass if the query is invalid, when given an invalid field. '
+    + 'Query should pass if given all valid fields.', () => {
       it('Invalid query getAllUsers', () => {
         const invalidQuery = `
           {
@@ -24,8 +24,8 @@ describe('Test my queries, mutations', () => {
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, invalidQuery)
       })
-      ///getAllUsers test
-      it('Should pass if the query is valid', () => {
+   
+      it('Should pass if the getAllUsers query is valid', () => {
         const validQuery = `
           {
             getAllUsers {
@@ -35,7 +35,31 @@ describe('Test my queries, mutations', () => {
         `
         tester.test(true, validQuery)
       })
-      //getUser test
+
+      it('Invalid query getAllArt', () => {
+        const invalidQuery = `
+          {
+            getAllArt {
+              id
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, invalidQuery)
+      })
+   
+      it('Should pass if the getAllArt query is valid', () => {
+        const validQuery = `
+          {
+            getAllArt {
+              _id
+            }
+          }
+        `
+        tester.test(true, validQuery)
+      })
+
       it('Invalid query getUser', () => {
         const invalidQuery = `
           {
@@ -48,24 +72,23 @@ describe('Test my queries, mutations', () => {
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, invalidQuery)
       })
-      //getUserContacts
-      it('Should pass if the query is valid', () => {
+   
+      it('Should pass if the getUser query is valid', () => {
         const validQuery = `
           {
-            getUserContacts {
-              firstName
-              lastName
+            getUser {
+              email
             }
           }
         `
         tester.test(true, validQuery)
       })
-      //getUserContacts test
-      it('Invalid query getUserContacts', () => {
+      
+      it('Invalid query currentUser', () => {
         const invalidQuery = `
           {
-            getUserContacts {
-              firstname
+            currentUser {
+              id
               invalidField
             }
           }
@@ -73,45 +96,19 @@ describe('Test my queries, mutations', () => {
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, invalidQuery)
       })
-      //currentUser test
-      it('Should pass if the query is valid', () => {
+   
+      it('Should pass if the currentUser query is valid', () => {
         const validQuery = `
           {
             currentUser {
               email
-              password
             }
           }
         `
         tester.test(true, validQuery)
       })
-      //currentUserntest
-      it('Invalid query currentUser', () => {
-        const invalidQuery = `
-          {
-            currentUser {
-              Email
-              password
-            }
-          }
-        `
-        // First arg: false, there is no invalidField on the schema.
-        tester.test(false, invalidQuery)
-      })
-      //getUser test
-      it('Should pass if the query is valid', () => {
-        const validQuery = `
-          {
-            getUser {
-              username
-            }
-          }
-        `
-        tester.test(true, validQuery)
-      })
-      
-      //createContact test
-      it('Should pass if the mutation is valid', () => {
+
+      it('Should pass if the createContact mutation is valid', () => {
         const mutation = `
           mutation createContact($contactInput: ContactInput) {
             createContact(contactInput: $contactInput) {
@@ -131,8 +128,8 @@ describe('Test my queries, mutations', () => {
           }
         })
       })
-      //createcontact test if invalid then pass
-      it('Should not pass if one value on the mutation input is invalid', () => {
+   
+      it('Should not pass if one value on the createContact mutation input is invalid', () => {
         const mutation = `
         mutation createContact($contactInput: ContactInput) {
             createContact(contactInput: $contactInput) {
@@ -154,52 +151,41 @@ describe('Test my queries, mutations', () => {
             }
         })
       })
-      //registerUser test
-      it('Should pass if the mutation is valid', () => {
+
+      it('Should pass if the registerUser mutation is valid', () => {
         const mutation = `
           mutation registerUser($userInput: UserInput) {
             registerUser(userInput: $userInput) {
               firstName
-              lastName
-              email
-              password
             }
           }
         `
         tester.test(true, mutation, {
-          contactInput: {
-            firstName: "unittest",
-            lastName: "lastname",
-            email: "unit@test.com",
-            password: "123"
+          registerUser: {
+            firstName: "test"
           }
         })
       })
-      //registerUser test
-      it('Should not pass if one value on the mutation input is invalid', () => {
+   
+      it('Should not pass if one value on the registerUser mutation input is invalid', () => {
         const mutation = `
-        mutation registerUser($userInput: UserInput) {
-          registerUser(userInput: $userInput) {
+          mutation registerUser($userInput: UserInput) {
+            registerUser(userInput: $userInput) {
               firstName
-              lastNameuserInput
-              phone_number
-              email
+              invalidField
             }
           }
         `
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, mutation, {
-            contactInput: {
-                firstName: "unittest",
-                invalidField: "testinvalidfield",
-                lastName: "lastname",
-                phone_number: "555-555-5555",
-                email: "unit@test.com"
-            }
+          registerUser: {
+            firstName: "test",
+            invalidField: "oof"
+          }
         })
       })
-      //deleteContact test
-      it('Should pass if the mutation is valid', () => {
+
+      it('Should pass if the deleteContact mutation is valid', () => {
         const mutation = `
           mutation deleteContact($contactID: String) {
             deleteContact(contactID: $contactID) {
@@ -208,58 +194,31 @@ describe('Test my queries, mutations', () => {
           }
         `
         tester.test(true, mutation, {
-          String: {
-            _id: 'test'
+          deleteContact: {
+            contactID: 1
           }
         })
       })
-      //deleteContact test
-      it('Should not pass if one value on the mutation input is invalid', () => {
-        const mutation = `
-        mutation deleteContact($contactID: String) {
-            deleteContact(contactID: $contactID) {
-              
-            }
-          }
-        `
-        // First arg: false, there is no invalidField on the schema.
-        tester.test(false, mutation, {
-            String: {
-            }
-        })
-      })
-       //deleteContact test
-      it('Should pass if the mutation is valid', () => {
+   
+      it('Should not pass if one value on the deleteContact mutation input is invalid', () => {
         const mutation = `
           mutation deleteContact($contactID: String) {
             deleteContact(contactID: $contactID) {
               _id
-            }
-          }
-        `
-        tester.test(true, mutation, {
-          String: {
-            _id: 'test'
-          }
-        })
-      })
-      //deleteContact test
-      it('Should not pass if one value on the mutation input is invalid', () => {
-        const mutation = `
-        mutation deleteContact($contactID: String) {
-            deleteContact(contactID: $contactID) {
-              
+              invalidField
             }
           }
         `
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, mutation, {
-            String: {
-            }
+          deleteContact: {
+            contactID: 1,
+            invalidField: "test"
+          }
         })
       })
-       //removeArt test
-       it('Should pass if the mutation is valid', () => {
+
+      it('Should pass if the removeArt mutation is valid', () => {
         const mutation = `
           mutation removeArt($artId: String) {
             removeArt(artId: $artId) {
@@ -268,83 +227,130 @@ describe('Test my queries, mutations', () => {
           }
         `
         tester.test(true, mutation, {
-          String: {
-            _id: 'test'
+          removeArt: {
+            artId: 1
           }
         })
       })
-      //removeArt test
-      it('Should not pass if one value on the mutation input is invalid', () => {
+   
+      it('Should not pass if one value on the removeArt mutation input is invalid', () => {
         const mutation = `
-        mutation removeArt($artId: String) {
-            removeArt(artID: $artId) {
-              
+          mutation removeArt($artId: String) {
+            removeArt(artId: $artId) {
+              _id
+              invalidField
             }
           }
         `
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, mutation, {
-            String: {
-            }
+          removeArt: {
+            artId: 1,
+            invalidField: "test"
+          }
         })
       })
-      //likeArt test
-      it('Should pass if the mutation is valid', () => {
+
+      it('Should pass if the createArt mutation is valid', () => {
         const mutation = `
-          mutation likeArt($artId: String) {
-            likeArt(artId: $artId) {
+          mutation createArt($artInput: ArtInput) {
+            createArt(artInput: $artInput) {
               _id
             }
           }
         `
         tester.test(true, mutation, {
-          String: {
-            _id: 'test'
+          createArt: {
+            artId: 1
           }
         })
       })
-      //likeArt test
-      it('Should not pass if one value on the mutation input is invalid', () => {
+   
+      it('Should not pass if one value on the createArt mutation input is invalid', () => {
         const mutation = `
-        mutation likeArt($artId: String) {
-          likeArt(artID: $artId) {
-              
+          mutation createArt($artInput: ArtInput) {
+            createArt(artInput: $artInput) {
+              _id
+              invalidField
             }
           }
         `
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, mutation, {
-            String: {
-            }
+          createArt: {
+            artId: 1,
+            invalidField: "test"
+          }
         })
       })
-      //createArt test
-      it('Should pass if the mutation is valid', () => {
+      
+      it('Should pass if the setAbout mutation is valid', () => {
         const mutation = `
-        mutation createArt($artInput: ArtInput) {
-          createArt(artInput: $artInput) {
+          mutation setAbout($aboutInput: AboutInput) {
+            setAbout(aboutInput: $aboutInput) {
+              _id
+            }
+          }
+        `
+        tester.test(true, mutation, {
+          setAbout: {
+            description: "hi"
+          }
+        })
+      })
+   
+      it('Should not pass if one value on the setAbout mutation input is invalid', () => {
+        const mutation = `
+          mutation setAbout($aboutInput: AboutInput) {
+            setAbout(aboutInput: $aboutInput) {
+              description
+              invalidField
+            }
+          }
+        `
+        // First arg: false, there is no invalidField on the schema.
+        tester.test(false, mutation, {
+          setAbout: {
+            description: "bye",
+            invalidField: "test"
+          }
+        })
+      })
+      
+      it('Should pass if the likeArt mutation is valid', () => {
+        const mutation = `
+          mutation likeArt($artId: String) {
+            likeArt(artId: $artId) {
               artist
             }
           }
         `
         tester.test(true, mutation, {
-          String: {
-            artist: 'david'
+          likeArt: {
+            artist: "test"
           }
         })
       })
-      //createArt test
-      it('Should not pass if one value on the mutation input is invalid', () => {
+   
+      it('Should not pass if one value on the likeArt mutation input is invalid', () => {
         const mutation = `
-        mutation createArt($artInput: ArtInput) {
-          createArt(artInput: $artInput) {
-              
+          mutation likeArt($artId: String) {
+            likeArt(artId: $artId) {
+              firstName
+              lastName
+              phone_number
+              email
             }
           }
         `
         // First arg: false, there is no invalidField on the schema.
         tester.test(false, mutation, {
-            String: {
+            likeArt: {
+                firstName: "unittest",
+                invalidField: "testinvalidfield",
+                lastName: "lastname",
+                phone_number: "555-555-5555",
+                email: "unit@test.com"
             }
         })
       })
