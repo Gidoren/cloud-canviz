@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {LIKE_ART, UNLIKE_ART} from '../../../grqphql/mutations'
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
+import CardColors from '../../CardColors/CardColors'
 
 /* props are properties that are passed from displayComment such as title, creator of the art.
 Think of it as parameters in Functions.*/
@@ -66,7 +67,8 @@ const Art = props => {
         {/* Always use link instead of <a> tag so it doesn't reload the page but rerenders the component. 
               We do this so that website don't do api calls again, or don't lose our website state.
               This is what is called single page Webapp(SPA). */}
-        <Link to={{ pathname: props.link }} className={classes.link}>
+
+        <Link to={{ pathname: props.link}} params={{userid: props.link}}  className={classes.link}>
           <p className={classes.username}>{props.fullname}</p>
         </Link>
     
