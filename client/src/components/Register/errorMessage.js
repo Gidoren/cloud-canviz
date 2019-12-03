@@ -19,6 +19,8 @@ export default function ErrroMessage({ error }) {
         return <p style={style}>⚠ Minmium age is 18</p>;
       case "validate":
         return <p style={style}>⚠ Passwords Do Not Match</p>;
+      case "emailTaken":
+        return <p style={style}>⚠ Email already exists, Try Logging In</p>;
       default:
         return null;
     }

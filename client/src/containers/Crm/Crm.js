@@ -9,12 +9,34 @@ import Navbar from "../../components/Navbar/Navbar";
 import classes from "./Crm.module.css";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
+import { Paper, Grid, Typography } from "@material-ui/core";
+
+import ArtFormDrawer from "../../components/ArtForm/ArtFormDrawer";
+
+const initialState = {
+  _id: null,
+  title: "Untitled",
+  artist: "Unknown Artist",
+  medium: "",
+  dimensions: { height: "", width: "" },
+  price: "",
+  category: "",
+  tags: [],
+  styles: [],
+  year: "2019",
+  description: "",
+  img: {
+    url: ""
+  },
+  orientation: ""
+};
 
 class Crm extends Component {
   state = {
     show: false,
     isLoggedIn: false,
-    originalBodyOverflow: document.body.style.overflow
+    originalBodyOverflow: document.body.style.overflow,
+    artProps: { ...initialState }
   };
   async componentDidMount() {
     const { data } = await this.props.client.query({
@@ -29,13 +51,20 @@ class Crm extends Component {
     console.log("isLoggedIn data: ", data);
     console.log("isLoggedIn state: ", this.state.isLoggedIn);
   }
+
+  handleSetArtProps = propsFromArt => {
+    console.log("artProps: ", { ...propsFromArt });
+    this.setState({ artProps: { ...propsFromArt } }, () => {
+      this.showModal();
+    });
+  };
   showModal = () => {
     this.setState({ show: true });
     document.body.style.overflow = "hidden";
   };
 
   hideModal = () => {
-    this.setState({ show: false });
+    this.setState({ show: false, artProps: { ...initialState } });
     document.body.style.overflow = this.state.originalBodyOverflow;
   };
   handleIsLoggedin = value => {
@@ -65,20 +94,52 @@ class Crm extends Component {
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
-                <button className={classes.button} onClick={this.showModal}>
-                  Upload Artwork
-                </button>
-
-                <Gallery {...data.currentUser} />
+                <div style={{ padding: 30 }}>
+                  <Grid container alignContent="center" alignItems="center">
+                    <Grid
+                      item
+                      xs={12}
+                      justify="center"
+                      alignContent="center"
+                      alignItems="center"
+                    >
+                      <Typography variant="h5">INVENTORY</Typography>
+                    </Grid>
+                    <Grid item xs={12} justify="flex-end">
+                      <button
+                        className={classes.button}
+                        onClick={this.showModal}
+                      >
+                        Upload Artwork
+                      </button>
+                    </Grid>
+                  </Grid>
+                </div>
+                <Gallery
+                  {...data.currentUser}
+                  handleSetArtProps={this.handleSetArtProps}
+                  showModal={this.showModal}
+                />
                 <Modal
                   show={this.state.show}
                   handleClose={this.hideModal}
                   showCloseButton={false}
                 >
-                  <ArtForm
+                  <ArtFormDrawer
+                    artId={this.state.artProps._id}
+                    artTitle={this.state.artProps.title}
+                    artUrl={this.state.artProps.img.url}
                     handleHideModal={this.hideModal}
                     handleRefetch={refetch}
-                  />
+                  >
+                    <div className={classes.artForm}>
+                      <ArtForm
+                        handleHideModal={this.hideModal}
+                        handleRefetch={refetch}
+                        artProps={this.state.artProps}
+                      />
+                    </div>
+                  </ArtFormDrawer>
                 </Modal>
               </div>
             );

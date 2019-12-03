@@ -3,6 +3,7 @@ const User = require("../models/user");
 const ArtWork = require("../models/artWork");
 const { getColors } = require("../googleVision/googleVision");
 const { AuthenticationError } = require("apollo-server");
+const mongoose = require("mongoose");
 
 class Art extends DataSource {
   constructor() {
@@ -70,64 +71,142 @@ class Art extends DataSource {
     
   }
 
-  // createArt
-  // saves art data
-  // adds userId of creator to creator field
-  async createArt(args) {
-    const user = this.context.user._id;
+  // attempting to implement similar to createArt()
+  async createContact(args) {
+    const usr = this.context.user._id;
+    console.log("usr id", usr);
+    const contact = {
+      ...args.contactInput,
+      lead_owner: this.context.user._id
+    };
 
-    // get colors from google cloud vision
-    return await getColors(args.artInput.img.url)
-      .then(colors => {
-        console.log("colors in await", colors);
+    return Contact.findOneAndUpdate(
+      { email: args.contactInput.email }, // find a document with that filter
+      { $set: contact }, // document to insert when nothing was found
+      { upsert: true, new: true, runValidators: true, omitUndefined: true },
+      (err, doc) => {
+        if (err) {
+          console.log("findoneandupdate err: ", err);
+        }
 
-        // set values for primary, secondary and tertiary colors with response form GCV
-        const art = new ArtWork({
-          ...args.artInput,
-          creator: user,
-          primaryColor: colors[0],
-          secondaryColor: colors[1],
-          tertiaryColor: colors[2],
-          colors: colors
-        });
-        let createdArt;
-        return art
-          .save()
-          .then(result => {
-            // Farris I added these console logs so that you could see how to access the current user from the context
-            // to get the id you would just need to do this.context.user._id and use that id to find the user by id
-            // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
-            console.log("data returned from createArt", result);
+        console.log("doc", doc);
+        const createdContact = doc;
+        return User.findById(createdContact.lead_owner)
 
-            console.log("user from context", user);
-
-            {
-              /* save result to return it later */
-            }
-            createdArt = { ...result._doc };
-            {
-              /* creator id is accessed from Art
-         Finds the user and pushes the new artwork in createdArtWork array*/
-            }
-            return User.findById(createdArt.creator._id);
-          })
           .then(user => {
-            console.log(user);
-            user.createdArtWorks.push(art._id);
+            user.contactList.push(doc._id);
             return user.save();
           })
           .then(res => {
-            return createdArt;
+            return createdContact;
           })
           .catch(err => {
             console.log(err);
             throw err;
           });
-      })
-      .catch(err => {
-        console.log(err);
-        throw err;
-      });
+      }
+    );
+  }
+
+  // // createArt
+  // // saves art data
+  // // adds userId of creator to creator field
+  async createArt(args) {
+    const user = this.context.user._id;
+    let newArt = { ...args.artInput };
+    const isNewArt = args._id ? false : true;
+    // if _id arg is null then it is a new art so create new
+    if (isNewArt) {
+      console.log("is new art", args._id);
+      // get colors from google cloud vision
+      return await getColors(args.artInput.img.url)
+        .then(colors => {
+          console.log("colors in await", colors);
+
+          // set values for primary, secondary and tertiary colors with response form GCV
+          const art = new ArtWork({
+            ...args.artInput,
+            creator: user,
+            primaryColor: colors[0],
+            secondaryColor: colors[1],
+            tertiaryColor: colors[2],
+            colors: colors
+          });
+          let createdArt;
+          return art
+            .save()
+            .then(result => {
+              // Farris I added these console logs so that you could see how to access the current user from the context
+              // to get the id you would just need to do this.context.user._id and use that id to find the user by id
+              // with User.findById( ) and pass the id in, then you can push the id of result._id onto the users creaetedArt array
+              console.log("data returned from createArt", result);
+
+              console.log("user from context", user);
+
+              {
+                /* save result to return it later */
+              }
+              createdArt = { ...result._doc };
+              {
+                /* creator id is accessed from Art
+          Finds the user and pushes the new artwork in createdArtWork array*/
+              }
+              return User.findById(createdArt.creator._id);
+            })
+            .then(user => {
+              console.log(user);
+              user.createdArtWorks.push(art._id);
+              return user.save();
+            })
+            .then(res => {
+              return createdArt;
+            })
+            .catch(err => {
+              console.log(err);
+              throw err;
+            });
+        })
+        .catch(err => {
+          console.log(err);
+          throw err;
+        });
+    }
+    // _id was not null so update existing art matching id
+    else {
+      const oldDoc = await ArtWork.findById(args._id).exec();
+      let hasNewImage;
+      if (oldDoc.img.url == newArt.img.url) hasNewImage = false;
+      else hasNewImage = true;
+      // if the url is different than previous one make new call to cloud vision for colors
+      if (hasNewImage) {
+        const colors = await getColors(args.artInput.img.url).catch(err => {
+          console.log(err);
+          throw err;
+        });
+
+        newArt = {
+          ...newArt,
+          primaryColor: colors[0],
+          secondaryColor: colors[1],
+          tertiaryColor: colors[2],
+          colors: colors
+        };
+        console.log("newArt", newArt);
+      }
+
+      return ArtWork.findByIdAndUpdate(
+        args._id,
+        { $set: newArt }, // document to insert when nothing was found
+        { upsert: true, new: true, runValidators: true, omitUndefined: true },
+        (err, doc) => {
+          if (err) {
+            console.log("findandupdate create art err: ", err);
+            throw err;
+          }
+          console.log("Updated doc: ", doc);
+        }
+      );
+    }
   }
 
   // likeArt() -> uses the artID argument to find an artwork object
