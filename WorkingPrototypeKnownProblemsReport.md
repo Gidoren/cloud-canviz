@@ -7,16 +7,11 @@ When the window is not maximized, the sidebar is minimized as expected. The icon
 
 The location of the fault is located in the navbar and sidebar components. This bug can be fixed by rerendering the image on exiting the sidebar. 
 
-<<<<<<< HEAD
-# 2. 
-=======
 #2. 
->>>>>>> 7f2f4ca6b496a681cd22586de1744c1c689b70f3
 When you set a filter it works properly. However, when you remove a filter, the state is not reset and it does not show all artwork in the gallery. This state does not update when you clear a filter and use a filter individually. If you toggle another filter while the original filter is toggled and then untoggle both, then the filter properly resets the gallery image
 
 The location of the fault is in the sidedrawer component. To fix this bug, we would need to research GraphQL queries to see if there is a special fetch policy that needs to be known about.
 
-<<<<<<< HEAD
 # 3
 When a user attempts to contact an artist by clicking the profile of the artist, followed by clicking on contact, the user is greeted with a form to fill out their name, email, and to provide a message. When the user clicks send, it opens the user's email application correctly, however it prefills the fields incorrectly. The provided name, email address, and message fields, are formatted in an unnatural way.
 
@@ -30,9 +25,3 @@ The location of the fault is in in the backend, in the Art.js model. Fixing the 
 
 # 5
 If attempting to go to a web page that doesn't exist, our web application should throw a 404 error, but we do not have that, instead a blank white page shows up. The reason for the fault is not having 404 error components for unauthorized routes. Fixing the bug would require spending time to implement these components, but we decided to prioritize fixing other issues.
-=======
-#3
-When a user attempts to contact an artist by clicking the profile of the artist, followed by clicking on contact, the user is greeted with a form to fill out their name, email, and to provide a message. When the user clicks send, it opens the user's email application correctly, however it prefills the fields incorrectly. The provided name, email address, and message fields, are formatted in an unnatural way.
-
-The location of the fault is in the contact component. Fixing the bug would require additional research on how HTML handles email forms.
->>>>>>> 7f2f4ca6b496a681cd22586de1744c1c689b70f3
