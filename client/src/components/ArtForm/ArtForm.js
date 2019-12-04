@@ -512,7 +512,7 @@ const ArtForm = props => {
                 <Autocomplete
                   required
                   name="styles"
-                  value={state.styles}
+                  value={state.styles[0]}
                   onChange={updateStylesArr}
                   //autoSelect
                   // multiple
