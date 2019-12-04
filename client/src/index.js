@@ -63,9 +63,7 @@ ReactDOM.render(
     <ApolloConsumer>
       {apolloClient => {
         return (
-          <Provider>
             <App client={apolloClient} />
-          </Provider>
         );
       }}
     </ApolloConsumer>
