@@ -4,11 +4,6 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 
-import { createStore } from "redux";
-import { Provider } from "react-redux";
-
-import Reducer from "./store/reducer";
-
 import ApolloClient from "apollo-boost";
 import { ApolloProvider, ApolloConsumer } from "react-apollo";
 import { defaults } from "./grqphql/store/defaults";
@@ -63,13 +58,12 @@ if (localStorage.getItem(AUTH_TOKEN)) {
 // ...defaults imported from file (see above)
 client.writeData({ data: { ...defaults, isLoggedIn: isAuthToken } });
 
-const store = createStore(Reducer);
 ReactDOM.render(
   <ApolloProvider client={client}>
     <ApolloConsumer>
       {apolloClient => {
         return (
-          <Provider store={store}>
+          <Provider>
             <App client={apolloClient} />
           </Provider>
         );
