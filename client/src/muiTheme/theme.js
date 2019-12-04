@@ -101,7 +101,7 @@ export const theme = createMuiTheme({
     },
     MuiFormHelperText: {
       root: {
-        fontSize: '8px'
+        fontSize: "8px"
       }
     }
   },

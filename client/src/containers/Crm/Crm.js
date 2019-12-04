@@ -124,6 +124,7 @@ class Crm extends Component {
                   show={this.state.show}
                   handleClose={this.hideModal}
                   showCloseButton={false}
+                  width="70%"
                 >
                   <ArtFormDrawer
                     artId={this.state.artProps._id}

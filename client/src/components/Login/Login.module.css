@@ -141,8 +141,7 @@
   align-content: center;
   justify-content: center;
   text-align: center;
-  /* height: 50px;
-  line-height: 50px; */
+  padding-bottom: 20px;
 }
 
 .notMember .signUp {
@@ -154,33 +153,3 @@
   font-weight: 300 !important;
   color: #57adda !important;
 }
-
-/* textarea:focus, input:focus{
-    outline: none;
-  } */
-
-/* .inputContainer {
-    width: 300px !important;
-  } */
-
-/* .span {
-  position: relative;
-}
-
-.span::before {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background-color: #3cefff;
-  transform-origin: bottom right;
-  transform: scaleX(0);
-  transition: transform 0.5s ease;
-}
-
-.span:hover::before {
-  transform-origin: bottom left;
-  transform: scaleX(1);
-} */

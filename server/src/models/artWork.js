@@ -25,6 +25,10 @@ const artSchema = new Schema(
       type: String,
       required: false
     },
+    orientation: {
+      type: String,
+      required: false
+    },
     img: {
       url: {
         type: String,

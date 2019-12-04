@@ -20,15 +20,6 @@ import CheckBoxIcon from "@material-ui/icons/CheckBox";
 import Snackbar from "@material-ui/core/Snackbar";
 import IconButton from "@material-ui/core/IconButton";
 import CloseIcon from "@material-ui/icons/Close";
-// import { Paper } from "@material-ui/core";
-
-// import List from "@material-ui/core/List";
-// import Drawer from "@material-ui/core/Drawer";
-// import ListItem from "@material-ui/core/ListItem";
-// import ListItemIcon from "@material-ui/core/ListItemIcon";
-// import ListItemText from "@material-ui/core/ListItemText";
-// import InboxIcon from "@material-ui/icons/MoveToInbox";
-// import MailIcon from "@material-ui/icons/Mail";
 
 import { uploadImage } from "../UploadImage/S3/s3Upload";
 
@@ -68,7 +59,6 @@ const ArtForm = props => {
   });
 
   const styles = useStyles();
-  // const theme = useTheme();
 
   // Error verification dialog
   const [openErrorDialog, setOpenErrorDialog] = React.useState(false);
@@ -527,7 +517,7 @@ const ArtForm = props => {
                 <Autocomplete
                   required
                   name="styles"
-                  value={state.styles}
+                  value={state.styles[0]}
                   onChange={updateStylesArr}
                   //autoSelect
                   // multiple
