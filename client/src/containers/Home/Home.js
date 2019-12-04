@@ -12,7 +12,7 @@ import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
-import FilterContext from '../../context/filter-context';
+import FilterContext from "../../context/filter-context";
 
 class Home extends Component {
   state = {
@@ -75,9 +75,9 @@ class Home extends Component {
     this.setState({ isLoggedIn: value });
   };
   filterChangeHandler = state => {
-    console.log("home,", state)
-    this.setState({filters: state})
-  }
+    console.log("home,", state);
+    this.setState({ filters: state });
+  };
   render = () => {
     /*Determine if sidebar is toggled or not*/
     const cName =
@@ -110,10 +110,10 @@ class Home extends Component {
             }
             console.log("Data from currentUser: ", data);
 
-            if(this.props.currentUser != null){
-              this.props.currentUserHandler(data.currentUser)
+            if (this.props.currentUser != null) {
+              this.props.currentUserHandler(data.currentUser);
             }
-            
+
             return (
               <div>
                 <Navbar
@@ -125,7 +125,7 @@ class Home extends Component {
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
-                  isArtist={data ? data.currentUser.isArtist: false}
+                  isArtist={data ? data.currentUser.isArtist : false}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}
                 />
@@ -134,6 +134,7 @@ class Home extends Component {
                   show={this.state.show}
                   handleClose={this.hideModal}
                   showCloseButton={true}
+                  width="60%"
                 >
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
                   {/* {modalContent} */}
@@ -168,15 +169,18 @@ class Home extends Component {
 
                   {console.log("cName is: " + cName)}
                   <div className={cName}>
-                    <SideDrawer filterHandler={(state)=>this.filterChangeHandler(state)}/>
+                    <SideDrawer
+                      filterHandler={state => this.filterChangeHandler(state)}
+                    />
                   </div>
-                  <DisplayArt 
-                    type="Home" 
-                    filters={this.state.filters} 
-                    client={this.props.client} 
+                  <DisplayArt
+                    type="Home"
+                    filters={this.state.filters}
+                    client={this.props.client}
                     currentUser={data ? data.currentUser : null}
-                    isLoggedIn={this.state.isLoggedIn}/>
-                  </div>
+                    isLoggedIn={this.state.isLoggedIn}
+                  />
+                </div>
               </div>
             );
           }}
