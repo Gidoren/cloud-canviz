@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import { connect } from "react-redux";
 import UseAnimations from "react-useanimations";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
@@ -12,7 +11,6 @@ import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
-import FilterContext from "../../context/filter-context";
 
 class Home extends Component {
   state = {
@@ -189,10 +187,4 @@ class Home extends Component {
     );
   };
 }
-const mapStateToProps = state => {
-  return {};
-};
-const mapDispatchToProps = dispatch => {
-  return {};
-};
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default Home;
