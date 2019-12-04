@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import classes from "./ArtForm.module.css";
 import UploadImage from "../UploadImage/UploadImage";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
+import ArtFormSpinner from "../UI/ArtFormSpinner/ArtFormSpinner";
 
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -52,7 +53,7 @@ const initialState = {
   img: {
     url: ""
   },
-  orientation: ""
+  orientation: "",
 };
 
 const useStyles = makeStyles(theme => ({
@@ -100,6 +101,7 @@ const ArtForm = props => {
   console.log("state: ", state);
   // boolean for when upload was successful
   const [uploadSuccess, setUploadSuccess] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const [addArt, { data }] = useMutation(CREATE_ART);
 
@@ -198,6 +200,8 @@ const ArtForm = props => {
 
   // handles the submission of art form
   const handleSubmit = event => {
+    
+    setShowSpinner(true)
     // preent default submission
     event.preventDefault();
     // check if image was uploaded
@@ -232,6 +236,7 @@ const ArtForm = props => {
         }
       })
         .then(res => {
+          setShowSpinner(false);
           handleCancel();
 
           console.log("respoonse from gql addArt", res);
@@ -517,7 +522,7 @@ const ArtForm = props => {
                   margin="normal"
                 />
               </Grid>
-
+              
               <Grid item xs={12}>
                 <Autocomplete
                   required
@@ -593,7 +598,7 @@ const ArtForm = props => {
                 />
               </Grid>
             </Grid>
-            <input className={classes.input} type="submit" />
+            {showSpinner === true? <ArtFormSpinner /> : <input className={classes.input} type="submit" />}
           </div>
         </Grid>
       </form>

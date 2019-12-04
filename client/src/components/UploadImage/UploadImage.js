@@ -2,21 +2,28 @@ import React, { Component } from "react";
 import classes from "./UploadImage.module.css";
 import Dropzone from "react-dropzone";
 import image from "../../assets/images/UploadImage.png";
-import { withPreviews } from "./WithPreviews/WithPreviews";
+import Spinner from "../UI/Spinner/Spinner";
 
 class UploadImage extends Component {
   state = {
     selectedFiles: [],
-    uploadFiles: false
+    uploadFiles: false,
+    isUploading: false
   };
   fileSelectHandler = async event => {
+    this.setState({isUploading: true})
     this.props.handleSetSelectedFiles(event);
     this.props.handleUpload();
   };
 
   render() {
+    if(this.props.s3url && this.state.isUploading === true)
+      this.setState({isUploading: false})
+      
+
     return (
       <div>
+        {this.state.isUploading && <Spinner margin='0 auto'/>}
         {this.props.s3url && (
           <img className={classes.uploadImage} src={this.props.s3url}></img>
         )}

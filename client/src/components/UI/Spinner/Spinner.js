@@ -1,9 +1,9 @@
 import React from 'react';
 import classes from './Spinner.module.css'
 
-const Spinner = () => (
+const Spinner = (props) => (
 
-    <div className={classes.loader}>Loading...</div>
+    <div style={{margin: props.margin}} className={classes.loader}>Loading...</div>
 
 )
 

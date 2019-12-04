@@ -1,5 +1,6 @@
 import AWS from "aws-sdk";
 import path from "path";
+import Spinner from "../../UI/Spinner/Spinner";
 
 const dotenv = require("dotenv");
 dotenv.config();
