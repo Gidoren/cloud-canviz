@@ -6,6 +6,11 @@ import { useQuery } from "react-apollo";
 
 import Spinner from "../UI/Spinner/Spinner";
 import Art from "./Art/Art";
+import Carousel from "../Carousel/Carousel";
+import Modal from "@material-ui/core/Modal";
+
+import { makeStyles, useTheme } from "@material-ui/core/styles";
+
 //import UploadImage from "../UploadImage/UploadImage";
 
 import { Waypoint } from "react-waypoint";
@@ -41,27 +46,71 @@ const getArtsQuery = gql`
   }
 `;
 
-const DisplayArt = (props) => {
+const useStyles = makeStyles(theme => ({
+  modal: {
+    position: "absolute",
+    maxWidth: "1500px",
+    backgroundColor: theme.palette.background.paper,
+    boxShadow: theme.shadows[7],
+    padding: theme.spacing(2, 2),
+    overflow: "hidden",
+    borderRadius: "6px",
+    maxHeight: "80vh",
+    width: "80%"
+    // display: "inline-block"
+  }
+}));
+
+const DisplayArt = props => {
   const [filters, setFilters] = useState({
     category: [],
     styles: [],
     orientation: [],
     offset: 0,
     limit: 9
-  })
+  });
   /* hasMoreArt is used to check if there is any more 
     art left to fetch if not setHasMoreArt set it to false*/
   const [hasMoreArt, setHasMoreArt] = useState(true);
   /* how many arts you want per fetch */
   const limit = 9;
 
+  const styles = useStyles();
+  const theme = useTheme();
+
+  const [index, setIndex] = useState(0);
+
+  const [open, setOpen] = React.useState(false);
+
+  // useEffect(() => {
+  //   if (index) {
+  //     setOpen(true);
+  //   }
+  // }, [index]);
+  // const openSlideshow = () => {
+
+  // }
+
+  // const handleOpenSlideshow = () => {
+
+  // }
+
+  const handleOpen = index => {
+    setIndex(index);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   /* check if new filter is added, if yes then change filter state
      and hasMoreArt state to true */
-  if(filters !== props.filters && Object.keys(props.filters).length){
-    setFilters(props.filters)
-    setHasMoreArt(true) 
-    console.log(props.filters)
-    console.log(props.filters)
+  if (filters !== props.filters && Object.keys(props.filters).length) {
+    setFilters(props.filters);
+    setHasMoreArt(true);
+    console.log(props.filters);
+    console.log(props.filters);
   }
   /* getArtsQuery which is defined above, to get all artworks. Data, 
     loading, error are predefined in useQuery syntax. Data is initialized 
@@ -74,14 +123,46 @@ const DisplayArt = (props) => {
   });
   /* if there's no art fetched yet */
   if (!data || !data.getAllArt) return <Spinner />;
-  if (error) return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
+  if (error)
+    return (
+      <span style={{ margin: "auto", marginTop: "50px" }}>No Arts Found</span>
+    );
   if (data) {
-    console.log(data.getAllArt)
-    if(data.getAllArt.length == 0)
-      return <span style={{margin: 'auto', marginTop: '50px'}}>No Arts Found</span>
+    console.log("getallart data!!!: ", data.getAllArt);
+    if (data.getAllArt.length == 0)
+      return (
+        <span style={{ margin: "auto", marginTop: "50px" }}>No Arts Found</span>
+      );
   }
   return (
     <div className={classes.DisplayArt}>
+      {data && (
+        <Modal
+          aria-labelledby="art-modal"
+          aria-describedby="art-slideshow-modal"
+          open={open}
+          onClose={handleClose}
+        >
+          <div
+            style={{
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%,-50%)",
+              maxHeight: "100%",
+              width: "100%"
+              // width: "90%"
+            }}
+            className={styles.modal}
+          >
+            <Carousel
+              art={data.getAllArt}
+              startIndex={parseInt(index)}
+              refetch={fetchMore}
+            ></Carousel>
+          </div>
+        </Modal>
+      )}
+
       <div className={classes.row}>
         {/* it's data.getAllArt because the query was named getAllArt in Schema.
                 loop through it to get individual art. Each art have properties that we asked for in the query
@@ -104,9 +185,14 @@ const DisplayArt = (props) => {
                 desc={art.description}
                 link={"/profile/" + art.creator._id}
                 client={props.client}
-                likedArtWorks={props.currentUser ? props.currentUser.likedArtWorks : null}
+                likedArtWorks={
+                  props.currentUser ? props.currentUser.likedArtWorks : null
+                }
                 // link={"/profile/username"}
                 colors={art.colors}
+                click={index => handleOpen(index)}
+                index={index}
+                art={art}
               />
               {/* 1- Waypoint keep track of each image index and then fetch more images
                             when bottom art is reached that has index data.getAllArt.length-1
@@ -115,7 +201,6 @@ const DisplayArt = (props) => {
                             3- if hasMoreArt is false that means we all arts have been fetched so no
                             need to fetch more */}
               {index === data.getAllArt.length - 1 && hasMoreArt === true && (
-                
                 <Waypoint
                   onEnter={() =>
                     fetchMore({
