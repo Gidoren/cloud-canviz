@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./Art.module.css";
 import { Link } from "react-router-dom";
 import { LIKE_ART, UNLIKE_ART } from "../../../grqphql/mutations";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import CardColors from "../../CardColors/CardColors";
+// import CardColors from "../../CardColors/CardColors";
 
 /* props are properties that are passed from displayComment such as title, creator of the art.
 Think of it as parameters in Functions.*/
@@ -13,7 +13,7 @@ const Art = props => {
   const [likedArtWorks, setLikedArtWorks] = useState(props.likedArtWorks);
   const [likeIcon, setLikeIcon] = useState(0);
   const likeArtHandler = () => {
-    if (likeIcon == 0) {
+    if (likeIcon === 0) {
       const { data, refetch } = props.client
         .mutate({
           mutation: LIKE_ART,
@@ -38,7 +38,7 @@ const Art = props => {
           console.log("unlike", res);
           console.log(likedArtWorks);
           setLikedArtWorks(
-            props.likedArtWorks.filter(i => i._id != props.artID)
+            props.likedArtWorks.filter(i => i._id !== props.artID)
           );
           setLikeIcon(0);
           console.log(props.artID);
@@ -71,7 +71,7 @@ const Art = props => {
         </Link>
 
         {likedArtWorks !== null ? (
-          likeIcon == 0 ? (
+          likeIcon === 0 ? (
             <FavoriteBorderIcon
               className={classes.heart}
               onClick={likeArtHandler}

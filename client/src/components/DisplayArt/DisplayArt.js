@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import classes from "./DisplayArt.module.css";
 
 import { gql } from "apollo-boost";
@@ -9,12 +9,10 @@ import Art from "./Art/Art";
 import Carousel from "../Carousel/Carousel";
 import Modal from "@material-ui/core/Modal";
 
-import { makeStyles, useTheme } from "@material-ui/core/styles";
-
-//import UploadImage from "../UploadImage/UploadImage";
+import { makeStyles } from "@material-ui/core/styles";
 
 import { Waypoint } from "react-waypoint";
-import { thisExpression } from "@babel/types";
+// import { thisExpression } from "@babel/types";
 
 // with graphql extension need to name the queries (compare one below to one above)
 const getArtsQuery = gql`
@@ -22,6 +20,10 @@ const getArtsQuery = gql`
     getAllArt(getAllArtInput: $getAllArtInput) {
       _id
       title
+      price
+      category
+      styles
+      tags
       artist
       dimensions {
         height
@@ -47,6 +49,9 @@ const getArtsQuery = gql`
 `;
 
 const useStyles = makeStyles(theme => ({
+  modalBackrground: {
+    backgroundColor: "rgba(0, 0, 0, 0.8)"
+  },
   modal: {
     position: "absolute",
     maxWidth: "1500px",
@@ -56,8 +61,8 @@ const useStyles = makeStyles(theme => ({
     overflow: "hidden",
     borderRadius: "6px",
     maxHeight: "80vh",
-    width: "80%"
-    // display: "inline-block"
+    width: "80%",
+    display: "inline-block"
   }
 }));
 
@@ -76,24 +81,10 @@ const DisplayArt = props => {
   const limit = 9;
 
   const styles = useStyles();
-  const theme = useTheme();
 
   const [index, setIndex] = useState(0);
 
   const [open, setOpen] = React.useState(false);
-
-  // useEffect(() => {
-  //   if (index) {
-  //     setOpen(true);
-  //   }
-  // }, [index]);
-  // const openSlideshow = () => {
-
-  // }
-
-  // const handleOpenSlideshow = () => {
-
-  // }
 
   const handleOpen = index => {
     setIndex(index);
@@ -129,7 +120,7 @@ const DisplayArt = props => {
     );
   if (data) {
     console.log("getallart data!!!: ", data.getAllArt);
-    if (data.getAllArt.length == 0)
+    if (data.getAllArt.length === 0)
       return (
         <span style={{ margin: "auto", marginTop: "50px" }}>No Arts Found</span>
       );
@@ -142,6 +133,7 @@ const DisplayArt = props => {
           aria-describedby="art-slideshow-modal"
           open={open}
           onClose={handleClose}
+          className={styles.modalBackrground}
         >
           <div
             style={{

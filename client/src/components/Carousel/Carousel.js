@@ -1,10 +1,31 @@
 import React, { Component } from "react";
 import AliceCarousel from "react-alice-carousel";
-import { Grid, Button, Paper, Typography } from "@material-ui/core";
+import {
+  Grid,
+  Button,
+  Paper,
+  Typography,
+  Box,
+  IconButton
+} from "@material-ui/core";
+import ArrowBackIosRoundedIcon from "@material-ui/icons/ArrowBackIosRounded";
+import ArrowForwardIosRoundedIcon from "@material-ui/icons/ArrowForwardIosRounded";
+import Fab from "@material-ui/core/Fab";
+import { makeStyles } from "@material-ui/core/styles";
 
 import "react-alice-carousel/lib/alice-carousel.css";
 
+const useStyles = makeStyles(theme => ({
+  margin: {
+    margin: theme.spacing(1)
+  }
+  //   extendedIcon: {
+  //     marginRight: theme.spacing(1)
+  //   }
+}));
+
 const CarouselItem = props => {
+  const classes = useStyles();
   return (
     <div>
       <Grid
@@ -14,20 +35,47 @@ const CarouselItem = props => {
         alignContent="center"
         alignItems="center"
       >
+        <Grid item container justify="center" xs={1}>
+          <IconButton
+            aria-label="prev-slide"
+            className={classes.margin}
+            size="medium"
+            onClick={props.prevSlide}
+          >
+            <ArrowBackIosRoundedIcon fontSize="inherit" />
+          </IconButton>
+        </Grid>
         <Grid
           item
           container
-          xs={8}
+          xs={10}
+          sm={6}
           justify="center"
-          alignContent="stretch"
+          alignContent="center"
           alignItems="center"
         >
-          <Grid item xs={12}>
-            <div style={{ height: "80vh", margin: "0 auto" }}>
+          <Grid
+            item
+            container
+            alignItems="center"
+            justify="center"
+            alignContent="center"
+            xs={12}
+          >
+            <div
+              style={{
+                height: "80vh",
+                margin: "auto"
+              }}
+            >
               <img
                 style={{
                   maxHeight: "100%",
-                  maxWidth: "90%"
+                  maxWidth: "90%",
+                  display: "block",
+                  //   marginLeft: "auto",
+                  //   marginRight: "auto"
+                  margin: "auto"
                 }}
                 key={props.art._id}
                 src={props.art.img.url}
@@ -36,11 +84,97 @@ const CarouselItem = props => {
           </Grid>
         </Grid>
         {/* <Grid item xs={6} container justify="center"> */}
-        <Grid item xs={4}>
+        <Grid item container direction="column" xs={10} sm={4}>
           <div style={{ overflowY: "auto ", margin: "0 auto" }}>
-            <Typography variant="h6">{props.art.title}</Typography>
-            <Typography variant="subtitle1">{props.art.artist}</Typography>
+            <Grid item xs={12}>
+              <Typography variant="h4">
+                <Box lineHeight={2}>
+                  {`${props.art.title}, ${props.art.year}`}
+                </Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="h5">
+                <Box lineHeight={2}>{props.art.artist}</Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="subtitle1">
+                <Box
+                  lineHeight={2}
+                >{`${props.art.dimensions.height} x ${props.art.dimensions.width}"`}</Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">
+                <Box lineHeight={2}>{props.art.medium}</Box>
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {props.art.price && (
+                <Typography variant="subtitle1">
+                  <Box lineHeight={2}>{`$${props.art.price}`}</Box>
+                </Typography>
+              )}
+            </Grid>
+            {props.art.styles && (
+              <Grid item xs={12}>
+                <Typography variant="subtitle2">
+                  <Box lineHeight={2}>{props.art.styles[0]}</Box>
+                </Typography>
+              </Grid>
+            )}
+            <Grid item xs={12}>
+              <Typography variant="subtitle2">
+                <Box lineHeight={2}>{props.art.description}</Box>
+              </Typography>
+            </Grid>
+            <Grid item container xs={12}>
+              <Box lineHeight={4}>
+                {props.art.colors.map(color => (
+                  <div
+                    style={{
+                      display: "inline-block"
+                    }}
+                  >
+                    <Grid item xs={1}>
+                      <div
+                        style={{
+                          borderRadius: "50%",
+                          backgroundColor: color.hexColor,
+                          //   marginLeft: "3px",
+                          marginRight: ".5rem",
+                          height: "1.5rem",
+                          width: "1.5rem"
+                        }}
+                      />
+                    </Grid>
+                  </div>
+                ))}
+              </Box>
+            </Grid>
           </div>
+        </Grid>
+        <Grid
+          item
+          container
+          xs={1}
+          justify="center"
+          alignContent="center"
+          alignItems="center"
+        >
+          <Grid item container xs={12} justify="flex-end">
+            <IconButton
+              aria-label="next-slide"
+              className={classes.margin}
+              size="medium"
+              onClick={props.nextSlide}
+            >
+              {/* <Box justifyContent="flex-end"> */}
+              <ArrowForwardIosRoundedIcon fontSize="inherit" />
+              {/* </Box> */}
+            </IconButton>
+          </Grid>
         </Grid>
       </Grid>
     </div>
@@ -79,18 +213,32 @@ class Carousel extends Component {
   slidePrev = () =>
     this.setState({ currentIndex: this.state.currentIndex - 1 });
 
+  getThumbStyles = i => {
+    let style = {
+      maxHeight: "2rem",
+      maxWidth: "100%",
+      marginLeft: "1rem",
+      marginRight: "1rem",
+      padding: "2px"
+    };
+    if (i === this.state.currentIndex) {
+      style = {
+        ...style,
+        maxHeight: "2.5rem",
+        outlineStyle: "solid",
+        outlineColor: "#70afaf"
+      };
+    }
+    return style;
+  };
+
   thumbItem = (item, i) => (
     <span
       style={{ height: "20px", margin: "0 auto" }}
       onClick={() => this.slideTo(i)}
     >
       <img
-        style={{
-          maxHeight: "2rem",
-          maxWidth: "100%",
-          paddingLeft: "1rem",
-          paddingRight: "1rem"
-        }}
+        style={this.getThumbStyles(i)}
         key={item._id}
         src={item.img.url}
       ></img>
@@ -100,7 +248,11 @@ class Carousel extends Component {
   galleryItems() {
     return this.props.art.map(art => (
       //   <img style={{ height: "50vh" }} key={art._id} src={art.img.url}></img>
-      <CarouselItem art={art}></CarouselItem>
+      <CarouselItem
+        art={art}
+        nextSlide={this.slideNext}
+        prevSlide={this.slidePrev}
+      ></CarouselItem>
     ));
   }
 
@@ -118,6 +270,7 @@ class Carousel extends Component {
           slideToIndex={currentIndex}
           onSlideChanged={this.onSlideChanged}
           startIndex={parseInt(currentIndex)}
+          //   fadeOutAnimation={true}
         />
         <Grid
           container
@@ -132,10 +285,10 @@ class Carousel extends Component {
               <ul>
                 {this.state.items.map((item, i) => this.thumbItem(item, i))}
               </ul>
-              <Grid item xs={12}>
+              {/* <Grid item xs={12}>
                 <button onClick={() => this.slidePrev()}>Prev button</button>
                 <button onClick={() => this.slideNext()}>Next button</button>
-              </Grid>
+              </Grid> */}
             </div>
           </Grid>
         </Grid>

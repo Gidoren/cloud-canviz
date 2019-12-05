@@ -9,7 +9,7 @@ import Navbar from "../../components/Navbar/Navbar";
 import classes from "./Crm.module.css";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { gql } from "apollo-boost";
-import { Paper, Grid, Typography } from "@material-ui/core";
+import { Grid, Typography } from "@material-ui/core";
 
 import ArtFormDrawer from "../../components/ArtForm/ArtFormDrawer";
 
