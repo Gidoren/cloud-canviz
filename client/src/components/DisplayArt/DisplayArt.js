@@ -60,8 +60,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2, 2),
     overflow: "hidden",
     borderRadius: "6px",
-    maxHeight: "80vh",
-    width: "80%",
+    maxHeight: "70vh",
+    width: "70%",
     display: "inline-block"
   }
 }));
@@ -141,7 +141,7 @@ const DisplayArt = props => {
               left: "50%",
               transform: "translate(-50%,-50%)",
               maxHeight: "100%",
-              width: "100%"
+              width: "80%"
               // width: "90%"
             }}
             className={styles.modal}

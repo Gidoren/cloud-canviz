@@ -72,6 +72,7 @@ const CarouselItem = props => {
                 style={{
                   maxHeight: "100%",
                   maxWidth: "90%",
+                  minWidth: "400px",
                   display: "block",
                   //   marginLeft: "auto",
                   //   marginRight: "auto"
@@ -87,14 +88,14 @@ const CarouselItem = props => {
         <Grid item container direction="column" xs={10} sm={4}>
           <div style={{ overflowY: "auto ", margin: "0 auto" }}>
             <Grid item xs={12}>
-              <Typography variant="h4">
+              <Typography variant="h5">
                 <Box lineHeight={2}>
                   {`${props.art.title}, ${props.art.year}`}
                 </Box>
               </Typography>
             </Grid>
             <Grid item xs={12}>
-              <Typography variant="h5">
+              <Typography variant="h6">
                 <Box lineHeight={2}>{props.art.artist}</Box>
               </Typography>
             </Grid>
