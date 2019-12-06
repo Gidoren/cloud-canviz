@@ -55,8 +55,13 @@ const Art = props => {
   }
 
   return (
-    <div data-aos="fade-up" onClick={() => props.click(props.index)}>
-      <img className={classes.img} src={props.artURL} alt={props.title} />
+    <div data-aos="fade-up">
+      <img
+        className={classes.img}
+        onClick={() => props.click(props.index)}
+        src={props.artURL}
+        alt={props.title}
+      />
       <div className={classes.artInfo} width={classes.img.width}>
         {/* Always use link instead of <a> tag so it doesn't reload the page but rerenders the component. 
               We do this so that website don't do api calls again, or don't lose our website state.
