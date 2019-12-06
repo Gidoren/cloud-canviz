@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
+// import { connect } from "react-redux";
 import UseAnimations from "react-useanimations";
 import DisplayArt from "../../components/DisplayArt/DisplayArt";
 import SideDrawer from "../../components/UI/SideDrawer/SideDrawer";
@@ -11,6 +12,7 @@ import { currentUser } from "../../grqphql/queries";
 import { gql } from "apollo-boost";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Home.module.css";
+// import FilterContext from "../../context/filter-context";
 
 class Home extends Component {
   state = {
@@ -132,10 +134,22 @@ class Home extends Component {
                   show={this.state.show}
                   handleClose={this.hideModal}
                   showCloseButton={true}
-                  width="60%"
                 >
                   {/* TODO check context for current user. If current user show Login modal; If not show Register modal */}
                   {/* {modalContent} */}
+                  {/* {this.state.modalType === "Login" ? (
+                    <Login
+                      usersEmail={this.state.usersEmail}
+                      handleHideModal={this.hideModal}
+                      handleSwitchToRegister={this.switchToRegister}
+                      client={this.props.client}
+                      handleIsLoggedin={this.handleIsLoggedin}
+                      handleRefetchUser={refetch}
+                    />
+                  ) : (
+                    <Register handleSwitchToLogin={this.switchToLogin} />
+                  )} */}
+
                   {this.state.modalType === "Login" ? (
                     <Login
                       usersEmail={this.state.usersEmail}
@@ -187,4 +201,11 @@ class Home extends Component {
     );
   };
 }
+// const mapStateToProps = state => {
+//   return {};
+// };
+// const mapDispatchToProps = dispatch => {
+//   return {};
+// };
+// export default connect(mapStateToProps, mapDispatchToProps)(Home);
 export default Home;

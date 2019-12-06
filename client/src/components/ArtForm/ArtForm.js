@@ -183,7 +183,8 @@ const ArtForm = props => {
   const _getColorStyles = (hexColor, pixelPercent) => {
     const style = {
       background: hexColor,
-      width: `${pixelPercent}%`
+      // width: `${pixelPercent}%`
+      width: "10%"
     };
     return style;
   };

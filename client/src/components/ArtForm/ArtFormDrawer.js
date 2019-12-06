@@ -1,11 +1,10 @@
-import React, { Children, useEffect } from "react";
+import React, { useEffect } from "react";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 import Drawer from "@material-ui/core/Drawer";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import List from "@material-ui/core/List";
-import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
@@ -15,12 +14,10 @@ import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { AutoScaling } from "aws-sdk";
+// import { AutoScaling } from "aws-sdk";
 import Modal from "@material-ui/core/Modal";
-import { Grid, Button, Paper } from "@material-ui/core";
+import { Grid, Button } from "@material-ui/core";
 
 import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
@@ -260,6 +257,7 @@ const ArtFormDrawer = props => {
           >
             <Grid container item xs={5} spacing={2}>
               <img
+                alt={modalState.artTitle}
                 style={{ width: "100%", maxHeight: "100%", margin: "0 auto" }}
                 src={modalState.artUrl}
               ></img>
