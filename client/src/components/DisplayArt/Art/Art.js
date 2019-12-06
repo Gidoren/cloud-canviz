@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { LIKE_ART, UNLIKE_ART } from "../../../grqphql/mutations";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-// import CardColors from "../../CardColors/CardColors";
+import CardColors from "../../CardColors/CardColors";
 
 /* props are properties that are passed from displayComment such as title, creator of the art.
 Think of it as parameters in Functions.*/
@@ -98,6 +98,7 @@ const Art = props => {
           </p>
         )}
         <p className={classes.dimensions}>{props.desc}</p>
+        <CardColors colors={props.colors} />
       </div>
     </div>
   );
