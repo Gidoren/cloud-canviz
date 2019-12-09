@@ -68,12 +68,12 @@ class Navbar extends Component {
                 <Link to={{ pathname: this.props.link3 }} className={classes.link}>{this.props.item3}</Link>
               </Item>
             )}
-            {!authToken && (
+            {!authToken && this.props.page === "Home" && (
               <Item text="Login" click={this.props.click}>
                 Login
               </Item>
             )}
-            {authToken && this.props.isLoggedIn && (
+            {authToken && this.props.isLoggedIn && this.props.page === "Home" && (
               <Item text="Logout" click={this.handleLogout}>
                 Logout
               </Item>

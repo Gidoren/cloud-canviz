@@ -24,16 +24,6 @@ class App extends Component {
     AOS.init({
       duration: 2000
     });
-
-    // const { data } = await this.props.client.query({
-    //   query: gql`
-    //     {
-    //       isLoggedIn @client
-    //     }
-    //   `
-    // });
-
-    // console.log(" is logged In: ", data);
   }
 
   render() {

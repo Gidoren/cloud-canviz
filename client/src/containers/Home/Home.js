@@ -119,12 +119,13 @@ class Home extends Component {
                 <Navbar
                   click={this.showModal}
                   link2={data ? "/profile/" + data.currentUser._id : "/"}
-                  link1={data ? "/home/" + data.currentUser._id : "/"}
+                  link1={"/"}
                   link3={data ? "/crm/" + data.currentUser._id : "/"}
                   active="Home"
                   item1="Home"
                   item2="Profile"
                   item3="CRM"
+                  page="Home"
                   isArtist={data ? data.currentUser.isArtist : false}
                   isLoggedIn={this.state.isLoggedIn}
                   handleIsLoggedin={this.handleIsLoggedin}

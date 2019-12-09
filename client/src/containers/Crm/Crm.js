@@ -82,7 +82,7 @@ class Crm extends Component {
               <div className={classes.container}>
                 <Navbar
                   link1={data ? "/crm/dashboard/" + data.currentUser._id : "/"}
-                  link2={data ? "/crm/inventory/" + data.currentUser._id : "/"}
+                  link2={data ? "/crm/" + data.currentUser._id : "/"}
                   link3={data ? "/crm/contacts/" + data.currentUser._id : "/"}
                   link4="/"
                   active="Inventory"
