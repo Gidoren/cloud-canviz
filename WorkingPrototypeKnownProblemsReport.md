@@ -25,6 +25,3 @@ The location of the fault is in in the backend, in the Art.js model. Fixing the 
 
 # 5
 If attempting to go to a web page that doesn't exist, our web application should throw a 404 error, but we do not have that, instead a blank white page shows up. The reason for the fault is not having 404 error components for unauthorized routes. Fixing the bug would require spending time to implement these components, but we decided to prioritize fixing other issues.
-
-# 6
-Logging out while in the CRM successfully logs out the user, but shows an error page. The fault is in the handleIsLoggedIn() function written in CRM.js and used in navbar.js. Fixing the bug would require spending time to research how to fix the fix the way the values are passed around.
