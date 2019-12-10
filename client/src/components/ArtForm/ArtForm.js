@@ -44,7 +44,7 @@ const initialState = {
   img: {
     url: ""
   },
-  orientation: "",
+  orientation: ""
 };
 
 const useStyles = makeStyles(theme => ({
@@ -191,8 +191,7 @@ const ArtForm = props => {
 
   // handles the submission of art form
   const handleSubmit = event => {
-    
-    setShowSpinner(true)
+    setShowSpinner(true);
     // preent default submission
     event.preventDefault();
     // check if image was uploaded
@@ -513,15 +512,15 @@ const ArtForm = props => {
                   margin="normal"
                 />
               </Grid>
-              
+
               <Grid item xs={12}>
                 <Autocomplete
                   required
                   name="styles"
-                  value={state.styles[0]}
+                  value={state.styles}
                   onChange={updateStylesArr}
                   //autoSelect
-                  // multiple
+                  multiple
                   id="checkboxes-tags-demo"
                   options={styleOpts}
                   disableCloseOnSelect
@@ -544,7 +543,7 @@ const ArtForm = props => {
                       placeholder="Style"
                       fullWidth
                       margin="normal"
-                      required
+                      // required
                     />
                   )}
                 />
@@ -589,7 +588,11 @@ const ArtForm = props => {
                 />
               </Grid>
             </Grid>
-            {showSpinner === true? <ArtFormSpinner /> : <input className={classes.input} type="submit" />}
+            {showSpinner === true ? (
+              <ArtFormSpinner />
+            ) : (
+              <input className={classes.input} type="submit" />
+            )}
           </div>
         </Grid>
       </form>

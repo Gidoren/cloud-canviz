@@ -14,9 +14,9 @@ const Gallery = props => {
 
     let len = 0;
     if (props.createdArtWorks) len = props.createdArtWorks.length;
-    
+
     console.log("gallery props", props);
-    
+
     for (let i = columnNum - 1; i < len; i += 4) {
       const art = props.createdArtWorks[i];
 
@@ -42,15 +42,14 @@ const Gallery = props => {
     }
     return columnItems;
   };
-
   return (
     <div className={styles.row}>
-      <div className={styles.column}>{renderPaintings(1)}</div>
-      <div className={styles.column}>{renderPaintings(2)}</div>
-      <div className={styles.column}>{renderPaintings(3)}</div>
-      <div className={styles.column}>{renderPaintings(4)}</div>
+      {" "}
+      <div className={styles.column}>{renderPaintings(1)}</div>{" "}
+      <div className={styles.column}>{renderPaintings(2)}</div>{" "}
+      <div className={styles.column}>{renderPaintings(3)}</div>{" "}
+      <div className={styles.column}>{renderPaintings(4)}</div>{" "}
     </div>
   );
 };
-
 export default Gallery;

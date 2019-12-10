@@ -53,7 +53,7 @@ class Crm extends Component {
   }
 
   handleSetArtProps = propsFromArt => {
-    console.log("artProps: ", { ...propsFromArt });
+    console.log("artProps!!!!!!!!!!!!!!!: ", { ...propsFromArt });
     this.setState({ artProps: { ...propsFromArt } }, () => {
       this.showModal();
     });

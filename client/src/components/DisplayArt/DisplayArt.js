@@ -61,6 +61,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "hidden",
     borderRadius: "6px",
     maxHeight: "70vh",
+    height: "auto",
     width: "70%",
     display: "inline-block"
   }
