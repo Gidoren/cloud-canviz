@@ -1,0 +1,16 @@
+.showContainer {
+  background: blue;
+  height: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slideContainer {
+  background: red;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
