@@ -12,12 +12,13 @@ const styles = {
     height: "100%"
   },
   card: {
-    position: "relative"
+    position: "relative",
+    margin: "20px"
   },
   overlay: {
     position: "absolute",
-    top: "20px",
-    left: "20px",
+    top: "80%",
+    left: "10%",
     color: "black",
     backgroundColor: "white"
   }
@@ -93,7 +94,7 @@ class SplashCarousel extends Component {
           onSlideChanged={this.onSlideChanged}
         />
 
-        <ul>{this.items.map(this.thumbItem)}</ul>
+        {/* <ul>{this.items.map(this.thumbItem)}</ul> */}
         <button onClick={() => this.slidePrev()}>Prev button</button>
         <button onClick={() => this.slideNext()}>Next button</button>
       </div>
