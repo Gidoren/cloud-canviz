@@ -3,6 +3,7 @@ import { Grid, StylesProvider } from "@material-ui/core";
 import classes from "./Splash.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import SplashCarousel from "../SplashCarousel/SplashCarousel";
+import AnimatedLogo from "../UI/Logo/AnimatedLogo";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +41,7 @@ const Splash = props => {
         justify="center"
       >
         <Grid className={styles.show} item xs={12}>
-          <div className={classes.showContainer}>Show Container</div>
+          <div className={classes.showContainer}></div>
         </Grid>
         <Grid className={styles.slide} item xs={12}>
           <div className={classes.slideContainer}>
