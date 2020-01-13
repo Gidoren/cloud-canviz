@@ -4,6 +4,7 @@ import classes from "./Splash.module.css";
 import { makeStyles } from "@material-ui/core/styles";
 import SplashCarousel from "../SplashCarousel/SplashCarousel";
 import AnimatedLogo from "../UI/Logo/AnimatedLogo";
+import ImageReveal from "../UI/ImageReveal/ImageReveal";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,10 +30,34 @@ const useStyles = makeStyles(theme => ({
 const Splash = props => {
   const styles = useStyles();
 
-  const [state, setState] = useState(null);
+  const [state, setState] = useState({});
 
   return (
     <div className={styles.root}>
+      <ImageReveal
+        overlayColor="#fff"
+        overlayOpacity="0.5"
+        bgImage="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Flaurabegleybloom%2Ffiles%2F2018%2F06%2FCalifornia-sunset-1200x799.jpg"
+        width="50"
+        height="50"
+        borderWidth="0.5"
+        text="Painting"
+        marginPercent="10"
+        widthPercent="80"
+        fontSize="10px"
+      />
+      <ImageReveal
+        overlayColor="#fff"
+        overlayOpacity="0.5"
+        bgImage="https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Flaurabegleybloom%2Ffiles%2F2018%2F06%2FCalifornia-sunset-1200x799.jpg"
+        width="50"
+        height="50"
+        borderWidth="0.5"
+        text="Photo"
+        marginPercent="10"
+        widthPercent="80"
+        fontSize="10px"
+      />
       <Grid
         className={styles.splash}
         container

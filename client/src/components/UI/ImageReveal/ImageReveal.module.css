@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat:900|Open+Sans&display=swap");
+.measure {
+  position: absolute;
+  visibility: hidden;
+  height: auto;
+  width: auto;
+  white-space: nowrap;
+}
+
+.svg {
+  background: url("https://thumbor.forbes.com/thumbor/960x0/https%3A%2F%2Fblogs-images.forbes.com%2Flaurabegleybloom%2Ffiles%2F2018%2F06%2FCalifornia-sunset-1200x799.jpg");
+  background-size: cover;
+  width: 80vmin;
+  height: auto;
+  display: block;
+  margin: 10vmin auto;
+}
+.text {
+  font-size: 10px;
+  transition: font-size 0.5s ease-out;
+  font-weight: 900;
+  font-family: "Montserrat", sans-serif;
+  letter-spacing: -0.05em;
+}
+.svg:hover .text {
+  transition: font-size 0.5s ease-in;
+  font-size: 2000px;
+}
