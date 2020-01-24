@@ -7,7 +7,7 @@ import Contact from "../../components/DisplayProfile/Contact";
 import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
-import ProfileImage from '../../assets/images/noprofileimage.png'
+import ProfileImage from "../../assets/images/noprofileimage.png";
 
 /*Query data from the server to display on the profile*/
 const getUserQuery = gql`
@@ -73,7 +73,7 @@ class Profile extends Component {
           query={getUserQuery}
           variables={{
             id: window.location.href.replace(
-              "http://localhost:3000/profile/",
+              "http://cloudcanviz:3000/profile/",
               ""
             )
           }}
@@ -97,12 +97,16 @@ class Profile extends Component {
                   item1="Home"
                   item2="Profile"
                 />
-                
-                {data.getUser.createdArtWorks.length > 0 ? 
-                  <Top name={data.getUser.firstName} imgURL={data.getUser.createdArtWorks[0].img.url}/> :
-                  <Top name={data.getUser.firstName} imgURL={ProfileImage}/>
-                }
-                
+
+                {data.getUser.createdArtWorks.length > 0 ? (
+                  <Top
+                    name={data.getUser.firstName}
+                    imgURL={data.getUser.createdArtWorks[0].img.url}
+                  />
+                ) : (
+                  <Top name={data.getUser.firstName} imgURL={ProfileImage} />
+                )}
+
                 <hr />
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
@@ -130,10 +134,9 @@ class Profile extends Component {
     if (this.state.page === "artwork") {
       console.log("user from display page: ", user);
       /*return <Gallery {...user} />;*/
-      return <Gallery {...user}/>
-    } 
-    else {
-      return <Contact email={user.email}/>;
+      return <Gallery {...user} />;
+    } else {
+      return <Contact email={user.email} />;
     }
   };
 }
