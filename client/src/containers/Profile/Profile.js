@@ -73,7 +73,7 @@ class Profile extends Component {
           query={getUserQuery}
           variables={{
             id: window.location.href.replace(
-              "http://www.cloudcanviz:3000/profile/",
+              "http://www.cloudcanviz.com/profile/",
               ""
             )
           }}
