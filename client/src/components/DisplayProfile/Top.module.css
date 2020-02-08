@@ -4,10 +4,9 @@
 
 .img {
   /*Same dimensions as website we are modeling it after*/
-  width: 188.333px;
-  height: 140.833px;
-
-  left: 0;
+  width: 200px;
+  height: 180px;
+  margin-left: 24px;
   align-content: flex-start;
 }
 
@@ -24,8 +23,8 @@
     /*Font family*/
     font-family: 'Roboto', sans-serif;
 
-    /*Set width to 33% as to move it a little bit*/
-    width: 33%;
+    margin-left: 10px;
+    
 }
 
 .name{

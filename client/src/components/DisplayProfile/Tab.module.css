@@ -2,12 +2,18 @@
 .tab{
     background-color: #FFFFFF;
     border: none;
-    color: black;
-    padding: 15px 32px;
+    color: #878787;
+    padding: 25px 25px;
     text-align: center;
     text-decoration: #000000;
     display: inline-block;
-    font-family: inherit;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    font-weight: 500;
     cursor: pointer;
+    outline: none;
+    width: 120px;
+    font-family: inherit;
+}
+.tab:hover{
+    font-weight: 700;
 }

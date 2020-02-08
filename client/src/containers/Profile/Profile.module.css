@@ -3,3 +3,10 @@
     flex-direction: row;
     align-content: flex-start;
 }
+.hr{
+    height: 1px;
+    border: none;
+    color: #eaeaea;
+    background-color: #eaeaea;
+    margin: 0 5px;
+}

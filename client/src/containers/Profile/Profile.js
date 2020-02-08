@@ -8,6 +8,7 @@ import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import ProfileImage from "../../assets/images/noprofileimage.png";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 /*Query data from the server to display on the profile*/
 const getUserQuery = gql`
@@ -72,15 +73,12 @@ class Profile extends Component {
         <Query
           query={getUserQuery}
           variables={{
-            id: window.location.href.replace(
-              "http://www.cloudcanviz.com/profile/",
-              ""
-            )
+            id: window.location.href.substr(window.location.href.length-24)
           }}
         >
           {/*Decides what to display based on what server returns*/}
           {({ loading, error, data }) => {
-            if (loading) return <p>loading..</p>;
+            if (loading) return <Spinner />;
             if (error) {
               console.log(error);
               console.log(data);
@@ -107,14 +105,24 @@ class Profile extends Component {
                   <Top name={data.getUser.firstName} imgURL={ProfileImage} />
                 )}
 
-                <hr />
+                <hr className={classes.hr}/>
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
                   <div onClick={() => this.changePage("artwork")}>
                     <Tab option={"Artwork"} />
                   </div>
+                  {/** 
+                  <div onClick={() => this.changePage("about")}>
+                    <Tab option={"About"} />
+                  </div>
+                  <div onClick={() => this.changePage("followers")}>
+                    <Tab option={"Followers"} />
+                  </div>
+
+                  */}
+                  
                 </div>
-                <hr />
+                <hr className={classes.hr}/>
                 {data && this.displayPage({ ...data.getUser })}
               </div>
             );
