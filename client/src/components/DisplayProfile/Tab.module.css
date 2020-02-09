@@ -7,13 +7,18 @@
     text-align: center;
     text-decoration: #000000;
     display: inline-block;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 500;
     cursor: pointer;
     outline: none;
     width: 120px;
     font-family: inherit;
 }
+.active{
+    font-weight: bold;
+    color: black;
+}
 .tab:hover{
-    font-weight: 700;
+    color: black;
+    font-weight: bold;
 }

@@ -36,20 +36,24 @@ module.exports = `
         likedArtWorks: [Art!]
         contactList: [Contact!]
         isArtist: Boolean
-
         description: String
         website: String
         profileImage: String
         phoneNumber: String
         address: String
+        facebook: String
+        twitter: String
+        instagram: String
     }
 
     input AboutInput {
         description: String
         website: String
-        profileImage: String
         phoneNumber: String
         address: String
+        facebook: String
+        twitter: String
+        instagram: String
     }
     
     input UserInput {

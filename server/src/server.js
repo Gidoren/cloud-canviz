@@ -28,8 +28,8 @@ const server = new ApolloServer({
 
     try {
       // check the header of incoming request for authtoken
-      authToken = req.headers.authorization;
-      if (authToken) {
+      authToken = req.headers.authorization
+      if (authToken) { 
         // function to find the user with matching auth token
         user = await getUserFromToken(authToken);
       }

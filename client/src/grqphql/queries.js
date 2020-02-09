@@ -74,6 +74,7 @@ export const currentUser = gql`
   }
 `;
 
+/*Query data from the server to display on the profile*/
 export const getUserQuery = gql`
   query getUser($id: String) {
     getUser(id: $id) {
@@ -81,6 +82,9 @@ export const getUserQuery = gql`
       email
       firstName
       lastName
+      website
+      description
+      phoneNumber
       createdArtWorks {
         _id
         artist
@@ -90,7 +94,34 @@ export const getUserQuery = gql`
           url
         }
         price
-        orientation
+        styles
+        tags
+        description
+        dimensions {
+          height
+          width
+        }
+        category
+        medium
+        primaryColor {
+          hexColor
+          pixelPercent
+        }
+        secondaryColor {
+          hexColor
+          pixelPercent
+        }
+        tertiaryColor {
+          hexColor
+          pixelPercent
+        }
+        colors {
+          hexColor
+          pixelPercent
+        }
+      }
+      contactList {
+        firstName
       }
     }
   }

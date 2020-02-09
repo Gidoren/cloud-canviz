@@ -4,69 +4,35 @@ import Navbar from "../../components/Navbar/Navbar";
 import Top from "../../components/DisplayProfile/Top";
 import Tab from "../../components/DisplayProfile/Tab";
 import Contact from "../../components/DisplayProfile/Contact";
-import { gql } from "apollo-boost";
 import { Query } from "react-apollo";
 import Gallery from "../../components/Gallery/Gallery";
 import ProfileImage from "../../assets/images/noprofileimage.png";
 import Spinner from "../../components/UI/Spinner/Spinner";
-
-/*Query data from the server to display on the profile*/
-const getUserQuery = gql`
-  query getUser($id: String) {
-    getUser(id: $id) {
-      _id
-      email
-      firstName
-      lastName
-      createdArtWorks {
-        _id
-        artist
-        title
-        year
-        img {
-          url
-        }
-        price
-        styles
-        tags
-        description
-        dimensions {
-          height
-          width
-        }
-        category
-        medium
-        primaryColor {
-          hexColor
-          pixelPercent
-        }
-        secondaryColor {
-          hexColor
-          pixelPercent
-        }
-        tertiaryColor {
-          hexColor
-          pixelPercent
-        }
-        colors {
-          hexColor
-          pixelPercent
-        }
-      }
-      contactList {
-        firstName
-      }
-    }
-  }
-`;
+import About from "../../components/About/About"
+import { getUserQuery } from "../../grqphql/queries"
 
 /*Contents of the profile component*/
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    /*Default state is set to display the artwork*/
-    this.state = { page: "artwork" };
-  }
+ state = { 
+    page: "Artwork" 
+  };
+  changePage = newPage => {
+    this.setState({ page: newPage });
+  };
+  /*Function to change between tabs on profile*/
+  displayPage = user => {
+    if(this.state.page === "Artwork") {
+      console.log("user from display page: ", user);
+      /*return <Gallery {...user} />;*/
+      return <Gallery {...user} />;
+    } 
+    else if(this.state.page == "About") {
+      return <About {...user}/>
+    }
+    else{
+      return ""
+    }
+  };
   render() {
     return (
       <div>
@@ -108,18 +74,17 @@ class Profile extends Component {
                 <hr className={classes.hr}/>
                 {/*Each tab is a clickable div that updates state*/}
                 <div className={classes.tab}>
-                  <div onClick={() => this.changePage("artwork")}>
-                    <Tab option={"Artwork"} />
+                  <div onClick={() => this.changePage("Artwork")}>
+                    <Tab option={"Artwork"} active={this.state.page}/>
                   </div>
-                  {/** 
-                  <div onClick={() => this.changePage("about")}>
-                    <Tab option={"About"} />
+                  <div onClick={() => this.changePage("About")}>
+                    <Tab option={"About"} active={this.state.page}/>
                   </div>
-                  <div onClick={() => this.changePage("followers")}>
-                    <Tab option={"Followers"} />
+                  <div onClick={() => this.changePage("Followers")}>
+                    <Tab option={"Followers"} active={this.state.page}/>
                   </div>
 
-                  */}
+            
                   
                 </div>
                 <hr className={classes.hr}/>
@@ -131,18 +96,6 @@ class Profile extends Component {
       </div>
     );
   }
-  changePage = newPage => {
-    this.setState({ page: newPage });
-  };
-  /*Function to change between tabs on profile*/
-  displayPage = user => {
-    if (this.state.page === "artwork") {
-      console.log("user from display page: ", user);
-      /*return <Gallery {...user} />;*/
-      return <Gallery {...user} />;
-    } else {
-      return <Contact email={user.email} />;
-    }
-  };
+  
 }
 export default Profile;
