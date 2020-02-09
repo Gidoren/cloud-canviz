@@ -85,6 +85,7 @@ export const getUserQuery = gql`
       website
       description
       phoneNumber
+      fullName
       createdArtWorks {
         _id
         artist

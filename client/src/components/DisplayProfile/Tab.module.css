@@ -3,22 +3,32 @@
     background-color: #FFFFFF;
     border: none;
     color: #878787;
-    padding: 25px 25px;
+    padding-top: 10px;
     text-align: center;
     text-decoration: #000000;
     display: inline-block;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
     outline: none;
-    width: 120px;
+    width: 80px;
     font-family: inherit;
 }
 .active{
     font-weight: bold;
     color: black;
 }
+.tab.active{
+    border-top: 1px solid #262625;
+}
 .tab:hover{
     color: black;
     font-weight: bold;
+    border-top: 1px solid #262625;
+}
+.icon {
+    width: 30px;
+    height: 25px;
+    padding-top: 10px;
+    padding-right: 10px;
 }

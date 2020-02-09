@@ -1,12 +1,19 @@
 import React from 'react';
 import classes from './Tab.module.css'
 
-const Tab = (props) => (
-        <button className={classes.tab}>
-                <span className={props.active == props.option ? classes.active : ""}>
+const Tab = (props) => {
+        let multiClass = classes.tab
+        if(props.active == props.option){
+                multiClass += ' ' + classes.active
+        }
+        return (
+                <button className={multiClass}>
                         {props.option}
-                </span>
-        </button>
-)
+                </button>
+        )
+
+}
+        
+
 
 export default Tab;

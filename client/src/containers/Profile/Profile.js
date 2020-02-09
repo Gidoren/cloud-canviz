@@ -24,10 +24,18 @@ class Profile extends Component {
     if(this.state.page === "Artwork") {
       console.log("user from display page: ", user);
       /*return <Gallery {...user} />;*/
-      return <Gallery {...user} />;
+      return (
+        <div className={classes.margins}>
+          <Gallery {...user} />
+        </div>
+      );
     } 
     else if(this.state.page == "About") {
-      return <About {...user}/>
+      return(
+        <div className={classes.margins}>
+          <About {...user}/>
+        </div>
+      )
     }
     else{
       return ""
@@ -64,11 +72,11 @@ class Profile extends Component {
 
                 {data.getUser.createdArtWorks.length > 0 ? (
                   <Top
-                    name={data.getUser.firstName}
+                    name={data.getUser.firstName + " " + data.getUser.lastName}
                     imgURL={data.getUser.createdArtWorks[0].img.url}
                   />
                 ) : (
-                  <Top name={data.getUser.firstName} imgURL={ProfileImage} />
+                  <Top name={data.getUser.firstName + data.getUser.lastName} imgURL={ProfileImage} />
                 )}
 
                 <hr className={classes.hr}/>
@@ -87,7 +95,6 @@ class Profile extends Component {
             
                   
                 </div>
-                <hr className={classes.hr}/>
                 {data && this.displayPage({ ...data.getUser })}
               </div>
             );

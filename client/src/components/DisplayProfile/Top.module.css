@@ -1,32 +1,14 @@
 .all{
     display: flex;
+    flex-flow: column;
 }
-
 .img {
   /*Same dimensions as website we are modeling it after*/
   width: 200px;
-  height: 180px;
-  margin-left: 24px;
-  align-content: flex-start;
+  height: 200px;
+  border-radius: 50%;
+  margin: 20px auto;
 }
-
-.content{
-    /*Have a flex display as well as center items*/
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    /*Set no initial margin / padding*/
-    margin: 0;
-    padding: 0;
-
-    /*Font family*/
-    font-family: 'Roboto', sans-serif;
-
-    margin-left: 10px;
-    
-}
-
 .name{
     /*Set height to 0% to move the follow button closer*/    
     height: 0%;
@@ -38,10 +20,10 @@
     font-family: inherit;
     font-size: 1.6rem;            
 
-    /*Add a bottom margin*/
-    margin-bottom: 2.5rem;
+    margin: 20px auto;
+    font-size: 1rem;
+    text-align: center;
 }
-
 .follow{
     border: none;
     background-color: inherit;

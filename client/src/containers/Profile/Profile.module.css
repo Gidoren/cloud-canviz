@@ -1,12 +1,24 @@
 .tab{
     display: flex;
-    flex-direction: row;
-    align-content: flex-start;
+    flex-flow: row;
+    justify-content: space-evenly;
+    width: 50%;
+    text-align: center;
+    margin: auto;
 }
 .hr{
     height: 1px;
+    width: 80%;
     border: none;
-    color: #eaeaea;
+    color: #dbdbdb;
     background-color: #eaeaea;
-    margin: 0 5px;
+    margin: auto;
+}
+.margins{
+    margin: 0 100px;
+}
+@media(max-width: 1100px){
+    .margins{
+        margin: 0;
+    }
 }

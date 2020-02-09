@@ -2,6 +2,7 @@ import React from "react";
 import classes from "./Top.module.css";
 import Add from "../../assets/images/Add.png"
 
+
 const Top = props => (
   <div>
     <div className={classes.all}>
@@ -14,7 +15,7 @@ const Top = props => (
       />
 
       {/*Div holding info*/}
-      <div className={classes.content}>
+      <div>
         <p className={classes.name}>{props.name}</p>
       </div>
     </div>

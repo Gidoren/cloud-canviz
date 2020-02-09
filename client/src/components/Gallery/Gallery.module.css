@@ -36,7 +36,7 @@ body {
 }
 
 /* Responsive layout - makes a three column-layout instead of four columns */
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1200px) {
   .column {
     -ms-flex: 33.3%;
     flex: 33.3%;
